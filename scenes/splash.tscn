@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://data/textures/debug/resolution_debug.png" type="Texture" id=1]
+[ext_resource path="res://data/textures/debug/splash-01.png" type="Texture" id=2]
+[ext_resource path="res://scenes/splash.gd" type="Script" id=3]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="Control" type="Control" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="splash_image" type="Sprite" parent="Control"]
+texture = ExtResource( 2 )
+offset = Vector2( 960, 540 )
+
+[node name="resolution_debug" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0.415686 )
+texture = ExtResource( 1 )
+offset = Vector2( 960, 540 )
+
+[node name="Label" type="Label" parent="."]
+visible = false
+modulate = Color( 1, 1, 1, 0.439216 )
+margin_left = 112.0
+margin_top = 165.0
+margin_right = 153.0
+margin_bottom = 179.0
+rect_scale = Vector2( 20, 20 )
+text = "splash"
+__meta__ = {
+"_edit_use_anchors_": false
+}

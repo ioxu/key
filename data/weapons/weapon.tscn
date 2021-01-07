@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://data/weapons/weapon.gd" type="Script" id=1]
+
+[node name="weapon" type="Spatial"]
+script = ExtResource( 1 )
+__meta__ = {
+"_editor_description_": "base weapon class"
+}
+
+[node name="core" type="Node2D" parent="."]
+__meta__ = {
+"_editor_description_": "attach wepon script here"
+}
