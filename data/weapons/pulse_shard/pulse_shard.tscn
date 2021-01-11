@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://data/weapons/weapon.tscn" type="PackedScene" id=1]
-[ext_resource path="res://data/weapons/pulse_shard/core.gd" type="Script" id=2]
+[ext_resource path="res://data/weapons/pulse_shard/pulse_shard.gd" type="Script" id=2]
 [ext_resource path="res://data/weapons/pulse_shard/pulse_shard_bullet.tscn" type="PackedScene" id=3]
 
 [sub_resource type="SpatialMaterial" id=1]
@@ -127,18 +127,15 @@ tracks/8/keys = {
 }
 
 [node name="pulse_shard" instance=ExtResource( 1 )]
-base_damage = 110.0
-
-[node name="core" parent="." index="0"]
 script = ExtResource( 2 )
 
-[node name="bullet_spawner" type="Spatial" parent="." index="1"]
+[node name="bullet_spawner" type="Spatial" parent="." index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.444842, 0.0947556 )
 
 [node name="pulse_shard_bullet" parent="bullet_spawner" index="0" instance=ExtResource( 3 )]
 visible = false
 
-[node name="geometry_hook" type="Spatial" parent="." index="2"]
+[node name="geometry_hook" type="Spatial" parent="." index="1"]
 
 [node name="geometry" type="MeshInstance" parent="geometry_hook" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.444842, 0.046 )
@@ -161,7 +158,6 @@ shadow_enabled = true
 shadow_reverse_cull_face = true
 omni_attenuation = 2.2
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
 playback_speed = 6.5
 anims/muzzle_flash = SubResource( 5 )
-[connection signal="animation_finished" from="AnimationPlayer" to="core" method="_on_AnimationPlayer_animation_finished"]

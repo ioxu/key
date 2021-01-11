@@ -7,8 +7,3 @@ script = ExtResource( 1 )
 __meta__ = {
 "_editor_description_": "base weapon class"
 }
-
-[node name="core" type="Node2D" parent="."]
-__meta__ = {
-"_editor_description_": "attach wepon script here"
-}

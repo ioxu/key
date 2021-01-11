@@ -1,6 +1,7 @@
-extends Node2D
+extends "res://data/weapons/weapon.gd"
 
-var activated : bool = false setget set_activated, get_activated
+
+#var activated : bool = false setget set_activated, get_activated
 var base_magazine_size := 800
 var magazine_count : = base_magazine_size
 var base_reload_speed := 0.2
@@ -9,11 +10,12 @@ var firing_time := 0.0
 var firing_timer := Timer.new()
 var can_fire := false
 
-onready var anim_player = get_node("../AnimationPlayer")
-onready var muzzle_flash : MeshInstance = get_node("../geometry_hook/muzzle_flash")
-onready var muzzle_flash_light : OmniLight = get_node("../geometry_hook/muzzle_flash_light")
+onready var anim_player = $AnimationPlayer #get_node("../AnimationPlayer")
+onready var muzzle_flash : MeshInstance = $geometry_hook/muzzle_flash #get_node("../geometry_hook/muzzle_flash")
+onready var muzzle_flash_light : OmniLight = $geometry_hook/muzzle_flash_light #get_node("../geometry_hook/muzzle_flash_light")
 const bullet_scene = preload("res://data/weapons/pulse_shard/pulse_shard_bullet.tscn")
-onready var bullet_spawner = get_node("../bullet_spawner")
+onready var bullet_spawner = $bullet_spawner #get_node("../bullet_spawner")
+
 
 func _ready():
 	print(" - init weapon.pulse_shard")

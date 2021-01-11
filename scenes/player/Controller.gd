@@ -47,7 +47,7 @@ enum ROTATION_INPUT{MOUSE, JOYSTICK, MOVE_DIR}
 func _ready():
 	# avoid taking any input that is dribbled over from before the node is ready
 	set_process(false)
-	yield(get_tree().create_timer(0.5), "timeout")
+	yield(get_tree().create_timer(0.25), "timeout")
 	set_process(true)
 
 func _unhandled_input(event):

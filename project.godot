@@ -118,6 +118,10 @@ move_down={
 3d_physics/layer_4="player_offense"
 3d_physics/layer_5="enemy_offense"
 
+[physics]
+
+common/physics_fps=120
+
 [rendering]
 
 quality/directional_shadow/size=8192
