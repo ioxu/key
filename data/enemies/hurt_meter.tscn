@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://data/enemies/hurt_meter.gd" type="Script" id=1]
+[ext_resource path="res://data/enemies/hurt_meter_shadermaterial.tres" type="Material" id=2]
+
+[sub_resource type="CylinderMesh" id=1]
+resource_local_to_scene = true
+material = ExtResource( 2 )
+height = 0.2
+radial_segments = 32
+rings = 1
+
+[node name="hurt_meter" type="MeshInstance"]
+mesh = SubResource( 1 )
+material/0 = null
+script = ExtResource( 1 )

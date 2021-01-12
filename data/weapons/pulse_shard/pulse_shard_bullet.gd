@@ -1,10 +1,12 @@
 extends RigidBody
 
 export(float) var projectile_speed =  65.0
+export(Array, float) var damage_range = [5.0, 20.0]
 var hit_something = false
 
 func _ready():
 	$Area.connect("body_entered", self, "collided")
+	$Area.connect("area_entered", self, "collided")
 	$free_timer.start()
 
 

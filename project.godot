@@ -117,6 +117,7 @@ move_down={
 3d_physics/layer_3="enemies"
 3d_physics/layer_4="player_offense"
 3d_physics/layer_5="enemy_offense"
+3d_physics/layer_6="enemy_hurtbox"
 
 [physics]
 

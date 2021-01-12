@@ -1,7 +1,5 @@
 extends "res://data/weapons/weapon.gd"
 
-
-#var activated : bool = false setget set_activated, get_activated
 var base_magazine_size := 800
 var magazine_count : = base_magazine_size
 var base_reload_speed := 0.2
@@ -9,6 +7,7 @@ var base_fire_rate := 0.08
 var firing_time := 0.0
 var firing_timer := Timer.new()
 var can_fire := false
+
 
 onready var anim_player = $AnimationPlayer #get_node("../AnimationPlayer")
 onready var muzzle_flash : MeshInstance = $geometry_hook/muzzle_flash #get_node("../geometry_hook/muzzle_flash")

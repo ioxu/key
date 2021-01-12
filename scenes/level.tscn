@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://data/shaders/spatial_debug_boxdivide_material.tres" type="Material" id=1]
 [ext_resource path="res://scenes/fps_label.gd" type="Script" id=2]
 [ext_resource path="res://scenes/player/player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://data/enemies/Enemy.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 500, 1, 500 )
@@ -82,6 +83,7 @@ __meta__ = {
 transform = Transform( 0.914544, 0.3137, 0.255347, -5.51887e-08, -0.631285, 0.775551, 0.404487, -0.709275, -0.577338, 0, 2.18338, 0 )
 light_energy = 0.5
 shadow_enabled = true
+shadow_bias = 0.01
 directional_shadow_mode = 1
 directional_shadow_split_1 = 0.252
 directional_shadow_split_2 = 0.431
@@ -89,3 +91,18 @@ directional_shadow_split_3 = 0.695
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 6 )
+
+[node name="Enemy2" parent="." instance=ExtResource( 4 )]
+transform = Transform( -0.56478, 0, 0.825242, 0, 1, 0, -0.825242, 0, -0.56478, -9.3253, 1.0837, -2.84404 )
+
+[node name="Enemy3" parent="." instance=ExtResource( 4 )]
+transform = Transform( 0.988607, 0, -0.150519, 0, 1, 0, 0.150519, 0, 0.988607, -12.5604, 1.0837, 2.78339 )
+
+[node name="Enemy4" parent="." instance=ExtResource( 4 )]
+transform = Transform( -0.742502, 0, 0.669844, 0, 1, 0, -0.669844, 0, -0.742502, -5.73695, 1.0837, 7.08563 )
+
+[node name="Enemy5" parent="." instance=ExtResource( 4 )]
+transform = Transform( -0.309697, 0, 0.950835, 0, 1, 0, -0.950835, 0, -0.309697, -6.79825, 1.0837, 5.29928 )
+
+[node name="Enemy" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.98824, 1.25888, 4.62226 )
