@@ -12,8 +12,10 @@ size = Vector3( 500, 1, 500 )
 extents = Vector3( 250, 0.5, 250 )
 
 [sub_resource type="CubeMesh" id=3]
+size = Vector3( 5, 2, 2 )
 
 [sub_resource type="BoxShape" id=4]
+extents = Vector3( 2.5, 1, 1 )
 
 [sub_resource type="ProceduralSky" id=5]
 
@@ -54,7 +56,7 @@ shape = SubResource( 2 )
 [node name="level" type="Spatial" parent="."]
 
 [node name="MeshInstance" type="MeshInstance" parent="level"]
-transform = Transform( 0.924146, 0, 0.382038, 0, 1, 0, -0.382038, 0, 0.924146, -4.49112, 1.028, -3.46241 )
+transform = Transform( 0.924146, 0, 0.382038, 0, 1, 0, -0.382038, 0, 0.924146, -4.49112, 0.99263, -3.46241 )
 mesh = SubResource( 3 )
 material/0 = ExtResource( 1 )
 
@@ -63,6 +65,19 @@ collision_layer = 2
 collision_mask = 2147483677
 
 [node name="CollisionShape" type="CollisionShape" parent="level/MeshInstance/StaticBody"]
+transform = Transform( 1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0 )
+shape = SubResource( 4 )
+
+[node name="MeshInstance2" type="MeshInstance" parent="level"]
+transform = Transform( -0.34202, 0, 0.939692, 0, 1, 0, -0.939692, 0, -0.34202, -10.6895, 0.99263, 5.30861 )
+mesh = SubResource( 3 )
+material/0 = ExtResource( 1 )
+
+[node name="StaticBody" type="StaticBody" parent="level/MeshInstance2"]
+collision_layer = 2
+collision_mask = 2147483677
+
+[node name="CollisionShape" type="CollisionShape" parent="level/MeshInstance2/StaticBody"]
 transform = Transform( 1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0 )
 shape = SubResource( 4 )
 
@@ -83,7 +98,7 @@ __meta__ = {
 transform = Transform( 0.914544, 0.3137, 0.255347, -5.51887e-08, -0.631285, 0.775551, 0.404487, -0.709275, -0.577338, 0, 2.18338, 0 )
 light_energy = 0.5
 shadow_enabled = true
-shadow_bias = 0.01
+shadow_bias = 0.0
 directional_shadow_mode = 1
 directional_shadow_split_1 = 0.252
 directional_shadow_split_2 = 0.431
@@ -93,16 +108,31 @@ directional_shadow_split_3 = 0.695
 environment = SubResource( 6 )
 
 [node name="Enemy2" parent="." instance=ExtResource( 4 )]
-transform = Transform( -0.56478, 0, 0.825242, 0, 1, 0, -0.825242, 0, -0.56478, -9.3253, 1.0837, -2.84404 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.3253, 1.18355, -2.84404 )
 
 [node name="Enemy3" parent="." instance=ExtResource( 4 )]
-transform = Transform( 0.988607, 0, -0.150519, 0, 1, 0, 0.150519, 0, 0.988607, -12.5604, 1.0837, 2.78339 )
+transform = Transform( 0.0339052, 0, 0.999425, 0, 1, 0, -0.999425, 0, 0.0339052, -12.5604, 1.18355, 2.78339 )
 
 [node name="Enemy4" parent="." instance=ExtResource( 4 )]
-transform = Transform( -0.742502, 0, 0.669844, 0, 1, 0, -0.669844, 0, -0.742502, -5.73695, 1.0837, 7.08563 )
+transform = Transform( -0.988788, 0, -0.149328, 0, 1, 0, 0.149328, 0, -0.988788, -5.73695, 1.18355, 7.08563 )
 
 [node name="Enemy5" parent="." instance=ExtResource( 4 )]
-transform = Transform( -0.309697, 0, 0.950835, 0, 1, 0, -0.950835, 0, -0.309697, -6.79825, 1.0837, 5.29928 )
+transform = Transform( -0.628574, 0, 0.777749, 0, 1, 0, -0.777749, 0, -0.628574, -6.79825, 1.18355, 5.29928 )
 
 [node name="Enemy" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.98824, 1.25888, 4.62226 )
+transform = Transform( -0.926081, 0, -0.377324, 0, 1, 0, 0.377324, 0, -0.926081, -3.98824, 1.35873, 4.62226 )
+
+[node name="Enemy6" parent="." instance=ExtResource( 4 )]
+transform = Transform( -0.675693, 0, -0.737183, 0, 1, 0, 0.737183, 0, -0.675693, 3.46948, 1.18355, -3.85347 )
+
+[node name="Enemy7" parent="." instance=ExtResource( 4 )]
+transform = Transform( 0.71385, 0, -0.700299, 0, 1, 0, 0.700299, 0, 0.71385, 1.50697, 1.18355, -10.0407 )
+
+[node name="Enemy8" parent="." instance=ExtResource( 4 )]
+transform = Transform( 0.558035, 0, 0.829817, 0, 1, 0, -0.829817, 0, 0.558035, -6.27513, 1.18355, -7.91761 )
+
+[node name="Enemy9" parent="." instance=ExtResource( 4 )]
+transform = Transform( 0.998067, 0, -0.0621459, 0, 1, 0, 0.0621459, 0, 0.998067, -4.24115, 1.18355, -7.49295 )
+
+[node name="Enemy10" parent="." instance=ExtResource( 4 )]
+transform = Transform( 0.34759, 0, 0.937647, 0, 1, 0, -0.937647, 0, 0.34759, -5.64076, 1.35873, -4.964 )

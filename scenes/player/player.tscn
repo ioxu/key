@@ -28,7 +28,9 @@ albedo_color = Color( 0.619608, 0.592157, 0.592157, 1 )
 [sub_resource type="QuadMesh" id=6]
 size = Vector2( 2, 2 )
 
-[node name="player" type="KinematicBody"]
+[node name="player" type="KinematicBody" groups=[
+"Player",
+]]
 collision_layer = 2147483649
 collision_mask = 22
 
@@ -73,7 +75,7 @@ __meta__ = {
 transform = Transform( 1, 0, 0, 0, 0.512433, 0.858728, 0, -0.858728, 0.512433, 0, 0, 0 )
 
 [node name="camera_boom" type="Spatial" parent="camera_root/camera_base/camera_tilt"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 18 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 30 )
 
 [node name="Camera" type="Camera" parent="camera_root/camera_base/camera_tilt/camera_boom"]
 current = true

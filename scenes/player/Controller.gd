@@ -11,7 +11,7 @@ export(float) var deaceleration = 5.0
 export(float) var max_jump = 12.0
 export(float) var camera_rotation_speed = 3.0
 export(float) var max_zoom = 8.0 #0.5
-export(float) var min_zoom = 22.0 #1.5
+export(float) var min_zoom = 30.0 #1.5
 export(float) var zoom_speed = 4.0
 
 onready var player : KinematicBody = get_node(PlayerPath)
