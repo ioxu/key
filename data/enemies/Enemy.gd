@@ -36,7 +36,7 @@ func _ready():
 	damage_rng.randomize()
 	$hurtbox.connect("bullet_hit", self, "bullet_hit")
 	noise.seed = randi()
-	noise.octaves = 2
+	noise.octaves = 4
 	noise.period = 35.0
 	offset = damage_rng.randf() * 100
 
@@ -55,6 +55,8 @@ func bullet_hit(bullet):
 	print("  bullet damage %s, health %s"%[damage, health])
 
 	if health <= 0.0:
+		if DO_TRAVEL_PATH:
+			travel_path.queue_free()
 		queue_free()
 
 

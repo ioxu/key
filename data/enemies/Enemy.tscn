@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://data/enemies/Enemy_material.tres" type="Material" id=1]
 [ext_resource path="res://data/enemies/Enemy.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://data/enemies/hurt_meter_shadermaterial.tres" type="Material" id=5]
 [ext_resource path="res://data/textures/debug/symbols_16px_exclamation.png" type="Texture" id=6]
 [ext_resource path="res://data/statemachine/enemy/enemyFSM.gd" type="Script" id=7]
+[ext_resource path="res://data/shaders/trail_shader_material.tres" type="Material" id=8]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.46698
@@ -43,7 +44,7 @@ radius = 0.658651
 [sub_resource type="SpatialMaterial" id=8]
 flags_transparent = true
 params_depth_draw_mode = 3
-albedo_color = Color( 0.513726, 0.811765, 0.929412, 0.0509804 )
+albedo_color = Color( 0.513726, 0.811765, 0.929412, 0.0235294 )
 emission_enabled = true
 emission = Color( 0.180392, 0.427451, 0.556863, 1 )
 emission_energy = 3.12
@@ -92,7 +93,6 @@ shape = SubResource( 7 )
 
 [node name="vision_area" type="Area" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.538681, 0 )
-visible = false
 
 [node name="CollisionPolygon" type="CollisionPolygon" parent="vision_area"]
 transform = Transform( -1.62921e-07, -1, 1.62921e-07, 0, -1.62921e-07, -1, 1, -1.62921e-07, 2.65431e-14, 0, 0, 0 )
@@ -114,3 +114,7 @@ texture = ExtResource( 6 )
 
 [node name="statemachine" type="Node" parent="."]
 script = ExtResource( 7 )
+
+[node name="MeshInstance2" type="MeshInstance" parent="."]
+visible = false
+material_override = ExtResource( 8 )
