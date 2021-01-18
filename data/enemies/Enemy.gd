@@ -2,10 +2,13 @@ extends KinematicBody
 
 export var initial_health : float = 1000.0
 export var health : float = initial_health
+export(bool) var active = true setget toggle_active
 export(float) var movement_speed = 7.5
 export(float) var acceleration = 3.0
 export(float) var deaceleration = 5.0
 
+
+var target = null
 var direction := Vector3.ZERO
 var initial_movement_speed = movement_speed
 var last_direction := Vector3.ZERO
@@ -19,7 +22,7 @@ var jump_acceleration := 3.0
 var age := 0.0
 var accelerate = acceleration
 
-const DO_TRAVEL_PATH = true
+const DO_TRAVEL_PATH = false
 var travel_path = null
 const travel_path_script = preload("res://scripts/travel_path_line.gd")
 
@@ -60,7 +63,7 @@ func bullet_hit(bullet):
 		queue_free()
 
 
-func _idle():
+func _idle(delta):
 	# wander about a bit
 	var rot_y = noise.get_noise_1d( age * 25.0 + offset ) 
 	rot_y = sign(rot_y) * bias(abs(rot_y), 0.25) * 0.2
@@ -73,7 +76,11 @@ func _idle():
 		spd = bias((speed_noise+1.0)/2.0, 0.2)
 	elif speed_noise < -0.35:
 		spd = -0.4 * bias((abs(speed_noise)+1.0)/2.0, 0.2)
-	movement_speed = spd * 7.5
+	movement_speed = spd * 7.5 * delta * 100.0
+
+
+func _attack(delta):
+	pass
 
 
 func _physics_process(delta):
@@ -106,3 +113,32 @@ func log2(value):
 
 func remap_range(value, InputA, InputB, OutputA, OutputB):
 	return(value - InputA) / (InputB - InputA) * (OutputB - OutputA) + OutputA
+
+
+func toggle_active(new_value):
+	print(self, " active ", new_value)
+	if new_value:
+		self.visible = true
+		$CollisionShape.disabled = false
+		$hurtbox/CollisionShape.disabled = false
+		$vision_area/CollisionPolygon.disabled = false
+	else:
+		self.visible = false
+		$CollisionShape.disabled = true
+		$hurtbox/CollisionShape.disabled = true
+		$vision_area/CollisionPolygon.disabled = true
+	active = new_value
+
+
+func _on_vision_area_body_entered(body):
+	if body.is_in_group("Player"):
+		print(self, " spotted ", body.get_path(), "!")
+		$statemachine.set_state("attack")
+		target = body
+
+
+func _on_vision_area_body_exited(body):
+	if body.is_in_group("Player"):
+		print(self, " lost sight of ", body.get_path(), "!")
+		$statemachine.set_state("idle")
+		target = null

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/Rust_Paint_01_UV_H_CM_1.jpg-0d334c02132c2980230f12a72452b00d.s3tc.stex"
-path.etc2="res://.import/Rust_Paint_01_UV_H_CM_1.jpg-0d334c02132c2980230f12a72452b00d.etc2.stex"
+path.s3tc="res://.import/tile_colour.png-d1e23c7ad0093b99662a9650f832b67c.s3tc.stex"
+path.etc2="res://.import/tile_colour.png-d1e23c7ad0093b99662a9650f832b67c.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://data/textures/debug/Rust_Paint_01_UV_H_CM_1.jpg"
-dest_files=[ "res://.import/Rust_Paint_01_UV_H_CM_1.jpg-0d334c02132c2980230f12a72452b00d.s3tc.stex", "res://.import/Rust_Paint_01_UV_H_CM_1.jpg-0d334c02132c2980230f12a72452b00d.etc2.stex" ]
+source_file="res://data/textures/debug/tile_colour.png"
+dest_files=[ "res://.import/tile_colour.png-d1e23c7ad0093b99662a9650f832b67c.s3tc.stex", "res://.import/tile_colour.png-d1e23c7ad0093b99662a9650f832b67c.etc2.stex" ]
 
 [params]
 

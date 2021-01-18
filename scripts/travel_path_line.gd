@@ -30,9 +30,16 @@ func _process(delta):
 	var p_size = point_array.size()
 	for i in range(p_size):
 		if i !=0:
-			set_color(Color(0.17, 0.66, 0.77, float(i)/p_size))
+			set_color(Color(0.17, 0.66, 0.77, bias(float(i)/p_size, 0.22)))
 		else:
 			set_color(Color(0.17, 0.66, 0.77, 0.0))
 		#add_vertex(p)
 		add_vertex(point_array[i])
 	end()
+
+func bias(value, b):
+	b = -log2(1.0 - b)
+	return 1.0 - pow(1.0 - pow(value, 1.0/b), b)
+
+func log2(value):
+	return log(value) / log(2)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://data/enemies/Enemy_material.tres" type="Material" id=1]
 [ext_resource path="res://data/enemies/Enemy.gd" type="Script" id=2]
@@ -7,7 +7,6 @@
 [ext_resource path="res://data/enemies/hurt_meter_shadermaterial.tres" type="Material" id=5]
 [ext_resource path="res://data/textures/debug/symbols_16px_exclamation.png" type="Texture" id=6]
 [ext_resource path="res://data/statemachine/enemy/enemyFSM.gd" type="Script" id=7]
-[ext_resource path="res://data/shaders/trail_shader_material.tres" type="Material" id=8]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.46698
@@ -59,6 +58,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.259, 0 )
 collision_layer = 4
 collision_mask = 15
 script = ExtResource( 2 )
+movement_speed = 500.0
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 0, 0 )
@@ -114,7 +114,5 @@ texture = ExtResource( 6 )
 
 [node name="statemachine" type="Node" parent="."]
 script = ExtResource( 7 )
-
-[node name="MeshInstance2" type="MeshInstance" parent="."]
-visible = false
-material_override = ExtResource( 8 )
+[connection signal="body_entered" from="vision_area" to="." method="_on_vision_area_body_entered"]
+[connection signal="body_exited" from="vision_area" to="." method="_on_vision_area_body_exited"]
