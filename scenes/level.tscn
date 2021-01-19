@@ -112,39 +112,24 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.3253, 1.18355, -2.84404 )
 
 [node name="Enemy3" parent="." instance=ExtResource( 4 )]
 transform = Transform( 0.0339052, 0, 0.999425, 0, 1, 0, -0.999425, 0, 0.0339052, -12.5604, 1.18355, 2.78339 )
-active = false
 
 [node name="Enemy4" parent="." instance=ExtResource( 4 )]
 transform = Transform( -0.988788, 0, -0.149328, 0, 1, 0, 0.149328, 0, -0.988788, -5.73695, 1.18355, 7.08563 )
-visible = false
-active = false
 
 [node name="Enemy5" parent="." instance=ExtResource( 4 )]
 transform = Transform( -0.628574, 0, 0.777749, 0, 1, 0, -0.777749, 0, -0.628574, -6.79825, 1.18355, 5.29928 )
-visible = false
-active = false
 
 [node name="Enemy" parent="." instance=ExtResource( 4 )]
 transform = Transform( -0.926081, 0, -0.377324, 0, 1, 0, 0.377324, 0, -0.926081, -3.98824, 1.35873, 4.62226 )
-visible = false
-active = false
 
 [node name="Enemy6" parent="." instance=ExtResource( 4 )]
 transform = Transform( -0.675693, 0, -0.737183, 0, 1, 0, 0.737183, 0, -0.675693, 3.46948, 1.18355, -3.85347 )
-visible = false
-active = false
 
 [node name="Enemy7" parent="." instance=ExtResource( 4 )]
 transform = Transform( 0.71385, 0, -0.700299, 0, 1, 0, 0.700299, 0, 0.71385, 1.50697, 1.18355, -10.0407 )
-visible = false
-active = false
 
 [node name="Enemy8" parent="." instance=ExtResource( 4 )]
 transform = Transform( 0.558035, 0, 0.829817, 0, 1, 0, -0.829817, 0, 0.558035, -6.27513, 1.18355, -7.91761 )
-visible = false
-active = false
 
 [node name="Enemy9" parent="." instance=ExtResource( 4 )]
 transform = Transform( 0.998067, 0, -0.0621459, 0, 1, 0, 0.0621459, 0, 0.998067, -4.24115, 1.18355, -7.49295 )
-visible = false
-active = false

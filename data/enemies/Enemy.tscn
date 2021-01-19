@@ -9,8 +9,8 @@
 [ext_resource path="res://data/statemachine/enemy/enemyFSM.gd" type="Script" id=7]
 
 [sub_resource type="CapsuleShape" id=1]
-radius = 0.46698
-height = 0.830261
+radius = 0.55
+height = 0.55
 
 [sub_resource type="CapsuleMesh" id=2]
 radius = 0.273
@@ -65,7 +65,7 @@ transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 0, 0
 shape = SubResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 0, 0 )
+transform = Transform( -1, 3.25841e-07, 5.30863e-14, 0, -1.62921e-07, 1, 3.25841e-07, 1, 1.62921e-07, 0, 0, 0 )
 mesh = SubResource( 2 )
 material/0 = ExtResource( 1 )
 
@@ -92,7 +92,7 @@ script = ExtResource( 4 )
 shape = SubResource( 7 )
 
 [node name="vision_area" type="Area" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.538681, 0 )
+transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 0.538681, 0 )
 
 [node name="CollisionPolygon" type="CollisionPolygon" parent="vision_area"]
 transform = Transform( -1.62921e-07, -1, 1.62921e-07, 0, -1.62921e-07, -1, 1, -1.62921e-07, 2.65431e-14, 0, 0, 0 )
@@ -105,9 +105,10 @@ depth = 0.139
 material = SubResource( 8 )
 
 [node name="alert_icon" type="Sprite3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25684, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.67777, 0 )
 cast_shadow = 0
-opacity = 0.69
+modulate = Color( 1, 0.36, 0.36, 1 )
+opacity = 0.91
 pixel_size = 0.03
 billboard = 1
 texture = ExtResource( 6 )

@@ -14,7 +14,7 @@ var initial_movement_speed = movement_speed
 var last_direction := Vector3.ZERO
 var current_vertical_speed := Vector3.ZERO
 var movement := Vector3.ZERO
-var max_turn_rate := deg2rad(5.0)
+var max_turn_rate := deg2rad(300.0)
 var speed := Vector3.ZERO
 var is_airborne : = false
 var gravity := -10.0
@@ -50,6 +50,7 @@ func _ready():
 		travel_path.position_offset = Vector3(0.0, -0.5, 0.0)
 		get_node("/root/").add_child(travel_path)
 
+	$alert_icon.visible = false
 
 func bullet_hit(bullet):
 	var damage = damage_rng.randf_range(bullet.damage_range[0], bullet.damage_range[1])
@@ -76,11 +77,21 @@ func _idle(delta):
 		spd = bias((speed_noise+1.0)/2.0, 0.2)
 	elif speed_noise < -0.35:
 		spd = -0.4 * bias((abs(speed_noise)+1.0)/2.0, 0.2)
-	movement_speed = spd * 7.5 * delta * 100.0
+	movement_speed = -1 * spd * 7.5 * delta * 100.0
 
 
 func _attack(delta):
-	pass
+	rotate_toward_target(delta)
+	#pass
+
+
+func rotate_toward_target(delta):
+	var to = target.global_transform.origin
+	var look = Vector3(to.x, global_transform.origin.y , to.z)
+	var T=global_transform.looking_at(look, Vector3(0,1,0))
+	global_transform.basis.x = lerp(global_transform.basis.x, T.basis.x, delta * max_turn_rate )
+	global_transform.basis.y = lerp(global_transform.basis.y, T.basis.y, delta * max_turn_rate )
+	global_transform.basis.z = lerp(global_transform.basis.z, T.basis.z, delta * max_turn_rate )
 
 
 func _physics_process(delta):
@@ -134,6 +145,7 @@ func _on_vision_area_body_entered(body):
 	if body.is_in_group("Player"):
 		print(self, " spotted ", body.get_path(), "!")
 		$statemachine.set_state("attack")
+		$alert_icon.visible = true
 		target = body
 
 
@@ -141,4 +153,5 @@ func _on_vision_area_body_exited(body):
 	if body.is_in_group("Player"):
 		print(self, " lost sight of ", body.get_path(), "!")
 		$statemachine.set_state("idle")
+		$alert_icon.visible = false
 		target = null
