@@ -9,12 +9,13 @@ export(float) var deaceleration = 5.0
 
 
 var target = null
+var can_see_target = false
 var direction := Vector3.ZERO
 var initial_movement_speed = movement_speed
 var last_direction := Vector3.ZERO
 var current_vertical_speed := Vector3.ZERO
 var movement := Vector3.ZERO
-var max_turn_rate := deg2rad(300.0)
+var max_turn_rate := deg2rad(450.0)
 var speed := Vector3.ZERO
 var is_airborne : = false
 var gravity := -10.0
@@ -22,7 +23,7 @@ var jump_acceleration := 3.0
 var age := 0.0
 var accelerate = acceleration
 
-const DO_TRAVEL_PATH = false
+const DO_TRAVEL_PATH = true
 var travel_path = null
 const travel_path_script = preload("res://scripts/travel_path_line.gd")
 
@@ -43,7 +44,7 @@ func _ready():
 	noise.period = 35.0
 	offset = damage_rng.randf() * 100
 
-	if DO_TRAVEL_PATH:
+	if DO_TRAVEL_PATH and active:
 		travel_path = ImmediateGeometry.new()
 		travel_path.set_script(travel_path_script)
 		travel_path.track_object_path = self.get_path()
@@ -51,6 +52,7 @@ func _ready():
 		get_node("/root/").add_child(travel_path)
 
 	$alert_icon.visible = false
+
 
 func bullet_hit(bullet):
 	var damage = damage_rng.randf_range(bullet.damage_range[0], bullet.damage_range[1])
@@ -64,7 +66,15 @@ func bullet_hit(bullet):
 		queue_free()
 
 
+func _idle_enter():
+	$vision_raycast.target = null
+	$vision_raycast.stop()
+	$alert_icon.visible = false
+
+
 func _idle(delta):
+	if $vision_raycast.can_see_target:
+		fsm.set_state("attack")
 	# wander about a bit
 	var rot_y = noise.get_noise_1d( age * 25.0 + offset ) 
 	rot_y = sign(rot_y) * bias(abs(rot_y), 0.25) * 0.2
@@ -80,18 +90,23 @@ func _idle(delta):
 	movement_speed = -1 * spd * 7.5 * delta * 100.0
 
 
+func _attack_enter():
+	$alert_icon.visible = true
+
+
 func _attack(delta):
+	if !$vision_raycast.can_see_target:
+		fsm.set_state("idle")
 	rotate_toward_target(delta)
-	#pass
 
 
 func rotate_toward_target(delta):
 	var to = target.global_transform.origin
 	var look = Vector3(to.x, global_transform.origin.y , to.z)
 	var T=global_transform.looking_at(look, Vector3(0,1,0))
-	global_transform.basis.x = lerp(global_transform.basis.x, T.basis.x, delta * max_turn_rate )
-	global_transform.basis.y = lerp(global_transform.basis.y, T.basis.y, delta * max_turn_rate )
-	global_transform.basis.z = lerp(global_transform.basis.z, T.basis.z, delta * max_turn_rate )
+	global_transform.basis.x = lerp(global_transform.basis.x, T.basis.x, delta * max_turn_rate ).normalized()
+	global_transform.basis.y = lerp(global_transform.basis.y, T.basis.y, delta * max_turn_rate ).normalized()
+	global_transform.basis.z = lerp(global_transform.basis.z, T.basis.z, delta * max_turn_rate ).normalized()
 
 
 func _physics_process(delta):
@@ -115,12 +130,15 @@ func _physics_process(delta):
 		current_vertical_speed.y = 0.0
 		is_airborne = false
 
+
 func bias(value, b):
 	b = -log2(1.0 - b)
 	return 1.0 - pow(1.0 - pow(value, 1.0/b), b)
 
+
 func log2(value):
 	return log(value) / log(2)
+
 
 func remap_range(value, InputA, InputB, OutputA, OutputB):
 	return(value - InputA) / (InputB - InputA) * (OutputB - OutputA) + OutputA
@@ -144,14 +162,17 @@ func toggle_active(new_value):
 func _on_vision_area_body_entered(body):
 	if body.is_in_group("Player"):
 		print(self, " spotted ", body.get_path(), "!")
-		$statemachine.set_state("attack")
-		$alert_icon.visible = true
 		target = body
+		$vision_raycast.target = body
+		$vision_raycast.start()
+		yield(get_tree().create_timer(.05), "timeout")
+		if $vision_raycast.can_see_target:
+			$statemachine.set_state("attack")
 
 
 func _on_vision_area_body_exited(body):
 	if body.is_in_group("Player"):
 		print(self, " lost sight of ", body.get_path(), "!")
-		$statemachine.set_state("idle")
-		$alert_icon.visible = false
 		target = null
+		$statemachine.set_state("idle")
+

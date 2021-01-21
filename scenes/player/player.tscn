@@ -59,6 +59,7 @@ PlayerPath = NodePath("..")
 CameraPath = NodePath("../camera_root/camera_base/camera_tilt/camera_boom/Camera")
 CameraRootPath = NodePath("../camera_root")
 MeshInstancePath = NodePath("../MeshInstance")
+min_zoom = 80.0
 
 [node name="RayCast" type="RayCast" parent="."]
 collision_mask = 2
@@ -80,6 +81,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 30 )
 [node name="Camera" type="Camera" parent="camera_root/camera_base/camera_tilt/camera_boom"]
 current = true
 fov = 42.0
+far = 300.0
 
 [node name="motion_blur" type="MeshInstance" parent="camera_root/camera_base/camera_tilt/camera_boom/Camera"]
 transform = Transform( 1, 0, 0, 0, 1, 1.49012e-07, 0, 0, 1, 0, 0, -1.05979 )
