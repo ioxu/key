@@ -4,6 +4,9 @@ var target = null
 
 onready var timer = $routine_check
 
+var sight_line = null
+const sight_line_script = preload("res://data/scripts/sight_line.gd")
+
 var running = false
 var from := Vector3.ZERO
 var to := Vector3.ZERO
@@ -12,9 +15,14 @@ var can_see_target = false
 
 
 func _ready():
+	exclude_parent = true
+
+	sight_line = ImmediateGeometry.new()
+	sight_line.set_script(sight_line_script)
+	get_node("/root/").add_child(sight_line)
+
 	if !running:
 		stop()
-	exclude_parent = true
 
 
 func _is_target_visible():
@@ -26,12 +34,14 @@ func _is_target_visible():
 		if is_colliding():
 			var collider = get_collider()
 			if collider.is_in_group("Player"):
-				print("raycast can see")
-				#$MeshInstance.transform.origin = to_local(get_collision_point())
+				$sight_indicator.transform.origin = to_local(get_collision_point())
 				can_see_target = true
 			else:
-				#$MeshInstance.transform.origin = Vector3.ZERO
+				$sight_indicator.transform.origin = to_local(get_collision_point())#Vector3(0.0, 0.0, -1.0)
 				can_see_target = false
+			sight_line.visible = true
+			sight_line.from = from
+			sight_line.to = get_collision_point()
 
 
 func start():
@@ -46,12 +56,12 @@ func stop():
 	timer.stop()
 	running = false
 	enabled = false
-	#$MeshInstance.transform.origin = Vector3.ZERO
+	$sight_indicator.transform.origin = Vector3.ZERO
 	can_see_target = false
+	sight_line.visible = false
 
 
 func _on_routine_check_timeout():
-	#can_see_target = _is_target_visible()
 	_is_target_visible()
 	if !running:
 		stop()

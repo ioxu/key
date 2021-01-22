@@ -25,7 +25,7 @@ var accelerate = acceleration
 
 const DO_TRAVEL_PATH = true
 var travel_path = null
-const travel_path_script = preload("res://scripts/travel_path_line.gd")
+const travel_path_script = preload("res://data/scripts/travel_path_line.gd")
 
 var noise = OpenSimplexNoise.new()
 var offset = 0.0
@@ -67,14 +67,13 @@ func bullet_hit(bullet):
 
 
 func _idle_enter():
-	$vision_raycast.target = null
-	$vision_raycast.stop()
 	$alert_icon.visible = false
 
 
 func _idle(delta):
 	if $vision_raycast.can_see_target:
 		fsm.set_state("attack")
+	
 	# wander about a bit
 	var rot_y = noise.get_noise_1d( age * 25.0 + offset ) 
 	rot_y = sign(rot_y) * bias(abs(rot_y), 0.25) * 0.2
@@ -161,7 +160,6 @@ func toggle_active(new_value):
 
 func _on_vision_area_body_entered(body):
 	if body.is_in_group("Player"):
-		print(self, " spotted ", body.get_path(), "!")
 		target = body
 		$vision_raycast.target = body
 		$vision_raycast.start()
@@ -172,7 +170,8 @@ func _on_vision_area_body_entered(body):
 
 func _on_vision_area_body_exited(body):
 	if body.is_in_group("Player"):
-		print(self, " lost sight of ", body.get_path(), "!")
 		target = null
 		$statemachine.set_state("idle")
+		$vision_raycast.target = null
+		$vision_raycast.stop()
 
