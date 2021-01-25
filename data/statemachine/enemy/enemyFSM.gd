@@ -38,3 +38,4 @@ func _exit_state(old_state, new_state):
 			print("  exiting attack")
 		"attack":
 			print("  exiting idle")
+			parent._attack_exit()

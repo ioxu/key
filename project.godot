@@ -27,6 +27,7 @@ config/icon="res://thumbnail.png"
 [autoload]
 
 Game="*res://scripts/game.gd"
+Util="*res://scripts/util.gd"
 
 [input]
 

@@ -3,6 +3,7 @@ extends ImmediateGeometry
 var point_array = Array()
 
 export var distance_threshold := 0.55
+export var max_points := 30
 export(NodePath) var track_object_path
 export var position_offset := Vector3.ZERO
 
@@ -23,6 +24,8 @@ func _ready():
 func _process(delta):
 	if (track_object.global_transform.origin - point_array.back()).length() > distance_threshold:
 		point_array.append(track_object.global_transform.origin + position_offset)
+		if point_array.size() > max_points:
+			point_array.pop_front()
 	
 	clear()
 	begin(Mesh.PRIMITIVE_LINE_STRIP)

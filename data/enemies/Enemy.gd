@@ -4,9 +4,9 @@ export var initial_health : float = 1000.0
 export var health : float = initial_health
 export(bool) var active = true setget toggle_active
 export(float) var movement_speed = 7.5
+export(float) var rush_speed = 200.0
 export(float) var acceleration = 3.0
 export(float) var deaceleration = 5.0
-
 
 var target = null
 var can_see_target = false
@@ -22,6 +22,11 @@ var gravity := -10.0
 var jump_acceleration := 3.0
 var age := 0.0
 var accelerate = acceleration
+
+var attack_moves = ["rush", "evade", "strafe", "hold"]
+var attack_move = "rush"
+onready var attack_move_timer = Timer.new()
+var attack_move_rng = RandomNumberGenerator.new()
 
 const DO_TRAVEL_PATH = true
 var travel_path = null
@@ -43,6 +48,11 @@ func _ready():
 	noise.octaves = 4
 	noise.period = 35.0
 	offset = damage_rng.randf() * 100
+
+	attack_move_rng.randomize()
+	add_child(attack_move_timer)
+	attack_move_timer.connect("timeout",self,"_on_attack_move_timer_timeout") 
+	attack_move_timer.set_one_shot(true)
 
 	if DO_TRAVEL_PATH and active:
 		travel_path = ImmediateGeometry.new()
@@ -70,36 +80,102 @@ func _idle_enter():
 	$alert_icon.visible = false
 
 
-func _idle(delta):
+func _idle(delta) -> void:
 	if $vision_raycast.can_see_target:
 		fsm.set_state("attack")
 	
 	# wander about a bit
 	var rot_y = noise.get_noise_1d( age * 25.0 + offset ) 
-	rot_y = sign(rot_y) * bias(abs(rot_y), 0.25) * 0.2
+	rot_y = sign(rot_y) * Util.bias(abs(rot_y), 0.25) * 0.2
 	rotate_y( rot_y )
 	direction = global_transform.basis.z 
 	var speed_noise = noise.get_noise_1d( age * 15.0 - offset )
 	var spd = 0.0
 	
 	if speed_noise > 0.35:
-		spd = bias((speed_noise+1.0)/2.0, 0.2)
+		spd = Util.bias((speed_noise+1.0)/2.0, 0.2)
 	elif speed_noise < -0.35:
-		spd = -0.4 * bias((abs(speed_noise)+1.0)/2.0, 0.2)
+		spd = -0.4 * Util.bias((abs(speed_noise)+1.0)/2.0, 0.2)
 	movement_speed = -1 * spd * 7.5 * delta * 100.0
 
 
-func _attack_enter():
+# ------------------------------------------------------------------------------
+# attack move pattern experiment
+
+
+func _attack_enter() -> void:
+	print("++ attack enter ++")
 	$alert_icon.visible = true
+	attack_move = "rush"
+	attack_move_timer.start(2.0)
 
 
-func _attack(delta):
+func _attack(delta) -> void:
+	#print("attack_timer ", attack_move_timer.get_time_left())
 	if !$vision_raycast.can_see_target:
 		fsm.set_state("idle")
 	rotate_toward_target(delta)
+	match attack_move:
+		"rush":
+			rush_toward_target(delta)
+		"hold":
+			pass
+		"evade":
+			evade_target(delta)
+		"strafe":
+			strafe_target(delta)
 
 
-func rotate_toward_target(delta):
+func _attack_exit() -> void:
+	attack_move_timer.stop()
+
+
+func _on_attack_move_timer_timeout() -> void:
+	# timeout timer
+	# - reset timer to random time
+	# - switch attack_move to random from attack_moves
+	attack_move = attack_moves[attack_move_rng.randi_range(0, attack_moves.size()-1)]
+	match attack_move:
+		"rush":
+			attack_move_timer.start(
+				attack_move_rng.randf_range(0.2, 0.4)
+				)
+		"hold":
+			attack_move_timer.start(
+				attack_move_rng.randf_range(0.05, 0.15)
+				)
+		"evade":
+			attack_move_timer.start(
+				attack_move_rng.randf_range(0.1, 0.3)
+				)
+		"strafe":
+			attack_move_timer.start(
+				attack_move_rng.randf_range(0.3, 0.66)
+				)
+
+
+# ------------------------------------------------------------------------------
+
+
+func rush_toward_target(delta) -> void:
+	direction = global_transform.origin - target.global_transform.origin
+	direction = direction.normalized() 
+	movement_speed = -1.0 * delta * rush_speed
+
+
+func evade_target(delta) -> void:
+	direction = global_transform.origin - target.global_transform.origin
+	direction = direction.normalized() 
+	movement_speed = 1.0 * delta * rush_speed * 0.25
+
+
+func strafe_target(delta) -> void:
+	direction = global_transform.basis.x
+	direction = direction.normalized()
+	movement_speed = 1.0 * delta * rush_speed * 1.0
+
+
+func rotate_toward_target(delta) -> void:
 	var to = target.global_transform.origin
 	var look = Vector3(to.x, global_transform.origin.y , to.z)
 	var T=global_transform.looking_at(look, Vector3(0,1,0))
@@ -128,19 +204,6 @@ func _physics_process(delta):
 	if is_on_floor():
 		current_vertical_speed.y = 0.0
 		is_airborne = false
-
-
-func bias(value, b):
-	b = -log2(1.0 - b)
-	return 1.0 - pow(1.0 - pow(value, 1.0/b), b)
-
-
-func log2(value):
-	return log(value) / log(2)
-
-
-func remap_range(value, InputA, InputB, OutputA, OutputB):
-	return(value - InputA) / (InputB - InputA) * (OutputB - OutputA) + OutputA
 
 
 func toggle_active(new_value):
