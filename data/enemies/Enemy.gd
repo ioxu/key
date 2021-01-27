@@ -5,10 +5,11 @@ export var health : float = initial_health
 export(bool) var active = true setget toggle_active
 export(float) var movement_speed = 7.5
 export(float) var rush_speed = 200.0
+export(float) var strafe_speed = 500.0
 export(float) var acceleration = 3.0
 export(float) var deaceleration = 5.0
 
-var target = null
+var target : Spatial = null
 var can_see_target = false
 var direction := Vector3.ZERO
 var initial_movement_speed = movement_speed
@@ -17,16 +18,23 @@ var current_vertical_speed := Vector3.ZERO
 var movement := Vector3.ZERO
 var max_turn_rate := deg2rad(450.0)
 var speed := Vector3.ZERO
+var strafe_direction = 1.0 # 1.0 == right, -1.0 == left
 var is_airborne : = false
 var gravity := -10.0
 var jump_acceleration := 3.0
 var age := 0.0
+var age_offset_rng = RandomNumberGenerator.new()
+var age_offset := 0.0
+var firing_noise_rng = OpenSimplexNoise.new()
 var accelerate = acceleration
 
+onready var weapon = find_node("weapon_mount").get_child(0)
 var attack_moves = ["rush", "evade", "strafe", "hold"]
 var attack_move = "rush"
 onready var attack_move_timer = Timer.new()
 var attack_move_rng = RandomNumberGenerator.new()
+
+onready var original_alert_icon_modulate = $alert_icon.get_modulate()
 
 const DO_TRAVEL_PATH = true
 var travel_path = null
@@ -42,6 +50,8 @@ onready var fsm = $statemachine
 
 
 func _ready():
+	age_offset_rng.randomize()
+	age_offset = age_offset_rng.randf_range(0.0, 100.0)
 	damage_rng.randomize()
 	$hurtbox.connect("bullet_hit", self, "bullet_hit")
 	noise.seed = randi()
@@ -53,6 +63,11 @@ func _ready():
 	add_child(attack_move_timer)
 	attack_move_timer.connect("timeout",self,"_on_attack_move_timer_timeout") 
 	attack_move_timer.set_one_shot(true)
+
+	firing_noise_rng.seed = randi()
+	firing_noise_rng.octaves = 2
+	firing_noise_rng.period = 0.5
+	firing_noise_rng.persistence = 0.8
 
 	if DO_TRAVEL_PATH and active:
 		travel_path = ImmediateGeometry.new()
@@ -78,6 +93,7 @@ func bullet_hit(bullet):
 
 func _idle_enter():
 	$alert_icon.visible = false
+	weapon.set_activated(false)
 
 
 func _idle(delta) -> void:
@@ -107,23 +123,40 @@ func _attack_enter() -> void:
 	print("++ attack enter ++")
 	$alert_icon.visible = true
 	attack_move = "rush"
-	attack_move_timer.start(2.0)
+	attack_move_timer.start( attack_move_rng.randf_range(0.2, 0.5) )
 
 
 func _attack(delta) -> void:
-	#print("attack_timer ", attack_move_timer.get_time_left())
+
 	if !$vision_raycast.can_see_target:
+		weapon.activated = false
 		fsm.set_state("idle")
+		return
+
 	rotate_toward_target(delta)
+	
+	#var do_fire = firing_noise_rng.get_noise_1d(age + age_offset) > 0.0
+	#print("do_fire ", firing_noise_rng.get_noise_1d(age + age_offset), " ", do_fire)
+	#var do_fire = fmod(age + age_offset, 1.0) > 0.5
+	var do_fire = firing_noise_rng.get_noise_1d(age + age_offset) > 0.0
+	#print("do_fire ", firing_noise_rng.get_noise_1d(age + age_offset), " ", do_fire)
+	
+	if do_fire:
+		activate_weapon(delta)
+	else:
+		deactivate_wepon()
+
 	match attack_move:
 		"rush":
 			rush_toward_target(delta)
 		"hold":
-			pass
+			hold_to_target(delta)
 		"evade":
 			evade_target(delta)
 		"strafe":
 			strafe_target(delta)
+	
+	move_to_ideal_distance(delta)
 
 
 func _attack_exit() -> void:
@@ -149,12 +182,46 @@ func _on_attack_move_timer_timeout() -> void:
 				attack_move_rng.randf_range(0.1, 0.3)
 				)
 		"strafe":
+			strafe_direction = pow(-1, randi() % 2)
 			attack_move_timer.start(
-				attack_move_rng.randf_range(0.3, 0.66)
+				attack_move_rng.randf_range(0.55, 1.5)
 				)
 
 
 # ------------------------------------------------------------------------------
+
+func move_to_ideal_distance(delta) -> void:
+	# override direction and speed
+	var distance : float = (global_transform.origin -
+							target.global_transform.origin).length()
+	if distance < 2.5:
+		$alert_icon.modulate = Color(0.245132, 0.485675, 0.996094) *3.0
+		direction = (target.global_transform.origin - global_transform.origin).normalized() * 2.0
+		#direction = 1.0 * direction.normalized()
+		movement_speed = -2.0 * delta * rush_speed
+	elif distance > 13.0:
+		$alert_icon.modulate = Color(0.996094, 0.245132, 0.96676) *3.0
+		direction = -1.0 *(target.global_transform.origin - global_transform.origin).normalized() * 2.0
+		#direction = -1.0 * direction.normalized()
+		movement_speed = -1.5 * delta * rush_speed
+	else:
+		$alert_icon.modulate = original_alert_icon_modulate
+
+
+func activate_weapon(delta) -> void:
+	if within_aim_tolerance(weapon.aim_tolerance):
+		weapon.activated = true
+	else:
+		weapon.activated = false
+
+
+func deactivate_wepon() -> void:
+	weapon.activated = false
+
+
+func hold_to_target(delta) -> void:
+	direction = Vector3.ZERO
+	movement_speed = 0.25
 
 
 func rush_toward_target(delta) -> void:
@@ -172,7 +239,7 @@ func evade_target(delta) -> void:
 func strafe_target(delta) -> void:
 	direction = global_transform.basis.x
 	direction = direction.normalized()
-	movement_speed = 1.0 * delta * rush_speed * 1.0
+	movement_speed = strafe_direction * delta * strafe_speed
 
 
 func rotate_toward_target(delta) -> void:
@@ -183,6 +250,14 @@ func rotate_toward_target(delta) -> void:
 	global_transform.basis.y = lerp(global_transform.basis.y, T.basis.y, delta * max_turn_rate ).normalized()
 	global_transform.basis.z = lerp(global_transform.basis.z, T.basis.z, delta * max_turn_rate ).normalized()
 
+
+func within_aim_tolerance( tolerance ) -> bool:
+	var dir = -1.0 * global_transform.basis.z
+	var dir_to_player = ((target.global_transform.origin - global_transform.origin) *
+		Vector3(1.0, 0.0, 1.0)).normalized()
+	#print("within aim tolerance ", dir.dot( dir_to_player)> (1.0 - tolerance) )
+	return dir.dot( dir_to_player ) > (1.0 - tolerance)
+	
 
 func _physics_process(delta):
 	age += delta

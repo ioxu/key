@@ -4,7 +4,7 @@
 
 [resource]
 shader = ExtResource( 1 )
-shader_param/factor = 0.45
+shader_param/factor = 0.454
 shader_param/albedo = Color( 0.905882, 0.305882, 0.305882, 1 )
 shader_param/specular = 0.5
 shader_param/metallic = 0.0

@@ -1,7 +1,7 @@
 shader_type spatial;
 render_mode blend_mix,depth_draw_opaque,cull_disabled,diffuse_burley,specular_schlick_ggx;
 
-uniform float factor : hint_range(0,1);
+uniform float factor : hint_range(-1.0,1.0);
 
 uniform vec4 albedo : hint_color;
 uniform sampler2D texture_albedo : hint_albedo;

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://data/weapons/pulse_shard/pulse_shard_bullet.gd" type="Script" id=1]
 [ext_resource path="res://data/weapons/pulse_shard/pulse_shader_bullet.shader" type="Shader" id=2]
@@ -8,17 +8,17 @@ friction = 0.65
 bounce = 0.05
 
 [sub_resource type="BoxShape" id=2]
-extents = Vector3( 0.0726534, 0.426933, 0.524819 )
+extents = Vector3( 0.0497693, 0.413231, 0.50189 )
 
 [sub_resource type="ShaderMaterial" id=3]
 shader = ExtResource( 2 )
-shader_param/albedo = Color( 0.635294, 0.811765, 1, 0.184314 )
+shader_param/albedo = Color( 0.890196, 0.180392, 0.878431, 0.478431 )
 shader_param/specular = 0.5
 shader_param/metallic = 0.0
 shader_param/roughness = 1.0
 shader_param/point_size = 1.0
-shader_param/emission = Color( 0.384314, 0.705882, 0.858824, 1 )
-shader_param/emission_energy = 60.0
+shader_param/emission = Color( 0.384314, 0.705882, 0.858824, 0.121569 )
+shader_param/emission_energy = 40.0
 shader_param/uv1_scale = Vector3( 1, 1, 1 )
 shader_param/uv1_offset = Vector3( 0, 0, 0 )
 shader_param/uv2_scale = Vector3( 1, 1, 1 )
@@ -28,15 +28,13 @@ shader_param/uv2_offset = Vector3( 0, 0, 0 )
 material = SubResource( 3 )
 size = Vector3( 0.08, 0.8, 1 )
 
-[sub_resource type="BoxShape" id=5]
-extents = Vector3( 0.162809, 0.415362, 1.12509 )
-
 [node name="pulse_shard_bullet" type="RigidBody"]
 collision_layer = 8
-collision_mask = 2147483682
+collision_mask = 38
 physics_material_override = SubResource( 1 )
 gravity_scale = 0.0
 continuous_cd = true
+contacts_reported = 5
 contact_monitor = true
 script = ExtResource( 1 )
 
@@ -48,16 +46,6 @@ shape = SubResource( 2 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.00343615 )
 mesh = SubResource( 4 )
 material/0 = null
-
-[node name="Area" type="Area" parent="."]
-visible = false
-collision_layer = 8
-collision_mask = 38
-
-[node name="CollisionShape" type="CollisionShape" parent="Area"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.495765 )
-visible = false
-shape = SubResource( 5 )
 
 [node name="free_timer" type="Timer" parent="."]
 wait_time = 4.0

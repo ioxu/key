@@ -51,7 +51,6 @@ func start():
 	enabled = true
 
 
-
 func stop():
 	timer.stop()
 	running = false

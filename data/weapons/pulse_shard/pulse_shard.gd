@@ -1,5 +1,7 @@
 extends "res://data/weapons/weapon.gd"
 
+export var is_enemy_weapon := false
+
 var base_magazine_size := 800
 var magazine_count : = base_magazine_size
 var base_reload_speed := 0.2
@@ -8,12 +10,11 @@ var firing_time := 0.0
 var firing_timer := Timer.new()
 var can_fire := false
 
-
-onready var anim_player = $AnimationPlayer #get_node("../AnimationPlayer")
-onready var muzzle_flash : MeshInstance = $geometry_hook/muzzle_flash #get_node("../geometry_hook/muzzle_flash")
-onready var muzzle_flash_light : OmniLight = $geometry_hook/muzzle_flash_light #get_node("../geometry_hook/muzzle_flash_light")
+onready var anim_player = $AnimationPlayer 
+onready var muzzle_flash : MeshInstance = $geometry_hook/muzzle_flash 
+onready var muzzle_flash_light : OmniLight = $geometry_hook/muzzle_flash_light 
 const bullet_scene = preload("res://data/weapons/pulse_shard/pulse_shard_bullet.tscn")
-onready var bullet_spawner = $bullet_spawner #get_node("../bullet_spawner")
+onready var bullet_spawner = $bullet_spawner 
 
 
 func _ready():
@@ -42,12 +43,12 @@ func _on_timer_timeout():
 func set_activated(new_value: bool) -> void:
 	activated = new_value
 	if activated and can_fire:
-		print(" - pulse_shard activated")
+		#print(" - pulse_shard activated")
 		fire()
 		firing_timer.start()
 		can_fire = false
 	else:
-		print(" - pulse_shard DEactivated")
+		#print(" - pulse_shard DEactivated")
 		can_fire = false
 		firing_time = 0.0
 
@@ -57,10 +58,13 @@ func fire():
 	muzzle_flash_light.visible = true
 	anim_player.seek(0.0)
 	anim_player.play("muzzle_flash")
-	print("  pew (%s/%s) %s"%[magazine_count, base_magazine_size, firing_time])
+	#print("  pew (%s/%s) %s"%[magazine_count, base_magazine_size, firing_time])
 	magazine_count -= 1
 	
 	var bullet = bullet_scene.instance()
+	if is_enemy_weapon:
+		bullet.is_enemy_bullet = true
+
 	get_node("/root/").add_child(bullet)
 	bullet.set_translation(bullet_spawner.get_global_transform().origin)
 	var direction = bullet_spawner.get_global_transform().basis.z
@@ -68,10 +72,6 @@ func fire():
 	bullet.start()
 
 	Input.start_joy_vibration(0, 1.0, 0.0, 0.05)
-
-
-func get_activated() -> bool:
-	return activated
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):

@@ -4,9 +4,20 @@ export(float) var projectile_speed =  65.0
 export(Array, float) var damage_range = [5.0, 20.0]
 var hit_something = false
 
+export var is_enemy_bullet := false
+
+
 func _ready():
-	$Area.connect("body_entered", self, "collided")
-	$Area.connect("area_entered", self, "collided")
+	if is_enemy_bullet:
+		collision_layer = 16
+		collision_mask = 1 + 2 + 128
+		# dedicated enemy bullet shader instead of material duplication?
+		var mat_override = $MeshInstance.mesh.surface_get_material(0).duplicate()
+		mat_override.set_shader_param("emission", Color(0.722656, 0.26535, 0.619048))
+		mat_override.set_shader_param("emission_energy", 30)
+		$MeshInstance.set_material_override( mat_override )
+		$free_timer.wait_time = 2.0
+	connect("body_entered", self, "collided")
 	$free_timer.start()
 
 
@@ -24,10 +35,18 @@ func start():
 
 func collided(body):
 	if hit_something == false:
-		print("HIT ", body.get_path())
+		#print("HIT ", body.get_path(), " (is_enemy_bullet ", is_enemy_bullet, " )")
 		if body.has_method("bullet_hit"):
 			body.bullet_hit(self)
 	hit_something = true
+	
 	gravity_scale = 1.0
-	set_collision_mask_bit(3, true)
+	if !is_enemy_bullet:
+		set_collision_mask_bit(0, true)
+		set_collision_mask_bit(3, true)
+	else:
+		queue_free()
+		#set_collision_mask_bit(0, true)
+		#set_collision_mask_bit(4, true)
 	#queue_free()
+

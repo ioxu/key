@@ -17,6 +17,7 @@ material = SubResource( 1 )
 size = Vector3( 0.064, 0.8, 0.064 )
 
 [sub_resource type="SpatialMaterial" id=3]
+resource_local_to_scene = true
 flags_transparent = true
 flags_do_not_receive_shadows = true
 emission_enabled = true
@@ -26,6 +27,7 @@ emission_operator = 0
 emission_on_uv2 = false
 
 [sub_resource type="CubeMesh" id=4]
+resource_local_to_scene = true
 material = SubResource( 3 )
 size = Vector3( 0.064, 0.8, 0.064 )
 
@@ -50,7 +52,7 @@ tracks/1/path = NodePath("geometry_hook/muzzle_flash:mesh:material:albedo_color:
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
-tracks/1/enabled = true
+tracks/1/enabled = false
 tracks/1/keys = {
 "points": PoolRealArray( 1, -0.25, 0, 0.25, 0 ),
 "times": PoolRealArray( 0 )
@@ -60,7 +62,7 @@ tracks/2/path = NodePath("geometry_hook/muzzle_flash:mesh:material:albedo_color:
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
-tracks/2/enabled = true
+tracks/2/enabled = false
 tracks/2/keys = {
 "points": PoolRealArray( 1, -0.25, 0, 0.25, 0 ),
 "times": PoolRealArray( 0 )
@@ -70,7 +72,7 @@ tracks/3/path = NodePath("geometry_hook/muzzle_flash:mesh:material:albedo_color:
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
-tracks/3/enabled = true
+tracks/3/enabled = false
 tracks/3/keys = {
 "points": PoolRealArray( 1, -0.25, 0, 0.25, 0 ),
 "times": PoolRealArray( 0 )
@@ -152,7 +154,7 @@ material/0 = null
 [node name="muzzle_flash_light" type="OmniLight" parent="geometry_hook" index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.356412, 0.222734 )
 light_color = Color( 0.611765, 0.87451, 0.976471, 1 )
-light_energy = 1.5
+light_energy = 2.48242
 light_bake_mode = 0
 shadow_enabled = true
 shadow_reverse_cull_face = true

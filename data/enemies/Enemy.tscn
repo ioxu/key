@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://data/enemies/Enemy_material.tres" type="Material" id=1]
 [ext_resource path="res://data/enemies/Enemy.gd" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://data/statemachine/enemy/enemyFSM.gd" type="Script" id=7]
 [ext_resource path="res://data/enemies/vision_raycast.gd" type="Script" id=8]
 [ext_resource path="res://data/shaders/sight_line.material" type="Material" id=9]
+[ext_resource path="res://data/weapons/pulse_shard/pulse_shard.tscn" type="PackedScene" id=10]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.55
@@ -90,6 +91,12 @@ material/0 = ExtResource( 1 )
 transform = Transform( 0.5, 0, 0, 0, -6.55671e-08, 0.5, 0, -1.5, -2.18557e-08, 0, -1.39755e-07, 0.857811 )
 mesh = SubResource( 6 )
 
+[node name="weapon_mount" type="Spatial" parent="MeshInstance"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, -0.444, 0.629 )
+
+[node name="pulse_shard" parent="MeshInstance/weapon_mount" instance=ExtResource( 10 )]
+is_enemy_weapon = true
+
 [node name="hurtbox" type="Area" parent="."]
 collision_layer = 32
 collision_mask = 2147483656
@@ -134,6 +141,7 @@ modulate = Color( 1, 0.36, 0.36, 1 )
 opacity = 0.91
 pixel_size = 0.03
 billboard = 1
+shaded = true
 texture = ExtResource( 6 )
 
 [node name="statemachine" type="Node" parent="."]

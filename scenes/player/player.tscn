@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scenes/player/Controller.gd" type="Script" id=1]
 [ext_resource path="res://data/weapons/pulse_shard/pulse_shard.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/player/motion_blur.gd" type="Script" id=3]
 [ext_resource path="res://scenes/player/motion_blur_material.tres" type="Material" id=4]
+[ext_resource path="res://scenes/player/player.gd" type="Script" id=5]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.55
@@ -33,6 +34,7 @@ size = Vector2( 2, 2 )
 ]]
 collision_layer = 2147483649
 collision_mask = 22
+script = ExtResource( 5 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 1.31509, -2.14255e-07 )
