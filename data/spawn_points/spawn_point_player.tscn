@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://data/textures/debug/sakura.png" type="Texture" id=1]
+[ext_resource path="res://data/spawn_points/spawn_point_player.gd" type="Script" id=2]
+
+[sub_resource type="PlaneMesh" id=1]
+
+[sub_resource type="SpatialMaterial" id=2]
+flags_transparent = true
+albedo_color = Color( 0.360784, 0.501961, 0.52549, 1 )
+albedo_texture = ExtResource( 1 )
+emission_enabled = true
+emission = Color( 0.552941, 0.756863, 0.858824, 1 )
+emission_energy = 0.996818
+emission_operator = 0
+emission_on_uv2 = false
+
+[sub_resource type="Animation" id=3]
+resource_name = "pulse"
+loop = true
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("MeshInstance:material/0:emission_energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0.655703, -0.25, 0, 1.1, 0.169182, 11.1882, -0.05, -0.340784, 0.22, -0.00534141, 0.624255, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1, 1.1 )
+}
+
+[node name="spawn_point_player" type="Spatial"]
+script = ExtResource( 2 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.15, 0 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "pulse"
+playback_speed = 5.0
+method_call_mode = 1
+anims/pulse = SubResource( 3 )
+
+[node name="arrival_tween" type="Tween" parent="."]
+playback_speed = 2.0
+playback/speed = 2.0
+[connection signal="tween_all_completed" from="arrival_tween" to="." method="_on_arrival_tween_tween_all_completed"]

@@ -71,7 +71,8 @@ func fire():
 	bullet.look_at( bullet.get_translation() - direction, Vector3.UP)
 	bullet.start()
 
-	Input.start_joy_vibration(0, 1.0, 0.0, 0.05)
+	if !is_enemy_weapon:
+		Input.start_joy_vibration(0, 1.0, 0.0, 0.05)
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):

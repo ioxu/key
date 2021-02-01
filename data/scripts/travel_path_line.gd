@@ -2,11 +2,11 @@ extends ImmediateGeometry
 
 var point_array = Array()
 
-export var distance_threshold := 0.55
-export var max_points := 30
+export var distance_threshold := 0.65
+export var max_points := 200
 export(NodePath) var track_object_path
 export var position_offset := Vector3.ZERO
-
+export var trail_colour : Color = Color(0.917969, 0.075302, 0.233302)
 
 onready var track_object = get_node(track_object_path)
 onready var last_position := Vector3.ZERO
@@ -20,6 +20,9 @@ func _ready():
 	last_position = track_object.global_transform.origin
 	point_array.append(last_position)
 	material_override = trail_material
+	material_override.set_shader_param("albedo", trail_colour)
+	material_override.set_shader_param("emission", trail_colour)
+
 
 func _process(delta):
 	if (track_object.global_transform.origin - point_array.back()).length() > distance_threshold:
@@ -29,16 +32,22 @@ func _process(delta):
 	
 	clear()
 	begin(Mesh.PRIMITIVE_LINE_STRIP)
-	#for p in point_array:
 	var p_size = point_array.size()
 	for i in range(p_size):
 		if i !=0:
-			set_color(Color(0.17, 0.66, 0.77, bias(float(i)/p_size, 0.22)))
+			set_color(trail_colour * Color(1.0, 1.0, 1.0, bias(float(i)/p_size, 0.22)))
 		else:
-			set_color(Color(0.17, 0.66, 0.77, 0.0))
-		#add_vertex(p)
+			set_color(trail_colour * Color(1.0, 1.0, 1.0, 0.0))
 		add_vertex(point_array[i])
 	end()
+#	begin(Mesh.PRIMITIVE_POINTS)
+#	for i in range(p_size):
+#		if i !=0:
+#			set_color(trail_colour * Color(1.0, 1.0, 1.0, bias(float(i)/p_size, 0.22)))
+#		else:
+#			set_color(trail_colour * Color(1.0, 1.0, 1.0, 0.0))
+#		add_vertex(point_array[i])
+#	end()
 
 func bias(value, b):
 	b = -log2(1.0 - b)

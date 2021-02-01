@@ -1,6 +1,7 @@
 exports/
 setup/
 screenshots/
+logs/
 
 # gotdot
 # *.import # it is recommended to track .import files

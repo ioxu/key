@@ -16,6 +16,7 @@ uniform vec3 uv2_offset;
 
 
 void vertex() {
+	POINT_SIZE=point_size;
 	UV=UV*uv1_scale.xy+uv1_offset.xy;
 }
 

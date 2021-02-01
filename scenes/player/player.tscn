@@ -1,10 +1,13 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scenes/player/Controller.gd" type="Script" id=1]
 [ext_resource path="res://data/weapons/pulse_shard/pulse_shard.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/player/motion_blur.gd" type="Script" id=3]
 [ext_resource path="res://scenes/player/motion_blur_material.tres" type="Material" id=4]
 [ext_resource path="res://scenes/player/player.gd" type="Script" id=5]
+[ext_resource path="res://data/enemies/hurt_meter_shadermaterial.tres" type="Material" id=6]
+[ext_resource path="res://data/enemies/hurt_meter.tscn" type="PackedScene" id=7]
+[ext_resource path="res://data/textures/debug/symbols_16px_xbones.png" type="Texture" id=8]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.55
@@ -26,7 +29,14 @@ size = Vector3( 0.064, 0.364, 0.998 )
 [sub_resource type="SpatialMaterial" id=5]
 albedo_color = Color( 0.619608, 0.592157, 0.592157, 1 )
 
-[sub_resource type="QuadMesh" id=6]
+[sub_resource type="CylinderMesh" id=6]
+resource_local_to_scene = true
+material = ExtResource( 6 )
+height = 0.2
+radial_segments = 32
+rings = 1
+
+[sub_resource type="QuadMesh" id=7]
 size = Vector2( 2, 2 )
 
 [node name="player" type="KinematicBody" groups=[
@@ -54,6 +64,10 @@ material/0 = SubResource( 5 )
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, -0.44367, 0.628556 )
 
 [node name="pulse_shard" parent="MeshInstance/weapon_mount" instance=ExtResource( 2 )]
+
+[node name="hurt_meter" parent="MeshInstance" instance=ExtResource( 7 )]
+transform = Transform( 0.5, 0, 0, 0, -6.55671e-08, 0.5, 0, -1.5, -2.18557e-08, 0, 0, 0.858 )
+mesh = SubResource( 6 )
 
 [node name="Controller" type="Spatial" parent="."]
 script = ExtResource( 1 )
@@ -88,6 +102,15 @@ far = 300.0
 [node name="motion_blur" type="MeshInstance" parent="camera_root/camera_base/camera_tilt/camera_boom/Camera"]
 transform = Transform( 1, 0, 0, 0, 1, 1.49012e-07, 0, 0, 1, 0, 0, -1.05979 )
 visible = false
-mesh = SubResource( 6 )
+mesh = SubResource( 7 )
 material/0 = ExtResource( 4 )
 script = ExtResource( 3 )
+
+[node name="icons" type="Spatial" parent="."]
+
+[node name="death_icon" type="Sprite3D" parent="icons"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.50934, 0 )
+opacity = 0.9
+pixel_size = 0.03
+billboard = 1
+texture = ExtResource( 8 )

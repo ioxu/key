@@ -1,7 +1,7 @@
 extends KinematicBody
 
 export var initial_health : float = 1000.0
-export var health : float = initial_health
+var health : float
 export(bool) var active = true setget toggle_active
 export(float) var movement_speed = 7.5
 export(float) var rush_speed = 200.0
@@ -59,11 +59,15 @@ func _ready():
 	noise.period = 35.0
 	offset = damage_rng.randf() * 100
 
+	health = initial_health
+
 	attack_move_rng.randomize()
 	add_child(attack_move_timer)
 	attack_move_timer.connect("timeout",self,"_on_attack_move_timer_timeout") 
 	attack_move_timer.set_one_shot(true)
 
+	weapon.visible = false
+	
 	firing_noise_rng.seed = randi()
 	firing_noise_rng.octaves = 2
 	firing_noise_rng.period = 0.5
@@ -98,8 +102,9 @@ func _idle_enter():
 
 func _idle(delta) -> void:
 	if $vision_raycast.can_see_target:
+		weapon.visible = true
 		fsm.set_state("attack")
-	
+
 	# wander about a bit
 	var rot_y = noise.get_noise_1d( age * 25.0 + offset ) 
 	rot_y = sign(rot_y) * Util.bias(abs(rot_y), 0.25) * 0.2
@@ -129,6 +134,7 @@ func _attack_enter() -> void:
 func _attack(delta) -> void:
 
 	if !$vision_raycast.can_see_target:
+		weapon.visible = false
 		weapon.activated = false
 		fsm.set_state("idle")
 		return
@@ -179,7 +185,7 @@ func _on_attack_move_timer_timeout() -> void:
 				)
 		"evade":
 			attack_move_timer.start(
-				attack_move_rng.randf_range(0.1, 0.3)
+				attack_move_rng.randf_range(0.15, 0.65)
 				)
 		"strafe":
 			strafe_direction = pow(-1, randi() % 2)
@@ -233,11 +239,11 @@ func rush_toward_target(delta) -> void:
 func evade_target(delta) -> void:
 	direction = global_transform.origin - target.global_transform.origin
 	direction = direction.normalized() 
-	movement_speed = 1.0 * delta * rush_speed * 0.25
+	movement_speed = 1.0 * delta * rush_speed * 0.65
 
 
 func strafe_target(delta) -> void:
-	direction = global_transform.basis.x
+	direction = global_transform.basis.x.rotated(Vector3(0.0, 1.0, 0.0), strafe_direction * 0.3)
 	direction = direction.normalized()
 	movement_speed = strafe_direction * delta * strafe_speed
 
@@ -255,7 +261,6 @@ func within_aim_tolerance( tolerance ) -> bool:
 	var dir = -1.0 * global_transform.basis.z
 	var dir_to_player = ((target.global_transform.origin - global_transform.origin) *
 		Vector3(1.0, 0.0, 1.0)).normalized()
-	#print("within aim tolerance ", dir.dot( dir_to_player)> (1.0 - tolerance) )
 	return dir.dot( dir_to_player ) > (1.0 - tolerance)
 	
 
@@ -297,7 +302,8 @@ func toggle_active(new_value):
 
 
 func _on_vision_area_body_entered(body):
-	if body.is_in_group("Player"):
+	if body.is_in_group("Player") and body.targetable:
+		weapon.visible = true
 		target = body
 		$vision_raycast.target = body
 		$vision_raycast.start()
@@ -308,8 +314,20 @@ func _on_vision_area_body_entered(body):
 
 func _on_vision_area_body_exited(body):
 	if body.is_in_group("Player"):
+		weapon.visible = false
 		target = null
 		$statemachine.set_state("idle")
 		$vision_raycast.target = null
 		$vision_raycast.stop()
 
+
+
+func _on_VisibilityNotifier_camera_entered(camera):
+	# return to full processing
+	print(self.get_path(), " entered camera")
+
+
+
+func _on_VisibilityNotifier_camera_exited(camera):
+	# LOD process, animation and, movement
+	print(self.get_path(), " exited camera")
