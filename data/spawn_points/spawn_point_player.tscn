@@ -11,7 +11,7 @@ albedo_color = Color( 0.360784, 0.501961, 0.52549, 1 )
 albedo_texture = ExtResource( 1 )
 emission_enabled = true
 emission = Color( 0.552941, 0.756863, 0.858824, 1 )
-emission_energy = 0.996818
+emission_energy = 3.08223
 emission_operator = 0
 emission_on_uv2 = false
 
@@ -44,6 +44,7 @@ method_call_mode = 1
 anims/pulse = SubResource( 3 )
 
 [node name="arrival_tween" type="Tween" parent="."]
+playback_process_mode = 0
 playback_speed = 2.0
 playback/speed = 2.0
-[connection signal="tween_all_completed" from="arrival_tween" to="." method="_on_arrival_tween_tween_all_completed"]
+[connection signal="tween_completed" from="arrival_tween" to="." method="_on_arrival_tween_tween_completed"]

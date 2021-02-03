@@ -26,7 +26,7 @@ func _ready():
 
 
 func _is_target_visible():
-	if target:
+	if target and target.targetable:
 		from = get_owner().global_transform.origin
 		to = target.global_transform.origin
 		to = Vector3(to.x, from.y, to.z)

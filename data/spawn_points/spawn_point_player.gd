@@ -8,12 +8,14 @@ func _ready():
 	transport_player_to_spawn_point()
 
 
-func _process(delta):
-	print("@@@",$arrival_tween.tell())
+#func _process(delta):
+#	#print("@@@",$arrival_tween.tell())
+#	pass
 
 
 func transport_player_to_spawn_point():
-	player.active = false
+	print("begin recall to spawnpoint")
+	player.set_active( false )
 	#yield(get_tree().create_timer(1.0), "timeout")
 	$arrival_tween.interpolate_property(
 		player,
@@ -21,11 +23,16 @@ func transport_player_to_spawn_point():
 		player.global_transform.origin,
 		global_transform.origin,
 		$arrival_tween.playback_speed,
-		Tween.TRANS_QUAD,
-		Tween.EASE_IN_OUT
-	)
+		Tween.TRANS_QUART,
+		Tween.EASE_OUT
+	)	
+	player.visible = false
 	$arrival_tween.start()
 
 
-func _on_arrival_tween_tween_all_completed():
+func _on_arrival_tween_tween_completed(object, key):
+	print("arrived at spawnpoint")
+	#$arrival_tween.stop(player, "translation")
+	$arrival_tween.remove_all()
 	player.respawn()
+	

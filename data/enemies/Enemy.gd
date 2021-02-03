@@ -125,7 +125,7 @@ func _idle(delta) -> void:
 
 
 func _attack_enter() -> void:
-	print("++ attack enter ++")
+	#print("++ attack enter ++")
 	$alert_icon.visible = true
 	attack_move = "rush"
 	attack_move_timer.start( attack_move_rng.randf_range(0.2, 0.5) )
@@ -140,13 +140,8 @@ func _attack(delta) -> void:
 		return
 
 	rotate_toward_target(delta)
-	
-	#var do_fire = firing_noise_rng.get_noise_1d(age + age_offset) > 0.0
-	#print("do_fire ", firing_noise_rng.get_noise_1d(age + age_offset), " ", do_fire)
-	#var do_fire = fmod(age + age_offset, 1.0) > 0.5
+
 	var do_fire = firing_noise_rng.get_noise_1d(age + age_offset) > 0.0
-	#print("do_fire ", firing_noise_rng.get_noise_1d(age + age_offset), " ", do_fire)
-	
 	if do_fire:
 		activate_weapon(delta)
 	else:
@@ -324,10 +319,12 @@ func _on_vision_area_body_exited(body):
 
 func _on_VisibilityNotifier_camera_entered(camera):
 	# return to full processing
-	print(self.get_path(), " entered camera")
+	#print(self.get_path(), " entered camera")
+	pass
 
 
 
 func _on_VisibilityNotifier_camera_exited(camera):
 	# LOD process, animation and, movement
-	print(self.get_path(), " exited camera")
+	#print(self.get_path(), " exited camera")
+	pass

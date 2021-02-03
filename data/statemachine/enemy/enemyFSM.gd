@@ -22,7 +22,7 @@ func _get_transition(delta):
 
 
 func _enter_state(new_state, old_state):
-	print("_enter_state ", new_state)
+	#print("_enter_state ", new_state)
 	match new_state:
 		"idle":
 			#print("  entering idle")
@@ -32,7 +32,7 @@ func _enter_state(new_state, old_state):
 			parent._attack_enter()
 	
 func _exit_state(old_state, new_state):
-	print("_exit_state ", old_state)
+	#print("_exit_state ", old_state)
 	match new_state:
 		"idle":
 			#print("  exiting attack")
