@@ -134,5 +134,6 @@ common/physics_fps=120
 [rendering]
 
 quality/directional_shadow/size=8192
+quality/shadow_atlas/size=8192
 quality/filters/msaa=3
 environment/default_environment="res://default_env.tres"

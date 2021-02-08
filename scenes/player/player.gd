@@ -21,7 +21,6 @@ func _ready():
 
 func set_active(new_value):
 	active = new_value
-	#visible = new_value
 	$CollisionShape.disabled = !new_value
 	targetable = new_value
 	$Controller.set_physics_process(new_value)

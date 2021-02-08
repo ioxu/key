@@ -7,16 +7,17 @@
 
 [sub_resource type="SpatialMaterial" id=2]
 flags_transparent = true
-albedo_color = Color( 0.360784, 0.501961, 0.52549, 1 )
+albedo_color = Color( 0.360784, 0.501961, 0.52549, 0.0941176 )
 albedo_texture = ExtResource( 1 )
 emission_enabled = true
 emission = Color( 0.552941, 0.756863, 0.858824, 1 )
-emission_energy = 3.08223
+emission_energy = 0.315452
 emission_operator = 0
 emission_on_uv2 = false
 
 [sub_resource type="Animation" id=3]
 resource_name = "pulse"
+length = 1.5
 loop = true
 tracks/0/type = "bezier"
 tracks/0/path = NodePath("MeshInstance:material/0:emission_energy")
@@ -25,8 +26,8 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"points": PoolRealArray( 0.655703, -0.25, 0, 1.1, 0.169182, 11.1882, -0.05, -0.340784, 0.22, -0.00534141, 0.624255, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 1, 1.1 )
+"points": PoolRealArray( 0.307418, -0.25, 0, 1.1, 0.169182, 4.21876, -0.05, -0.340784, 0.22, -0.00534141 ),
+"times": PoolRealArray( 0, 1.4 )
 }
 
 [node name="spawn_point_player" type="Spatial"]

@@ -87,7 +87,7 @@ func bullet_hit(bullet):
 	var damage = damage_rng.randf_range(bullet.damage_range[0], bullet.damage_range[1])
 	health -= damage
 	hurt_meter.set_factor( 1.0 - health/initial_health )
-	print("  bullet damage %s, health %s"%[damage, health])
+	#print("  bullet damage %s, health %s"%[damage, health])
 
 	if health <= 0.0:
 		if DO_TRAVEL_PATH:
@@ -198,12 +198,10 @@ func move_to_ideal_distance(delta) -> void:
 	if distance < 2.5:
 		$alert_icon.modulate = Color(0.245132, 0.485675, 0.996094) *3.0
 		direction = (target.global_transform.origin - global_transform.origin).normalized() * 2.0
-		#direction = 1.0 * direction.normalized()
 		movement_speed = -2.0 * delta * rush_speed
 	elif distance > 13.0:
 		$alert_icon.modulate = Color(0.996094, 0.245132, 0.96676) *3.0
 		direction = -1.0 *(target.global_transform.origin - global_transform.origin).normalized() * 2.0
-		#direction = -1.0 * direction.normalized()
 		movement_speed = -1.5 * delta * rush_speed
 	else:
 		$alert_icon.modulate = original_alert_icon_modulate

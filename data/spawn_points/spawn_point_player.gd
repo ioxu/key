@@ -14,7 +14,7 @@ func _ready():
 
 
 func transport_player_to_spawn_point():
-	print("begin recall to spawnpoint")
+	print("begin recall to spawnpoint ..")
 	player.set_active( false )
 	#yield(get_tree().create_timer(1.0), "timeout")
 	$arrival_tween.interpolate_property(
@@ -31,7 +31,7 @@ func transport_player_to_spawn_point():
 
 
 func _on_arrival_tween_tween_completed(object, key):
-	print("arrived at spawnpoint")
+	print(".. arrived at spawnpoint")
 	#$arrival_tween.stop(player, "translation")
 	$arrival_tween.remove_all()
 	player.respawn()

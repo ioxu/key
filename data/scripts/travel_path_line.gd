@@ -11,9 +11,9 @@ export var trail_colour : Color = Color(0.917969, 0.075302, 0.233302)
 onready var track_object = get_node(track_object_path)
 onready var last_position := Vector3.ZERO
 
-#onready var trail_material = preload("res://data/shaders/trail_material.tres")
 onready var trail_material = preload("res://data/shaders/trail_shader_material.tres")
 
+onready var falloff_lut = Util.bias_lut(0.22, 50)
 
 func _ready():
 	set_as_toplevel(true)
@@ -35,7 +35,7 @@ func _process(delta):
 	var p_size = point_array.size()
 	for i in range(p_size):
 		if i !=0:
-			set_color(trail_colour * Color(1.0, 1.0, 1.0, bias(float(i)/p_size, 0.22)))
+			set_color(trail_colour * Color(1.0, 1.0, 1.0, falloff_lut.interpolate_baked(float(i)/p_size)))
 		else:
 			set_color(trail_colour * Color(1.0, 1.0, 1.0, 0.0))
 		add_vertex(point_array[i])
@@ -43,15 +43,10 @@ func _process(delta):
 #	begin(Mesh.PRIMITIVE_POINTS)
 #	for i in range(p_size):
 #		if i !=0:
-#			set_color(trail_colour * Color(1.0, 1.0, 1.0, bias(float(i)/p_size, 0.22)))
+#			set_color(trail_colour * Color(1.0, 1.0, 1.0, falloff_lut(float(i)/p_size)))
 #		else:
 #			set_color(trail_colour * Color(1.0, 1.0, 1.0, 0.0))
 #		add_vertex(point_array[i])
 #	end()
 
-func bias(value, b):
-	b = -log2(1.0 - b)
-	return 1.0 - pow(1.0 - pow(value, 1.0/b), b)
 
-func log2(value):
-	return log(value) / log(2)
