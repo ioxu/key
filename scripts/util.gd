@@ -27,7 +27,3 @@ func bias_lut( b = 0.5, resolution = 32 ) -> Curve:
 		lut.add_point( Vector2(i/resolution, bias(i/resolution, b) ) )
 	return lut
 
-
-# range
-func remap_range(value, InputA, InputB, OutputA, OutputB):
-	return(value - InputA) / (InputB - InputA) * (OutputB - OutputA) + OutputA
