@@ -2,9 +2,10 @@ extends RigidBody
 
 export(float) var projectile_speed =  65.0
 export(Array, float) var damage_range = [5.0, 20.0]
-var hit_something = false
-
 export var is_enemy_bullet := false
+
+var starting_position : Vector3 = Vector3.ZERO
+var hit_something = false
 
 
 func _ready():
@@ -30,6 +31,7 @@ func _on_free_timer_timeout():
 
 
 func start():
+	self.starting_position = self.transform.origin
 	self.apply_central_impulse( self.global_transform.basis.z * projectile_speed )
 
 

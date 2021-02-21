@@ -30,6 +30,10 @@ func set_active(new_value):
 	$Controller.weapon.activated = false
 
 
+func get_active():
+	return active
+
+
 func set_health(new_value):
 	health = new_value
 	hurt_meter.set_factor( 1.0 - health/initial_health )
@@ -52,10 +56,6 @@ func respawn():
 	$MeshInstance/hurt_meter.visible = true
 	$icons/death_icon.visible = false
 	visible = true
-
-
-func get_active():
-	return active
 
 
 func bullet_hit(bullet):

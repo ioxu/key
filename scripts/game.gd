@@ -5,7 +5,7 @@ var minimum_size : Vector2 = Vector2(1024,600)#(960, 540)
 var BORDERLESS_FULLSCREEN = false
 
 var window_position := Vector2.ZERO
-var fullscreen : = true
+var fullscreen : = false
 
 func _ready():
 	print("game.dg autoload ready")

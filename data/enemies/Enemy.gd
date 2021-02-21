@@ -45,6 +45,8 @@ var offset = 0.0
 
 var damage_rng = RandomNumberGenerator.new()
 
+const point_of_interest_scene = preload("res://data/enemies/point_of_interest.tscn")
+
 onready var hurt_meter = $MeshInstance/hurt_meter
 onready var fsm = $statemachine
 
@@ -53,7 +55,6 @@ func _ready():
 	age_offset_rng.randomize()
 	age_offset = age_offset_rng.randf_range(0.0, 100.0)
 	damage_rng.randomize()
-	$hurtbox.connect("bullet_hit", self, "bullet_hit")
 	noise.seed = randi()
 	noise.octaves = 4
 	noise.period = 35.0
@@ -81,29 +82,58 @@ func _ready():
 		get_node("/root/").add_child(travel_path)
 
 	$alert_icon.visible = false
+	target = null
+	
+	# wait a bit
+	set_physics_process(false)
+	set_physics_process_internal(false)
+	yield(get_tree().create_timer(0.35), "timeout")
+	$CollisionShape.disabled = false
+	set_physics_process(true)
+	set_physics_process_internal(true)
 
+	$hurtbox.connect("bullet_hit", self, "bullet_hit")
+	
 
 func bullet_hit(bullet):
 	var damage = damage_rng.randf_range(bullet.damage_range[0], bullet.damage_range[1])
 	health -= damage
 	hurt_meter.set_factor( 1.0 - health/initial_health )
-	#print("  bullet damage %s, health %s"%[damage, health])
 
+	#if fsm.state == "idle":
+	if fsm.state in ["idle", "search"]:
+		# set a poi and switch to search state
+		if target:
+			if "point_of_interest" in target.get_name(): # TODO : use a type or something
+				target.queue_free()
+				target = null
+
+		var poi = point_of_interest_scene.instance()
+		get_node("/root/").add_child(poi)
+		poi.transform.origin = bullet.starting_position
+		self.target = poi
+		fsm.set_state("search")
+		
+	# die
 	if health <= 0.0:
 		if DO_TRAVEL_PATH:
 			travel_path.queue_free()
 		queue_free()
 
 
+# ------------------------------------------------------------------------------
+# states
 func _idle_enter():
 	$alert_icon.visible = false
 	weapon.set_activated(false)
+	target = null
 
 
 func _idle(delta) -> void:
 	if $vision_raycast.can_see_target:
 		weapon.visible = true
 		fsm.set_state("attack")
+
 
 	# wander about a bit
 	var rot_y = noise.get_noise_1d( age * 25.0 + offset ) 
@@ -118,10 +148,6 @@ func _idle(delta) -> void:
 	elif speed_noise < -0.35:
 		spd = -0.4 * Util.bias((abs(speed_noise)+1.0)/2.0, 0.2)
 	movement_speed = -1 * spd * 7.5 * delta * 100.0
-
-
-# ------------------------------------------------------------------------------
-# attack move pattern experiment
 
 
 func _attack_enter() -> void:
@@ -147,6 +173,7 @@ func _attack(delta) -> void:
 	else:
 		deactivate_wepon()
 
+	# le fsm petite
 	match attack_move:
 		"rush":
 			rush_toward_target(delta)
@@ -162,6 +189,30 @@ func _attack(delta) -> void:
 
 func _attack_exit() -> void:
 	attack_move_timer.stop()
+
+
+func _search_enter() -> void:
+	print("enter search ..")
+	pass
+
+
+func _search(delta):
+	if $vision_raycast.can_see_target:
+		weapon.visible = true
+		fsm.set_state("attack")
+
+	rotate_toward_target(delta)
+	rush_toward_target(delta)
+
+	if (self.transform.origin - target.transform.origin).length() < 1.0:
+		if "point_of_interest" in target.get_name(): # TODO : use a type or something
+			target.queue_free()
+			target = null
+		fsm.set_state("idle")
+
+
+# /states
+# ------------------------------------------------------------------------------
 
 
 func _on_attack_move_timer_timeout() -> void:
@@ -188,8 +239,6 @@ func _on_attack_move_timer_timeout() -> void:
 				attack_move_rng.randf_range(0.55, 1.5)
 				)
 
-
-# ------------------------------------------------------------------------------
 
 func move_to_ideal_distance(delta) -> void:
 	# override direction and speed

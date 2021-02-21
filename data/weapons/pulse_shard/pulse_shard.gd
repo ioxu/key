@@ -18,6 +18,7 @@ onready var bullet_spawner = $bullet_spawner
 
 
 func _ready():
+	$bullet_spawner/pulse_shard_bullet.queue_free()
 	print(" - init weapon.pulse_shard")
 	add_child(firing_timer)
 	firing_timer.wait_time = base_fire_rate

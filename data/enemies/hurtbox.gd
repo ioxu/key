@@ -2,6 +2,7 @@ extends Area
 
 signal bullet_hit
 
+
 func _ready():
 	pass # Replace with function body.
 

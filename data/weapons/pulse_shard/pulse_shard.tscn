@@ -135,7 +135,7 @@ script = ExtResource( 2 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.444842, 0.0947556 )
 
 [node name="pulse_shard_bullet" parent="bullet_spawner" index="0" instance=ExtResource( 3 )]
-visible = false
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.490436 )
 
 [node name="geometry_hook" type="Spatial" parent="." index="1"]
 
@@ -154,7 +154,7 @@ material/0 = null
 [node name="muzzle_flash_light" type="OmniLight" parent="geometry_hook" index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.356412, 0.222734 )
 light_color = Color( 0.611765, 0.87451, 0.976471, 1 )
-light_energy = 2.48242
+light_energy = 4.79836
 light_bake_mode = 0
 shadow_enabled = true
 shadow_reverse_cull_face = true
