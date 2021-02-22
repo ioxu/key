@@ -16,4 +16,4 @@ func _process(delta):
 		add_vertex(from)
 		add_vertex(to)
 		end()
-	
+

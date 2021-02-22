@@ -190,7 +190,6 @@ func _attack_exit() -> void:
 
 
 func _search_enter() -> void:
-	print("enter search ..")
 	pass
 
 
@@ -200,7 +199,7 @@ func _search(delta):
 		fsm.set_state("attack")
 
 	rotate_toward_target(delta)
-	rush_toward_target(delta)
+	search_toward_target(delta)
 
 	if (self.transform.origin - target.transform.origin).length() < 1.0:
 		if (target as PointOfInterest):
@@ -274,6 +273,12 @@ func rush_toward_target(delta) -> void:
 	direction = global_transform.origin - target.global_transform.origin
 	direction = direction.normalized() 
 	movement_speed = -1.0 * delta * rush_speed
+
+
+func search_toward_target(delta) -> void:
+	direction = global_transform.origin - target.global_transform.origin
+	direction = direction.normalized() 
+	movement_speed = -1.0 * delta * (rush_speed * 2.0)
 
 
 func evade_target(delta) -> void:
