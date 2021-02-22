@@ -45,7 +45,7 @@ var offset = 0.0
 
 var damage_rng = RandomNumberGenerator.new()
 
-const point_of_interest_scene = preload("res://data/enemies/point_of_interest.tscn")
+const point_of_interest_scene = preload("res://data/enemies/PointOfInterest.tscn")
 
 onready var hurt_meter = $MeshInstance/hurt_meter
 onready var fsm = $statemachine
@@ -100,11 +100,9 @@ func bullet_hit(bullet):
 	health -= damage
 	hurt_meter.set_factor( 1.0 - health/initial_health )
 
-	#if fsm.state == "idle":
 	if fsm.state in ["idle", "search"]:
-		# set a poi and switch to search state
 		if target:
-			if "point_of_interest" in target.get_name(): # TODO : use a type or something
+			if (target as PointOfInterest):
 				target.queue_free()
 				target = null
 
@@ -205,7 +203,7 @@ func _search(delta):
 	rush_toward_target(delta)
 
 	if (self.transform.origin - target.transform.origin).length() < 1.0:
-		if "point_of_interest" in target.get_name(): # TODO : use a type or something
+		if (target as PointOfInterest):
 			target.queue_free()
 			target = null
 		fsm.set_state("idle")
@@ -346,6 +344,8 @@ func toggle_active(new_value):
 func _on_vision_area_body_entered(body):
 	if body.is_in_group("Player") and body.targetable:
 		weapon.visible = true
+		if (target as PointOfInterest):
+			target.queue_free()
 		target = body
 		$vision_raycast.target = body
 		$vision_raycast.start()

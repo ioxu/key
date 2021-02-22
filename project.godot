@@ -9,18 +9,25 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Spatial",
+"class": "PointOfInterest",
+"language": "GDScript",
+"path": "res://data/enemies/PointOfInterest.gd"
+}, {
 "base": "Node",
 "class": "StateMachine",
 "language": "GDScript",
 "path": "res://data/statemachine/statemachine.gd"
 } ]
 _global_script_class_icons={
+"PointOfInterest": "",
 "StateMachine": ""
 }
 
 [application]
 
 config/name="Key"
+config/description="A twin stick shooter"
 run/main_scene="res://scenes/splash.tscn"
 config/icon="res://thumbnail.png"
 

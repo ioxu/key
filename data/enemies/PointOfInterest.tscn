@@ -1,11 +1,11 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://data/textures/debug/symbols_32px_question-mark.png" type="Texture" id=1]
-[ext_resource path="res://data/enemies/point_of_interest.gd" type="Script" id=2]
-[ext_resource path="res://data/textures/debug/simple_shadows_32px_default.png" type="Texture" id=3]
+[ext_resource path="res://data/textures/debug/simple_shadows_32px_default.png" type="Texture" id=2]
+[ext_resource path="res://data/enemies/PointOfInterest.gd" type="Script" id=3]
 
-[node name="point_of_interest" type="Spatial"]
-script = ExtResource( 2 )
+[node name="PointOfInterest" type="Spatial"]
+script = ExtResource( 3 )
 __meta__ = {
 "_editor_description_": "to stand in as a target, not necessarily a live player, usually a 3d location for enemies to investigate"
 }
@@ -13,7 +13,7 @@ __meta__ = {
 [node name="shadow" type="Sprite3D" parent="."]
 transform = Transform( 3, 0, 0, 0, -4.88762e-07, 3, 0, -3, -4.88762e-07, 0, 0, 0 )
 modulate = Color( 0, 0, 0, 0.231373 )
-texture = ExtResource( 3 )
+texture = ExtResource( 2 )
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.45, 0 )
