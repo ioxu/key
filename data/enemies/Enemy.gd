@@ -10,6 +10,7 @@ export(float) var acceleration = 3.0
 export(float) var deaceleration = 5.0
 
 var target : Spatial = null
+var target_last_known_position = null
 var can_see_target = false
 var direction := Vector3.ZERO
 var initial_movement_speed = movement_speed
@@ -124,6 +125,8 @@ func bullet_hit(bullet):
 func _idle_enter():
 	$alert_icon.visible = false
 	weapon.set_activated(false)
+	if (target as PointOfInterest):
+		target.queue_free()
 	target = null
 
 
@@ -131,7 +134,6 @@ func _idle(delta) -> void:
 	if $vision_raycast.can_see_target:
 		weapon.visible = true
 		fsm.set_state("attack")
-
 
 	# wander about a bit
 	var rot_y = noise.get_noise_1d( age * 25.0 + offset ) 
@@ -149,7 +151,6 @@ func _idle(delta) -> void:
 
 
 func _attack_enter() -> void:
-	#print("++ attack enter ++")
 	$alert_icon.visible = true
 	attack_move = "rush"
 	attack_move_timer.start( attack_move_rng.randf_range(0.2, 0.5) )
@@ -160,8 +161,21 @@ func _attack(delta) -> void:
 	if !$vision_raycast.can_see_target:
 		weapon.visible = false
 		weapon.activated = false
-		fsm.set_state("idle")
+		if target_last_known_position == null:
+			fsm.set_state("idle")
+		else:
+			if (target as PointOfInterest):
+				target.queue_free()
+				target = null
+			var poi = point_of_interest_scene.instance()
+			get_node("/root/").add_child(poi)
+			poi.transform.origin = target_last_known_position * Vector3(1.0, 0.0, 1.0)
+			self.target = poi
+			fsm.set_state("search")
 		return
+
+	if target:
+		target_last_known_position = target.transform.origin
 
 	rotate_toward_target(delta)
 
@@ -190,7 +204,7 @@ func _attack_exit() -> void:
 
 
 func _search_enter() -> void:
-	pass
+	weapon.set_activated(false)
 
 
 func _search(delta):
@@ -201,7 +215,7 @@ func _search(delta):
 	rotate_toward_target(delta)
 	search_toward_target(delta)
 
-	if (self.transform.origin - target.transform.origin).length() < 1.0:
+	if (self.transform.origin - target.transform.origin).length() < 1.5:
 		if (target as PointOfInterest):
 			target.queue_free()
 			target = null
@@ -294,12 +308,13 @@ func strafe_target(delta) -> void:
 
 
 func rotate_toward_target(delta) -> void:
-	var to = target.global_transform.origin
-	var look = Vector3(to.x, global_transform.origin.y , to.z)
-	var T=global_transform.looking_at(look, Vector3(0,1,0))
-	global_transform.basis.x = lerp(global_transform.basis.x, T.basis.x, delta * max_turn_rate ).normalized()
-	global_transform.basis.y = lerp(global_transform.basis.y, T.basis.y, delta * max_turn_rate ).normalized()
-	global_transform.basis.z = lerp(global_transform.basis.z, T.basis.z, delta * max_turn_rate ).normalized()
+	if target:
+		var to = target.global_transform.origin
+		var look = Vector3(to.x, global_transform.origin.y , to.z)
+		var T=global_transform.looking_at(look, Vector3(0,1,0))
+		global_transform.basis.x = lerp(global_transform.basis.x, T.basis.x, delta * max_turn_rate ).normalized()
+		global_transform.basis.y = lerp(global_transform.basis.y, T.basis.y, delta * max_turn_rate ).normalized()
+		global_transform.basis.z = lerp(global_transform.basis.z, T.basis.z, delta * max_turn_rate ).normalized()
 
 
 func within_aim_tolerance( tolerance ) -> bool:
@@ -361,13 +376,20 @@ func _on_vision_area_body_entered(body):
 
 func _on_vision_area_body_exited(body):
 	if body.is_in_group("Player"):
-		weapon.visible = false
+		if (target as PointOfInterest):
+			target.queue_free()
 		target = null
-		$statemachine.set_state("idle")
+		if target_last_known_position:
+			var poi = point_of_interest_scene.instance()
+			get_node("/root/").add_child(poi)
+			poi.transform.origin = target_last_known_position * Vector3(1.0, 0.0, 1.0)
+			self.target = poi
+			fsm.set_state("search")
+		else:
+			weapon.visible = false
+			fsm.set_state("idle")
 		$vision_raycast.target = null
 		$vision_raycast.stop()
-
-
 
 func _on_VisibilityNotifier_camera_entered(camera):
 	# return to full processing
