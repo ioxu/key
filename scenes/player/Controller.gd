@@ -17,12 +17,16 @@ export(float) var zoom_speed = 4.0
 onready var player : KinematicBody = get_node(PlayerPath)
 onready var camera : Camera = get_node(CameraPath)
 onready var camera_root = get_node(CameraRootPath)
+onready var camera_base = get_node(CameraRootPath).find_node("camera_base") # InnerGimbal
 onready var camera_boom = camera_root.find_node("camera_boom")
 onready var meshinstance = get_node(MeshInstancePath)
 onready var weapon = player.find_node("weapon_mount").get_child(0)
-#onready var bullet_initial_transform = meshinstance.get_child(0)
 onready var raycast : RayCast = player.get_node("RayCast")
-onready var camera_base = get_node(CameraRootPath).find_node("camera_base") # InnerGimbal
+
+var camera_lookahead_factor = 0.0
+var camera_lookahead_direction : Vector3 # keep normalised
+var camera_lookahead_direction_actual : Vector3
+var camera_lookahead_factor_actual = 0.0
 var direction := Vector3.ZERO
 var last_direction := Vector3.ZERO
 var camera_rotation
@@ -56,8 +60,12 @@ func _unhandled_input(event):
 		var horizontal = Input.get_action_strength("look_right") - Input.get_action_strength("look_left")
 		var vertical = Input.get_action_strength("look_up") - Input.get_action_strength("look_down")
 		if look_joy_outside_deadzone():
-			rotate_mesh( Vector2(horizontal,vertical), ROTATION_INPUT.JOYSTICK )
+			var v = Vector2(horizontal,vertical)
+			rotate_mesh( v, ROTATION_INPUT.JOYSTICK )
+			camera_lookahead_direction = get_camera_lookahead_direction(v, ROTATION_INPUT.JOYSTICK)
+			camera_lookahead_factor = v.length()
 		else:
+			camera_lookahead_factor = 0.0
 			rotate_mesh( speed, ROTATION_INPUT.MOVE_DIR )
 
 	# mesh rotation with mouse motion
@@ -94,19 +102,25 @@ func get_move_direction_length():
 	return Vector2(horizontal, vertical).length()
 
 
+func get_camera_lookahead_direction(event_data : Vector2, input_method):
+	match input_method:
+		ROTATION_INPUT.JOYSTICK:
+			var av = event_data.normalized()
+			var rot = atan2(av.y,av.x)
+			rot += camera_base.get_rotation().y 
+			return Vector3(1.0,0.0,0.0).rotated( Vector3.UP, rot )
+
+
 func rotate_mesh( event_data, input_method ):
 	match input_method:
 		ROTATION_INPUT.JOYSTICK:
-			#event_data is right joystick axis strength
 			var av = event_data.normalized()
 			var rot = atan2(event_data.y,event_data.x)*180/PI
 			rot += camera_base.get_rotation_degrees().y 
 			rot += 90.0
-#			actual_mesh_rot_y = lerp(actual_mesh_rot_y, rot, rotation_speed)#lerp(actual_mesh_rot_y, rot, rotation_speed)
-#			meshinstance.set_rotation_degrees(Vector3(-90.0,actual_mesh_rot_y,0.0))
 			meshinstance.set_rotation_degrees(Vector3(-90,rot,0))
 		ROTATION_INPUT.MOUSE:
-			var ray_length := 100.0
+			var ray_length := 600.0
 			var from = camera.project_ray_origin( event_data.position ) - player.transform.origin
 			var to = from + camera.project_ray_normal(event_data.position) * ray_length
 			raycast.translation = from
@@ -181,6 +195,12 @@ func _physics_process(dt):
 		current_vertical_speed.y = 0.0
 		is_airborne = false
 
-	# zoom
+	# dolly
 	actual_zoom = lerp(actual_zoom, zoom_factor, dt * zoom_speed)
 	camera_boom.translation = Vector3(0.0, 0.0, actual_zoom)
+
+	# lookahead
+	camera_lookahead_factor_actual = lerp(camera_lookahead_factor_actual, camera_lookahead_factor, dt * 3.0 )
+	camera_lookahead_direction_actual = camera_lookahead_direction_actual.linear_interpolate(camera_lookahead_direction, dt * 1.0)
+	camera_root.transform.origin = camera_lookahead_direction_actual * camera_lookahead_factor_actual * 7.5
+

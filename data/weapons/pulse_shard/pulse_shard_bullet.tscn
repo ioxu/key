@@ -8,7 +8,7 @@ friction = 0.65
 bounce = 0.05
 
 [sub_resource type="BoxShape" id=2]
-extents = Vector3( 0.0497693, 0.413231, 0.50189 )
+extents = Vector3( 0.206013, 0.413231, 0.544887 )
 
 [sub_resource type="ShaderMaterial" id=3]
 shader = ExtResource( 2 )

@@ -284,9 +284,10 @@ func hold_to_target(delta) -> void:
 
 
 func rush_toward_target(delta) -> void:
-	direction = global_transform.origin - target.global_transform.origin
-	direction = direction.normalized() 
-	movement_speed = -1.0 * delta * rush_speed
+	if target:
+		direction = global_transform.origin - target.global_transform.origin
+		direction = direction.normalized() 
+		movement_speed = -1.0 * delta * rush_speed
 
 
 func search_toward_target(delta) -> void:
@@ -390,6 +391,7 @@ func _on_vision_area_body_exited(body):
 			fsm.set_state("idle")
 		$vision_raycast.target = null
 		$vision_raycast.stop()
+
 
 func _on_VisibilityNotifier_camera_entered(camera):
 	# return to full processing
