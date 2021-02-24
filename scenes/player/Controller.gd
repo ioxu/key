@@ -201,6 +201,6 @@ func _physics_process(dt):
 
 	# lookahead
 	camera_lookahead_factor_actual = lerp(camera_lookahead_factor_actual, camera_lookahead_factor, dt * 3.0 )
-	camera_lookahead_direction_actual = camera_lookahead_direction_actual.linear_interpolate(camera_lookahead_direction, dt * 1.0)
+	camera_lookahead_direction_actual = camera_lookahead_direction_actual.linear_interpolate(camera_lookahead_direction, dt * 1.5)
 	camera_root.transform.origin = camera_lookahead_direction_actual * camera_lookahead_factor_actual * 7.5
 

@@ -1,6 +1,6 @@
 extends KinematicBody
 
-export var initial_health : float = 1000.0
+export var initial_health : float = 100.0#1000.0
 var health : float
 export(bool) var active = true setget toggle_active
 export(float) var movement_speed = 7.5
@@ -47,6 +47,7 @@ var offset = 0.0
 var damage_rng = RandomNumberGenerator.new()
 
 const point_of_interest_scene = preload("res://data/enemies/PointOfInterest.tscn")
+const enemy_corpse_scene = preload("res://data/enemies/EnemyCorpse.tscn")
 
 onready var hurt_meter = $MeshInstance/hurt_meter
 onready var fsm = $statemachine
@@ -115,8 +116,27 @@ func bullet_hit(bullet):
 		
 	# die
 	if health <= 0.0:
+		toggle_active(false)
+		
 		if DO_TRAVEL_PATH:
 			travel_path.queue_free()
+
+		if (target as PointOfInterest):
+			target.queue_free()
+			target = null
+
+		var corpse = enemy_corpse_scene.instance()
+		corpse.transform = self.transform
+		get_node("/root/").add_child(corpse)
+		var impulse = Vector3(0.0, 35.0, 0.0) + bullet.transform.basis.z * 25.0
+		var impulse_location = transform.basis.z * -0.4 + Vector3(0.0, -0.15, 0.0)
+		corpse.apply_impulse ( impulse_location, impulse)
+
+		set_process(false)
+		set_process_internal(false)
+		set_physics_process(false)
+		set_physics_process_internal(false)
+		$vision_raycast.stop()
 		queue_free()
 
 
@@ -177,26 +197,26 @@ func _attack(delta) -> void:
 	if target:
 		target_last_known_position = target.transform.origin
 
-	rotate_toward_target(delta)
+		rotate_toward_target(delta)
 
-	var do_fire = firing_noise_rng.get_noise_1d(age + age_offset) > 0.0
-	if do_fire:
-		activate_weapon(delta)
-	else:
-		deactivate_wepon()
+		var do_fire = firing_noise_rng.get_noise_1d(age + age_offset) > 0.0
+		if do_fire:
+			activate_weapon(delta)
+		else:
+			deactivate_wepon()
 
-	# le fsm petite
-	match attack_move:
-		"rush":
-			rush_toward_target(delta)
-		"hold":
-			hold_to_target(delta)
-		"evade":
-			evade_target(delta)
-		"strafe":
-			strafe_target(delta)
-	
-	move_to_ideal_distance(delta)
+		# le fsm petite
+		match attack_move:
+			"rush":
+				rush_toward_target(delta)
+			"hold":
+				hold_to_target(delta)
+			"evade":
+				evade_target(delta)
+			"strafe":
+				strafe_target(delta)
+		
+		move_to_ideal_distance(delta)
 
 
 func _attack_exit() -> void:
@@ -212,14 +232,15 @@ func _search(delta):
 		weapon.visible = true
 		fsm.set_state("attack")
 
-	rotate_toward_target(delta)
-	search_toward_target(delta)
+	if target:
+		rotate_toward_target(delta)
+		search_toward_target(delta)
 
-	if (self.transform.origin - target.transform.origin).length() < 1.5:
-		if (target as PointOfInterest):
-			target.queue_free()
-			target = null
-		fsm.set_state("idle")
+		if (self.transform.origin - target.transform.origin).length() < 1.5:
+			if (target as PointOfInterest):
+				target.queue_free()
+				target = null
+			fsm.set_state("idle")
 
 
 # /states
@@ -291,9 +312,10 @@ func rush_toward_target(delta) -> void:
 
 
 func search_toward_target(delta) -> void:
-	direction = global_transform.origin - target.global_transform.origin
-	direction = direction.normalized() 
-	movement_speed = -1.0 * delta * (rush_speed * 2.0)
+	if target:
+		direction = global_transform.origin - target.global_transform.origin
+		direction = direction.normalized() 
+		movement_speed = -1.0 * delta * (rush_speed * 2.0)
 
 
 func evade_target(delta) -> void:
@@ -319,11 +341,14 @@ func rotate_toward_target(delta) -> void:
 
 
 func within_aim_tolerance( tolerance ) -> bool:
-	var dir = -1.0 * global_transform.basis.z
-	var dir_to_player = ((target.global_transform.origin - global_transform.origin) *
-		Vector3(1.0, 0.0, 1.0)).normalized()
-	return dir.dot( dir_to_player ) > (1.0 - tolerance)
-	
+	if target:
+		var dir = -1.0 * global_transform.basis.z
+		var dir_to_player = ((target.global_transform.origin - global_transform.origin) *
+			Vector3(1.0, 0.0, 1.0)).normalized()
+		return dir.dot( dir_to_player ) > (1.0 - tolerance)
+	else:
+		return false
+
 
 func _physics_process(delta):
 	age += delta
@@ -367,6 +392,7 @@ func _on_vision_area_body_entered(body):
 		weapon.visible = true
 		if (target as PointOfInterest):
 			target.queue_free()
+			target=null
 		target = body
 		$vision_raycast.target = body
 		$vision_raycast.start()
@@ -376,9 +402,17 @@ func _on_vision_area_body_entered(body):
 
 
 func _on_vision_area_body_exited(body):
-	if body.is_in_group("Player"):
+	# I think this gets called when self is
+	# queue_free'd, and the vision area is removed
+	if self.is_queued_for_deletion():
 		if (target as PointOfInterest):
 			target.queue_free()
+			target = null
+
+	if body.is_in_group("Player") and !self.is_queued_for_deletion() and is_instance_valid(self):
+		if (target as PointOfInterest):
+			target.queue_free()
+			target = null
 		target = null
 		if target_last_known_position:
 			var poi = point_of_interest_scene.instance()

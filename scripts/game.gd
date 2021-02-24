@@ -38,7 +38,8 @@ func _input(event):
 		get_tree().quit()
 	elif event.is_action_pressed("ui_fullscreen"):
 		_go_fullscreen()
-
+	elif event.is_action_pressed("ui_reset"):
+		get_tree().reload_current_scene()
 
 func resize():
 	var root = get_node("/root")

@@ -17,6 +17,7 @@ height = 0.55
 
 [sub_resource type="CapsuleMesh" id=2]
 radius = 0.273
+radial_segments = 32
 
 [sub_resource type="CubeMesh" id=3]
 size = Vector3( 0.075, 0.084, 0.101 )
@@ -89,7 +90,7 @@ mesh = SubResource( 5 )
 material/0 = ExtResource( 1 )
 
 [node name="hurt_meter" parent="MeshInstance" instance=ExtResource( 3 )]
-transform = Transform( 0.5, 0, 0, 0, -6.55671e-08, 0.5, 0, -1.5, -2.18557e-08, 0, -1.39755e-07, 0.857811 )
+transform = Transform( 0.5, -1.35525e-20, 0, 0, -6.55671e-08, 0.5, 0, -1.5, -2.18557e-08, 3.63625e-21, -1.39755e-07, 0.857811 )
 mesh = SubResource( 6 )
 
 [node name="weapon_mount" type="Spatial" parent="MeshInstance"]
