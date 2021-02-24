@@ -373,7 +373,6 @@ func _physics_process(delta):
 
 
 func toggle_active(new_value):
-	print(self, " active ", new_value)
 	if new_value:
 		self.visible = true
 		$CollisionShape.disabled = false

@@ -57,7 +57,7 @@ func set_activated(new_value: bool) -> void:
 func fire():
 	muzzle_flash.visible = true
 	muzzle_flash_light.visible = true
-	anim_player.seek(0.0)
+	anim_player.stop(true)
 	anim_player.play("muzzle_flash")
 	#print("  pew (%s/%s) %s"%[magazine_count, base_magazine_size, firing_time])
 	magazine_count -= 1
