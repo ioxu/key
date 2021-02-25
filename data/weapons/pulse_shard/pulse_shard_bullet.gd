@@ -7,16 +7,13 @@ export var is_enemy_bullet := false
 var starting_position : Vector3 = Vector3.ZERO
 var hit_something = false
 
+const bullet_enemy_shader = preload("res://data/weapons/pulse_shard/pulse_shard_bullet_enemy.material")
 
 func _ready():
 	if is_enemy_bullet:
 		collision_layer = 16
 		collision_mask = 1 + 2 + 128
-		# dedicated enemy bullet shader instead of material duplication?
-		var mat_override = $MeshInstance.mesh.surface_get_material(0).duplicate()
-		mat_override.set_shader_param("emission", Color(0.722656, 0.26535, 0.619048))
-		mat_override.set_shader_param("emission_energy", 30)
-		$MeshInstance.set_material_override( mat_override )
+		$MeshInstance.set_material_override(bullet_enemy_shader)
 		$free_timer.wait_time = 2.0
 	connect("body_entered", self, "collided")
 	$free_timer.start()

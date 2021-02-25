@@ -36,6 +36,10 @@ config/icon="res://thumbnail.png"
 Game="*res://scripts/game.gd"
 Util="*res://scripts/util.gd"
 
+[debug]
+
+gdscript/warnings/unused_argument=false
+
 [input]
 
 ui_cancel={
