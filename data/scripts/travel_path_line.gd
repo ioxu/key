@@ -25,7 +25,7 @@ func _ready():
 
 
 func _process(delta):
-	if (track_object.global_transform.origin - point_array.back()).length() > distance_threshold:
+	if track_object and (track_object.global_transform.origin - point_array.back()).length() > distance_threshold:
 		point_array.append(track_object.global_transform.origin + position_offset)
 		if point_array.size() > max_points:
 			point_array.pop_front()

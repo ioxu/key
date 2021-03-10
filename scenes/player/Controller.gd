@@ -115,7 +115,7 @@ func rotate_mesh( event_data, input_method ):
 	match input_method:
 		ROTATION_INPUT.JOYSTICK:
 			var av = event_data.normalized()
-			var rot = atan2(event_data.y,event_data.x)*180/PI
+			var rot = atan2(av.y,av.x)*180/PI
 			rot += camera_base.get_rotation_degrees().y 
 			rot += 90.0
 			meshinstance.set_rotation_degrees(Vector3(-90,rot,0))

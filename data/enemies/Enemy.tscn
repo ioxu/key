@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://data/enemies/Enemy_material.tres" type="Material" id=1]
 [ext_resource path="res://data/enemies/Enemy.gd" type="Script" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://data/enemies/vision_raycast.gd" type="Script" id=8]
 [ext_resource path="res://data/shaders/sight_line.material" type="Material" id=9]
 [ext_resource path="res://data/weapons/pulse_shard/pulse_shard.tscn" type="PackedScene" id=10]
+[ext_resource path="res://data/enemies/sensable_area.gd" type="Script" id=11]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.55
@@ -57,6 +58,21 @@ emission = Color( 0.180392, 0.427451, 0.556863, 1 )
 emission_energy = 3.12
 emission_operator = 0
 emission_on_uv2 = false
+
+[sub_resource type="BoxShape" id=10]
+extents = Vector3( 0.5, 1, 0.5 )
+
+[sub_resource type="CylinderShape" id=11]
+radius = 7.5
+
+[sub_resource type="SpatialMaterial" id=12]
+flags_transparent = true
+albedo_color = Color( 0.882353, 0.254902, 0.254902, 0.105882 )
+
+[sub_resource type="CylinderMesh" id=13]
+material = SubResource( 12 )
+top_radius = 7.5
+bottom_radius = 7.5
 
 [node name="Enemy" type="KinematicBody" groups=[
 "Enemies",
@@ -136,6 +152,34 @@ polygon = PoolVector2Array( -2, -2, -2, 2, 15, 5, 15, -5 )
 depth = 0.139
 material = SubResource( 9 )
 
+[node name="sensable_area" type="Area" parent="." groups=[
+"npc_sensable_area",
+]]
+script = ExtResource( 11 )
+__meta__ = {
+"_editor_description_": "Area that other sensing areas can sense.
+These sensable areas emit signals that overlapping sensing areas can recieve."
+}
+sibling_sensing_area = NodePath("../sensing_area")
+
+[node name="CollisionShape" type="CollisionShape" parent="sensable_area"]
+shape = SubResource( 10 )
+
+[node name="sensing_area" type="Area" parent="." groups=[
+"npc_sensing_area",
+]]
+__meta__ = {
+"_editor_description_": "Areas that recieve messages from sensable areas."
+}
+
+[node name="CollisionShape" type="CollisionShape" parent="sensing_area"]
+shape = SubResource( 11 )
+
+[node name="MeshInstance" type="MeshInstance" parent="sensing_area"]
+transform = Transform( 1, 0, 0, 0, 0.0920906, 0, 0, 0, 1, 0, 0, 0 )
+mesh = SubResource( 13 )
+material/0 = null
+
 [node name="alert_icon" type="Sprite3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.67777, 0 )
 cast_shadow = 0
@@ -154,5 +198,7 @@ aabb = AABB( -0.569326, -0.784382, -0.567054, 1.13865, 1.5756, 1.13411 )
 [connection signal="timeout" from="vision_raycast/routine_check" to="vision_raycast" method="_on_routine_check_timeout"]
 [connection signal="body_entered" from="vision_area" to="." method="_on_vision_area_body_entered"]
 [connection signal="body_exited" from="vision_area" to="." method="_on_vision_area_body_exited"]
+[connection signal="area_entered" from="sensable_area" to="sensable_area" method="_on_sensable_area_area_entered"]
+[connection signal="area_exited" from="sensable_area" to="sensable_area" method="_on_sensable_area_area_exited"]
 [connection signal="camera_entered" from="VisibilityNotifier" to="." method="_on_VisibilityNotifier_camera_entered"]
 [connection signal="camera_exited" from="VisibilityNotifier" to="." method="_on_VisibilityNotifier_camera_exited"]

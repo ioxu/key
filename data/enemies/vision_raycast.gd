@@ -33,7 +33,7 @@ func _is_target_visible():
 		cast_to = to_local(to).normalized() * 15.0
 		if is_colliding():
 			var collider = get_collider()
-			if collider.is_in_group("Player"):
+			if collider and collider.is_in_group("Player"):
 				$sight_indicator.transform.origin = to_local(get_collision_point())
 				can_see_target = true
 			else:

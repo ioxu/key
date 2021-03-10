@@ -85,7 +85,7 @@ func _ready():
 
 	$alert_icon.visible = false
 	target = null
-	
+
 	# wait a bit
 	set_physics_process(false)
 	set_physics_process_internal(false)
@@ -96,6 +96,9 @@ func _ready():
 
 	$hurtbox.connect("bullet_hit", self, "bullet_hit")
 	
+	#print("Enemy ready (", self.get_path(), ")\n   active: ", self.active)
+	self.toggle_active(self.active)
+
 
 func bullet_hit(bullet):
 	var damage = damage_rng.randf_range(bullet.damage_range[0], bullet.damage_range[1])
@@ -118,7 +121,7 @@ func bullet_hit(bullet):
 	if health <= 0.0:
 		toggle_active(false)
 		
-		if DO_TRAVEL_PATH:
+		if DO_TRAVEL_PATH and active:
 			travel_path.queue_free()
 
 		if (target as PointOfInterest):
@@ -132,10 +135,10 @@ func bullet_hit(bullet):
 		var impulse_location = transform.basis.z * -0.4 + Vector3(0.0, -0.15, 0.0)
 		corpse.apply_impulse ( impulse_location, impulse)
 
-		set_process(false)
-		set_process_internal(false)
-		set_physics_process(false)
-		set_physics_process_internal(false)
+#		set_process(false)
+#		set_process_internal(false)
+#		set_physics_process(false)
+#		set_physics_process_internal(false)
 		$vision_raycast.stop()
 		queue_free()
 
@@ -174,6 +177,12 @@ func _attack_enter() -> void:
 	$alert_icon.visible = true
 	attack_move = "rush"
 	attack_move_timer.start( attack_move_rng.randf_range(0.2, 0.5) )
+
+#	var overlapping_areas = $sensable_area.get_overlapping_areas()
+#	print("overlapping areas for ", $sensable_area.get_path() )
+#	for a in overlapping_areas:
+#		if a.is_in_group("npc_sensing_area"):
+#			print("  ",a.get_path())
 
 
 func _attack(delta) -> void:
@@ -378,11 +387,25 @@ func toggle_active(new_value):
 		$CollisionShape.disabled = false
 		$hurtbox/CollisionShape.disabled = false
 		$vision_area/CollisionPolygon.disabled = false
+		$sensable_area.monitoring = true
+		$sensing_area.monitorable = true
+		set_process(true)
+		set_process_internal(true)
+		set_physics_process(true)
+		set_physics_process_internal(true)
+		#$vision_raycast.start()
 	else:
 		self.visible = false
 		$CollisionShape.disabled = true
 		$hurtbox/CollisionShape.disabled = true
 		$vision_area/CollisionPolygon.disabled = true
+		$sensable_area.monitoring = false
+		$sensing_area.monitorable = false
+		set_process(false)
+		set_process_internal(false)
+		set_physics_process(false)
+		set_physics_process_internal(false)
+		#$vision_raycast.stop()
 	active = new_value
 
 
