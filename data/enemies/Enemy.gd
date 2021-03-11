@@ -106,15 +106,16 @@ func bullet_hit(bullet):
 	hurt_meter.set_factor( 1.0 - health/initial_health )
 
 	if fsm.state in ["idle", "search"]:
-		if target:
-			if (target as PointOfInterest):
-				target.queue_free()
-				target = null
-
-		var poi = point_of_interest_scene.instance()
-		get_node("/root/").add_child(poi)
-		poi.transform.origin = bullet.starting_position
-		self.target = poi
+#		if target:
+#			if (target as PointOfInterest):
+#				target.queue_free()
+#				target = null
+#
+#		var poi = point_of_interest_scene.instance()
+#		get_node("/root/").add_child(poi)
+#		poi.transform.origin = bullet.starting_position
+#		self.target = poi
+		set_new_poi_target(bullet.starting_position)
 		fsm.set_state("search")
 		
 	# die
@@ -135,10 +136,6 @@ func bullet_hit(bullet):
 		var impulse_location = transform.basis.z * -0.4 + Vector3(0.0, -0.15, 0.0)
 		corpse.apply_impulse ( impulse_location, impulse)
 
-#		set_process(false)
-#		set_process_internal(false)
-#		set_physics_process(false)
-#		set_physics_process_internal(false)
 		$vision_raycast.stop()
 		queue_free()
 
@@ -177,12 +174,6 @@ func _attack_enter() -> void:
 	$alert_icon.visible = true
 	attack_move = "rush"
 	attack_move_timer.start( attack_move_rng.randf_range(0.2, 0.5) )
-
-#	var overlapping_areas = $sensable_area.get_overlapping_areas()
-#	print("overlapping areas for ", $sensable_area.get_path() )
-#	for a in overlapping_areas:
-#		if a.is_in_group("npc_sensing_area"):
-#			print("  ",a.get_path())
 
 
 func _attack(delta) -> void:
@@ -449,11 +440,22 @@ func _on_vision_area_body_exited(body):
 		$vision_raycast.stop()
 
 
+func set_new_poi_target(position: Vector3):
+		if target:
+			if (target as PointOfInterest):
+				target.queue_free()
+				target = null
+
+		var poi = point_of_interest_scene.instance()
+		get_node("/root/").add_child(poi)
+		poi.transform.origin = position * Vector3(1.0, 0.0, 1.0)
+		self.target = poi
+
+
 func _on_VisibilityNotifier_camera_entered(camera):
 	# return to full processing
 	#print(self.get_path(), " entered camera")
 	pass
-
 
 
 func _on_VisibilityNotifier_camera_exited(camera):

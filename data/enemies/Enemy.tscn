@@ -63,7 +63,7 @@ emission_on_uv2 = false
 extents = Vector3( 0.5, 1, 0.5 )
 
 [sub_resource type="CylinderShape" id=11]
-radius = 7.5
+radius = 8.5
 
 [sub_resource type="SpatialMaterial" id=12]
 flags_transparent = true
@@ -71,8 +71,8 @@ albedo_color = Color( 0.882353, 0.254902, 0.254902, 0.105882 )
 
 [sub_resource type="CylinderMesh" id=13]
 material = SubResource( 12 )
-top_radius = 7.5
-bottom_radius = 7.5
+top_radius = 8.5
+bottom_radius = 8.5
 
 [node name="Enemy" type="KinematicBody" groups=[
 "Enemies",
