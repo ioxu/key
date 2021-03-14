@@ -54,7 +54,7 @@ onready var fsm = $statemachine
 
 signal notify_allies
 onready var ally_notification_timer = Timer.new()
-var ally_notification_cooldown = 0.5
+var ally_notification_cooldown = 0.35
 
 
 func _ready():
