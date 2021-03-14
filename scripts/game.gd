@@ -41,6 +41,7 @@ func _input(event):
 	elif event.is_action_pressed("ui_reset"):
 		get_tree().reload_current_scene()
 
+
 func resize():
 	var root = get_node("/root")
 	var resolution = root.get_visible_rect() #root.get_rect()

@@ -41,4 +41,4 @@ func _exit_state(old_state, new_state):
 		"attack":
 			parent._attack_exit()
 		"search":
-			pass
+			parent._search_exit()

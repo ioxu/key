@@ -52,6 +52,10 @@ const enemy_corpse_scene = preload("res://data/enemies/EnemyCorpse.tscn")
 onready var hurt_meter = $MeshInstance/hurt_meter
 onready var fsm = $statemachine
 
+signal notify_allies
+onready var ally_notification_timer = Timer.new()
+var ally_notification_cooldown = 0.5
+
 
 func _ready():
 	age_offset_rng.randomize()
@@ -68,6 +72,9 @@ func _ready():
 	add_child(attack_move_timer)
 	attack_move_timer.connect("timeout",self,"_on_attack_move_timer_timeout") 
 	attack_move_timer.set_one_shot(true)
+
+	add_child(ally_notification_timer)
+	ally_notification_timer.set_one_shot(true)
 
 	weapon.visible = false
 	
@@ -93,10 +100,7 @@ func _ready():
 	$CollisionShape.disabled = false
 	set_physics_process(true)
 	set_physics_process_internal(true)
-
 	$hurtbox.connect("bullet_hit", self, "bullet_hit")
-	
-	#print("Enemy ready (", self.get_path(), ")\n   active: ", self.active)
 	self.toggle_active(self.active)
 
 
@@ -106,17 +110,10 @@ func bullet_hit(bullet):
 	hurt_meter.set_factor( 1.0 - health/initial_health )
 
 	if fsm.state in ["idle", "search"]:
-#		if target:
-#			if (target as PointOfInterest):
-#				target.queue_free()
-#				target = null
-#
-#		var poi = point_of_interest_scene.instance()
-#		get_node("/root/").add_child(poi)
-#		poi.transform.origin = bullet.starting_position
-#		self.target = poi
 		set_new_poi_target(bullet.starting_position)
 		fsm.set_state("search")
+		ally_notification_timer.start(ally_notification_cooldown)
+		emit_signal("notify_allies", "new_search_point", self)
 		
 	# die
 	if health <= 0.0:
@@ -174,6 +171,8 @@ func _attack_enter() -> void:
 	$alert_icon.visible = true
 	attack_move = "rush"
 	attack_move_timer.start( attack_move_rng.randf_range(0.2, 0.5) )
+	ally_notification_timer.start(ally_notification_cooldown)
+	emit_signal("notify_allies", "enemy_spotted", self)
 
 
 func _attack(delta) -> void:
@@ -221,10 +220,12 @@ func _attack(delta) -> void:
 
 func _attack_exit() -> void:
 	attack_move_timer.stop()
-
+	ally_notification_timer.stop()
 
 func _search_enter() -> void:
 	weapon.set_activated(false)
+	ally_notification_timer.start(ally_notification_cooldown)
+	emit_signal("notify_allies", "new_search_point", self)
 
 
 func _search(delta):
@@ -241,6 +242,10 @@ func _search(delta):
 				target.queue_free()
 				target = null
 			fsm.set_state("idle")
+
+
+func _search_exit() -> void:
+	ally_notification_timer.stop()
 
 
 # /states
@@ -423,15 +428,8 @@ func _on_vision_area_body_exited(body):
 			target = null
 
 	if body.is_in_group("Player") and !self.is_queued_for_deletion() and is_instance_valid(self):
-		if (target as PointOfInterest):
-			target.queue_free()
-			target = null
-		target = null
 		if target_last_known_position:
-			var poi = point_of_interest_scene.instance()
-			get_node("/root/").add_child(poi)
-			poi.transform.origin = target_last_known_position * Vector3(1.0, 0.0, 1.0)
-			self.target = poi
+			set_new_poi_target(target_last_known_position)
 			fsm.set_state("search")
 		else:
 			weapon.visible = false
@@ -440,16 +438,35 @@ func _on_vision_area_body_exited(body):
 		$vision_raycast.stop()
 
 
-func set_new_poi_target(position: Vector3):
+func clear_poi_target():
 		if target:
 			if (target as PointOfInterest):
 				target.queue_free()
 				target = null
 
+
+func set_new_poi_target(position: Vector3):
+		clear_poi_target()
 		var poi = point_of_interest_scene.instance()
 		get_node("/root/").add_child(poi)
 		poi.transform.origin = position * Vector3(1.0, 0.0, 1.0)
 		self.target = poi
+
+
+func _on_ally_notification(notification_type:String, emitter ):
+	if ally_notification_timer.get_time_left() <= 0.0:
+		match notification_type:
+			"new_search_point":
+				if emitter.target:
+					set_new_poi_target(emitter.target.transform.origin)
+					if fsm.state != "search":
+						fsm.set_state("search")
+			"enemy_spotted":
+				clear_poi_target()
+				if emitter.target:
+					target = emitter.target
+					if fsm.state != "search":
+						fsm.set_state("search")
 
 
 func _on_VisibilityNotifier_camera_entered(camera):
@@ -462,3 +479,4 @@ func _on_VisibilityNotifier_camera_exited(camera):
 	# LOD process, animation and, movement
 	#print(self.get_path(), " exited camera")
 	pass
+ 

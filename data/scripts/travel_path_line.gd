@@ -43,7 +43,7 @@ func _process(delta):
 #	begin(Mesh.PRIMITIVE_POINTS)
 #	for i in range(p_size):
 #		if i !=0:
-#			set_color(trail_colour * Color(1.0, 1.0, 1.0, falloff_lut(float(i)/p_size)))
+#			set_color(trail_colour * Color(1.0, 1.0, 1.0, falloff_lut.interpolate_baked(float(i)/p_size)))
 #		else:
 #			set_color(trail_colour * Color(1.0, 1.0, 1.0, 0.0))
 #		add_vertex(point_array[i])
