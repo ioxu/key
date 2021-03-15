@@ -54,7 +54,11 @@ onready var fsm = $statemachine
 
 signal notify_allies
 onready var ally_notification_timer = Timer.new()
-var ally_notification_cooldown = 0.35
+var ally_notification_cooldown = 0.5
+enum ally_notification { 
+	ENEMY_SPOTTED,
+	NEW_SEARCH_POINT
+}
 
 
 func _ready():
@@ -112,9 +116,10 @@ func bullet_hit(bullet):
 	if fsm.state in ["idle", "search"]:
 		set_new_poi_target(bullet.starting_position)
 		fsm.set_state("search")
-		ally_notification_timer.start(ally_notification_cooldown)
-		emit_signal("notify_allies", "new_search_point", self)
-		
+#		ally_notification_timer.start(ally_notification_cooldown)
+#		emit_signal("notify_allies", "new_search_point", self)
+#		emit_communication_signal( ally_notification.NEW_SEARCH_POINT)
+
 	# die
 	if health <= 0.0:
 		toggle_active(false)
@@ -171,8 +176,7 @@ func _attack_enter() -> void:
 	$alert_icon.visible = true
 	attack_move = "rush"
 	attack_move_timer.start( attack_move_rng.randf_range(0.2, 0.5) )
-	ally_notification_timer.start(ally_notification_cooldown)
-	emit_signal("notify_allies", "enemy_spotted", self)
+	emit_communication_signal( ally_notification.ENEMY_SPOTTED)
 
 
 func _attack(delta) -> void:
@@ -224,8 +228,7 @@ func _attack_exit() -> void:
 
 func _search_enter() -> void:
 	weapon.set_activated(false)
-	ally_notification_timer.start(ally_notification_cooldown)
-	emit_signal("notify_allies", "new_search_point", self)
+	emit_communication_signal( ally_notification.NEW_SEARCH_POINT)
 
 
 func _search(delta):
@@ -355,7 +358,7 @@ func within_aim_tolerance( tolerance ) -> bool:
 		return false
 
 
-func _physics_process(delta):
+func _physics_process(delta) -> void:
 	age += delta
 
 	direction.y = 0.0
@@ -377,7 +380,7 @@ func _physics_process(delta):
 		is_airborne = false
 
 
-func toggle_active(new_value):
+func toggle_active(new_value) -> void:
 	if new_value:
 		self.visible = true
 		$CollisionShape.disabled = false
@@ -405,7 +408,7 @@ func toggle_active(new_value):
 	active = new_value
 
 
-func _on_vision_area_body_entered(body):
+func _on_vision_area_body_entered(body) -> void:
 	if body.is_in_group("Player") and body.targetable:
 		weapon.visible = true
 		if (target as PointOfInterest):
@@ -419,7 +422,7 @@ func _on_vision_area_body_entered(body):
 			$statemachine.set_state("attack")
 
 
-func _on_vision_area_body_exited(body):
+func _on_vision_area_body_exited(body) -> void:
 	# I think this gets called when self is
 	# queue_free'd, and the vision area is removed
 	if self.is_queued_for_deletion():
@@ -438,44 +441,52 @@ func _on_vision_area_body_exited(body):
 		$vision_raycast.stop()
 
 
-func clear_poi_target():
+func clear_poi_target() -> void:
 		if target:
 			if (target as PointOfInterest):
 				target.queue_free()
 				target = null
 
 
-func set_new_poi_target(position: Vector3):
+func set_new_poi_target(position: Vector3) -> void:
 		clear_poi_target()
 		var poi = point_of_interest_scene.instance()
 		get_node("/root/").add_child(poi)
 		poi.transform.origin = position * Vector3(1.0, 0.0, 1.0)
 		self.target = poi
 
+# ------------------------------------------------------------------------------
+# communication signals
+func emit_communication_signal( notification_type:int):
+	ally_notification_timer.start(ally_notification_cooldown)
+	emit_signal("notify_allies", notification_type, self)
 
-func _on_ally_notification(notification_type:String, emitter ):
+
+func _on_ally_notification( notification_type:int, emitter ) -> void:
 	if ally_notification_timer.get_time_left() <= 0.0:
 		match notification_type:
-			"new_search_point":
+			ally_notification.NEW_SEARCH_POINT:
 				if emitter.target:
 					set_new_poi_target(emitter.target.transform.origin)
 					if fsm.state != "search":
 						fsm.set_state("search")
-			"enemy_spotted":
+			ally_notification.ENEMY_SPOTTED:
 				clear_poi_target()
 				if emitter.target:
 					target = emitter.target
 					if fsm.state != "search":
 						fsm.set_state("search")
 
+# ------------------------------------------------------------------------------
+# /communication signals
 
-func _on_VisibilityNotifier_camera_entered(camera):
+func _on_VisibilityNotifier_camera_entered(camera) -> void:
 	# return to full processing
 	#print(self.get_path(), " entered camera")
 	pass
 
 
-func _on_VisibilityNotifier_camera_exited(camera):
+func _on_VisibilityNotifier_camera_exited(camera) -> void:
 	# LOD process, animation and, movement
 	#print(self.get_path(), " exited camera")
 	pass

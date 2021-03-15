@@ -25,6 +25,9 @@ func _ready():
 
 
 func _process(delta):
+	draw_line(delta)
+	
+func draw_line(delta):
 	if track_object and (track_object.global_transform.origin - point_array.back()).length() > distance_threshold:
 		point_array.append(track_object.global_transform.origin + position_offset)
 		if point_array.size() > max_points:
@@ -40,13 +43,13 @@ func _process(delta):
 			set_color(trail_colour * Color(1.0, 1.0, 1.0, 0.0))
 		add_vertex(point_array[i])
 	end()
-#	begin(Mesh.PRIMITIVE_POINTS)
-#	for i in range(p_size):
-#		if i !=0:
-#			set_color(trail_colour * Color(1.0, 1.0, 1.0, falloff_lut.interpolate_baked(float(i)/p_size)))
-#		else:
-#			set_color(trail_colour * Color(1.0, 1.0, 1.0, 0.0))
-#		add_vertex(point_array[i])
-#	end()
+	begin(Mesh.PRIMITIVE_POINTS)
+	for i in range(p_size):
+		if i !=0:
+			set_color(trail_colour * Color(1.0, 1.0, 1.0, falloff_lut.interpolate_baked(float(i)/p_size)))
+		else:
+			set_color(trail_colour * Color(1.0, 1.0, 1.0, 0.0))
+		add_vertex(point_array[i])
+	end()
 
 

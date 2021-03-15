@@ -11,7 +11,7 @@ albedo_color = Color( 0.360784, 0.501961, 0.52549, 0.0941176 )
 albedo_texture = ExtResource( 1 )
 emission_enabled = true
 emission = Color( 0.552941, 0.756863, 0.858824, 1 )
-emission_energy = 0.38131
+emission_energy = 0.307418
 emission_operator = 0
 emission_on_uv2 = false
 
@@ -26,8 +26,8 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"points": PoolRealArray( 0.307418, -0.25, 0, 1.1, 0.169182, 4.21876, -0.05, -0.340784, 0.22, -0.00534141 ),
-"times": PoolRealArray( 0, 1.4 )
+"points": PoolRealArray( 6.20908, -0.25, 0, 0, -4.68762, 0.394635, -1.05, 0.0901465, 0.22, -0.00534141 ),
+"times": PoolRealArray( 0.1, 1.4 )
 }
 
 [node name="spawn_point_player" type="Spatial"]
