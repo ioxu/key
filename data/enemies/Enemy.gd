@@ -488,7 +488,6 @@ func _on_ally_notification( notification_type:int, emitter ) -> void:
 
 
 func _repeat_attack_notification_timeout():
-	print(self.get_path(), " REPEAT ATTACK NOTIFY")
 	emit_communication_signal( ally_notification.ENEMY_SPOTTED)
 
 # ------------------------------------------------------------------------------

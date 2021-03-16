@@ -157,6 +157,8 @@ material = SubResource( 9 )
 [node name="sensable_area" type="Area" parent="." groups=[
 "npc_sensable_area",
 ]]
+collision_layer = 512
+collision_mask = 512
 script = ExtResource( 11 )
 __meta__ = {
 "_editor_description_": "Area that other sensing areas can sense.
@@ -171,6 +173,8 @@ shape = SubResource( 10 )
 [node name="sensing_area" type="Area" parent="." groups=[
 "npc_sensing_area",
 ]]
+collision_layer = 512
+collision_mask = 512
 script = ExtResource( 12 )
 __meta__ = {
 "_editor_description_": "Areas that recieve messages from sensable areas."

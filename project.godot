@@ -143,6 +143,7 @@ ui_reset={
 3d_physics/layer_7="enemy_vision_area"
 3d_physics/layer_8="player_hurtbox"
 3d_physics/layer_9="corpse"
+3d_physics/layer_10="enemy_sensing_areas"
 
 [physics]
 
