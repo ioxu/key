@@ -84,8 +84,7 @@ func _ready():
 
 	add_child(repeat_attack_notification_timer)
 	repeat_attack_notification_timer.set_wait_time( repeat_attack_notification_frequency )
-	var result = repeat_attack_notification_timer.connect("timeout", self, "_repeat_attack_notification_timeout")
-	print(self.get_path(), " repeat_attack_notification_timer.connect ", result)
+	repeat_attack_notification_timer.connect("timeout", self, "_repeat_attack_notification_timeout")
 
 	weapon.visible = false
 	
@@ -459,7 +458,7 @@ func clear_poi_target() -> void:
 func set_new_poi_target(position: Vector3) -> void:
 		clear_poi_target()
 		var poi = point_of_interest_scene.instance()
-		get_node("/root/").add_child(poi)
+		get_node("/root/").call_deferred("add_child", poi)
 		poi.transform.origin = position * Vector3(1.0, 0.0, 1.0)
 		self.target = poi
 
