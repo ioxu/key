@@ -53,9 +53,11 @@ onready var hurt_meter = $MeshInstance/hurt_meter
 onready var fsm = $statemachine
 
 signal notify_allies
-onready var ally_notification_timer = Timer.new()
+onready var ally_notification_recieve_timer = Timer.new()
 var ally_notification_cooldown = 0.5
-enum ally_notification { 
+onready var repeat_attack_notification_timer = Timer.new()
+var repeat_attack_notification_frequency = 0.3
+enum ally_notification {
 	ENEMY_SPOTTED,
 	NEW_SEARCH_POINT
 }
@@ -77,8 +79,13 @@ func _ready():
 	attack_move_timer.connect("timeout",self,"_on_attack_move_timer_timeout") 
 	attack_move_timer.set_one_shot(true)
 
-	add_child(ally_notification_timer)
-	ally_notification_timer.set_one_shot(true)
+	add_child(ally_notification_recieve_timer)
+	ally_notification_recieve_timer.set_one_shot(true)
+
+	add_child(repeat_attack_notification_timer)
+	repeat_attack_notification_timer.set_wait_time( repeat_attack_notification_frequency )
+	var result = repeat_attack_notification_timer.connect("timeout", self, "_repeat_attack_notification_timeout")
+	print(self.get_path(), " repeat_attack_notification_timer.connect ", result)
 
 	weapon.visible = false
 	
@@ -116,9 +123,6 @@ func bullet_hit(bullet):
 	if fsm.state in ["idle", "search"]:
 		set_new_poi_target(bullet.starting_position)
 		fsm.set_state("search")
-#		ally_notification_timer.start(ally_notification_cooldown)
-#		emit_signal("notify_allies", "new_search_point", self)
-#		emit_communication_signal( ally_notification.NEW_SEARCH_POINT)
 
 	# die
 	if health <= 0.0:
@@ -139,6 +143,7 @@ func bullet_hit(bullet):
 		corpse.apply_impulse ( impulse_location, impulse)
 
 		$vision_raycast.stop()
+		repeat_attack_notification_timer.queue_free()
 		queue_free()
 
 
@@ -177,10 +182,11 @@ func _attack_enter() -> void:
 	attack_move = "rush"
 	attack_move_timer.start( attack_move_rng.randf_range(0.2, 0.5) )
 	emit_communication_signal( ally_notification.ENEMY_SPOTTED)
+	repeat_attack_notification_timer.start()
 
 
 func _attack(delta) -> void:
-
+	# see repeat_attack_notification_timer
 	if !$vision_raycast.can_see_target:
 		weapon.visible = false
 		weapon.activated = false
@@ -224,7 +230,9 @@ func _attack(delta) -> void:
 
 func _attack_exit() -> void:
 	attack_move_timer.stop()
-	ally_notification_timer.stop()
+	ally_notification_recieve_timer.stop()
+	repeat_attack_notification_timer.stop()
+
 
 func _search_enter() -> void:
 	weapon.set_activated(false)
@@ -248,7 +256,7 @@ func _search(delta):
 
 
 func _search_exit() -> void:
-	ally_notification_timer.stop()
+	ally_notification_recieve_timer.stop()
 
 
 # /states
@@ -458,24 +466,30 @@ func set_new_poi_target(position: Vector3) -> void:
 # ------------------------------------------------------------------------------
 # communication signals
 func emit_communication_signal( notification_type:int):
-	ally_notification_timer.start(ally_notification_cooldown)
+	ally_notification_recieve_timer.start(ally_notification_cooldown)
 	emit_signal("notify_allies", notification_type, self)
 
 
 func _on_ally_notification( notification_type:int, emitter ) -> void:
-	if ally_notification_timer.get_time_left() <= 0.0:
-		match notification_type:
-			ally_notification.NEW_SEARCH_POINT:
-				if emitter.target:
-					set_new_poi_target(emitter.target.transform.origin)
-					if fsm.state != "search":
-						fsm.set_state("search")
-			ally_notification.ENEMY_SPOTTED:
-				clear_poi_target()
-				if emitter.target:
-					target = emitter.target
-					if fsm.state != "search":
-						fsm.set_state("search")
+	if ally_notification_recieve_timer.get_time_left() <= 0.0:
+		if fsm.state != "attack":
+			match notification_type:
+				ally_notification.NEW_SEARCH_POINT:
+					if emitter.target:
+						set_new_poi_target(emitter.target.transform.origin)
+						if fsm.state != "search":
+							fsm.set_state("search")
+				ally_notification.ENEMY_SPOTTED:
+					clear_poi_target()
+					if emitter.target:
+						target = emitter.target
+						if fsm.state != "search":
+							fsm.set_state("search")
+
+
+func _repeat_attack_notification_timeout():
+	print(self.get_path(), " REPEAT ATTACK NOTIFY")
+	emit_communication_signal( ally_notification.ENEMY_SPOTTED)
 
 # ------------------------------------------------------------------------------
 # /communication signals

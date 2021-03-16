@@ -39,12 +39,12 @@ func collided(body):
 			body.bullet_hit(self)
 	hit_something = true
 
-#	queue_free()
+	queue_free()
 
-	gravity_scale = 1.0
-	if !is_enemy_bullet:
-		set_collision_mask_bit(0, true)
-		set_collision_mask_bit(3, true)
-	else:
-		queue_free()
+#	gravity_scale = 1.0
+#	if !is_enemy_bullet:
+#		set_collision_mask_bit(0, true)
+#		set_collision_mask_bit(3, true)
+#	else:
+#		queue_free()
 

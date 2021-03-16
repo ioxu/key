@@ -35,7 +35,7 @@ func _enter_state(new_state, old_state):
 
 
 func _exit_state(old_state, new_state):
-	match new_state:
+	match old_state:
 		"idle":
 			pass
 		"attack":

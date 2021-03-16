@@ -182,6 +182,7 @@ shape = SubResource( 11 )
 
 [node name="MeshInstance" type="MeshInstance" parent="sensing_area"]
 transform = Transform( 1, 0, 0, 0, 0.0920906, 0, 0, 0, 1, 0, 0, 0 )
+visible = false
 mesh = SubResource( 13 )
 material/0 = null
 
