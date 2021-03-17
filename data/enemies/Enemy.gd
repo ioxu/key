@@ -119,6 +119,11 @@ func bullet_hit(bullet):
 	health -= damage
 	hurt_meter.set_factor( 1.0 - health/initial_health )
 
+	# knockback #15
+	direction = bullet.global_transform.basis.z
+	direction = direction.normalized() 
+	movement_speed = bullet.projectile_knockback
+
 	if fsm.state in ["idle", "search"]:
 		set_new_poi_target(bullet.starting_position)
 		fsm.set_state("search")

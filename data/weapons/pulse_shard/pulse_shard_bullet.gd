@@ -1,6 +1,7 @@
 extends RigidBody
 
 export(float) var projectile_speed =  65.0
+export(float) var projectile_knockback =  35.0 * 7.5 
 export(Array, float) var damage_range = [5.0, 20.0]
 export var is_enemy_bullet := false
 
