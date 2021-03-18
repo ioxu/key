@@ -186,7 +186,6 @@ func _physics_process(dt):
 		accelerate = acceleration
 	direction = Vector3.ZERO
 	speed = speed.linear_interpolate(max_speed, dt * accelerate)
-	movement = player.transform.basis * speed
 	movement = speed
 	current_vertical_speed.y += gravity * dt * jump_acceleration
 	movement += current_vertical_speed

@@ -21,7 +21,7 @@ var max_turn_rate := deg2rad(450.0)
 var speed := Vector3.ZERO
 var strafe_direction = 1.0 # 1.0 == right, -1.0 == left
 var is_airborne : = false
-var gravity := -10.0
+var gravity := -40.0
 var jump_acceleration := 3.0
 var age := 0.0
 var age_offset_rng = RandomNumberGenerator.new()
@@ -119,10 +119,7 @@ func bullet_hit(bullet):
 	health -= damage
 	hurt_meter.set_factor( 1.0 - health/initial_health )
 
-	# knockback #15
-	direction = bullet.global_transform.basis.z
-	direction = direction.normalized() 
-	movement_speed = bullet.projectile_knockback
+	_apply_bullet_knockback(bullet)
 
 	if fsm.state in ["idle", "search"]:
 		set_new_poi_target(bullet.starting_position)
@@ -149,6 +146,14 @@ func bullet_hit(bullet):
 		$vision_raycast.stop()
 		repeat_attack_notification_timer.queue_free()
 		queue_free()
+
+
+func _apply_bullet_knockback(bullet):
+	direction = Vector3(bullet.global_transform.basis.z).rotated(Vector3.UP, rand_range(-PI*0.3, PI*0.3))
+	direction = direction.normalized()
+	movement_speed = bullet.projectile_knockback
+	rotate_y( [-1,1][randi()%2] * PI*0.25 )
+	current_vertical_speed.y = 7.0
 
 
 # ------------------------------------------------------------------------------
@@ -381,7 +386,7 @@ func _physics_process(delta) -> void:
 		accelerate = acceleration
 	direction = Vector3.ZERO
 	speed = speed.linear_interpolate(max_speed, delta * accelerate)
-	movement = transform.basis * speed
+	#movement = transform.basis * speed
 	movement = speed
 
 	current_vertical_speed.y += gravity * delta * jump_acceleration
