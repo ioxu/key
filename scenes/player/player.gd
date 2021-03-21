@@ -62,10 +62,8 @@ func bullet_hit(bullet):
 	if !get_active():
 		return
 
-	# knockback #15
-	#$Controller.direction = bullet.global_transform.basis.z
-	#$Controller.direction = $Controller.direction.normalized() 
-	#$Controller.movement_speed = bullet.projectile_knockback
+	# kockback
+	$Controller.additional_force = bullet.global_transform.basis.z.normalized() * bullet.projectile_knockback * 0.5
 
 	var damage = damage_rng.randf_range(bullet.damage_range[0], bullet.damage_range[1])
 	set_health( health - damage )

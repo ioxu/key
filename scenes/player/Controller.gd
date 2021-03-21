@@ -33,6 +33,7 @@ var camera_rotation
 var gravity := -10.0
 var accelerate = acceleration
 var movement := Vector3.ZERO
+var additional_force := Vector3.ZERO
 var actual_mesh_rot_y := 0.0
 var rotation_speed := 0.05
 var zoom_factor : float = min_zoom
@@ -181,6 +182,7 @@ func _physics_process(dt):
 	direction.y = 0.0
 	last_direction = direction.normalized()
 	var max_speed = movement_speed * direction.normalized() * get_move_direction_length()
+	max_speed += additional_force
 	accelerate = deaceleration
 	if direction.dot(speed) > 0.0:
 		accelerate = acceleration
@@ -203,3 +205,4 @@ func _physics_process(dt):
 	camera_lookahead_direction_actual = camera_lookahead_direction_actual.linear_interpolate(camera_lookahead_direction, dt * 1.5)
 	camera_root.transform.origin = camera_lookahead_direction_actual * camera_lookahead_factor_actual * 7.5
 
+	additional_force = Vector3.ZERO

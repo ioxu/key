@@ -124,8 +124,8 @@ tracks/8/loop_wrap = true
 tracks/8/imported = false
 tracks/8/enabled = true
 tracks/8/keys = {
-"points": PoolRealArray( 4.79836, -0.25, 0, 0.0177556, -0.419304, 0.599209, -0.27, 0.981171, 0.16, -0.527284, 0, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0.01, 0.33, 1 )
+"points": PoolRealArray( 10.0026, -0.25, 0, 0.0177556, -0.419304, 1.94352, -0.21, 2.2176, 0.13, -0.973582, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.36, 1 )
 }
 
 [node name="pulse_shard" instance=ExtResource( 1 )]
