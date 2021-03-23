@@ -114,7 +114,7 @@ func _ready():
 	self.toggle_active(self.active)
 
 
-func bullet_hit(bullet):
+func bullet_hit(bullet, collision_info):
 	var damage = damage_rng.randf_range(bullet.damage_range[0], bullet.damage_range[1])
 	health -= damage
 	hurt_meter.set_factor( 1.0 - health/initial_health )

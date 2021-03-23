@@ -58,7 +58,7 @@ func respawn():
 	visible = true
 
 
-func bullet_hit(bullet):
+func bullet_hit(bullet, collision_info):
 	if !get_active():
 		return
 
