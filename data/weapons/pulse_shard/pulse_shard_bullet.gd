@@ -1,4 +1,5 @@
-extends RigidBody
+extends KinematicBody
+#extends RigidBody
 
 export(float) var projectile_speed =  65.0
 export(float) var projectile_knockback =  35.0 * 7.5 
@@ -21,8 +22,9 @@ func _ready():
 
 
 func _physics_process(delta):
-	pass
-
+	var collision_info = move_and_collide( delta * self.global_transform.basis.z * projectile_speed )
+	if collision_info:
+		collided(collision_info.get_collider())
 
 func _on_free_timer_timeout():
 	queue_free()
@@ -30,7 +32,7 @@ func _on_free_timer_timeout():
 
 func start():
 	self.starting_position = self.transform.origin
-	self.apply_central_impulse( self.global_transform.basis.z * projectile_speed )
+	#self.apply_central_impulse( self.global_transform.basis.z * projectile_speed )
 
 
 func collided(body):

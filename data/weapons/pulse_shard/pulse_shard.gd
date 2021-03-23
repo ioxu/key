@@ -18,8 +18,8 @@ onready var bullet_spawner = $bullet_spawner
 
 
 func _ready():
-	yield(get_tree(), "idle_frame")
-	$bullet_spawner/pulse_shard_bullet.queue_free()
+	#yield(get_tree(), "idle_frame")
+	#$bullet_spawner/pulse_shard_bullet.queue_free()
 	add_child(firing_timer)
 	firing_timer.wait_time = base_fire_rate
 	firing_timer.connect("timeout", self, "_on_timer_timeout")
