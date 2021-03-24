@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://data/weapons/weapon.tscn" type="PackedScene" id=1]
 [ext_resource path="res://data/weapons/pulse_shard/pulse_shard.gd" type="Script" id=2]
 [ext_resource path="res://data/weapons/pulse_shard/pulse_shard_bullet.tscn" type="PackedScene" id=3]
+[ext_resource path="res://data/weapons/pulse_shard/pulse_shard_bullet_impact_fx.tscn" type="PackedScene" id=4]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0.682353, 0.878431, 0.964706, 1 )
@@ -136,6 +137,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.444842, 0.0947556 )
 
 [node name="pulse_shard_bullet" parent="bullet_spawner" index="0" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.490436 )
+
+[node name="pulse_shard_bullet_impact" parent="bullet_spawner" index="1" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.1214 )
 
 [node name="geometry_hook" type="Spatial" parent="." index="1"]
 

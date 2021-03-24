@@ -8,6 +8,10 @@ func _ready():
 
 # maths 
 
+func remap( f, start1, stop1, start2, stop2):
+	return start2 + (stop2 - start2) * ((f - start1) / (stop1 - start1))
+
+
 # bias
 func bias(value, b):
 	b = -log2(1.0 - b)

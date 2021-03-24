@@ -57,8 +57,7 @@ func collided(body, collision_info: KinematicCollision):
 func _emit_impact_fx(collision_info : KinematicCollision):
 	var impact_fx = bullet_impact_fx.instance()
 	get_node("/root/").add_child(impact_fx)
-	impact_fx.set_translation(collision_info.position)
-	#impact_fx.look_at(collision_info.position + collision_info.normal, Vector3.UP)
+	impact_fx.set_translation(collision_info.position + (- self.transform.basis.z * 0.35))
 	impact_fx.look_at(collision_info.position - self.transform.basis.z, Vector3.UP)
 
 

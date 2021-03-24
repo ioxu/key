@@ -34,9 +34,12 @@ ssao_quality = 0
 glow_enabled = true
 glow_levels/1 = true
 glow_levels/2 = true
+glow_levels/4 = true
 glow_levels/5 = false
-glow_intensity = 1.97
-glow_strength = 0.64
+glow_levels/6 = true
+glow_intensity = 0.1
+glow_strength = 0.74
+glow_blend_mode = 0
 
 [node name="Spatial" type="Spatial"]
 

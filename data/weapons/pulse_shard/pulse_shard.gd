@@ -1,6 +1,6 @@
 extends "res://data/weapons/weapon.gd"
 
-export var is_enemy_weapon := false
+export var is_enemy_weapon := false setget set_is_enemy_weapon
 
 var base_magazine_size := 800
 var magazine_count : = base_magazine_size
@@ -19,13 +19,20 @@ onready var bullet_spawner = $bullet_spawner
 
 func _ready():
 	#yield(get_tree(), "idle_frame")
-	#$bullet_spawner/pulse_shard_bullet.queue_free()
+	$bullet_spawner/pulse_shard_bullet.queue_free()
+	$bullet_spawner/pulse_shard_bullet_impact.queue_free()
 	add_child(firing_timer)
 	firing_timer.wait_time = base_fire_rate
 	firing_timer.connect("timeout", self, "_on_timer_timeout")
 	muzzle_flash.visible = false
 	muzzle_flash_light.visible = false
 	anim_player.get_animation("muzzle_flash").set_loop(false)
+
+
+func set_is_enemy_weapon(new_value):
+	is_enemy_weapon = new_value
+	if new_value:
+		$geometry_hook/muzzle_flash_light.light_color = Color(0.894531, 0.356415, 0.356415)
 
 
 func _process(dt):

@@ -13,6 +13,8 @@ var to := Vector3.ZERO
 
 var can_see_target = false
 
+var is_hidden_at_start = false # so if the node is hidden at the start (by the gui)
+							   # never become visible
 
 func _ready():
 	exclude_parent = true
@@ -24,6 +26,8 @@ func _ready():
 	if !running:
 		stop()
 
+	if !visible:
+		is_hidden_at_start = true
 
 func _is_target_visible():
 	if target and target.targetable:
@@ -39,7 +43,8 @@ func _is_target_visible():
 			else:
 				$sight_indicator.transform.origin = to_local(get_collision_point())#Vector3(0.0, 0.0, -1.0)
 				can_see_target = false
-			sight_line.visible = true
+			if !is_hidden_at_start:
+				sight_line.visible = true
 			sight_line.from = from
 			sight_line.to = get_collision_point()
 
