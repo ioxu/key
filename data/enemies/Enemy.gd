@@ -164,7 +164,7 @@ func _idle_enter():
 	if (target as PointOfInterest):
 		target.queue_free()
 	target = null
-
+	weapon.visible = false
 
 func _idle(delta) -> void:
 	if $vision_raycast.can_see_target:
@@ -192,7 +192,7 @@ func _attack_enter() -> void:
 	attack_move_timer.start( attack_move_rng.randf_range(0.2, 0.5) )
 	emit_communication_signal( ally_notification.ENEMY_SPOTTED)
 	repeat_attack_notification_timer.start()
-
+	weapon.visible = true
 
 func _attack(delta) -> void:
 	# see repeat_attack_notification_timer
@@ -246,7 +246,7 @@ func _attack_exit() -> void:
 func _search_enter() -> void:
 	weapon.set_activated(false)
 	emit_communication_signal( ally_notification.NEW_SEARCH_POINT)
-
+	weapon.visible = true
 
 func _search(delta):
 	if $vision_raycast.can_see_target:
@@ -452,7 +452,7 @@ func _on_vision_area_body_exited(body) -> void:
 			set_new_poi_target(target_last_known_position)
 			fsm.set_state("search")
 		else:
-			weapon.visible = false
+			#weapon.visible = false
 			fsm.set_state("idle")
 		$vision_raycast.target = null
 		$vision_raycast.stop()

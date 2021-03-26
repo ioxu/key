@@ -70,4 +70,5 @@ void fragment() {
 	float noise_tex = texture(noise_texture, conic_uvs * vec2( 2.0, 0.3 ) ).r;
 	float contrast_pivot_time = map(bias(shader_time, 0.35), 0.0, 1.0, 0.0, 0.65);
 	ALPHA = albedo.a * albedo_tex.a * edge_fade * inner_fade * fcontrast(noise_tex, 100.0, contrast_pivot_time);
+	//ALPHA = fcontrast(noise_tex, 100.0, contrast_pivot_time);//edge_fade * inner_fade;
 }

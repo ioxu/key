@@ -59,5 +59,6 @@ func _emit_impact_fx(collision_info : KinematicCollision):
 	get_node("/root/").add_child(impact_fx)
 	impact_fx.set_translation(collision_info.position + (- self.transform.basis.z * 0.35))
 	impact_fx.look_at(collision_info.position - self.transform.basis.z, Vector3.UP)
-
+	if is_enemy_bullet:
+		impact_fx.get_node("MeshInstance").material_override.set_shader_param("emission", Color(0.953125, 0.349976, 0.349976))
 
