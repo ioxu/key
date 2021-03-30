@@ -6,9 +6,12 @@ var base_magazine_size := 800
 var magazine_count : = base_magazine_size
 var base_reload_speed := 0.2
 var base_fire_rate := 0.08
+var fire_kickback := 65.0
 var firing_time := 0.0
 var firing_timer := Timer.new()
 var can_fire := false
+
+signal fire
 
 onready var anim_player = $AnimationPlayer 
 onready var muzzle_flash : MeshInstance = $geometry_hook/muzzle_flash 
@@ -62,6 +65,7 @@ func set_activated(new_value: bool) -> void:
 
 
 func fire():
+	emit_signal("fire", self)
 	muzzle_flash.visible = true
 	muzzle_flash_light.visible = true
 	anim_player.stop(true)

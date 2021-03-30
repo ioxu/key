@@ -5,7 +5,7 @@ var health : float
 export(bool) var active = true setget toggle_active
 export(float) var movement_speed = 7.5
 export(float) var rush_speed = 200.0
-export(float) var strafe_speed = 500.0
+export(float) var strafe_speed = 700.0
 export(float) var acceleration = 3.0
 export(float) var deaceleration = 5.0
 
@@ -54,12 +54,13 @@ onready var fsm = $statemachine
 
 signal notify_allies
 onready var ally_notification_recieve_timer = Timer.new()
-var ally_notification_cooldown = 0.5
+var ally_notification_cooldown = 0.1#0.5
 onready var repeat_attack_notification_timer = Timer.new()
 var repeat_attack_notification_frequency = 0.3
 enum ally_notification {
 	ENEMY_SPOTTED,
-	NEW_SEARCH_POINT
+	NEW_SEARCH_POINT,
+	LOCATION
 }
 
 
@@ -185,6 +186,7 @@ func _idle(delta) -> void:
 		spd = -0.4 * Util.bias((abs(speed_noise)+1.0)/2.0, 0.2)
 	movement_speed = -1 * spd * 7.5 * delta * 100.0
 
+	flock_with_neighbours(delta)
 
 func _attack_enter() -> void:
 	$alert_icon.visible = true
@@ -234,7 +236,9 @@ func _attack(delta) -> void:
 			"strafe":
 				strafe_target(delta)
 		
-		move_to_ideal_distance(delta)
+		move_to_ideal_distance_to_target(delta)
+	
+	flock_with_neighbours(delta)
 
 
 func _attack_exit() -> void:
@@ -252,16 +256,15 @@ func _search(delta):
 	if $vision_raycast.can_see_target:
 		weapon.visible = true
 		fsm.set_state("attack")
-
 	if target:
 		rotate_toward_target(delta)
 		search_toward_target(delta)
-
 		if (self.transform.origin - target.transform.origin).length() < 1.5:
 			if (target as PointOfInterest):
 				target.queue_free()
 				target = null
 			fsm.set_state("idle")
+	flock_with_neighbours(delta)
 
 
 func _search_exit() -> void:
@@ -297,7 +300,7 @@ func _on_attack_move_timer_timeout() -> void:
 				)
 
 
-func move_to_ideal_distance(delta) -> void:
+func move_to_ideal_distance_to_target(delta) -> void:
 	# override direction and speed
 	var distance : float = (global_transform.origin -
 							target.global_transform.origin).length()
@@ -311,6 +314,28 @@ func move_to_ideal_distance(delta) -> void:
 		movement_speed = -1.5 * delta * rush_speed
 	else:
 		$alert_icon.modulate = original_alert_icon_modulate
+
+
+func flock_with_neighbours(delta) -> void:
+	var list = get_signal_connection_list("notify_allies")
+#	signal connection list
+#	  {binds:[], flags:0, method:_on_ally_notification, signal:notify_allies, source:[KinematicBody:1894], target:[KinematicBody:1502]}
+#	  {binds:[], flags:0, method:_on_ally_notification, signal:notify_allies, source:[KinematicBody:1894], target:[KinematicBody:1796]}
+	var forcev = Vector3.ZERO
+	var min_distance = 4.5
+	
+	if list.size() > 0:
+		var o = global_transform.origin
+		for i in range(list.size()):
+			var to = list[i].target.global_transform.origin
+			var distance = (o-to).length()
+			var dpow = clamp(1-(distance/min_distance), 0.0, 1.0)
+			forcev += (to - o) * pow(dpow, 2.0) * 1.0
+
+		var forcev_length = forcev.length()
+		if forcev_length > 0.0:
+			direction += forcev
+			#movement_speed += 10.0 * forcev_length * delta * rush_speed
 
 
 func activate_weapon(delta) -> void:
@@ -386,7 +411,6 @@ func _physics_process(delta) -> void:
 		accelerate = acceleration
 	direction = Vector3.ZERO
 	speed = speed.linear_interpolate(max_speed, delta * accelerate)
-	#movement = transform.basis * speed
 	movement = speed
 
 	current_vertical_speed.y += gravity * delta * jump_acceleration
@@ -427,7 +451,6 @@ func toggle_active(new_value) -> void:
 
 func _on_vision_area_body_entered(body) -> void:
 	if body.is_in_group("Player") and body.targetable:
-		weapon.visible = true
 		if (target as PointOfInterest):
 			target.queue_free()
 			target=null
@@ -452,7 +475,6 @@ func _on_vision_area_body_exited(body) -> void:
 			set_new_poi_target(target_last_known_position)
 			fsm.set_state("search")
 		else:
-			#weapon.visible = false
 			fsm.set_state("idle")
 		$vision_raycast.target = null
 		$vision_raycast.stop()
