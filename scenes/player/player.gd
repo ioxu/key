@@ -10,6 +10,7 @@ onready var hurt_meter = $MeshInstance/hurt_meter
 
 export (NodePath) var spawn_point
 
+var current_wepon = null
 
 func _ready():
 	spawn_point = get_node(spawn_point)
@@ -18,6 +19,9 @@ func _ready():
 	$icons/death_icon.visible = false
 	targetable = visible
 
+	# connect to weapon
+	current_wepon = $MeshInstance/weapon_mount.get_child(0)
+	current_wepon.connect("fire", self, "_on_weapon_fire")
 
 func set_active(new_value):
 	active = new_value
@@ -58,12 +62,17 @@ func respawn():
 	visible = true
 
 
+func _on_weapon_fire(weapon):
+	#print(weapon.get_path(), " fired! ")
+	$Controller.additional_force += -current_wepon.bullet_spawner.global_transform.basis.z.normalized() * weapon.fire_kickback
+
+
 func bullet_hit(bullet, collision_info):
 	if !get_active():
 		return
 
 	# kockback
-	$Controller.additional_force = bullet.global_transform.basis.z.normalized() * bullet.projectile_knockback * 0.5
+	$Controller.additional_force += bullet.global_transform.basis.z.normalized() * bullet.projectile_knockback * 0.5
 
 	var damage = damage_rng.randf_range(bullet.damage_range[0], bullet.damage_range[1])
 	set_health( health - damage )
