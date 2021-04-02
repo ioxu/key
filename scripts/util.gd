@@ -3,7 +3,7 @@ extends Node
 # - math shaping functions
 
 func _ready():
-	print("game.dg autoload ready")
+	print("util.dg autoload ready")
 
 
 # maths 

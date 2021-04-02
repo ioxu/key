@@ -15,5 +15,7 @@ func _input(event):
 	#if event.is_action_pressed("ui_skip"):
 	if event.is_action_pressed("ui_skip"):
 		# next screen
-		get_tree().change_scene("res://scenes/level.tscn")
-		get_tree().set_input_as_handled()
+#		get_tree().change_scene("res://scenes/level.tscn")
+#		get_tree().set_input_as_handled()
+		Game.start()
+

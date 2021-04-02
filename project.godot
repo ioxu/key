@@ -33,6 +33,7 @@ config/icon="res://thumbnail.png"
 
 [autoload]
 
+Window="*res://scripts/window.gd"
 Game="*res://scripts/game.gd"
 Util="*res://scripts/util.gd"
 
