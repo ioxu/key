@@ -63,7 +63,6 @@ func respawn():
 
 
 func _on_weapon_fire(weapon):
-	#print(weapon.get_path(), " fired! ")
 	$Controller.additional_force += -current_wepon.bullet_spawner.global_transform.basis.z.normalized() * weapon.fire_kickback
 
 
@@ -71,7 +70,7 @@ func bullet_hit(bullet, collision_info):
 	if !get_active():
 		return
 
-	# kockback
+	# knockback
 	$Controller.additional_force += bullet.global_transform.basis.z.normalized() * bullet.projectile_knockback * 0.5
 
 	var damage = damage_rng.randf_range(bullet.damage_range[0], bullet.damage_range[1])

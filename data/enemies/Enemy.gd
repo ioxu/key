@@ -140,8 +140,9 @@ func bullet_hit(bullet, collision_info):
 		var corpse = enemy_corpse_scene.instance()
 		corpse.transform = self.transform
 		get_node("/root/").add_child(corpse)
-		var impulse = Vector3(0.0, 35.0, 0.0) + bullet.transform.basis.z * 35.0 #25.0
-		var impulse_location = transform.basis.z * -0.4 + Vector3(0.0, -0.15, 0.0)
+		var impulse = 5.0 * (Vector3(0.0, 35.0, 0.0) + bullet.transform.basis.z * 35.0) #25.0
+		#var impulse_location = transform.basis.z * -.4 + Vector3(0.0, -0.15, 0.0)
+		var impulse_location = transform.basis.z * -.28 + Vector3(0.0, -0.55, 0.0)
 		corpse.apply_impulse ( impulse_location, impulse)
 
 		$vision_raycast.stop()
@@ -154,7 +155,7 @@ func _apply_bullet_knockback(bullet):
 	direction = direction.normalized()
 	movement_speed = bullet.projectile_knockback
 	rotate_y( [-1,1][randi()%2] * PI*0.25 )
-	current_vertical_speed.y = 7.0
+	current_vertical_speed.y = 9.5#7.0
 
 
 # ------------------------------------------------------------------------------

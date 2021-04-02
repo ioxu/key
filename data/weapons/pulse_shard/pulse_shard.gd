@@ -2,11 +2,11 @@ extends "res://data/weapons/weapon.gd"
 
 export var is_enemy_weapon := false setget set_is_enemy_weapon
 
-var base_magazine_size := 800
+export var base_magazine_size := 800
 var magazine_count : = base_magazine_size
 var base_reload_speed := 0.2
-var base_fire_rate := 0.08
-var fire_kickback := 65.0
+export var base_fire_rate := 0.08
+export var fire_kickback := 65.0
 var firing_time := 0.0
 var firing_timer := Timer.new()
 var can_fire := false

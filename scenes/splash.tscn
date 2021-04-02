@@ -20,6 +20,17 @@ __meta__ = {
 texture = ExtResource( 2 )
 offset = Vector2( 960, 540 )
 
+[node name="Label" type="Label" parent="Control/splash_image"]
+margin_left = 1374.0
+margin_top = 732.0
+margin_right = 1483.0
+margin_bottom = 746.0
+rect_scale = Vector2( 2, 2 )
+text = "press X to start .."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="resolution_debug" type="Sprite" parent="."]
 modulate = Color( 1, 1, 1, 0.415686 )
 texture = ExtResource( 1 )
