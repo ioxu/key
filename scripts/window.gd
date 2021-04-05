@@ -5,7 +5,7 @@ var minimum_size : Vector2 = Vector2(1024,600)#(960, 540)
 var BORDERLESS_FULLSCREEN = false
 
 var window_position := Vector2.ZERO
-var fullscreen : = false
+var fullscreen : = true
 
 func _ready():
 	print("window.dg autoload ready")
