@@ -15,7 +15,8 @@ signal fire
 
 onready var anim_player = $AnimationPlayer 
 onready var muzzle_flash : MeshInstance = $geometry_hook/muzzle_flash 
-onready var muzzle_flash_light : OmniLight = $geometry_hook/muzzle_flash_light 
+onready var muzzle_flash_light : OmniLight = $geometry_hook/muzzle_flash_light
+onready var muzzle_flash_light_initial_position = muzzle_flash_light.translation
 const bullet_scene = preload("res://data/weapons/pulse_shard/pulse_shard_bullet.tscn")
 onready var bullet_spawner = $bullet_spawner 
 
@@ -68,6 +69,8 @@ func fire():
 	emit_signal("fire", self)
 	muzzle_flash.visible = true
 	muzzle_flash_light.visible = true
+	var muzz_rand_pos = Vector3(0.2*(randf()-0.5), 0.2*(randf()-0.5), 0.0)
+	muzzle_flash_light.set_translation( muzzle_flash_light_initial_position + muzz_rand_pos )
 	anim_player.stop(true)
 	anim_player.play("muzzle_flash")
 	#print("  pew (%s/%s) %s"%[magazine_count, base_magazine_size, firing_time])

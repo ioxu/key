@@ -9,6 +9,16 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Reference",
+"class": "ArrayUtils",
+"language": "GDScript",
+"path": "res://addons/SIsilicon.3d.text/array_utils.gd"
+}, {
+"base": "Spatial",
+"class": "Level",
+"language": "GDScript",
+"path": "res://scenes/Level.gd"
+}, {
 "base": "Spatial",
 "class": "PointOfInterest",
 "language": "GDScript",
@@ -18,10 +28,18 @@ _global_script_classes=[ {
 "class": "StateMachine",
 "language": "GDScript",
 "path": "res://data/statemachine/statemachine.gd"
+}, {
+"base": "Area",
+"class": "door",
+"language": "GDScript",
+"path": "res://data/doors/door.gd"
 } ]
 _global_script_class_icons={
+"ArrayUtils": "",
+"Level": "",
 "PointOfInterest": "",
-"StateMachine": ""
+"StateMachine": "",
+"door": ""
 }
 
 [application]
@@ -41,6 +59,10 @@ Util="*res://scripts/util.gd"
 
 gdscript/warnings/unused_argument=false
 gdscript/warnings/return_value_discarded=false
+
+[editor_plugins]
+
+enabled=PoolStringArray( "SIsilicon.3d.text" )
 
 [input]
 
@@ -146,6 +168,7 @@ ui_reset={
 3d_physics/layer_8="player_hurtbox"
 3d_physics/layer_9="corpse"
 3d_physics/layer_10="enemy_sensing_areas"
+3d_physics/layer_11="doors"
 
 [physics]
 

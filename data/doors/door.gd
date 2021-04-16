@@ -1,13 +1,20 @@
 extends Area
 
+class_name door
+
 export(String) var door_name
-export(String, FILE, "*.tscn,*.scn") var connects_to_scene
-export(String) var connects_to_door
+export(String, FILE, "*.tscn,*.scn") var connected_scene
+export(String) var connected_door
+
+onready var label = $Label3D
 
 func _ready():
-	pass
+	label.text = "name: "+ door_name + "\n"\
+			 + "scene: "+ connected_scene + "\n"\
+			 + "connnected door: " + connected_door
 
 
 func _on_door_body_entered(body):
 	prints("door.body_entered", self.get_path(), body.get_path())
 	# tell game.gd to switch scenes
+	Game.enter_door(self.door_name, self.connected_scene, self.connected_door )
