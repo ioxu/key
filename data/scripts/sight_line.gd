@@ -1,5 +1,6 @@
 extends ImmediateGeometry
 
+var this_is = "sight_line"
 var from := Vector3.ZERO
 var to := Vector3.ZERO
 

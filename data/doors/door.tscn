@@ -1,22 +1,15 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://data/doors/door.gd" type="Script" id=1]
 [ext_resource path="res://data/doors/door.material" type="Material" id=2]
 [ext_resource path="res://addons/SIsilicon.3d.text/label_3d.gd" type="Script" id=3]
-[ext_resource path="res://data/fonts/Roboto-Regular.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://data/fonts/Roboto-Regular_DynamicFont.tres" type="DynamicFont" id=4]
 
 [sub_resource type="BoxShape" id=1]
-extents = Vector3( 1, 1.984, 0.5 )
+extents = Vector3( 1, 1.984, 0.24459 )
 
 [sub_resource type="CubeMesh" id=2]
 size = Vector3( 2, 4, 0.5 )
-
-[sub_resource type="DynamicFont" id=3]
-size = 50
-outline_color = Color( 0.203922, 0.2, 0.2, 1 )
-use_mipmaps = true
-use_filter = true
-font_data = ExtResource( 4 )
 
 [node name="door" type="Area" groups=[
 "Doors",
@@ -40,12 +33,12 @@ depth = 0.1
 material = ExtResource( 2 )
 
 [node name="Label3D" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.05, 1.50583 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.05, 1.99785 )
 script = ExtResource( 3 )
 text = "door"
 text_size = 1.0
-font = SubResource( 3 )
-align = 0
+font = ExtResource( 4 )
+align = 3
 billboard = false
 color = Color( 0.6, 0.6, 0.6, 1 )
 metallic = 0.0

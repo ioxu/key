@@ -16,5 +16,11 @@ func _ready():
 
 func _on_door_body_entered(body):
 	prints("door.body_entered", self.get_path(), body.get_path())
+
 	# tell game.gd to switch scenes
-	Game.enter_door(self.door_name, self.connected_scene, self.connected_door )
+	if self.connected_scene != "":
+		Game.enter_door(self.door_name, self.connected_scene, self.connected_door )
+
+
+func get_class():
+	return "door"

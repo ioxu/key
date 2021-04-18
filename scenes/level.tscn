@@ -2,9 +2,9 @@
 
 [ext_resource path="res://data/shaders/spatial_debug_boxdivide_material.tres" type="Material" id=1]
 [ext_resource path="res://scenes/fps_label.gd" type="Script" id=2]
-[ext_resource path="res://scenes/player/player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://addons/SIsilicon.3d.text/label_3d.gd" type="Script" id=3]
 [ext_resource path="res://data/enemies/Enemy.tscn" type="PackedScene" id=4]
-[ext_resource path="res://data/spawn_points/spawn_point_player.tscn" type="PackedScene" id=5]
+[ext_resource path="res://data/fonts/Roboto-Regular_DynamicFont.tres" type="DynamicFont" id=5]
 [ext_resource path="res://data/doors/door.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/Level.gd" type="Script" id=7]
 
@@ -60,13 +60,39 @@ collision_mask = 31
 [node name="CollisionShape" type="CollisionShape" parent="ground/StaticBody"]
 shape = SubResource( 2 )
 
-[node name="player" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.27987, 0, 6.38462 )
-spawn_point = NodePath("../../Level/spawn_point_player")
+[node name="level_label" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 6.021, 0.01, 22.236 )
+script = ExtResource( 3 )
+text = "cordon"
+text_size = 5.0
+font = null
+align = 0
+billboard = false
+color = Color( 0.6, 0.6, 0.6, 1 )
+metallic = 0.0
+roughness = 0.5
+emission_color = Color( 1, 1, 1, 1 )
+emission_strength = 0.0
+extrude = 0.0
+min_steps = 32
+max_steps = 256
 
-[node name="spawn_point_player" parent="." instance=ExtResource( 5 )]
-transform = Transform( 0.523242, 0, 0.852184, 0, 1, 0, -0.852184, 0, 0.523242, 20.1875, -3.05176e-05, 9.35223 )
-player = NodePath("../../Level/player")
+[node name="level_label2" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 6.021, 0.00999841, 12.444 )
+script = ExtResource( 3 )
+text = "1"
+text_size = 20.0
+font = null
+align = 0
+billboard = false
+color = Color( 0.6, 0.6, 0.6, 1 )
+metallic = 0.0
+roughness = 0.5
+emission_color = Color( 1, 1, 1, 1 )
+emission_strength = 0.0
+extrude = 0.0
+min_steps = 32
+max_steps = 256
 
 [node name="level" type="Spatial" parent="."]
 
@@ -117,6 +143,44 @@ transform = Transform( 0.129124, 0, 0.991628, 0, 1, 0, -0.991628, 0, 0.129124, -
 door_name = "A"
 connected_scene = "res://scenes/level_02.tscn"
 connected_door = "A"
+
+[node name="level_label3" type="Spatial" parent="level/door"]
+transform = Transform( 0.999957, -0.00938915, -1.5297e-09, 0, -1.62921e-07, 1, -0.00938915, -0.999957, -1.62914e-07, 0.0306053, 0.0099952, 5.91443 )
+script = ExtResource( 3 )
+text = "valley"
+text_size = 5.0
+font = ExtResource( 5 )
+align = 0
+billboard = false
+color = Color( 0.6, 0.6, 0.6, 1 )
+metallic = 0.0
+roughness = 0.5
+emission_color = Color( 1, 1, 1, 1 )
+emission_strength = 0.0
+extrude = 0.0
+min_steps = 32
+max_steps = 256
+
+[node name="level_label4" type="Spatial" parent="level/door"]
+transform = Transform( 0.000785813, -1, -1.62921e-07, 0, -1.62921e-07, 1, -1, -0.000785813, -1.28026e-10, -0.158545, 0.0099946, 3.54124 )
+script = ExtResource( 3 )
+text = "->"
+text_size = 5.0
+font = ExtResource( 5 )
+align = 0
+billboard = false
+color = Color( 0.6, 0.6, 0.6, 1 )
+metallic = 0.0
+roughness = 0.5
+emission_color = Color( 1, 1, 1, 1 )
+emission_strength = 0.0
+extrude = 0.0
+min_steps = 32
+max_steps = 256
+
+[node name="door2" parent="level" instance=ExtResource( 6 )]
+transform = Transform( -0.977666, 0, 0.210164, 0, 1, 0, -0.210164, 0, -0.977666, 5.88974, 5.72205e-06, 29.2588 )
+door_name = "start"
 
 [node name="Enemy2" parent="level" instance=ExtResource( 4 )]
 transform = Transform( -0.978129, 0, -0.207997, 0, 1, 0, 0.207997, 0, -0.978129, -6.37104, 1.18355, -6.571 )

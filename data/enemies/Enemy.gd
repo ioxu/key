@@ -141,11 +141,12 @@ func bullet_hit(bullet, collision_info):
 		corpse.transform = self.transform
 		get_node("/root/").add_child(corpse)
 		var impulse = 5.0 * (Vector3(0.0, 35.0, 0.0) + bullet.transform.basis.z * 35.0) #25.0
-		#var impulse_location = transform.basis.z * -.4 + Vector3(0.0, -0.15, 0.0)
 		var impulse_location = transform.basis.z * -.28 + Vector3(0.0, -0.55, 0.0)
 		corpse.apply_impulse ( impulse_location, impulse)
 
 		$vision_raycast.stop()
+		$vision_raycast.sight_line.queue_free()
+		$vision_raycast.queue_free()
 		repeat_attack_notification_timer.queue_free()
 		queue_free()
 
