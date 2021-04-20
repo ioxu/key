@@ -15,9 +15,13 @@ var current_wepon = null
 var _level_visits= ","
 
 var _stats = {
-	"times_bullet_hit": 0,
+	"times_hit_by_bullet": 0,
 	"times_fired_weapon": 0,
 	}
+
+
+signal die(object)
+
 
 func _ready():
 	#spawn_point = get_node(spawn_point)
@@ -61,6 +65,7 @@ func die() -> void:
 	yield(get_tree().create_timer(1.5), "timeout")
 	visible = false
 	#spawn_point.transport_player_to_spawn_point()
+	emit_signal("die", self)
 
 
 func respawn() -> void:
@@ -76,11 +81,15 @@ func _on_weapon_fire(weapon) -> void:
 	_stats.times_fired_weapon += 1
 
 
+func stop_movement() -> void:
+	$Controller.movement = Vector3.ZERO
+
+
 func bullet_hit(bullet, collision_info) -> void:
 	if !get_active():
 		return
 
-	_stats.times_bullet_hit += 1
+	_stats.times_hit_by_bullet += 1
 	
 	# knockback
 	$Controller.additional_force += bullet.global_transform.basis.z.normalized() * bullet.projectile_knockback * 0.5
@@ -90,7 +99,7 @@ func bullet_hit(bullet, collision_info) -> void:
 
 
 func add_level_visit(level_name, door_name) -> void :
-	self._level_visits += level_name + ":" + door_name + ","
+	_level_visits += level_name + ":" + door_name + ","
 	
 
 func add_additional_force(force:Vector3) -> void:

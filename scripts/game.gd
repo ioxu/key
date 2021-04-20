@@ -5,6 +5,7 @@ var player = null
 var current_level = null
 
 var passthrough_door = null
+var last_door_exited = null
 
 func _ready():
 	print("game.dg autoload ready")
@@ -24,6 +25,16 @@ func start() -> void:
 	
 	# instantiate player
 	player = player_scene.instance()
+	player.connect("die", self, "_on_player_die")
+
+
+func _on_player_die(object):
+	prints("game.gd _on_player_die", object.get_path())
+	player.respawn()
+	player.set_active(false)
+	player.visible = false
+	exit_door(last_door_exited)
+
 
 
 func enter_door(door_name, connected_scene, connected_door) -> void:
@@ -31,7 +42,6 @@ func enter_door(door_name, connected_scene, connected_door) -> void:
 	# unparent player
 	#get_tree().get_current_scene().remove_child(player)
 	player.get_parent().remove_child(player)
-	
 	get_tree().change_scene(connected_scene)
 	passthrough_door = connected_door
 
@@ -63,6 +73,7 @@ func exit_door(door) -> void:
 	player.visible = true
 	player.set_active(true)
 	player.add_additional_force(door_object.global_transform.basis.z.normalized() * 800.0)
+	last_door_exited = door_object.door_name
 
 
 func find_door(door_name) -> Node:

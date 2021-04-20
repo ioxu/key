@@ -1,10 +1,9 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://data/shaders/spatial_debug_boxdivide_material.tres" type="Material" id=1]
 [ext_resource path="res://scenes/fps_label.gd" type="Script" id=2]
 [ext_resource path="res://addons/SIsilicon.3d.text/label_3d.gd" type="Script" id=3]
 [ext_resource path="res://data/enemies/Enemy.tscn" type="PackedScene" id=4]
-[ext_resource path="res://data/fonts/Roboto-Regular_DynamicFont.tres" type="DynamicFont" id=5]
 [ext_resource path="res://data/doors/door.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/Level.gd" type="Script" id=7]
 
@@ -145,28 +144,11 @@ connected_scene = "res://scenes/level_02.tscn"
 connected_door = "A"
 
 [node name="level_label3" type="Spatial" parent="level/door"]
-transform = Transform( 0.999957, -0.00938915, -1.5297e-09, 0, -1.62921e-07, 1, -0.00938915, -0.999957, -1.62914e-07, 0.0306053, 0.0099952, 5.91443 )
+transform = Transform( 0.996381, -0.0850164, -1.3851e-08, 0, -1.62921e-07, 1, -0.0850164, -0.996381, -1.62332e-07, 0.0973046, 0.0099952, 2.00659 )
 script = ExtResource( 3 )
 text = "valley"
-text_size = 5.0
-font = ExtResource( 5 )
-align = 0
-billboard = false
-color = Color( 0.6, 0.6, 0.6, 1 )
-metallic = 0.0
-roughness = 0.5
-emission_color = Color( 1, 1, 1, 1 )
-emission_strength = 0.0
-extrude = 0.0
-min_steps = 32
-max_steps = 256
-
-[node name="level_label4" type="Spatial" parent="level/door"]
-transform = Transform( 0.000785813, -1, -1.62921e-07, 0, -1.62921e-07, 1, -1, -0.000785813, -1.28026e-10, -0.158545, 0.0099946, 3.54124 )
-script = ExtResource( 3 )
-text = "->"
-text_size = 5.0
-font = ExtResource( 5 )
+text_size = 2.0
+font = null
 align = 0
 billboard = false
 color = Color( 0.6, 0.6, 0.6, 1 )

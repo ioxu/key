@@ -45,7 +45,6 @@ size = Vector2( 2, 2 )
 collision_layer = 2147483649
 collision_mask = 22
 script = ExtResource( 5 )
-initial_health = 10000.0
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 1.31509, -2.14255e-07 )
