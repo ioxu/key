@@ -28,7 +28,7 @@ func _process(delta):
 	draw_line(delta)
 	
 func draw_line(delta):
-	if track_object and (track_object.global_transform.origin - point_array.back()).length() > distance_threshold:
+	if  is_instance_valid(track_object) and track_object and (track_object.global_transform.origin - point_array.back()).length() > distance_threshold:
 		point_array.append(track_object.global_transform.origin + position_offset)
 		if point_array.size() > max_points:
 			point_array.pop_front()

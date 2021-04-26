@@ -207,6 +207,7 @@ script = ExtResource( 7 )
 
 [node name="VisibilityNotifier" type="VisibilityNotifier" parent="."]
 aabb = AABB( -0.569326, -0.784382, -0.567054, 1.13865, 1.5756, 1.13411 )
+
 [connection signal="timeout" from="vision_raycast/routine_check" to="vision_raycast" method="_on_routine_check_timeout"]
 [connection signal="body_entered" from="vision_area" to="." method="_on_vision_area_body_entered"]
 [connection signal="body_exited" from="vision_area" to="." method="_on_vision_area_body_exited"]

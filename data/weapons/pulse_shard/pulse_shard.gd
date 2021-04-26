@@ -36,7 +36,7 @@ func _ready():
 func set_is_enemy_weapon(new_value):
 	is_enemy_weapon = new_value
 	if new_value:
-		$geometry_hook/muzzle_flash_light.light_color = Color(0.894531, 0.356415, 0.356415)
+		$geometry_hook/muzzle_flash_light.light_color = Color(0.96875, 0.389771, 0.389771)
 
 
 func _process(dt):

@@ -48,4 +48,5 @@ anims/pulse = SubResource( 3 )
 playback_process_mode = 0
 playback_speed = 2.0
 playback/speed = 2.0
+
 [connection signal="tween_completed" from="arrival_tween" to="." method="_on_arrival_tween_tween_completed"]
