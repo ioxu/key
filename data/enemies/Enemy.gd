@@ -216,7 +216,7 @@ func _attack(delta) -> void:
 			fsm.set_state("search")
 		return
 
-	if is_instance_valid(target):
+	if is_instance_valid(target) and target:
 		target_last_known_position = target.transform.origin
 
 		rotate_toward_target(delta)
@@ -258,7 +258,7 @@ func _search(delta):
 	if $vision_raycast.can_see_target:
 		weapon.visible = true
 		fsm.set_state("attack")
-	if is_instance_valid(target):
+	if is_instance_valid(target) and target:
 		rotate_toward_target(delta)
 		search_toward_target(delta)
 		if (self.transform.origin - target.transform.origin).length() < 1.5:
@@ -357,23 +357,24 @@ func hold_to_target(delta) -> void:
 
 
 func rush_toward_target(delta) -> void:
-	if is_instance_valid(target):
+	if is_instance_valid(target) and target:
 		direction = global_transform.origin - target.global_transform.origin
 		direction = direction.normalized() 
 		movement_speed = -1.0 * delta * rush_speed
 
 
 func search_toward_target(delta) -> void:
-	if is_instance_valid(target):
+	if is_instance_valid(target) and target:
 		direction = global_transform.origin - target.global_transform.origin
 		direction = direction.normalized() 
 		movement_speed = -1.0 * delta * (rush_speed * 2.0)
 
 
 func evade_target(delta) -> void:
-	direction = global_transform.origin - target.global_transform.origin
-	direction = direction.normalized() 
-	movement_speed = 1.0 * delta * rush_speed * 0.65
+	if is_instance_valid(target) and target:	
+		direction = global_transform.origin - target.global_transform.origin
+		direction = direction.normalized() 
+		movement_speed = 1.0 * delta * rush_speed * 0.65
 
 
 func strafe_target(delta) -> void:
@@ -383,7 +384,7 @@ func strafe_target(delta) -> void:
 
 
 func rotate_toward_target(delta) -> void:
-	if is_instance_valid(target):
+	if is_instance_valid(target) and target:
 		var to = target.global_transform.origin
 		var look = Vector3(to.x, global_transform.origin.y , to.z)
 		var T=global_transform.looking_at(look, Vector3(0,1,0))
@@ -393,7 +394,7 @@ func rotate_toward_target(delta) -> void:
 
 
 func within_aim_tolerance( tolerance ) -> bool:
-	if is_instance_valid(target):
+	if is_instance_valid(target) and target:
 		var dir = -1.0 * global_transform.basis.z
 		var dir_to_player = ((target.global_transform.origin - global_transform.origin) *
 			Vector3(1.0, 0.0, 1.0)).normalized()
@@ -483,7 +484,7 @@ func _on_vision_area_body_exited(body) -> void:
 
 
 func clear_poi_target() -> void:
-		if is_instance_valid(target):
+		if is_instance_valid(target) and target:
 			if (target as PointOfInterest):
 				target.queue_free()
 				target = null
@@ -508,13 +509,13 @@ func _on_ally_notification( notification_type:int, emitter ) -> void:
 		if fsm.state != "attack":
 			match notification_type:
 				ally_notification.NEW_SEARCH_POINT:
-					if emitter.target:
+					if is_instance_valid(emitter.target): #emitter.target:
 						set_new_poi_target(emitter.target.transform.origin)
 						if fsm.state != "search":
 							fsm.set_state("search")
 				ally_notification.ENEMY_SPOTTED:
 					clear_poi_target()
-					if emitter.target:
+					if is_instance_valid(emitter.target):#emitter.target:
 						target = emitter.target
 						if fsm.state != "search":
 							fsm.set_state("search")

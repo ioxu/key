@@ -147,33 +147,6 @@ door_name = "A"
 connected_scene = "res://scenes/level.tscn"
 connected_door = "A"
 
-[node name="Enemy2" parent="level" instance=ExtResource( 4 )]
-transform = Transform( -0.978129, 0, -0.207997, 0, 1, 0, 0.207997, 0, -0.978129, -31.1539, 1.18355, -24.4914 )
-
-[node name="Enemy3" parent="level" instance=ExtResource( 4 )]
-transform = Transform( 0.85879, 0, -0.512328, 0, 1, 0, 0.512328, 0, 0.85879, -31.5942, 1.18355, -14.8156 )
-
-[node name="Enemy4" parent="level" instance=ExtResource( 4 )]
-transform = Transform( -0.988788, 0, -0.149328, 0, 1, 0, 0.149328, 0, -0.988788, -30.5199, 1.18355, -10.8348 )
-
-[node name="Enemy5" parent="level" instance=ExtResource( 4 )]
-transform = Transform( -0.628574, 0, 0.777749, 0, 1, 0, -0.777749, 0, -0.628574, -31.5812, 1.18355, -12.6211 )
-
-[node name="Enemy" parent="level" instance=ExtResource( 4 )]
-transform = Transform( -0.138308, 0, -0.990389, 0, 1, 0, 0.990389, 0, -0.138308, -15.2439, 1.35873, -29.0134 )
-
-[node name="Enemy6" parent="level" instance=ExtResource( 4 )]
-transform = Transform( -0.675693, 0, -0.737183, 0, 1, 0, 0.737183, 0, -0.675693, -17.7966, 1.18355, -25.9931 )
-
-[node name="Enemy7" parent="level" instance=ExtResource( 4 )]
-transform = Transform( 0.71385, 0, -0.700299, 0, 1, 0, 0.700299, 0, 0.71385, -23.2759, 1.18355, -27.9611 )
-
-[node name="Enemy8" parent="level" instance=ExtResource( 4 )]
-transform = Transform( 0.558035, 0, 0.829817, 0, 1, 0, -0.829817, 0, 0.558035, -31.058, 1.18355, -25.838 )
-
-[node name="Enemy9" parent="level" instance=ExtResource( 4 )]
-transform = Transform( 0.998067, 0, -0.0621459, 0, 1, 0, 0.0621459, 0, 0.998067, -29.0241, 1.18355, -25.4134 )
-
 [node name="fps_label" type="Label" parent="."]
 modulate = Color( 1, 1, 1, 0.415686 )
 margin_left = 11.2975
@@ -200,3 +173,33 @@ directional_shadow_split_3 = 0.695
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 6 )
+
+[node name="Enemy" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.52531, 1.00145, -14.4108 )
+
+[node name="Enemy2" parent="." instance=ExtResource( 4 )]
+transform = Transform( -0.794001, 0, -0.607916, 0, 1, 0, 0.607916, 0, -0.794001, -4.36181, 1.00145, -10.2433 )
+
+[node name="Enemy3" parent="." instance=ExtResource( 4 )]
+transform = Transform( -0.794001, 0, -0.607916, 0, 1, 0, 0.607916, 0, -0.794001, -27.1036, 1.00145, -12.9448 )
+
+[node name="Enemy9" parent="." instance=ExtResource( 4 )]
+transform = Transform( -0.794001, 0, -0.607916, 0, 1, 0, 0.607916, 0, -0.794001, -28.028, 1.00145, -23.8832 )
+
+[node name="Enemy10" parent="." instance=ExtResource( 4 )]
+transform = Transform( -0.794001, 0, -0.607916, 0, 1, 0, 0.607916, 0, -0.794001, -21.6936, 1.00145, -31.2689 )
+
+[node name="Enemy4" parent="." instance=ExtResource( 4 )]
+transform = Transform( -0.794001, 0, -0.607916, 0, 1, 0, 0.607916, 0, -0.794001, -16.9359, 1.00145, -18.3023 )
+
+[node name="Enemy5" parent="." instance=ExtResource( 4 )]
+transform = Transform( -0.794001, 0, -0.607916, 0, 1, 0, 0.607916, 0, -0.794001, -8.28563, 1.00145, -29.8789 )
+
+[node name="Enemy6" parent="." instance=ExtResource( 4 )]
+transform = Transform( -0.794001, 0, -0.607916, 0, 1, 0, 0.607916, 0, -0.794001, 9.29155, 1.00145, -20.2105 )
+
+[node name="Enemy7" parent="." instance=ExtResource( 4 )]
+transform = Transform( -0.794001, 0, -0.607916, 0, 1, 0, 0.607916, 0, -0.794001, 4.60988, 1.00145, -29.1314 )
+
+[node name="Enemy8" parent="." instance=ExtResource( 4 )]
+transform = Transform( -0.794001, 0, -0.607916, 0, 1, 0, 0.607916, 0, -0.794001, 4.60988, 1.00145, -29.1314 )

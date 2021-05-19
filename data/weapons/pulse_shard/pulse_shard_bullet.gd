@@ -44,7 +44,7 @@ func collided(body, collision_info: KinematicCollision):
 			body.bullet_hit(self, collision_info)
 	hit_something = true
 	_emit_impact_fx(collision_info)
-	queue_free()
+	call_deferred("queue_free") #queue_free()
 
 #	gravity_scale = 1.0
 #	if !is_enemy_bullet:
