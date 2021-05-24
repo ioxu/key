@@ -51,7 +51,7 @@ func collided(body, collision_info: KinematicCollision):
 #		set_collision_mask_bit(0, true)
 #		set_collision_mask_bit(3, true)
 #	else:
-#		queue_free()
+#		call_deferred("queue_free") #queue_free()
 
 
 func _emit_impact_fx(collision_info : KinematicCollision):

@@ -41,4 +41,5 @@ material/0 = null
 
 [node name="free_timer" type="Timer" parent="."]
 wait_time = 4.0
+
 [connection signal="timeout" from="free_timer" to="." method="_on_free_timer_timeout"]
