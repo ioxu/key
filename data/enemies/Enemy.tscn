@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://data/enemies/Enemy_material.tres" type="Material" id=1]
 [ext_resource path="res://data/enemies/Enemy.gd" type="Script" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://data/weapons/pulse_shard/pulse_shard.tscn" type="PackedScene" id=10]
 [ext_resource path="res://data/enemies/sensable_area.gd" type="Script" id=11]
 [ext_resource path="res://data/enemies/sensing_area.gd" type="Script" id=12]
+[ext_resource path="res://data/scripts/travel_path_line.gd" type="Script" id=13]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.405821
@@ -207,6 +208,16 @@ script = ExtResource( 7 )
 
 [node name="VisibilityNotifier" type="VisibilityNotifier" parent="."]
 aabb = AABB( -0.569326, -0.784382, -0.567054, 1.13865, 1.5756, 1.13411 )
+
+[node name="TravelPath" type="ImmediateGeometry" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.449114, 0 )
+script = ExtResource( 13 )
+
+[node name="TravelPath2" type="Spatial" parent="."]
+script = ExtResource( 13 )
+position_offset = Vector3( 0, 0.5, 0 )
+trail_colour = Color( 0.294118, 0.960784, 0.317647, 1 )
+emission_multiplier = 4.0
 
 [connection signal="timeout" from="vision_raycast/routine_check" to="vision_raycast" method="_on_routine_check_timeout"]
 [connection signal="body_entered" from="vision_area" to="." method="_on_vision_area_body_entered"]

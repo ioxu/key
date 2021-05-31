@@ -762,10 +762,13 @@ light_indirect_energy = 2.0
 shadow_enabled = true
 shadow_bias = 0.0
 shadow_contact = 0.53
-directional_shadow_mode = 1
+directional_shadow_mode = 0
 directional_shadow_split_1 = 0.252
 directional_shadow_split_2 = 0.431
 directional_shadow_split_3 = 0.695
+directional_shadow_normal_bias = 0.71
+directional_shadow_bias_split_scale = 0.65
+directional_shadow_max_distance = 50.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 8 )

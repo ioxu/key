@@ -19,13 +19,13 @@ material/0 = null
 [node name="sparks" parent="." instance=ExtResource( 4 )]
 
 [node name="OmniLight" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.234682 )
 light_color = Color( 0.490196, 0.792157, 0.976471, 1 )
-light_energy = 3.0
+light_energy = 2.2
 light_indirect_energy = 2.0
 light_specular = 1.0
 shadow_enabled = true
-omni_range = 7.5
-omni_attenuation = 2.14355
-omni_shadow_mode = 0
+omni_range = 8.5
+omni_attenuation = 1.41421
 
 [connection signal="timeout" from="free_timer" to="." method="_on_free_timer_timeout"]

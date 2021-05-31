@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scenes/player/Controller.gd" type="Script" id=1]
 [ext_resource path="res://data/weapons/pulse_shard/pulse_shard.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://data/enemies/hurt_meter_shadermaterial.tres" type="Material" id=6]
 [ext_resource path="res://data/enemies/hurt_meter.tscn" type="PackedScene" id=7]
 [ext_resource path="res://data/textures/debug/symbols_16px_xbones.png" type="Texture" id=8]
+[ext_resource path="res://data/scripts/travel_path_line.gd" type="Script" id=9]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.55
@@ -47,11 +48,11 @@ collision_mask = 22
 script = ExtResource( 5 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 1.31509, -2.14255e-07 )
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 0.71518, -2.14255e-07 )
 shape = SubResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 1.31509, -2.14255e-07 )
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 0.71518, -2.14255e-07 )
 mesh = SubResource( 3 )
 material/0 = null
 
@@ -114,3 +115,8 @@ opacity = 0.9
 pixel_size = 0.03
 billboard = 1
 texture = ExtResource( 8 )
+
+[node name="TravelPath" type="ImmediateGeometry" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.225328, 0 )
+script = ExtResource( 9 )
+trail_colour = Color( 0.133333, 0.94902, 0.968627, 0.839216 )

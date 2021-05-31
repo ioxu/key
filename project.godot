@@ -29,6 +29,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://data/statemachine/statemachine.gd"
 }, {
+"base": "Spatial",
+"class": "TravelPath",
+"language": "GDScript",
+"path": "res://data/scripts/travel_path_line.gd"
+}, {
 "base": "Area",
 "class": "door",
 "language": "GDScript",
@@ -39,6 +44,7 @@ _global_script_class_icons={
 "Level": "",
 "PointOfInterest": "",
 "StateMachine": "",
+"TravelPath": "res://data/TravelPath/TravelPath_icon.png",
 "door": ""
 }
 

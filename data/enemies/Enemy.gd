@@ -37,9 +37,9 @@ var attack_move_rng = RandomNumberGenerator.new()
 
 onready var original_alert_icon_modulate = $alert_icon.get_modulate()
 
-const DO_TRAVEL_PATH = true
-var travel_path = null
-const travel_path_script = preload("res://data/scripts/travel_path_line.gd")
+#const DO_TRAVEL_PATH = true
+#var travel_path = null
+#const travel_path_script = preload("res://data/scripts/travel_path_line.gd")
 
 var noise = OpenSimplexNoise.new()
 var offset = 0.0
@@ -94,12 +94,12 @@ func _ready():
 	firing_noise_rng.period = 0.5
 	firing_noise_rng.persistence = 0.8
 
-	if DO_TRAVEL_PATH and active:
-		travel_path = ImmediateGeometry.new()
-		travel_path.set_script(travel_path_script)
-		travel_path.track_object_path = self.get_path()
-		travel_path.position_offset = Vector3(0.0, -0.5, 0.0)
-		get_node("/root/").add_child(travel_path)
+#	if DO_TRAVEL_PATH and active:
+#		travel_path = ImmediateGeometry.new()
+#		travel_path.set_script(travel_path_script)
+#		travel_path.track_object_path = self.get_path()
+#		travel_path.position_offset = Vector3(0.0, -0.5, 0.0)
+#		get_node("/root/").add_child(travel_path)
 
 	$alert_icon.visible = false
 	target = null
@@ -130,8 +130,8 @@ func bullet_hit(bullet, collision_info):
 	if health <= 0.0:
 		toggle_active(false)
 		
-		if DO_TRAVEL_PATH and active:
-			travel_path.queue_free()
+#		if DO_TRAVEL_PATH and active:
+#			travel_path.queue_free()
 
 		if (target as PointOfInterest):
 			target.queue_free()
