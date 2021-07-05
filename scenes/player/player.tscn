@@ -43,6 +43,7 @@ size = Vector2( 2, 2 )
 [node name="player" type="KinematicBody" groups=[
 "Player",
 ]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.112966, 0 )
 collision_layer = 2147483649
 collision_mask = 22
 script = ExtResource( 5 )

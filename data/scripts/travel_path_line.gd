@@ -31,20 +31,28 @@ func _process(delta):
 	draw_line(delta)
 	
 func draw_line(delta):
-	if  is_instance_valid(track_object) and track_object and (track_object.global_transform.origin - point_array.back()).length() > distance_threshold:
+	if is_instance_valid(track_object) and track_object and (track_object.global_transform.origin - point_array.back()).length() > distance_threshold:
 		point_array.append(track_object.global_transform.origin + position_offset)
 		if point_array.size() > max_points:
 			point_array.pop_front()
-	
+
 	travel_path.clear()
 	travel_path.begin(Mesh.PRIMITIVE_LINE_STRIP)
 	var p_size = point_array.size()
+	
 	for i in range(p_size):
 		if i !=0:
 			travel_path.set_color(trail_colour * Color(1.0, 1.0, 1.0, falloff_lut.interpolate_baked(float(i)/p_size)))
 		else:
 			travel_path.set_color(trail_colour * Color(1.0, 1.0, 1.0, 0.0))
 		travel_path.add_vertex(point_array[i])
+
+	if is_instance_valid(track_object) and track_object:
+		# add point from track_object's present location to end of path
+		# (avoid a gap that pops out once distance_threshold is reached)
+		travel_path.set_color(trail_colour)
+		travel_path.add_vertex(track_object.global_transform.origin)
+
 	travel_path.end()
 
 	if draw_points:
