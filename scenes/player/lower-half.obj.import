@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/lower-half.obj-85943efd7254331c9892e7201f989dcc.mesh"
+
+[deps]
+
+files=[ "res://.import/lower-half.obj-85943efd7254331c9892e7201f989dcc.mesh" ]
+
+source_file="res://scenes/player/lower-half.obj"
+dest_files=[ "res://.import/lower-half.obj-85943efd7254331c9892e7201f989dcc.mesh", "res://.import/lower-half.obj-85943efd7254331c9892e7201f989dcc.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true
