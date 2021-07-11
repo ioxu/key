@@ -19,7 +19,7 @@ onready var falloff_lut = Util.bias_lut(0.22, 50)
 
 func _ready():
 	#set_as_toplevel(true)
-	track_object = get_node("../")
+	track_object = self#get_node("../")
 	last_position = track_object.global_transform.origin
 	point_array.append(last_position)
 	travel_path.material_override = trail_material.duplicate()

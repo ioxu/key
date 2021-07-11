@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scenes/player/Controller.gd" type="Script" id=1]
 [ext_resource path="res://data/weapons/pulse_shard/pulse_shard.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://data/enemies/hurt_meter.tscn" type="PackedScene" id=7]
 [ext_resource path="res://data/textures/debug/symbols_16px_xbones.png" type="Texture" id=8]
 [ext_resource path="res://data/scripts/travel_path_line.gd" type="Script" id=9]
+[ext_resource path="res://scenes/player/lower-half.obj" type="ArrayMesh" id=10]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.55
@@ -53,7 +54,7 @@ transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 0.71
 shape = SubResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 0.71518, -2.14255e-07 )
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 1.54973, -3.5022e-07 )
 mesh = SubResource( 3 )
 material/0 = null
 
@@ -118,6 +119,31 @@ billboard = 1
 texture = ExtResource( 8 )
 
 [node name="TravelPath" type="ImmediateGeometry" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.225328, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0881381, 0 )
+script = ExtResource( 9 )
+trail_colour = Color( 0.133333, 0.94902, 0.968627, 0.521569 )
+
+[node name="TravelPath2" type="ImmediateGeometry" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7384, -0.0881381, 0 )
 script = ExtResource( 9 )
 trail_colour = Color( 0.133333, 0.94902, 0.968627, 0.839216 )
+
+[node name="TravelPath3" type="ImmediateGeometry" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.730529, -0.0881381, 0 )
+script = ExtResource( 9 )
+trail_colour = Color( 0.133333, 0.94902, 0.968627, 0.839216 )
+
+[node name="TravelPath4" type="ImmediateGeometry" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00437379, -0.0881381, -0.716798 )
+script = ExtResource( 9 )
+trail_colour = Color( 0.133333, 0.94902, 0.968627, 0.839216 )
+
+[node name="TravelPath5" type="ImmediateGeometry" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0151972, -0.0881383, 0.714991 )
+script = ExtResource( 9 )
+trail_colour = Color( 0.133333, 0.94902, 0.968627, 0.839216 )
+
+[node name="lower-half" type="MeshInstance" parent="."]
+use_in_baked_light = true
+mesh = ExtResource( 10 )
+material/0 = null
