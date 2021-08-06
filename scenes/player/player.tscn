@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://scenes/player/Controller.gd" type="Script" id=1]
 [ext_resource path="res://data/weapons/pulse_shard/pulse_shard.tscn" type="PackedScene" id=2]
@@ -10,58 +10,63 @@
 [ext_resource path="res://data/textures/debug/symbols_16px_xbones.png" type="Texture" id=8]
 [ext_resource path="res://data/scripts/travel_path_line.gd" type="Script" id=9]
 [ext_resource path="res://scenes/player/lower-half.obj" type="ArrayMesh" id=10]
+[ext_resource path="res://scenes/player/player_material.tres" type="Material" id=11]
+[ext_resource path="res://data/scripts/three_joint_leg.gd" type="Script" id=12]
+[ext_resource path="res://scenes/player/player_leg_material.tres" type="Material" id=13]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.55
 height = 0.55
 
-[sub_resource type="SpatialMaterial" id=2]
-albedo_color = Color( 0.678431, 0.678431, 0.678431, 1 )
-
-[sub_resource type="CapsuleMesh" id=3]
-material = SubResource( 2 )
+[sub_resource type="CapsuleMesh" id=2]
+material = ExtResource( 11 )
 radius = 0.25
 mid_height = 0.9
 radial_segments = 24
 rings = 5
 
-[sub_resource type="CubeMesh" id=4]
+[sub_resource type="CubeMesh" id=3]
 size = Vector3( 0.064, 0.364, 0.998 )
 
-[sub_resource type="SpatialMaterial" id=5]
+[sub_resource type="SpatialMaterial" id=4]
 albedo_color = Color( 0.619608, 0.592157, 0.592157, 1 )
 
-[sub_resource type="CylinderMesh" id=6]
+[sub_resource type="CylinderMesh" id=5]
 resource_local_to_scene = true
 material = ExtResource( 6 )
 height = 0.2
 radial_segments = 32
 rings = 1
 
-[sub_resource type="QuadMesh" id=7]
+[sub_resource type="QuadMesh" id=6]
 size = Vector2( 2, 2 )
+
+[sub_resource type="CylinderMesh" id=7]
+material = ExtResource( 11 )
+top_radius = 0.2
+bottom_radius = 0.2
+height = 0.077
 
 [node name="player" type="KinematicBody" groups=[
 "Player",
 ]]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.112966, 0 )
 collision_layer = 2147483649
 collision_mask = 22
 script = ExtResource( 5 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 0.71518, -2.14255e-07 )
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 0.82259, -2.31754e-07 )
 shape = SubResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 1.54973, -3.5022e-07 )
-mesh = SubResource( 3 )
+mesh = SubResource( 2 )
 material/0 = null
 
 [node name="MeshInstance" type="MeshInstance" parent="MeshInstance"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.261, 0.194 )
-mesh = SubResource( 4 )
-material/0 = SubResource( 5 )
+mesh = SubResource( 3 )
+material/0 = SubResource( 4 )
 
 [node name="weapon_mount" type="Spatial" parent="MeshInstance"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, -0.44367, 0.628556 )
@@ -70,7 +75,7 @@ transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, -0.4
 
 [node name="hurt_meter" parent="MeshInstance" instance=ExtResource( 7 )]
 transform = Transform( 0.5, 0, 0, 0, -6.55671e-08, 0.5, 0, -1.5, -2.18557e-08, 0, 0, 0.858 )
-mesh = SubResource( 6 )
+mesh = SubResource( 5 )
 
 [node name="Controller" type="Spatial" parent="."]
 script = ExtResource( 1 )
@@ -105,7 +110,7 @@ far = 300.0
 [node name="motion_blur" type="MeshInstance" parent="camera_root/camera_base/camera_tilt/camera_boom/Camera"]
 transform = Transform( 1, 0, 0, 0, 1, 1.49012e-07, 0, 0, 1, 0, 0, -1.05979 )
 visible = false
-mesh = SubResource( 7 )
+mesh = SubResource( 6 )
 material/0 = ExtResource( 4 )
 script = ExtResource( 3 )
 
@@ -118,32 +123,97 @@ pixel_size = 0.03
 billboard = 1
 texture = ExtResource( 8 )
 
-[node name="TravelPath" type="ImmediateGeometry" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0881381, 0 )
-script = ExtResource( 9 )
-trail_colour = Color( 0.133333, 0.94902, 0.968627, 0.521569 )
-
 [node name="TravelPath2" type="ImmediateGeometry" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7384, -0.0881381, 0 )
+visible = false
 script = ExtResource( 9 )
 trail_colour = Color( 0.133333, 0.94902, 0.968627, 0.839216 )
 
 [node name="TravelPath3" type="ImmediateGeometry" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.730529, -0.0881381, 0 )
+visible = false
 script = ExtResource( 9 )
 trail_colour = Color( 0.133333, 0.94902, 0.968627, 0.839216 )
 
 [node name="TravelPath4" type="ImmediateGeometry" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00437379, -0.0881381, -0.716798 )
+visible = false
 script = ExtResource( 9 )
 trail_colour = Color( 0.133333, 0.94902, 0.968627, 0.839216 )
 
 [node name="TravelPath5" type="ImmediateGeometry" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0151972, -0.0881383, 0.714991 )
+visible = false
 script = ExtResource( 9 )
 trail_colour = Color( 0.133333, 0.94902, 0.968627, 0.839216 )
 
 [node name="lower-half" type="MeshInstance" parent="."]
+visible = false
 use_in_baked_light = true
 mesh = ExtResource( 10 )
 material/0 = null
+
+[node name="waist" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.796748, 0 )
+
+[node name="waist_position" type="Position3D" parent="waist"]
+
+[node name="hip_1_position" type="Position3D" parent="waist"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.156018, -0.0499119, 0 )
+visible = false
+
+[node name="waist_geo" type="MeshInstance" parent="waist"]
+mesh = SubResource( 7 )
+material/0 = null
+
+[node name="leg_1" type="Spatial" parent="."]
+transform = Transform( 0.994364, 0, -0.104541, 0, 1, 0, 0.104541, 0, 0.994364, 0.156018, 0.746836, 0 )
+script = ExtResource( 12 )
+hip_node_path = NodePath("../waist/hip_1_position")
+toe_node_path = NodePath("../toe_1_position")
+length_hip = 0.306
+length_thigh = 0.532
+length_shin = 0.919
+bone_depth = 0.15
+
+[node name="hip_joint" type="Spatial" parent="leg_1"]
+transform = Transform( 0.328374, 0.944548, 0, -0.944548, 0.328374, 0, 0, 0, 1, 0, 0, 0 )
+
+[node name="Position3D" type="Position3D" parent="leg_1/hip_joint"]
+transform = Transform( 1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0 )
+
+[node name="polygon" type="CSGPolygon" parent="leg_1/hip_joint"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.075 )
+material_override = ExtResource( 13 )
+polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.306, 0 )
+depth = 0.15
+
+[node name="thigh_joint" type="Spatial" parent="leg_1/hip_joint"]
+transform = Transform( -0.653003, -0.757355, 0, 0.757355, -0.653003, 0, 0, 0, 1, 0.306, 0, 0 )
+
+[node name="polygon" type="CSGPolygon" parent="leg_1/hip_joint/thigh_joint"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.075 )
+material_override = ExtResource( 13 )
+polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.532, 0 )
+depth = 0.15
+
+[node name="shin_joint" type="Spatial" parent="leg_1/hip_joint/thigh_joint"]
+transform = Transform( -0.844467, 0.535608, 0, -0.535608, -0.844467, 0, 0, 0, 1, 0.532, 0, 0 )
+
+[node name="polygon" type="CSGPolygon" parent="leg_1/hip_joint/thigh_joint/shin_joint"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.075 )
+material_override = ExtResource( 13 )
+polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.919, 0 )
+depth = 0.15
+
+[node name="toe_joint" type="Spatial" parent="leg_1/hip_joint/thigh_joint/shin_joint"]
+
+[node name="toe_1_position" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.56808, 0, 0.108122 )
+
+[node name="TravelPath" type="ImmediateGeometry" parent="toe_1_position"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0702516, 0 )
+script = ExtResource( 9 )
+distance_threshold = 0.1
+max_points = 1000
+trail_colour = Color( 0.133333, 0.94902, 0.968627, 0.521569 )
