@@ -21,17 +21,27 @@ const MIN_DIST = 0.25
 var global_time = 0.0
 onready var toe_initial_position = toe_node.transform.origin
 
+var noise1 = OpenSimplexNoise.new()
+
+
+
 func _ready():
 	#yield(get_tree().create_timer(.1), "timeout")
 	_set_bone_polygons(bone_width)
 	_set_joint_positions()
-	pass
+
+	# Configure
+	noise1.seed = randi()
+	noise1.octaves = 4
+	noise1.period = 30.0
+	noise1.persistence = 0.8
+
 
 
 func _process(delta):
+	global_transform.origin = hip_node.global_transform.origin
 	global_time += delta
-	var gt = global_transform.origin
-	gt = hip_node.global_transform.origin
+	var gt = hip_node.global_transform.origin
 	var gx = global_transform.origin.x
 	var gtx = toe_node.global_transform.origin.x
 	var gz = global_transform.origin.z
@@ -44,7 +54,8 @@ func _process(delta):
 
 	update_ik( Vector2(_x, _y), Vector2(0,0) )
 
-	toe_node.transform.origin =Vector3(toe_initial_position.x  +  sin(global_time*8) * 0.5, 0.0, toe_initial_position.z + cos(global_time*8)*0.5)
+	if not Engine.editor_hint:
+		toe_node.transform.origin =Vector3(toe_initial_position.x  +  (sin(global_time*8) * 0.25 + noise1.get_noise_2d(1.0,global_time*30) * 0.35), 0.0, toe_initial_position.z + cos(global_time*8)*0.25 + noise1.get_noise_2d(1.0,(global_time*30)+100) * 0.35)
 
 #-------------
 # IK
