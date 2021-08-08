@@ -16,6 +16,10 @@ export var bone_depth = 0.02 setget set_bone_depth
 
 export var flipped = true
 
+export var a_off := 0.43255
+export var a_m := 1.0
+
+
 const MIN_DIST = 0.25
 
 var global_time = 0.0
@@ -41,7 +45,7 @@ func _ready():
 func _process(delta):
 	global_transform.origin = hip_node.global_transform.origin
 	global_time += delta
-	var gt = hip_node.global_transform.origin
+	#var gt = hip_node.global_transform.origin
 	var gx = global_transform.origin.x
 	var gtx = toe_node.global_transform.origin.x
 	var gz = global_transform.origin.z
@@ -55,7 +59,9 @@ func _process(delta):
 	update_ik( Vector2(_x, _y), Vector2(0,0) )
 
 	if not Engine.editor_hint:
-		toe_node.transform.origin =Vector3(toe_initial_position.x  +  (sin(global_time*8) * 0.25 + noise1.get_noise_2d(1.0,global_time*30) * 0.35), 0.0, toe_initial_position.z + cos(global_time*8)*0.25 + noise1.get_noise_2d(1.0,(global_time*30)+100) * 0.35)
+		var a_x = toe_initial_position.x  + (sin((global_time + a_off)*a_m*8) * 0.25 + noise1.get_noise_2d(1.0,global_time*30) * 0.35)
+		var a_z = toe_initial_position.z + cos((global_time + a_off)*a_m*8)*0.25 + noise1.get_noise_2d(1.0,(global_time*30)+100) * 0.35
+		toe_node.transform.origin =Vector3(a_x, 0.0, a_z)
 
 #-------------
 # IK
