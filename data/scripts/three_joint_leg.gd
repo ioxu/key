@@ -63,9 +63,9 @@ func _process(delta):
 	var offset = hip_node.global_transform.origin - toe_node.global_transform.origin
 	self.transform.basis = self.transform.basis.rotated( offset.normalized(), roll )
 	
-	if not Engine.editor_hint:
-		toe_node.transform.origin =Vector3(toe_initial_position.x  +  (sin((global_time + a_off) * a_m *8) * 0.25 + noise1.get_noise_2d(1.0,global_time*30) * 0.35), 0.0, toe_initial_position.z + cos((global_time + a_off) * a_m *8)*0.25 + noise1.get_noise_2d(1.0,(global_time*30)+100) * 0.35)
-		roll = sin((global_time + a_off) * a_m * 4) * (PI/2)
+#	if not Engine.editor_hint:
+#		toe_node.transform.origin =Vector3(toe_initial_position.x  +  (sin((global_time + a_off) * a_m *8) * 0.25 + noise1.get_noise_2d(1.0,global_time*30) * 0.35), 0.0, toe_initial_position.z + cos((global_time + a_off) * a_m *8)*0.25 + noise1.get_noise_2d(1.0,(global_time*30)+100) * 0.35)
+#		roll = sin((global_time + a_off) * a_m * 4) * (PI/2)
 
 #-------------
 # IK
