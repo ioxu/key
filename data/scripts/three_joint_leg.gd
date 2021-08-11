@@ -7,6 +7,8 @@ export (NodePath) var toe_node_path
 onready var hip_node = get_node(hip_node_path)
 onready var toe_node = get_node(toe_node_path)
 
+export(float, -3.141593, 3.141593) var roll := 0.0 
+
 export var length_hip := 0.5 setget set_length_hip
 export var length_thigh := 0.5 setget set_length_thigh
 export var length_shin := 1.25 setget set_length_shin
@@ -16,8 +18,8 @@ export var bone_depth = 0.02 setget set_bone_depth
 
 export var flipped = true
 
-export var a_off := 0.43255
-export var a_m := 1.0
+export var a_off = 0.345
+export var a_m = -2.45
 
 
 const MIN_DIST = 0.25
@@ -45,7 +47,7 @@ func _ready():
 func _process(delta):
 	global_transform.origin = hip_node.global_transform.origin
 	global_time += delta
-	#var gt = hip_node.global_transform.origin
+	var gt = hip_node.global_transform.origin
 	var gx = global_transform.origin.x
 	var gtx = toe_node.global_transform.origin.x
 	var gz = global_transform.origin.z
@@ -58,10 +60,12 @@ func _process(delta):
 
 	update_ik( Vector2(_x, _y), Vector2(0,0) )
 
+	var offset = hip_node.global_transform.origin - toe_node.global_transform.origin
+	self.transform.basis = self.transform.basis.rotated( offset.normalized(), roll )
+	
 	if not Engine.editor_hint:
-		var a_x = toe_initial_position.x  + (sin((global_time + a_off)*a_m*8) * 0.25 + noise1.get_noise_2d(1.0,global_time*30) * 0.35)
-		var a_z = toe_initial_position.z + cos((global_time + a_off)*a_m*8)*0.25 + noise1.get_noise_2d(1.0,(global_time*30)+100) * 0.35
-		toe_node.transform.origin =Vector3(a_x, 0.0, a_z)
+		toe_node.transform.origin =Vector3(toe_initial_position.x  +  (sin((global_time + a_off) * a_m *8) * 0.25 + noise1.get_noise_2d(1.0,global_time*30) * 0.35), 0.0, toe_initial_position.z + cos((global_time + a_off) * a_m *8)*0.25 + noise1.get_noise_2d(1.0,(global_time*30)+100) * 0.35)
+		roll = sin((global_time + a_off) * a_m * 4) * (PI/2)
 
 #-------------
 # IK
@@ -83,6 +87,8 @@ func update_ik(target_pos:Vector2, root_pos:Vector2) -> void:
 	$hip_joint.transform.basis = Basis(Vector3(0,0,1), -1*(base_angles.B - next_angles.B + base_r ) )
 	$hip_joint/thigh_joint.transform.basis = Basis(Vector3(0,0,1), next_angles.C )
 	$hip_joint/thigh_joint/shin_joint.transform.basis = Basis(Vector3(0,0,1) , -1*(base_angles.C - next_angles.A) )
+	
+	
 
 
 func SSS_calc(side_a, side_b, side_c):
