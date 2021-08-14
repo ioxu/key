@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://scenes/player/Controller.gd" type="Script" id=1]
 [ext_resource path="res://data/weapons/pulse_shard/pulse_shard.tscn" type="PackedScene" id=2]
@@ -13,34 +13,48 @@
 [ext_resource path="res://data/scripts/three_joint_leg.gd" type="Script" id=12]
 [ext_resource path="res://scenes/player/player_leg_material.tres" type="Material" id=13]
 
-[sub_resource type="CapsuleShape" id=1]
+[sub_resource type="Animation" id=1]
+resource_name = "recoil_time_animation"
+length = 1.4
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:recol_time")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.1, 2.22959, 0, -1.13, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1.4 )
+}
+
+[sub_resource type="CapsuleShape" id=2]
 radius = 0.55
 height = 0.55
 
-[sub_resource type="CapsuleMesh" id=2]
+[sub_resource type="CapsuleMesh" id=3]
 material = ExtResource( 11 )
 radius = 0.25
 mid_height = 0.9
 radial_segments = 24
 rings = 5
 
-[sub_resource type="CubeMesh" id=3]
+[sub_resource type="CubeMesh" id=4]
 size = Vector3( 0.064, 0.364, 0.998 )
 
-[sub_resource type="SpatialMaterial" id=4]
+[sub_resource type="SpatialMaterial" id=5]
 albedo_color = Color( 0.619608, 0.592157, 0.592157, 1 )
 
-[sub_resource type="CylinderMesh" id=5]
+[sub_resource type="CylinderMesh" id=6]
 resource_local_to_scene = true
 material = ExtResource( 6 )
 height = 0.2
 radial_segments = 32
 rings = 1
 
-[sub_resource type="QuadMesh" id=6]
+[sub_resource type="QuadMesh" id=7]
 size = Vector2( 2, 2 )
 
-[sub_resource type="CylinderMesh" id=7]
+[sub_resource type="CylinderMesh" id=8]
 material = ExtResource( 11 )
 top_radius = 0.2
 bottom_radius = 0.2
@@ -53,19 +67,22 @@ collision_layer = 2147483649
 collision_mask = 22
 script = ExtResource( 5 )
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/recoil_time_animation = SubResource( 1 )
+
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 0.82259, -2.31754e-07 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 1.54973, -3.5022e-07 )
-mesh = SubResource( 2 )
+mesh = SubResource( 3 )
 material/0 = null
 
 [node name="MeshInstance" type="MeshInstance" parent="MeshInstance"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.261, 0.194 )
-mesh = SubResource( 3 )
-material/0 = SubResource( 4 )
+mesh = SubResource( 4 )
+material/0 = SubResource( 5 )
 
 [node name="weapon_mount" type="Spatial" parent="MeshInstance"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, -0.44367, 0.628556 )
@@ -74,7 +91,7 @@ transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, -0.4
 
 [node name="hurt_meter" parent="MeshInstance" instance=ExtResource( 7 )]
 transform = Transform( 0.5, 0, 0, 0, -6.55671e-08, 0.5, 0, -1.5, -2.18557e-08, 0, 0, 0.858 )
-mesh = SubResource( 5 )
+mesh = SubResource( 6 )
 
 [node name="Controller" type="Spatial" parent="."]
 script = ExtResource( 1 )
@@ -109,7 +126,7 @@ far = 300.0
 [node name="motion_blur" type="MeshInstance" parent="camera_root/camera_base/camera_tilt/camera_boom/Camera"]
 transform = Transform( 1, 0, 0, 0, 1, 1.49012e-07, 0, 0, 1, 0, 0, -1.05979 )
 visible = false
-mesh = SubResource( 6 )
+mesh = SubResource( 7 )
 material/0 = ExtResource( 4 )
 script = ExtResource( 3 )
 
@@ -140,22 +157,22 @@ transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -
 transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -0.110306, -0.05, -0.110302 )
 
 [node name="waist_geo" type="MeshInstance" parent="waist"]
-mesh = SubResource( 7 )
+mesh = SubResource( 8 )
 material/0 = null
 
 [node name="leg_1" type="Spatial" parent="."]
-transform = Transform( 0.658568, 0, 0.752305, 0, 0.999995, 0, -0.752305, 0, 0.658568, 0.110324, 0.746836, -0.110315 )
+transform = Transform( 0.658569, 0, 0.752306, 0, 0.999995, 0, -0.752306, 0, 0.658569, 0.110324, 0.746836, -0.110315 )
 script = ExtResource( 12 )
 hip_node_path = NodePath("../waist/hip_1_position")
 toe_node_path = NodePath("../toe_1_position")
-length_hip = 0.306
-length_thigh = 0.532
-length_shin = 0.919
+length_hip = 0.292
+length_thigh = 0.456
+length_shin = 0.98
 bone_depth = 0.15
 a_m = 1.5
 
 [node name="hip_joint" type="Spatial" parent="leg_1"]
-transform = Transform( 0.491653, 0.870791, 0, -0.870791, 0.491653, 0, 0, 0, 1, 0, 0, 0 )
+transform = Transform( 0.655342, 0.755333, 0, -0.755333, 0.655342, 0, 0, 0, 1, 0, 0, 0 )
 
 [node name="Position3D" type="Position3D" parent="leg_1/hip_joint"]
 transform = Transform( 1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0 )
@@ -164,43 +181,43 @@ visible = false
 [node name="polygon" type="CSGPolygon" parent="leg_1/hip_joint"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.075 )
 material_override = ExtResource( 13 )
-polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.306, 0 )
+polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.292, 0 )
 depth = 0.15
 
 [node name="thigh_joint" type="Spatial" parent="leg_1/hip_joint"]
-transform = Transform( -0.189381, -0.981904, 0, 0.981904, -0.189381, 0, 0, 0, 1, 0.306, 0, 0 )
+transform = Transform( -0.12667, -0.991945, 0, 0.991945, -0.12667, 0, 0, 0, 1, 0.292, 0, 0 )
 
 [node name="polygon" type="CSGPolygon" parent="leg_1/hip_joint/thigh_joint"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.075 )
 material_override = ExtResource( 13 )
-polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.532, 0 )
+polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.456, 0 )
 depth = 0.15
 
 [node name="shin_joint" type="Spatial" parent="leg_1/hip_joint/thigh_joint"]
-transform = Transform( -0.338069, 0.941121, 0, -0.941121, -0.338069, 0, 0, 0, 1, 0.532, 0, 0 )
+transform = Transform( -0.424983, 0.905201, 0, -0.905201, -0.424983, 0, 0, 0, 1, 0.456, 0, 0 )
 
 [node name="polygon" type="CSGPolygon" parent="leg_1/hip_joint/thigh_joint/shin_joint"]
 transform = Transform( 1, 1.49012e-08, 0, -1.49012e-08, 1, 1.49012e-08, 0, 1.49012e-08, 1, 0, 1.19209e-07, 0.075 )
 material_override = ExtResource( 13 )
-polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.919, 0 )
+polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.98, 0 )
 depth = 0.15
 
 [node name="toe_joint" type="Spatial" parent="leg_1/hip_joint/thigh_joint/shin_joint"]
 
 [node name="leg_2" type="Spatial" parent="."]
-transform = Transform( 0.685215, 0, -0.728118, 0, 1, 0, 0.728118, 0, 0.685215, 0.110311, 0.746748, 0.110315 )
+transform = Transform( 0.685216, 0, -0.72812, 0, 1, 0, 0.72812, 0, 0.685216, 0.110311, 0.746748, 0.110315 )
 script = ExtResource( 12 )
 hip_node_path = NodePath("../waist/hip_2_position")
 toe_node_path = NodePath("../toe_2_position")
-length_hip = 0.306
-length_thigh = 0.532
-length_shin = 0.919
+length_hip = 0.292
+length_thigh = 0.456
+length_shin = 0.98
 bone_depth = 0.15
 a_off = 0.56
 a_m = -1.5
 
 [node name="hip_joint" type="Spatial" parent="leg_2"]
-transform = Transform( 0.535517, 0.844524, 0, -0.844524, 0.535517, 0, 0, 0, 1, 0, 0, 0 )
+transform = Transform( 0.685518, 0.728055, 0, -0.728055, 0.685518, 0, 0, 0, 1, 0, 0, 0 )
 
 [node name="Position3D" type="Position3D" parent="leg_2/hip_joint"]
 transform = Transform( 1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0 )
@@ -209,43 +226,43 @@ visible = false
 [node name="polygon" type="CSGPolygon" parent="leg_2/hip_joint"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.075 )
 material_override = ExtResource( 13 )
-polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.306, 0 )
+polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.292, 0 )
 depth = 0.15
 
 [node name="thigh_joint" type="Spatial" parent="leg_2/hip_joint"]
-transform = Transform( -0.137113, -0.990555, 0, 0.990555, -0.137113, 0, 0, 0, 1, 0.306, 0, 0 )
+transform = Transform( -0.0740325, -0.997256, 0, 0.997256, -0.0740325, 0, 0, 0, 1, 0.292, 0, 0 )
 
 [node name="polygon" type="CSGPolygon" parent="leg_2/hip_joint/thigh_joint"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.075 )
 material_override = ExtResource( 13 )
-polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.532, 0 )
+polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.456, 0 )
 depth = 0.15
 
 [node name="shin_joint" type="Spatial" parent="leg_2/hip_joint/thigh_joint"]
-transform = Transform( -0.279689, 0.960091, 0, -0.960091, -0.279689, 0, 0, 0, 1, 0.532, 0, 0 )
+transform = Transform( -0.3603, 0.932837, 0, -0.932837, -0.3603, 0, 0, 0, 1, 0.456, 0, 0 )
 
 [node name="polygon" type="CSGPolygon" parent="leg_2/hip_joint/thigh_joint/shin_joint"]
 transform = Transform( 1, 0, 6.98492e-10, 0, 1, 1.53668e-08, 0, 1.49012e-08, 1, -2.98023e-07, 2.38419e-07, 0.075 )
 material_override = ExtResource( 13 )
-polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.919, 0 )
+polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.98, 0 )
 depth = 0.15
 
 [node name="toe_joint" type="Spatial" parent="leg_2/hip_joint/thigh_joint/shin_joint"]
 
 [node name="leg_3" type="Spatial" parent="."]
-transform = Transform( -0.736448, 0, -0.676253, 0, 1, 0, 0.676253, 0, -0.736448, -0.110306, 0.746748, 0.110315 )
+transform = Transform( -0.73645, 0, -0.676254, 0, 1, 0, 0.676254, 0, -0.73645, -0.110306, 0.746748, 0.110315 )
 script = ExtResource( 12 )
 hip_node_path = NodePath("../waist/hip_3_position")
 toe_node_path = NodePath("../toe_3_position")
-length_hip = 0.306
-length_thigh = 0.532
-length_shin = 0.919
+length_hip = 0.292
+length_thigh = 0.456
+length_shin = 0.98
 bone_depth = 0.15
 a_off = 0.23
 a_m = 1.5
 
 [node name="hip_joint" type="Spatial" parent="leg_3"]
-transform = Transform( 0.583927, 0.811806, 0, -0.811806, 0.583927, 0, 0, 0, 1, 0, 0, 0 )
+transform = Transform( 0.709922, 0.70428, 0, -0.70428, 0.709922, 0, 0, 0, 1, 0, 0, 0 )
 
 [node name="Position3D" type="Position3D" parent="leg_3/hip_joint"]
 transform = Transform( 1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0 )
@@ -254,43 +271,43 @@ visible = false
 [node name="polygon" type="CSGPolygon" parent="leg_3/hip_joint"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.075 )
 material_override = ExtResource( 13 )
-polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.306, 0 )
+polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.292, 0 )
 depth = 0.15
 
 [node name="thigh_joint" type="Spatial" parent="leg_3/hip_joint"]
-transform = Transform( 0.00317604, -0.999995, 0, 0.999995, 0.00317604, 0, 0, 0, 1, 0.306, 0, 0 )
+transform = Transform( 0.0672478, -0.997736, 0, 0.997736, 0.0672478, 0, 0, 0, 1, 0.292, 0, 0 )
 
 [node name="polygon" type="CSGPolygon" parent="leg_3/hip_joint/thigh_joint"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.075 )
 material_override = ExtResource( 13 )
-polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.532, 0 )
+polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.456, 0 )
 depth = 0.15
 
 [node name="shin_joint" type="Spatial" parent="leg_3/hip_joint/thigh_joint"]
-transform = Transform( -0.122603, 0.992456, 0, -0.992456, -0.122603, 0, 0, 0, 1, 0.532, 0, 0 )
+transform = Transform( -0.184879, 0.982761, 0, -0.982761, -0.184879, 0, 0, 0, 1, 0.456, 0, 0 )
 
 [node name="polygon" type="CSGPolygon" parent="leg_3/hip_joint/thigh_joint/shin_joint"]
 transform = Transform( 1, 1.49012e-08, 0, -1.49012e-08, 1, 1.49012e-08, 0, 1.49012e-08, 1, 0, 1.19209e-07, 0.075 )
 material_override = ExtResource( 13 )
-polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.919, 0 )
+polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.98, 0 )
 depth = 0.15
 
 [node name="toe_joint" type="Spatial" parent="leg_3/hip_joint/thigh_joint/shin_joint"]
 
 [node name="leg_4" type="Spatial" parent="."]
-transform = Transform( -0.741502, 0, 0.670665, 0, 1, 0, -0.670665, 0, -0.741502, -0.110306, 0.746748, -0.110302 )
+transform = Transform( -0.741504, 0, 0.670667, 0, 1, 0, -0.670667, 0, -0.741504, -0.110306, 0.746748, -0.110302 )
 script = ExtResource( 12 )
 hip_node_path = NodePath("../waist/hip_4_position")
 toe_node_path = NodePath("../toe_4_position")
-length_hip = 0.306
-length_thigh = 0.532
-length_shin = 0.919
+length_hip = 0.292
+length_thigh = 0.456
+length_shin = 0.98
 bone_depth = 0.15
 a_off = -0.65
 a_m = -1.5
 
 [node name="hip_joint" type="Spatial" parent="leg_4"]
-transform = Transform( 0.529352, 0.848402, 0, -0.848402, 0.529352, 0, 0, 0, 1, 0, 0, 0 )
+transform = Transform( 0.686077, 0.727529, 0, -0.727529, 0.686077, 0, 0, 0, 1, 0, 0, 0 )
 
 [node name="Position3D" type="Position3D" parent="leg_4/hip_joint"]
 transform = Transform( 1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0 )
@@ -299,31 +316,31 @@ visible = false
 [node name="polygon" type="CSGPolygon" parent="leg_4/hip_joint"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.075 )
 material_override = ExtResource( 13 )
-polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.306, 0 )
+polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.292, 0 )
 depth = 0.15
 
 [node name="thigh_joint" type="Spatial" parent="leg_4/hip_joint"]
-transform = Transform( -0.177758, -0.984074, 0, 0.984074, -0.177758, 0, 0, 0, 1, 0.306, 0, 0 )
+transform = Transform( -0.114965, -0.99337, 0, 0.99337, -0.114965, 0, 0, 0, 1, 0.292, 0, 0 )
 
 [node name="polygon" type="CSGPolygon" parent="leg_4/hip_joint/thigh_joint"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.075 )
 material_override = ExtResource( 13 )
-polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.532, 0 )
+polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.456, 0 )
 depth = 0.15
 
 [node name="shin_joint" type="Spatial" parent="leg_4/hip_joint/thigh_joint"]
-transform = Transform( -0.325096, 0.945681, 0, -0.945681, -0.325096, 0, 0, 0, 1, 0.532, 0, 0 )
+transform = Transform( -0.410639, 0.911798, 0, -0.911798, -0.410639, 0, 0, 0, 1, 0.456, 0, 0 )
 
 [node name="polygon" type="CSGPolygon" parent="leg_4/hip_joint/thigh_joint/shin_joint"]
 transform = Transform( 1, 1.49012e-08, 0, -1.49012e-08, 1, 1.49012e-08, 0, 1.49012e-08, 1, 0, 1.19209e-07, 0.075 )
 material_override = ExtResource( 13 )
-polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.919, 0 )
+polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.98, 0 )
 depth = 0.15
 
 [node name="toe_joint" type="Spatial" parent="leg_4/hip_joint/thigh_joint/shin_joint"]
 
 [node name="toe_1_position" type="Position3D" parent="."]
-transform = Transform( 0.707107, 0, 0.707107, 0, 0.999997, 0, -0.707107, 0, 0.707107, 0.689452, -0.0352683, -0.771873 )
+transform = Transform( 1, 0, 0, 0, 0.999997, 0, 0, 0, 1, 0.689452, -0.0352683, -0.771873 )
 
 [node name="TravelPath" type="ImmediateGeometry" parent="toe_1_position"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0702516, 0 )
@@ -333,7 +350,7 @@ max_points = 1000
 trail_colour = Color( 0.133333, 0.94902, 0.968627, 0.521569 )
 
 [node name="toe_2_position" type="Position3D" parent="."]
-transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0.757194, -0.00729895, 0.797702 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.757194, -0.00729895, 0.797702 )
 
 [node name="TravelPath" type="ImmediateGeometry" parent="toe_2_position"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0702516, 0 )
@@ -343,7 +360,7 @@ max_points = 1000
 trail_colour = Color( 0.133333, 0.94902, 0.968627, 0.521569 )
 
 [node name="toe_3_position" type="Position3D" parent="."]
-transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -0.883774, 0, 0.820562 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.883774, 0, 0.820562 )
 
 [node name="TravelPath" type="ImmediateGeometry" parent="toe_3_position"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0702516, 0 )
@@ -353,7 +370,7 @@ max_points = 1000
 trail_colour = Color( 0.133333, 0.94902, 0.968627, 0.521569 )
 
 [node name="toe_4_position" type="Position3D" parent="."]
-transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -0.791545, 0, -0.726461 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.791545, 0, -0.726461 )
 
 [node name="TravelPath" type="ImmediateGeometry" parent="toe_4_position"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0702516, 0 )

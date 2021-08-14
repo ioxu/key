@@ -23,6 +23,25 @@ onready var meshinstance = get_node(MeshInstancePath)
 onready var weapon = player.find_node("weapon_mount").get_child(0)
 onready var raycast : RayCast = player.get_node("RayCast")
 
+
+# movement and legs and animation and things
+var last_waist_ry := 0.0
+
+
+onready var waist = get_node("../waist")
+onready var waist_initial_position = waist.transform.origin
+onready var waist_initial_basis = waist.transform.basis
+
+onready var toe_1_node = get_node("../toe_1_position")
+onready var toe_2_node = get_node("../toe_2_position")
+onready var toe_3_node = get_node("../toe_3_position")
+onready var toe_4_node = get_node("../toe_4_position")
+onready var toe_1_initial_position = toe_1_node.transform.origin
+onready var toe_2_initial_position = toe_2_node.transform.origin
+onready var toe_3_initial_position = toe_3_node.transform.origin
+onready var toe_4_initial_position = toe_4_node.transform.origin
+
+#
 var camera_lookahead_factor = 0.0
 var camera_lookahead_direction : Vector3 # keep normalised
 var camera_lookahead_direction_actual : Vector3
@@ -46,6 +65,8 @@ var is_airborne = false
 var joystick_move_deadzone := 0.1
 var joystick_look_deadzone := 0.45
 var mouse_deadzone := 20
+
+var global_time := 0.0
 
 enum ROTATION_INPUT{MOUSE, JOYSTICK, MOVE_DIR}
 
@@ -139,6 +160,9 @@ func rotate_mesh( event_data, input_method ):
 				meshinstance.rotate_y( rot_y )
 
 
+
+
+
 func magnitude(vector):
 	if typeof(vector) == typeof(Vector2()):
 		return sqrt(vector.x*vector.x + vector.y*vector.y)
@@ -147,6 +171,8 @@ func magnitude(vector):
 
 
 func _process(dt):
+	global_time += dt
+	
 	# shoot
 	if Input.is_action_just_pressed("shoot"):
 		weapon.activated = true
@@ -158,6 +184,32 @@ func _process(dt):
 	if (Input.is_action_pressed("jump")) and not is_airborne:
 		current_vertical_speed = Vector3(0.0, max_jump, 0.0)
 		is_airborne = true
+
+	# waist and toes rotating in a circle
+#	waist.transform.basis = waist_initial_basis.rotated( Vector3.UP, global_time * 5 )
+#	toe_1_node.transform.origin = toe_1_initial_position.rotated( Vector3.UP, global_time * 5  )
+#	toe_2_node.transform.origin = toe_2_initial_position.rotated( Vector3.UP, global_time * 5 )
+#	toe_3_node.transform.origin = toe_3_initial_position.rotated( Vector3.UP, global_time * 5 )
+#	toe_4_node.transform.origin = toe_4_initial_position.rotated( Vector3.UP, global_time * 5 )
+
+	# waist and toes following look-at direction
+	var lerp_a :=  lerp_angle(last_waist_ry, meshinstance.get_rotation().y, 0.075)
+	var curr_ry := 0.0
+	
+	# limit turning speed
+	var WAIST_TURNING_SPEED_MAX = 0.1
+	var ry_diff = lerp_a - last_waist_ry
+	if abs(ry_diff) > WAIST_TURNING_SPEED_MAX:
+		curr_ry = last_waist_ry + WAIST_TURNING_SPEED_MAX * sign(ry_diff)
+	else:
+		curr_ry = lerp_a
+
+	last_waist_ry = curr_ry
+	waist.transform.basis = waist_initial_basis.rotated( Vector3.UP, curr_ry )
+	toe_1_node.transform.origin = toe_1_initial_position.rotated( Vector3.UP, curr_ry  )
+	toe_2_node.transform.origin = toe_2_initial_position.rotated( Vector3.UP, curr_ry )
+	toe_3_node.transform.origin = toe_3_initial_position.rotated( Vector3.UP, curr_ry )
+	toe_4_node.transform.origin = toe_4_initial_position.rotated( Vector3.UP, curr_ry )
 
 
 func _physics_process(dt):
@@ -191,6 +243,8 @@ func _physics_process(dt):
 	movement = speed
 	current_vertical_speed.y += gravity * dt * jump_acceleration
 	movement += current_vertical_speed
+	
+	
 	player.move_and_slide(movement, Vector3.UP)
 	if player.is_on_floor():
 		current_vertical_speed.y = 0.0
@@ -206,3 +260,4 @@ func _physics_process(dt):
 	camera_root.transform.origin = camera_lookahead_direction_actual * camera_lookahead_factor_actual * 7.5
 
 	additional_force = Vector3.ZERO
+

@@ -10,6 +10,16 @@ onready var hurt_meter = $MeshInstance/hurt_meter
 
 #export (NodePath) var spawn_point
 
+export var recol_time := 0.0
+
+onready var body = $MeshInstance
+onready var body_initial_position = body.transform.origin
+onready var body_initial_basis = body.transform.basis
+
+onready var waist = $waist
+onready var waist_initial_position = waist.transform.origin
+onready var waist_initial_basis = waist.transform.basis
+
 var current_wepon = null
 
 var _level_visits= ","
@@ -34,6 +44,12 @@ func _ready():
 	current_wepon = $MeshInstance/weapon_mount.get_child(0)
 	current_wepon.connect("fire", self, "_on_weapon_fire")
 
+
+func _process(delta):
+	# recoil on waist
+	var recoil_v = Vector3(0.0, 0.0, recol_time * -1.0).rotated(Vector3.UP, waist.get_rotation().y )
+	waist.transform.origin = waist_initial_position + ( recoil_v * 0.35)
+	body.transform.origin = body_initial_position + ( recoil_v * 0.35)
 
 func set_active(new_value) -> void:
 	active = new_value
@@ -77,6 +93,10 @@ func respawn() -> void:
 
 
 func _on_weapon_fire(weapon) -> void:
+	# recoil
+	$AnimationPlayer.stop()
+	$AnimationPlayer.play("recoil_time_animation", -1, 7.5)
+	# force
 	$Controller.additional_force += -current_wepon.bullet_spawner.global_transform.basis.z.normalized() * weapon.fire_kickback
 	_stats.times_fired_weapon += 1
 
