@@ -175,6 +175,7 @@ ui_reset={
 3d_physics/layer_9="corpse"
 3d_physics/layer_10="enemy_sensing_areas"
 3d_physics/layer_11="doors"
+3d_physics/layer_12="bullet casings"
 
 [physics]
 

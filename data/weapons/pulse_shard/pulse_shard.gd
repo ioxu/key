@@ -18,6 +18,7 @@ onready var muzzle_flash : MeshInstance = $geometry_hook/muzzle_flash
 onready var muzzle_flash_light : OmniLight = $geometry_hook/muzzle_flash_light
 onready var muzzle_flash_light_initial_position = muzzle_flash_light.translation
 const bullet_scene = preload("res://data/weapons/pulse_shard/pulse_shard_bullet.tscn")
+const bullet_casing_scene = preload("res://data/weapons/pulse_shard/pulse_shard_casing.tscn")
 onready var bullet_spawner = $bullet_spawner 
 
 
@@ -25,6 +26,7 @@ func _ready():
 	#yield(get_tree(), "idle_frame")
 	$bullet_spawner/pulse_shard_bullet.queue_free()
 	$bullet_spawner/pulse_shard_bullet_impact.queue_free()
+	$shell_casing_spawner/pulse_shard_casing.queue_free()
 	add_child(firing_timer)
 	firing_timer.wait_time = base_fire_rate
 	firing_timer.connect("timeout", self, "_on_timer_timeout")
@@ -85,6 +87,16 @@ func fire():
 	var direction = bullet_spawner.get_global_transform().basis.z
 	bullet.look_at( bullet.get_translation() - direction, Vector3.UP)
 	bullet.start()
+
+	var casing = bullet_casing_scene.instance()
+	casing.transform = $shell_casing_spawner.global_transform
+	get_node("/root/").add_child(casing)
+	var impulse = 3 * (Vector3(0.0, rand_range(20.0,35.0), 0.0) + casing.transform.basis.x * -rand_range(10.0,20.0)) #25.0
+	casing.apply_impulse ( Vector3.ZERO, impulse)
+	casing.apply_torque_impulse( ( $shell_casing_spawner.global_transform.basis.y * rand_range( 0.2, 2.0 ) ) + \
+		($shell_casing_spawner.global_transform.basis.x * rand_range(-0.5, 0.5 ) ) )
+	
+
 
 	if !is_enemy_weapon:
 		Input.start_joy_vibration(0, 1.0, 0.0, 0.05)

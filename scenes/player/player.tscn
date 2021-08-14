@@ -90,7 +90,7 @@ transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, -0.4
 [node name="pulse_shard" parent="MeshInstance/weapon_mount" instance=ExtResource( 2 )]
 
 [node name="hurt_meter" parent="MeshInstance" instance=ExtResource( 7 )]
-transform = Transform( 0.5, 0, 0, 0, -6.55671e-08, 0.5, 0, -1.5, -2.18557e-08, 0, 0, 0.858 )
+transform = Transform( 0.5, 0, 0, 0, -3.27835e-08, 0.5, 0, -0.75, -2.18557e-08, 0, 0, 0.858 )
 mesh = SubResource( 6 )
 
 [node name="Controller" type="Spatial" parent="."]
@@ -348,6 +348,7 @@ script = ExtResource( 9 )
 distance_threshold = 0.2
 max_points = 1000
 trail_colour = Color( 0.133333, 0.94902, 0.968627, 0.521569 )
+emission_multiplier = 0.65
 
 [node name="toe_2_position" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.757194, -0.00729895, 0.797702 )
@@ -358,6 +359,7 @@ script = ExtResource( 9 )
 distance_threshold = 0.2
 max_points = 1000
 trail_colour = Color( 0.133333, 0.94902, 0.968627, 0.521569 )
+emission_multiplier = 0.65
 
 [node name="toe_3_position" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.883774, 0, 0.820562 )
@@ -368,6 +370,7 @@ script = ExtResource( 9 )
 distance_threshold = 0.2
 max_points = 1000
 trail_colour = Color( 0.133333, 0.94902, 0.968627, 0.521569 )
+emission_multiplier = 0.65
 
 [node name="toe_4_position" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.791545, 0, -0.726461 )
@@ -378,3 +381,4 @@ script = ExtResource( 9 )
 distance_threshold = 0.2
 max_points = 1000
 trail_colour = Color( 0.133333, 0.94902, 0.968627, 0.521569 )
+emission_multiplier = 0.65
