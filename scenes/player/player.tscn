@@ -15,16 +15,16 @@
 
 [sub_resource type="Animation" id=1]
 resource_name = "recoil_time_animation"
-length = 1.4
+length = 4.0
 tracks/0/type = "bezier"
-tracks/0/path = NodePath(".:recol_time")
+tracks/0/path = NodePath(".:recoil_time")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"points": PoolRealArray( 0, -0.25, 0, 0.1, 2.22959, 0, -1.13, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 1.4 )
+"points": PoolRealArray( 0, -0.249979, -44.8015, 0.01, 1.79221, 0.445491, -0.11, 0.137258, 0.14, -0.174692, 0, -2.46, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.4, 4 )
 }
 
 [sub_resource type="CapsuleShape" id=2]
@@ -66,8 +66,9 @@ height = 0.077
 collision_layer = 2147483649
 collision_mask = 22
 script = ExtResource( 5 )
+recoil_time = 0.178688
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="recoil_animplayer" type="AnimationPlayer" parent="."]
 anims/recoil_time_animation = SubResource( 1 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
@@ -161,7 +162,7 @@ mesh = SubResource( 8 )
 material/0 = null
 
 [node name="leg_1" type="Spatial" parent="."]
-transform = Transform( 0.658569, 0, 0.752306, 0, 0.999995, 0, -0.752306, 0, 0.658569, 0.110324, 0.746836, -0.110315 )
+transform = Transform( 0.658573, 0, 0.752311, 0, 0.999995, 0, -0.752311, 0, 0.658573, 0.110324, 0.746836, -0.110315 )
 script = ExtResource( 12 )
 hip_node_path = NodePath("../waist/hip_1_position")
 toe_node_path = NodePath("../toe_1_position")
@@ -172,7 +173,7 @@ bone_depth = 0.15
 a_m = 1.5
 
 [node name="hip_joint" type="Spatial" parent="leg_1"]
-transform = Transform( 0.655342, 0.755333, 0, -0.755333, 0.655342, 0, 0, 0, 1, 0, 0, 0 )
+transform = Transform( 0.680216, 0.733012, 0, -0.733012, 0.680216, 0, 0, 0, 1, 0, 0, 0 )
 
 [node name="Position3D" type="Position3D" parent="leg_1/hip_joint"]
 transform = Transform( 1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0 )
@@ -185,7 +186,7 @@ polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.292, 0 )
 depth = 0.15
 
 [node name="thigh_joint" type="Spatial" parent="leg_1/hip_joint"]
-transform = Transform( -0.12667, -0.991945, 0, 0.991945, -0.12667, 0, 0, 0, 1, 0.292, 0, 0 )
+transform = Transform( -0.164612, -0.986358, 0, 0.986358, -0.164612, 0, 0, 0, 1, 0.292, 0, 0 )
 
 [node name="polygon" type="CSGPolygon" parent="leg_1/hip_joint/thigh_joint"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.075 )
@@ -194,7 +195,7 @@ polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.456, 0 )
 depth = 0.15
 
 [node name="shin_joint" type="Spatial" parent="leg_1/hip_joint/thigh_joint"]
-transform = Transform( -0.424983, 0.905201, 0, -0.905201, -0.424983, 0, 0, 0, 1, 0.456, 0, 0 )
+transform = Transform( -0.471308, 0.881969, 0, -0.881969, -0.471308, 0, 0, 0, 1, 0.456, 0, 0 )
 
 [node name="polygon" type="CSGPolygon" parent="leg_1/hip_joint/thigh_joint/shin_joint"]
 transform = Transform( 1, 1.49012e-08, 0, -1.49012e-08, 1, 1.49012e-08, 0, 1.49012e-08, 1, 0, 1.19209e-07, 0.075 )
@@ -217,7 +218,7 @@ a_off = 0.56
 a_m = -1.5
 
 [node name="hip_joint" type="Spatial" parent="leg_2"]
-transform = Transform( 0.685518, 0.728055, 0, -0.728055, 0.685518, 0, 0, 0, 1, 0, 0, 0 )
+transform = Transform( 0.690146, 0.72367, 0, -0.72367, 0.690146, 0, 0, 0, 1, 0, 0, 0 )
 
 [node name="Position3D" type="Position3D" parent="leg_2/hip_joint"]
 transform = Transform( 1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0 )
@@ -230,7 +231,7 @@ polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.292, 0 )
 depth = 0.15
 
 [node name="thigh_joint" type="Spatial" parent="leg_2/hip_joint"]
-transform = Transform( -0.0740325, -0.997256, 0, 0.997256, -0.0740325, 0, 0, 0, 1, 0.292, 0, 0 )
+transform = Transform( -0.0817401, -0.996654, 0, 0.996654, -0.0817401, 0, 0, 0, 1, 0.292, 0, 0 )
 
 [node name="polygon" type="CSGPolygon" parent="leg_2/hip_joint/thigh_joint"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.075 )
@@ -239,7 +240,7 @@ polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.456, 0 )
 depth = 0.15
 
 [node name="shin_joint" type="Spatial" parent="leg_2/hip_joint/thigh_joint"]
-transform = Transform( -0.3603, 0.932837, 0, -0.932837, -0.3603, 0, 0, 0, 1, 0.456, 0, 0 )
+transform = Transform( -0.369798, 0.929112, 0, -0.929112, -0.369798, 0, 0, 0, 1, 0.456, 0, 0 )
 
 [node name="polygon" type="CSGPolygon" parent="leg_2/hip_joint/thigh_joint/shin_joint"]
 transform = Transform( 1, 0, 6.98492e-10, 0, 1, 1.53668e-08, 0, 1.49012e-08, 1, -2.98023e-07, 2.38419e-07, 0.075 )
@@ -250,7 +251,7 @@ depth = 0.15
 [node name="toe_joint" type="Spatial" parent="leg_2/hip_joint/thigh_joint/shin_joint"]
 
 [node name="leg_3" type="Spatial" parent="."]
-transform = Transform( -0.73645, 0, -0.676254, 0, 1, 0, 0.676254, 0, -0.73645, -0.110306, 0.746748, 0.110315 )
+transform = Transform( -0.736451, 0, -0.676256, 0, 1, 0, 0.676256, 0, -0.736451, -0.110306, 0.746748, 0.110315 )
 script = ExtResource( 12 )
 hip_node_path = NodePath("../waist/hip_3_position")
 toe_node_path = NodePath("../toe_3_position")
@@ -295,7 +296,7 @@ depth = 0.15
 [node name="toe_joint" type="Spatial" parent="leg_3/hip_joint/thigh_joint/shin_joint"]
 
 [node name="leg_4" type="Spatial" parent="."]
-transform = Transform( -0.741504, 0, 0.670667, 0, 1, 0, -0.670667, 0, -0.741504, -0.110306, 0.746748, -0.110302 )
+transform = Transform( -0.741508, 0, 0.670671, 0, 1, 0, -0.670671, 0, -0.741508, -0.110306, 0.746748, -0.110302 )
 script = ExtResource( 12 )
 hip_node_path = NodePath("../waist/hip_4_position")
 toe_node_path = NodePath("../toe_4_position")
@@ -340,7 +341,7 @@ depth = 0.15
 [node name="toe_joint" type="Spatial" parent="leg_4/hip_joint/thigh_joint/shin_joint"]
 
 [node name="toe_1_position" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.999997, 0, 0, 0, 1, 0.689452, -0.0352683, -0.771873 )
+transform = Transform( 1, 0, 0, 0, 0.999997, 0, 0, 0, 1, 0.689452, 0, -0.771873 )
 
 [node name="TravelPath" type="ImmediateGeometry" parent="toe_1_position"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0702516, 0 )
@@ -351,7 +352,7 @@ trail_colour = Color( 0.133333, 0.94902, 0.968627, 0.521569 )
 emission_multiplier = 0.65
 
 [node name="toe_2_position" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.757194, -0.00729895, 0.797702 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.757194, 0, 0.797702 )
 
 [node name="TravelPath" type="ImmediateGeometry" parent="toe_2_position"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0702516, 0 )
@@ -359,7 +360,7 @@ script = ExtResource( 9 )
 distance_threshold = 0.2
 max_points = 1000
 trail_colour = Color( 0.133333, 0.94902, 0.968627, 0.521569 )
-emission_multiplier = 0.65
+emission_multiplier = 0.5
 
 [node name="toe_3_position" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.883774, 0, 0.820562 )
@@ -370,7 +371,7 @@ script = ExtResource( 9 )
 distance_threshold = 0.2
 max_points = 1000
 trail_colour = Color( 0.133333, 0.94902, 0.968627, 0.521569 )
-emission_multiplier = 0.65
+emission_multiplier = 0.5
 
 [node name="toe_4_position" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.791545, 0, -0.726461 )
@@ -381,4 +382,4 @@ script = ExtResource( 9 )
 distance_threshold = 0.2
 max_points = 1000
 trail_colour = Color( 0.133333, 0.94902, 0.968627, 0.521569 )
-emission_multiplier = 0.65
+emission_multiplier = 0.5

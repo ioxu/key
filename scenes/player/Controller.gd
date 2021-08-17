@@ -206,10 +206,14 @@ func _process(dt):
 
 	last_waist_ry = curr_ry
 	waist.transform.basis = waist_initial_basis.rotated( Vector3.UP, curr_ry )
-	toe_1_node.transform.origin = toe_1_initial_position.rotated( Vector3.UP, curr_ry  )
-	toe_2_node.transform.origin = toe_2_initial_position.rotated( Vector3.UP, curr_ry )
-	toe_3_node.transform.origin = toe_3_initial_position.rotated( Vector3.UP, curr_ry )
-	toe_4_node.transform.origin = toe_4_initial_position.rotated( Vector3.UP, curr_ry )
+	var movement_v = movement * + 0.04
+	var movement_r = (movement.length() - 1.0) / movement_speed
+	#prints("movement_r", movement_r, "movement.length()", movement.length() -1)
+	#prints("v", movement_r, "bias", Util.bias(movement_r, 0.75))
+	toe_1_node.transform.origin = toe_1_initial_position.rotated( Vector3.UP, curr_ry ) + movement_v # * Util.bias(movement_r, 0.85)
+	toe_2_node.transform.origin = toe_2_initial_position.rotated( Vector3.UP, curr_ry ) + movement_v # * Util.bias(movement_r, 0.85)
+	toe_3_node.transform.origin = toe_3_initial_position.rotated( Vector3.UP, curr_ry ) + movement_v # * Util.bias(movement_r, 0.85)
+	toe_4_node.transform.origin = toe_4_initial_position.rotated( Vector3.UP, curr_ry ) + movement_v # * Util.bias(movement_r, 0.85)
 
 
 func _physics_process(dt):

@@ -22,7 +22,7 @@ export var a_off = 0.345
 export var a_m = -2.45
 
 
-const MIN_DIST = 0.25
+const MIN_DIST = 0.75 #0.25
 
 var global_time = 0.0
 onready var toe_initial_position = toe_node.transform.origin
@@ -45,27 +45,30 @@ func _ready():
 
 
 func _process(delta):
-	global_transform.origin = hip_node.global_transform.origin
+#	var hno = hip_node.global_transform.origin
+#	global_transform.origin = hno
 	global_time += delta
-	var gt = hip_node.global_transform.origin
-	var gx = global_transform.origin.x
-	var gtx = toe_node.global_transform.origin.x
-	var gz = global_transform.origin.z
-	var gtz = toe_node.global_transform.origin.z
-	var theta = atan2(gx - gtx, gz - gtz)
-	set_rotation(Vector3(0, theta + PI/2.0, 0))
-	
-	var _x = Vector2(gx - gtx, gz - gtz).length()
-	var _y = global_transform.origin.y - toe_node.global_transform.origin.y
+	if hip_node and toe_node:
+		var gt = hip_node.global_transform.origin
+		global_transform.origin = gt
+		var gx = global_transform.origin.x
+		var gtx = toe_node.global_transform.origin.x
+		var gz = global_transform.origin.z
+		var gtz = toe_node.global_transform.origin.z
+		var theta = atan2(gx - gtx, gz - gtz)
+		set_rotation(Vector3(0, theta + PI/2.0, 0))
+		
+		var _x = Vector2(gx - gtx, gz - gtz).length()
+		var _y = global_transform.origin.y - toe_node.global_transform.origin.y
 
-	update_ik( Vector2(_x, _y), Vector2(0,0) )
+		update_ik( Vector2(_x, _y), Vector2(0,0) )
 
-	var offset = hip_node.global_transform.origin - toe_node.global_transform.origin
-	self.transform.basis = self.transform.basis.rotated( offset.normalized(), roll )
-	
-#	if not Engine.editor_hint:
-#		toe_node.transform.origin =Vector3(toe_initial_position.x  +  (sin((global_time + a_off) * a_m *8) * 0.25 + noise1.get_noise_2d(1.0,global_time*30) * 0.35), 0.0, toe_initial_position.z + cos((global_time + a_off) * a_m *8)*0.25 + noise1.get_noise_2d(1.0,(global_time*30)+100) * 0.35)
-#		roll = sin((global_time + a_off) * a_m * 4) * (PI/2)
+		var offset = hip_node.global_transform.origin - toe_node.global_transform.origin
+		self.transform.basis = self.transform.basis.rotated( offset.normalized(), roll )
+		
+	#	if not Engine.editor_hint:
+	#		toe_node.transform.origin =Vector3(toe_initial_position.x  +  (sin((global_time + a_off) * a_m *8) * 0.25 + noise1.get_noise_2d(1.0,global_time*30) * 0.35), 0.0, toe_initial_position.z + cos((global_time + a_off) * a_m *8)*0.25 + noise1.get_noise_2d(1.0,(global_time*30)+100) * 0.35)
+	#		roll = sin((global_time + a_off) * a_m * 4) * (PI/2)
 
 #-------------
 # IK

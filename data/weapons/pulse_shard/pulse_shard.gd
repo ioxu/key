@@ -88,6 +88,8 @@ func fire():
 	bullet.look_at( bullet.get_translation() - direction, Vector3.UP)
 	bullet.start()
 
+	# eject casing
+	yield(get_tree().create_timer(0.2), "timeout")
 	var casing = bullet_casing_scene.instance()
 	casing.transform = $shell_casing_spawner.global_transform
 	get_node("/root/").add_child(casing)
