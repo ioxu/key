@@ -15,6 +15,7 @@ size = Vector3( 0.064, 0.8, 0.064 )
 resource_local_to_scene = true
 flags_transparent = true
 flags_do_not_receive_shadows = true
+albedo_color = Color( 1, 1, 1, 0 )
 emission_enabled = true
 emission = Color( 0.572549, 0.827451, 0.92549, 1 )
 emission_energy = 15.0
@@ -125,6 +126,7 @@ tracks/8/keys = {
 
 [node name="pulse_shard" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+calculate_global_transform_velocity = true
 
 [node name="shell_casing_spawner" type="Spatial" parent="." index="0"]
 transform = Transform( 0.955386, 0.294901, -0.0164577, -0.294941, 0.955515, -1.28923e-08, 0.0157255, 0.00485405, 0.999865, -0.279503, -0.346127, -0.448279 )
@@ -155,7 +157,7 @@ mesh = SubResource( 1 )
 material/0 = null
 
 [node name="muzzle_flash" type="MeshInstance" parent="geometry_hook" index="1"]
-transform = Transform( 3, 0, 0, 0, 1, 0, 0, 0, 3, 0, -0.444842, 0.046 )
+transform = Transform( 4, 0, 0, 0, 1, 0, 0, 0, 6.5, 0, -0.445, 0.181 )
 cast_shadow = 0
 mesh = SubResource( 3 )
 material/0 = null
@@ -163,7 +165,7 @@ material/0 = null
 [node name="muzzle_flash_light" type="OmniLight" parent="geometry_hook" index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.356412, 0.222734 )
 light_color = Color( 0.611765, 0.87451, 0.976471, 1 )
-light_energy = 10.0026
+light_energy = 0.0
 light_bake_mode = 0
 shadow_enabled = true
 shadow_reverse_cull_face = true

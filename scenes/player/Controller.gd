@@ -41,11 +41,13 @@ onready var toe_2_initial_position = toe_2_node.transform.origin
 onready var toe_3_initial_position = toe_3_node.transform.origin
 onready var toe_4_initial_position = toe_4_node.transform.origin
 
-#
+# lookahead
 var camera_lookahead_factor = 0.0
 var camera_lookahead_direction : Vector3 # keep normalised
 var camera_lookahead_direction_actual : Vector3
 var camera_lookahead_factor_actual = 0.0
+const CAMERA_LOOKAHEAD_DISTANCE = 1.5#7.5
+
 var direction := Vector3.ZERO
 var last_direction := Vector3.ZERO
 var camera_rotation
@@ -185,6 +187,11 @@ func _process(dt):
 		current_vertical_speed = Vector3(0.0, max_jump, 0.0)
 		is_airborne = true
 
+
+	############################################################################
+	############################################################################
+	# IK LEGS HIPS AND TOES
+
 	# waist and toes rotating in a circle
 #	waist.transform.basis = waist_initial_basis.rotated( Vector3.UP, global_time * 5 )
 #	toe_1_node.transform.origin = toe_1_initial_position.rotated( Vector3.UP, global_time * 5  )
@@ -193,27 +200,58 @@ func _process(dt):
 #	toe_4_node.transform.origin = toe_4_initial_position.rotated( Vector3.UP, global_time * 5 )
 
 	# waist and toes following look-at direction
-	var lerp_a :=  lerp_angle(last_waist_ry, meshinstance.get_rotation().y, 0.075)
+	var lerp_a :=  lerp_angle(last_waist_ry, meshinstance.get_rotation().y, 0.06)#0.075)
 	var curr_ry := 0.0
 	
 	# limit turning speed
-	var WAIST_TURNING_SPEED_MAX = 0.1
+	# NOTES: feels way better without a limited turning speed
+	# TODO: remove limited turning speed
+	var WAIST_TURNING_SPEED_MAX = 1.0#0.08#0.1
 	var ry_diff = lerp_a - last_waist_ry
 	if abs(ry_diff) > WAIST_TURNING_SPEED_MAX:
 		curr_ry = last_waist_ry + WAIST_TURNING_SPEED_MAX * sign(ry_diff)
 	else:
 		curr_ry = lerp_a
-
-	last_waist_ry = curr_ry
 	waist.transform.basis = waist_initial_basis.rotated( Vector3.UP, curr_ry )
-	var movement_v = movement * + 0.04
-	var movement_r = (movement.length() - 1.0) / movement_speed
-	#prints("movement_r", movement_r, "movement.length()", movement.length() -1)
-	#prints("v", movement_r, "bias", Util.bias(movement_r, 0.75))
-	toe_1_node.transform.origin = toe_1_initial_position.rotated( Vector3.UP, curr_ry ) + movement_v # * Util.bias(movement_r, 0.85)
-	toe_2_node.transform.origin = toe_2_initial_position.rotated( Vector3.UP, curr_ry ) + movement_v # * Util.bias(movement_r, 0.85)
-	toe_3_node.transform.origin = toe_3_initial_position.rotated( Vector3.UP, curr_ry ) + movement_v # * Util.bias(movement_r, 0.85)
-	toe_4_node.transform.origin = toe_4_initial_position.rotated( Vector3.UP, curr_ry ) + movement_v # * Util.bias(movement_r, 0.85)
+	last_waist_ry = curr_ry
+	
+	# TOES LEADING MOVEMENT ####################################################
+#	var movement_v = movement * + 0.04
+#	toe_1_node.transform.origin = toe_1_initial_position.rotated( Vector3.UP, curr_ry ) + movement_v
+#	toe_2_node.transform.origin = toe_2_initial_position.rotated( Vector3.UP, curr_ry ) + movement_v
+#	toe_3_node.transform.origin = toe_3_initial_position.rotated( Vector3.UP, curr_ry ) + movement_v
+#	toe_4_node.transform.origin = toe_4_initial_position.rotated( Vector3.UP, curr_ry ) + movement_v
+
+	# TOES SPREADING OUT FROM MOVEMENT #########################################
+	var movement_v = movement * + 0.06
+	var movement_v_norm = movement_v.normalized()
+	
+	var toe_mv_dot_blend = 1.0#0.75
+	var t1p = toe_1_initial_position.rotated( Vector3.UP, curr_ry )
+	var d1 = t1p.normalized().dot( movement_v_norm )
+	t1p += sign(d1) * movement_v * Util.remap_clamp( abs(d1), 0.0, toe_mv_dot_blend, 0.0, 1.0 )
+	
+	var t2p = toe_2_initial_position.rotated( Vector3.UP, curr_ry )
+	var d2 = t2p.normalized().dot( movement_v_norm )
+	t2p += sign(d2) * movement_v * Util.remap_clamp( abs(d2), 0.0, toe_mv_dot_blend, 0.0, 1.0)
+	
+	var t3p = toe_3_initial_position.rotated( Vector3.UP, curr_ry )
+	var d3 = t3p.normalized().dot( movement_v_norm )
+	t3p += sign(d3) * movement_v * Util.remap_clamp( abs(d3), 0.0, toe_mv_dot_blend, 0.0, 1.0 )
+	
+	var t4p = toe_4_initial_position.rotated( Vector3.UP, curr_ry )
+	var d4 = t4p.normalized().dot( movement_v_norm )
+	t4p += sign(d4) * movement_v * Util.remap_clamp( abs(d4), 0.0, toe_mv_dot_blend, 0.0, 1.0 )
+	
+	toe_1_node.transform.origin = t1p
+	toe_2_node.transform.origin = t2p
+	toe_3_node.transform.origin = t3p
+	toe_4_node.transform.origin = t4p
+
+	# /IK LEGS HIPS AND TOES
+	############################################################################
+	############################################################################
+
 
 
 func _physics_process(dt):
@@ -261,7 +299,7 @@ func _physics_process(dt):
 	# lookahead
 	camera_lookahead_factor_actual = lerp(camera_lookahead_factor_actual, camera_lookahead_factor, dt * 3.0 )
 	camera_lookahead_direction_actual = camera_lookahead_direction_actual.linear_interpolate(camera_lookahead_direction, dt * 1.5)
-	camera_root.transform.origin = camera_lookahead_direction_actual * camera_lookahead_factor_actual * 7.5
+	camera_root.transform.origin = camera_lookahead_direction_actual * camera_lookahead_factor_actual * CAMERA_LOOKAHEAD_DISTANCE
 
 	additional_force = Vector3.ZERO
 

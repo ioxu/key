@@ -12,6 +12,11 @@ func remap( f, start1, stop1, start2, stop2):
 	return start2 + (stop2 - start2) * ((f - start1) / (stop1 - start1))
 
 
+# remap that clamps between start2 and stop2
+func remap_clamp(f, start1, stop1, start2, stop2):
+	return clamp( start2 + (stop2 - start2) * ((f - start1) / (stop1 - start1)), start2, stop2 )
+
+
 # bias
 func bias(value, b):
 	b = -log2(1.0 - b)
