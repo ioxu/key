@@ -46,7 +46,7 @@ var camera_lookahead_factor = 0.0
 var camera_lookahead_direction : Vector3 # keep normalised
 var camera_lookahead_direction_actual : Vector3
 var camera_lookahead_factor_actual = 0.0
-const CAMERA_LOOKAHEAD_DISTANCE = 1.5#7.5
+const CAMERA_LOOKAHEAD_DISTANCE = 5.5#7.5
 
 var direction := Vector3.ZERO
 var last_direction := Vector3.ZERO
@@ -223,25 +223,33 @@ func _process(dt):
 #	toe_4_node.transform.origin = toe_4_initial_position.rotated( Vector3.UP, curr_ry ) + movement_v
 
 	# TOES SPREADING OUT FROM MOVEMENT #########################################
-	var movement_v = movement * + 0.06
+	# length that leg is spread from body, maybe measure in worldspace and soft-limit?
+	# so that speed isn't taken into account. Speed could scale but toes would only be some constant
+	# factor away from body ...
+	var movement_v = movement * + 0.06 
+	
 	var movement_v_norm = movement_v.normalized()
 	
-	var toe_mv_dot_blend = 1.0#0.75
+	#var toe_mv_dot_blend = 1.0#0.75 ## !!!!!!!!!!!!!!!! at 1.0 it is completely redundant. Consider removing Util.remap_clamp quotient
 	var t1p = toe_1_initial_position.rotated( Vector3.UP, curr_ry )
 	var d1 = t1p.normalized().dot( movement_v_norm )
-	t1p += sign(d1) * movement_v * Util.remap_clamp( abs(d1), 0.0, toe_mv_dot_blend, 0.0, 1.0 )
+	#t1p += sign(d1) * movement_v * Util.remap_clamp( abs(d1), 0.0, toe_mv_dot_blend, 0.0, 1.0 )
+	t1p += sign(d1) * movement_v * abs(d1)
 	
 	var t2p = toe_2_initial_position.rotated( Vector3.UP, curr_ry )
 	var d2 = t2p.normalized().dot( movement_v_norm )
-	t2p += sign(d2) * movement_v * Util.remap_clamp( abs(d2), 0.0, toe_mv_dot_blend, 0.0, 1.0)
+	#t2p += sign(d2) * movement_v * Util.remap_clamp( abs(d2), 0.0, toe_mv_dot_blend, 0.0, 1.0)
+	t2p += sign(d2) * movement_v * abs(d2)
 	
 	var t3p = toe_3_initial_position.rotated( Vector3.UP, curr_ry )
 	var d3 = t3p.normalized().dot( movement_v_norm )
-	t3p += sign(d3) * movement_v * Util.remap_clamp( abs(d3), 0.0, toe_mv_dot_blend, 0.0, 1.0 )
+	#t3p += sign(d3) * movement_v * Util.remap_clamp( abs(d3), 0.0, toe_mv_dot_blend, 0.0, 1.0 )
+	t3p += sign(d3) * movement_v * abs(d3)
 	
 	var t4p = toe_4_initial_position.rotated( Vector3.UP, curr_ry )
 	var d4 = t4p.normalized().dot( movement_v_norm )
-	t4p += sign(d4) * movement_v * Util.remap_clamp( abs(d4), 0.0, toe_mv_dot_blend, 0.0, 1.0 )
+	#t4p += sign(d4) * movement_v * Util.remap_clamp( abs(d4), 0.0, toe_mv_dot_blend, 0.0, 1.0 )
+	t4p += sign(d4) * movement_v * abs(d4)
 	
 	toe_1_node.transform.origin = t1p
 	toe_2_node.transform.origin = t2p
