@@ -185,6 +185,8 @@ common/physics_fps=120
 
 quality/directional_shadow/size=8192
 quality/shadow_atlas/size=8192
+limits/buffers/canvas_polygon_buffer_size_kb=4096
+limits/buffers/canvas_polygon_index_buffer_size_kb=4096
 quality/filters/msaa=2
 quality/filters/use_fxaa=true
 environment/default_environment="res://default_env.tres"
