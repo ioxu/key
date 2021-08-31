@@ -94,12 +94,10 @@ func fire():
 	casing.transform = $shell_casing_spawner.global_transform
 	get_node("/root/").add_child(casing)
 	var impulse = 3 * (Vector3(0.0, rand_range(20.0,35.0), 0.0) + casing.transform.basis.x * -rand_range(10.0,20.0)) #25.0
-	impulse += global_velocity 
+	impulse += global_velocity
 	casing.apply_impulse ( Vector3.ZERO, impulse)
 	casing.apply_torque_impulse( ( $shell_casing_spawner.global_transform.basis.y * rand_range( 0.2, 2.0 ) ) + \
 		($shell_casing_spawner.global_transform.basis.x * rand_range(-0.5, 0.5 ) ) )
-	
-
 
 	if !is_enemy_weapon:
 		Input.start_joy_vibration(0, 1.0, 0.0, 0.05)

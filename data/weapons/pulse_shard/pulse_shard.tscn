@@ -126,14 +126,12 @@ tracks/8/keys = {
 
 [node name="pulse_shard" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-calculate_global_transform_velocity = true
 
 [node name="shell_casing_spawner" type="Spatial" parent="." index="0"]
 transform = Transform( 0.955386, 0.294901, -0.0164577, -0.294941, 0.955515, -1.28923e-08, 0.0157255, 0.00485405, 0.999865, -0.279503, -0.346127, -0.448279 )
 
 [node name="pulse_shard_casing" parent="shell_casing_spawner" index="0" instance=ExtResource( 6 )]
 transform = Transform( 1, 8.78208e-09, 0, 8.79663e-09, 1, -4.65661e-10, 0, -4.65661e-10, 1, 0, 0, 0 )
-collision_mask = 263
 mass = 3.0
 gravity_scale = 2.0
 

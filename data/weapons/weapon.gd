@@ -7,6 +7,8 @@ export var modifiers = []
 export var base_damage = 100.0
 export var activated : bool = false setget set_activated, get_activated
 export var calculate_global_transform_velocity : bool = false
+#export var track_global_transform : bool = false
+
 
 export var aim_tolerance := 0.05 # based on: 1.0 - (dot product of direction from attacker to target)
 
