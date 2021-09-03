@@ -140,7 +140,7 @@ func bullet_hit(bullet, collision_info):
 		var corpse = enemy_corpse_scene.instance()
 		corpse.transform = self.transform
 		get_node("/root/").add_child(corpse)
-		var impulse = 5.0 * (Vector3(0.0, 35.0, 0.0) + bullet.transform.basis.z * 35.0) #25.0
+		var impulse = 5.0 * (Vector3(0.0, 60.0, 0.0) + bullet.transform.basis.z * 35.0) #25.0
 		var impulse_location = transform.basis.z * -.28 + Vector3(0.0, -0.55, 0.0)
 		corpse.apply_impulse ( impulse_location, impulse)
 

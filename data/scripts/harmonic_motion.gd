@@ -5,6 +5,7 @@ extends Node
 const epsilon = 0.0001
 const sixtyfps_delta = 0.016666
 
+#var velocity := 0.0
 
 var DampenedSpringMotionParams = {
 	# newPos = posPosCoef*oldPos + posVelCoef*oldVel
@@ -17,12 +18,14 @@ var DampenedSpringMotionParams = {
 
 
 func calculate( state: float = 0.0, velocity: float = 0.0, targetState: float = 0.0, springMotionParams = DampenedSpringMotionParams ):
+#func calculate( state: float = 0.0, targetState: float = 0.0, springMotionParams = DampenedSpringMotionParams ):
 	var oldPos = state - targetState # update in equilibrium relative space
 	var oldVel = velocity
 	
 	state = oldPos * springMotionParams.PosPosCoef + oldVel * springMotionParams.PosVelCoef + targetState
 	velocity = oldPos * springMotionParams.VelPosCoef + oldVel * springMotionParams.VelVelCoef
 	return [state, velocity]
+	#return state
 
 
 func CalcDampedSpringMotionParams( dampingRatio: float = 0.0, angularFrequency: float = 0.0  ):

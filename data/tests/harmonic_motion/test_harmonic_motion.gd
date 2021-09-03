@@ -22,8 +22,13 @@ func _ready():
 func _process(delta):
 	var cx = harmonic_motion.calculate( $Sprite.position.x, pvx, target_pos.x, parms )
 	var cy = harmonic_motion.calculate( $Sprite.position.y, pvy, target_pos.y, parms )
+#	var cx = harmonic_motion.calculate( $Sprite.position.x, target_pos.x, parms )
+#	var cy = harmonic_motion.calculate( $Sprite.position.y, target_pos.y, parms )
 	$Sprite.position.x = cx[0]
 	$Sprite.position.y = cy[0]
+#	$Sprite.position.x = cx
+#	$Sprite.position.y = cy
+
 	pvx = cx[1]
 	pvy = cy[1]
 
