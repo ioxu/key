@@ -66,7 +66,6 @@ height = 0.077
 collision_layer = 2147483649
 collision_mask = 2070
 script = ExtResource( 5 )
-recoil_time = 0.445491
 
 [node name="recoil_animplayer" type="AnimationPlayer" parent="."]
 anims/recoil_time_animation = SubResource( 1 )

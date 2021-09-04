@@ -1,6 +1,8 @@
 extends Spatial
 # player controller
 
+const harmonic_motion_lib = preload("res://data/scripts/harmonic_motion.gd")
+
 export(NodePath) var PlayerPath  = ""
 export(NodePath) var CameraPath  = ""
 export(NodePath) var CameraRootPath  = ""
@@ -41,13 +43,24 @@ onready var toe_2_initial_position = toe_2_node.transform.origin
 onready var toe_3_initial_position = toe_3_node.transform.origin
 onready var toe_4_initial_position = toe_4_node.transform.origin
 
-# lookahead
+
+# camera lookahead
+enum CAMERA_LOOKAHEAD_INTERP_MODE {linear, harmonic}
+export(CAMERA_LOOKAHEAD_INTERP_MODE) var camera_interpolation_mode = CAMERA_LOOKAHEAD_INTERP_MODE.harmonic
+export(float) var camera_lookahead_harmonic_damping := 0.85 setget set_camera_lookahead_harmonic_spring_damping
+export(float) var camera_lookahead_harmonic_angular_frequency := 2.5 setget set_camera_lookahead_harmonic_spring_frequency
+var c_la_hv = Vector3.ZERO # camera lookahead harmonic velocity
+var camera_lookahead_harmonic_motion = harmonic_motion_lib.new()
+var camera_lookahead_harmonic_parms
+
 var camera_lookahead_factor = 0.0
 var camera_lookahead_direction : Vector3 # keep normalised
 var camera_lookahead_direction_actual : Vector3
 var camera_lookahead_factor_actual = 0.0
 const CAMERA_LOOKAHEAD_DISTANCE = 5.5#7.5
 
+
+# character motion
 var direction := Vector3.ZERO
 var last_direction := Vector3.ZERO
 var camera_rotation
@@ -72,11 +85,17 @@ var global_time := 0.0
 
 enum ROTATION_INPUT{MOUSE, JOYSTICK, MOVE_DIR}
 
+
 func _ready():
 	# avoid taking any input that is dribbled over from before the node is ready
 	set_process(false)
 	yield(get_tree().create_timer(0.25), "timeout")
 	set_process(true)
+
+	if camera_interpolation_mode == CAMERA_LOOKAHEAD_INTERP_MODE.harmonic:
+		camera_lookahead_harmonic_parms = camera_lookahead_harmonic_motion.CalcDampedSpringMotionParams( camera_lookahead_harmonic_damping,
+																	camera_lookahead_harmonic_angular_frequency )
+
 
 func _unhandled_input(event):
 	# mesh rotaion with joystick
@@ -135,6 +154,21 @@ func get_camera_lookahead_direction(event_data : Vector2, input_method):
 			return Vector3(1.0,0.0,0.0).rotated( Vector3.UP, rot )
 
 
+func set_camera_lookahead_harmonic_spring_damping( damp: float = 0.0 ):
+	camera_lookahead_harmonic_damping = damp
+	_upadate_camera_lookahead_harmonic_motion_params()
+
+
+func set_camera_lookahead_harmonic_spring_frequency( freq: float = 0.0 ):
+	camera_lookahead_harmonic_angular_frequency = freq
+	_upadate_camera_lookahead_harmonic_motion_params()
+
+
+func _upadate_camera_lookahead_harmonic_motion_params() -> void:
+	camera_lookahead_harmonic_parms = camera_lookahead_harmonic_motion.CalcDampedSpringMotionParams( camera_lookahead_harmonic_damping,
+																							camera_lookahead_harmonic_angular_frequency )
+
+
 func rotate_mesh( event_data, input_method ):
 	match input_method:
 		ROTATION_INPUT.JOYSTICK:
@@ -160,9 +194,6 @@ func rotate_mesh( event_data, input_method ):
 				var char_rot = meshinstance.get_rotation()
 				var rot_y =  angle - char_rot.y
 				meshinstance.rotate_y( rot_y )
-
-
-
 
 
 func magnitude(vector):
@@ -261,7 +292,6 @@ func _process(dt):
 	############################################################################
 
 
-
 func _physics_process(dt):
 	# orbit camera
 	camera_rotation = camera_rotation_speed * dt
@@ -300,14 +330,24 @@ func _physics_process(dt):
 		current_vertical_speed.y = 0.0
 		is_airborne = false
 
-	# dolly
+	# camera dolly
 	actual_zoom = lerp(actual_zoom, zoom_factor, dt * zoom_speed)
 	camera_boom.translation = Vector3(0.0, 0.0, actual_zoom)
 
-	# lookahead
-	camera_lookahead_factor_actual = lerp(camera_lookahead_factor_actual, camera_lookahead_factor, dt * 3.0 )
-	camera_lookahead_direction_actual = camera_lookahead_direction_actual.linear_interpolate(camera_lookahead_direction, dt * 1.5)
-	camera_root.transform.origin = camera_lookahead_direction_actual * camera_lookahead_factor_actual * CAMERA_LOOKAHEAD_DISTANCE
+	# camera lookahead
+	var co = Vector3.ZERO
+	if camera_interpolation_mode == CAMERA_LOOKAHEAD_INTERP_MODE.linear:
+		camera_lookahead_factor_actual = lerp(camera_lookahead_factor_actual, camera_lookahead_factor, dt * 3.0 )
+		camera_lookahead_direction_actual = camera_lookahead_direction_actual.linear_interpolate(camera_lookahead_direction, dt * 1.5)
+		co = camera_lookahead_direction_actual * camera_lookahead_factor_actual * CAMERA_LOOKAHEAD_DISTANCE
+	elif camera_interpolation_mode == CAMERA_LOOKAHEAD_INTERP_MODE.harmonic:
+		var target = camera_lookahead_direction * camera_lookahead_factor * CAMERA_LOOKAHEAD_DISTANCE
+		co = camera_lookahead_harmonic_motion.calculate_v3( camera_root.transform.origin, c_la_hv, target, camera_lookahead_harmonic_parms )
+		c_la_hv = co[1]
+		co = co[0]
+
+	camera_root.transform.origin = co
+
 
 	additional_force = Vector3.ZERO
 

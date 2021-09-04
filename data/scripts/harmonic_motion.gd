@@ -18,14 +18,28 @@ var DampenedSpringMotionParams = {
 
 
 func calculate( state: float = 0.0, velocity: float = 0.0, targetState: float = 0.0, springMotionParams = DampenedSpringMotionParams ):
-#func calculate( state: float = 0.0, targetState: float = 0.0, springMotionParams = DampenedSpringMotionParams ):
+	# float form
 	var oldPos = state - targetState # update in equilibrium relative space
 	var oldVel = velocity
 	
 	state = oldPos * springMotionParams.PosPosCoef + oldVel * springMotionParams.PosVelCoef + targetState
 	velocity = oldPos * springMotionParams.VelPosCoef + oldVel * springMotionParams.VelVelCoef
 	return [state, velocity]
-	#return state
+
+
+func calculate_v2(state: Vector2 = Vector2.ZERO, velocity: Vector2 = Vector2.ZERO, targetState: Vector2 = Vector2.ZERO, springMotionParams = DampenedSpringMotionParams ):
+	# Vector2 form
+	var x = calculate( state.x, velocity.x, targetState.x, springMotionParams )
+	var y = calculate( state.y, velocity.y, targetState.y, springMotionParams )
+	return [Vector2( x[0], y[0] ), Vector2( x[1], y[1] )]
+
+
+func calculate_v3(state: Vector3 = Vector3.ZERO, velocity: Vector3 = Vector3.ZERO, targetState: Vector3 = Vector3.ZERO, springMotionParams = DampenedSpringMotionParams ):
+	# Vector3 form
+	var x = calculate( state.x, velocity.x, targetState.x, springMotionParams )
+	var y = calculate( state.y, velocity.y, targetState.y, springMotionParams )
+	var z = calculate( state.z, velocity.z, targetState.z, springMotionParams )
+	return [Vector3( x[0], y[0], z[0] ), Vector3( x[1], y[1], z[1] )]
 
 
 func CalcDampedSpringMotionParams( dampingRatio: float = 0.0, angularFrequency: float = 0.0  ):
