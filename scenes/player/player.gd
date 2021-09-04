@@ -28,6 +28,7 @@ var _level_visits= ","
 var _stats = {
 	"times_hit_by_bullet": 0,
 	"times_fired_weapon": 0,
+	"died": 0,
 	}
 
 
@@ -84,7 +85,7 @@ func die() -> void:
 	visible = false
 	#spawn_point.transport_player_to_spawn_point()
 	emit_signal("die", self)
-
+	_stats.died += 1
 
 func respawn() -> void:
 	set_health(initial_health)
