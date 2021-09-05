@@ -161,7 +161,7 @@ mesh = SubResource( 8 )
 material/0 = null
 
 [node name="leg_1" type="Spatial" parent="."]
-transform = Transform( 0.706989, 0, 0.707005, 0, 0.999995, 0, -0.707005, 0, 0.706989, 0.110324, 0.746836, -0.110315 )
+transform = Transform( 0.706987, 0, 0.707003, 0, 0.99999, 0, -0.707003, 0, 0.706986, 0.110324, 0.746836, -0.110315 )
 script = ExtResource( 12 )
 hip_node_path = NodePath("../waist/hip_1_position")
 toe_node_path = NodePath("../toe_1_position")

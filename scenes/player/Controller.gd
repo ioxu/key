@@ -33,6 +33,12 @@ var last_waist_ry := 0.0
 onready var waist = get_node("../waist")
 onready var waist_initial_position = waist.transform.origin
 onready var waist_initial_basis = waist.transform.basis
+var waist_rotation_harmonic_motion = harmonic_motion_lib.new()
+var waist_rotation_harmonic_damping := 0.85
+var waist_rotation_harmonic_frequency := 7.5
+var waist_rotation_harmonic_parms
+var _w_rot_hv = 0.0
+var waist_rotation_knee_roll = -10.0
 
 onready var toe_1_node = get_node("../toe_1_position")
 onready var toe_2_node = get_node("../toe_2_position")
@@ -42,6 +48,11 @@ onready var toe_1_initial_position = toe_1_node.transform.origin
 onready var toe_2_initial_position = toe_2_node.transform.origin
 onready var toe_3_initial_position = toe_3_node.transform.origin
 onready var toe_4_initial_position = toe_4_node.transform.origin
+
+onready var leg_1_node = get_node("../leg_1")
+onready var leg_2_node = get_node("../leg_2")
+onready var leg_3_node = get_node("../leg_3")
+onready var leg_4_node = get_node("../leg_4")
 
 
 # camera lookahead
@@ -95,6 +106,11 @@ func _ready():
 	if camera_interpolation_mode == CAMERA_LOOKAHEAD_INTERP_MODE.harmonic:
 		camera_lookahead_harmonic_parms = camera_lookahead_harmonic_motion.CalcDampedSpringMotionParams( camera_lookahead_harmonic_damping,
 																	camera_lookahead_harmonic_angular_frequency )
+
+	waist_rotation_harmonic_parms = waist_rotation_harmonic_motion.CalcDampedSpringMotionParams( 
+		waist_rotation_harmonic_damping,
+		waist_rotation_harmonic_frequency
+	)
 
 
 func _unhandled_input(event):
@@ -231,19 +247,26 @@ func _process(dt):
 #	toe_4_node.transform.origin = toe_4_initial_position.rotated( Vector3.UP, global_time * 5 )
 
 	# waist and toes following look-at direction
-	var lerp_a :=  lerp_angle(last_waist_ry, meshinstance.get_rotation().y, 0.06)#0.075)
-	var curr_ry := 0.0
+	#var lerp_a :=  lerp_angle(last_waist_ry, meshinstance.get_rotation().y, 0.06)#0.075)
 	
-	# limit turning speed
-	# NOTES: feels way better without a limited turning speed
-	# TODO: remove limited turning speed
-	var WAIST_TURNING_SPEED_MAX = 1.0#0.08#0.1
-	var ry_diff = lerp_a - last_waist_ry
-	if abs(ry_diff) > WAIST_TURNING_SPEED_MAX:
-		curr_ry = last_waist_ry + WAIST_TURNING_SPEED_MAX * sign(ry_diff)
-	else:
-		curr_ry = lerp_a
+	#var curr_ry := 0.0
+	
+	#curr_ry = lerp_a
+	
+	var wo = waist_rotation_harmonic_motion.calculate(
+						waist.get_rotation().y,
+						_w_rot_hv,
+						lerp_angle(waist.get_rotation().y, meshinstance.get_rotation().y, 1.0),
+						waist_rotation_harmonic_parms
+		)
+
+	_w_rot_hv = wo[1]
+
+	var curr_ry = wo[0]
+	
 	waist.transform.basis = waist_initial_basis.rotated( Vector3.UP, curr_ry )
+
+	var waist_ry_dt = last_waist_ry - curr_ry
 	last_waist_ry = curr_ry
 	
 	# TOES LEADING MOVEMENT ####################################################
@@ -286,6 +309,13 @@ func _process(dt):
 	toe_2_node.transform.origin = t2p
 	toe_3_node.transform.origin = t3p
 	toe_4_node.transform.origin = t4p
+
+	#prints("WAIST DT", waist_ry_dt)
+	# bend knees on waist rotation
+	leg_1_node.roll = waist_ry_dt * waist_rotation_knee_roll
+	leg_2_node.roll = waist_ry_dt * waist_rotation_knee_roll
+	leg_3_node.roll = waist_ry_dt * waist_rotation_knee_roll
+	leg_4_node.roll = waist_ry_dt * waist_rotation_knee_roll
 
 	# /IK LEGS HIPS AND TOES
 	############################################################################
