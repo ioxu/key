@@ -72,7 +72,7 @@ var camera_lookahead_factor = 0.0
 var camera_lookahead_direction : Vector3 # keep normalised
 var camera_lookahead_direction_actual : Vector3
 var camera_lookahead_factor_actual = 0.0
-const CAMERA_LOOKAHEAD_DISTANCE = 5.5#7.5
+const CAMERA_LOOKAHEAD_DISTANCE = 1.0#5.5#7.5
 
 
 # character motion

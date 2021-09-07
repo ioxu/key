@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://scenes/player/Controller.gd" type="Script" id=1]
 [ext_resource path="res://data/weapons/pulse_shard/pulse_shard.tscn" type="PackedScene" id=2]
@@ -59,6 +59,8 @@ material = ExtResource( 11 )
 top_radius = 0.2
 bottom_radius = 0.2
 height = 0.077
+
+[sub_resource type="CubeMesh" id=9]
 
 [node name="player" type="KinematicBody" groups=[
 "Player",
@@ -204,6 +206,11 @@ depth = 0.15
 
 [node name="toe_joint" type="Spatial" parent="leg_1/hip_joint/thigh_joint/shin_joint"]
 
+[node name="MeshInstance" type="MeshInstance" parent="leg_1/hip_joint/thigh_joint/shin_joint"]
+transform = Transform( 0.381, -1.90664e-09, 5.16261e-09, 1.11759e-08, 0.065, 0, -1.49012e-08, 7.45701e-17, 0.132, 0.253681, 0.108, 5.96046e-08 )
+mesh = SubResource( 9 )
+material/0 = null
+
 [node name="leg_2" type="Spatial" parent="."]
 transform = Transform( 0.706997, 0, -0.70699, 0, 1, 0, 0.70699, 0, 0.706997, 0.110311, 0.746748, 0.110315 )
 script = ExtResource( 12 )
@@ -248,6 +255,11 @@ polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.98, 0 )
 depth = 0.15
 
 [node name="toe_joint" type="Spatial" parent="leg_2/hip_joint/thigh_joint/shin_joint"]
+
+[node name="MeshInstance2" type="MeshInstance" parent="leg_2/hip_joint/thigh_joint/shin_joint"]
+transform = Transform( 0.380996, 0, 0, 0, 0.065, 0, 0, 0, 0.132, 0.254, 0.108, 0 )
+mesh = SubResource( 9 )
+material/0 = null
 
 [node name="leg_3" type="Spatial" parent="."]
 transform = Transform( -0.707003, 0, -0.706986, 0, 1, 0, 0.706986, 0, -0.707003, -0.110306, 0.746748, 0.110315 )
@@ -294,6 +306,11 @@ depth = 0.15
 
 [node name="toe_joint" type="Spatial" parent="leg_3/hip_joint/thigh_joint/shin_joint"]
 
+[node name="MeshInstance2" type="MeshInstance" parent="leg_3/hip_joint/thigh_joint/shin_joint"]
+transform = Transform( 0.380996, -3.17607e-24, -3.87199e-09, 0, 0.065, -2.19882e-16, 1.11759e-08, 1.08275e-16, 0.132, 0.254, 0.108, -2.98023e-08 )
+mesh = SubResource( 9 )
+material/0 = null
+
 [node name="leg_4" type="Spatial" parent="."]
 transform = Transform( -0.706974, 0, 0.706981, 0, 1, 0, -0.706981, 0, -0.706974, -0.110306, 0.746748, -0.110302 )
 script = ExtResource( 12 )
@@ -338,6 +355,11 @@ polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.98, 0 )
 depth = 0.15
 
 [node name="toe_joint" type="Spatial" parent="leg_4/hip_joint/thigh_joint/shin_joint"]
+
+[node name="MeshInstance2" type="MeshInstance" parent="leg_4/hip_joint/thigh_joint/shin_joint"]
+transform = Transform( 0.380996, -3.17607e-24, -3.87199e-09, 0, 0.065, -2.19882e-16, 1.11759e-08, 1.08275e-16, 0.132, 0.254, 0.108, -2.98023e-08 )
+mesh = SubResource( 9 )
+material/0 = null
 
 [node name="toe_1_position" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.999997, 0, 0, 0, 1, 0.5, 0, -0.5 )
