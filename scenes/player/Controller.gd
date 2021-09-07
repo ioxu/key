@@ -259,7 +259,6 @@ func _process(dt):
 						lerp_angle(waist.get_rotation().y, meshinstance.get_rotation().y, 1.0),
 						waist_rotation_harmonic_parms
 		)
-
 	_w_rot_hv = wo[1]
 
 	var curr_ry = wo[0]
@@ -312,10 +311,11 @@ func _process(dt):
 
 	#prints("WAIST DT", waist_ry_dt)
 	# bend knees on waist rotation
-	leg_1_node.roll = waist_ry_dt * waist_rotation_knee_roll
-	leg_2_node.roll = waist_ry_dt * waist_rotation_knee_roll
-	leg_3_node.roll = waist_ry_dt * waist_rotation_knee_roll
-	leg_4_node.roll = waist_ry_dt * waist_rotation_knee_roll
+	var _dry = waist_ry_dt * -1.0 * waist_rotation_knee_roll
+	leg_1_node.roll = _dry
+	leg_2_node.roll = _dry
+	leg_3_node.roll = _dry
+	leg_4_node.roll = _dry
 
 	# /IK LEGS HIPS AND TOES
 	############################################################################

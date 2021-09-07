@@ -2,8 +2,8 @@ extends Node2D
 
 
 const harmonic_motion_lib = preload("res://data/scripts/harmonic_motion.gd")
-var harmonic_motion = harmonic_motion_lib.new()
-var parms = {} 
+var harmonic_motion_x = harmonic_motion_lib.new()
+var harmonic_motion_y = harmonic_motion_lib.new()
 
 var target_pos = Vector2.ZERO
 
@@ -15,32 +15,28 @@ export var angular_frequency = 6.0 setget set_aungular_frequency
 
 
 func _ready():
-	parms = harmonic_motion.CalcDampedSpringMotionParams( damping_ratio, angular_frequency )
-	prints("harmonic_motion",harmonic_motion)
+	harmonic_motion_x.initialise(damping_ratio, angular_frequency)
+	harmonic_motion_y.initialise(damping_ratio, angular_frequency)
 
 
 func _process(delta):
-	var cx = harmonic_motion.calculate( $Sprite.position.x, pvx, target_pos.x, parms )
-	var cy = harmonic_motion.calculate( $Sprite.position.y, pvy, target_pos.y, parms )
-#	var cx = harmonic_motion.calculate( $Sprite.position.x, target_pos.x, parms )
-#	var cy = harmonic_motion.calculate( $Sprite.position.y, target_pos.y, parms )
-	$Sprite.position.x = cx[0]
-	$Sprite.position.y = cy[0]
-#	$Sprite.position.x = cx
-#	$Sprite.position.y = cy
+	var cx = harmonic_motion_x.calculate_c( $Sprite.position.x, target_pos.x)
+	var cy = harmonic_motion_y.calculate_c( $Sprite.position.y, target_pos.y)
 
-	pvx = cx[1]
-	pvy = cy[1]
+	$Sprite.position.x = cx
+	$Sprite.position.y = cy
 
 
 func set_damping_ratio(new_value):
 	damping_ratio = new_value
-	parms = harmonic_motion.CalcDampedSpringMotionParams( damping_ratio, angular_frequency )
+	harmonic_motion_x.initialise(damping_ratio, angular_frequency)
+	harmonic_motion_y.initialise(damping_ratio, angular_frequency)
 
 
 func set_aungular_frequency(new_value):
 	angular_frequency = new_value
-	parms = harmonic_motion.CalcDampedSpringMotionParams( damping_ratio, angular_frequency )
+	harmonic_motion_x.initialise(damping_ratio, angular_frequency)
+	harmonic_motion_y.initialise(damping_ratio, angular_frequency)
 
 
 func _on_Timer_timeout():

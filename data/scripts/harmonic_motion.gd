@@ -16,6 +16,23 @@ var DampenedSpringMotionParams = {
 	VelVelCoef = 0.0,
 }
 
+#-------------------------------------------------------------------------------
+var _carry_velocity := 0.0
+
+func initialise( dampingRatio: float = 0.0, angularFrequency: float = 0.0  ):
+	DampenedSpringMotionParams = CalcDampedSpringMotionParams( dampingRatio, angularFrequency)
+
+
+func calculate_c( state: float = 0.0, targetState: float = 0.0 ):
+	var oldPos = state - targetState # update in equilibrium relative space
+	var oldVel = _carry_velocity
+	
+	state = oldPos * DampenedSpringMotionParams.PosPosCoef + oldVel * DampenedSpringMotionParams.PosVelCoef + targetState
+	_carry_velocity = oldPos * DampenedSpringMotionParams.VelPosCoef + oldVel * DampenedSpringMotionParams.VelVelCoef
+	return state
+
+#-------------------------------------------------------------------------------
+
 
 func calculate( state: float = 0.0, velocity: float = 0.0, targetState: float = 0.0, springMotionParams = DampenedSpringMotionParams ):
 	# float form
