@@ -20,11 +20,8 @@ func _ready():
 
 
 func _process(delta):
-	var cx = harmonic_motion_x.calculate_c( $Sprite.position.x, target_pos.x)
-	var cy = harmonic_motion_y.calculate_c( $Sprite.position.y, target_pos.y)
-
-	$Sprite.position.x = cx
-	$Sprite.position.y = cy
+	$Sprite.position.x = harmonic_motion_x.calculate_c( $Sprite.position.x, target_pos.x)
+	$Sprite.position.y = harmonic_motion_y.calculate_c( $Sprite.position.y, target_pos.y)
 
 
 func set_damping_ratio(new_value):

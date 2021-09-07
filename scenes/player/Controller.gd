@@ -40,6 +40,10 @@ var waist_rotation_harmonic_parms
 var _w_rot_hv = 0.0
 var waist_rotation_knee_roll = -10.0
 
+var toes_waist_ry_spring = harmonic_motion_lib.new()
+var toes_waist_ry = 0.0
+
+
 onready var toe_1_node = get_node("../toe_1_position")
 onready var toe_2_node = get_node("../toe_2_position")
 onready var toe_3_node = get_node("../toe_3_position")
@@ -111,6 +115,8 @@ func _ready():
 		waist_rotation_harmonic_damping,
 		waist_rotation_harmonic_frequency
 	)
+
+	toes_waist_ry_spring.initialise( 0.25, 5 )
 
 
 func _unhandled_input(event):
@@ -280,26 +286,29 @@ func _process(dt):
 	# so that speed isn't taken into account. Speed could scale but toes would only be some constant
 	# factor away from body ...
 	var movement_v = movement * + 0.06 
-	
 	var movement_v_norm = movement_v.normalized()
+
+	############################
+	toes_waist_ry = toes_waist_ry_spring.calculate_c( toes_waist_ry, lerp_angle(toes_waist_ry, curr_ry, 1.0) )
+	############################
 	
 	#var toe_mv_dot_blend = 1.0#0.75 ## !!!!!!!!!!!!!!!! at 1.0 it is completely redundant. Consider removing Util.remap_clamp quotient
-	var t1p = toe_1_initial_position.rotated( Vector3.UP, curr_ry )
+	var t1p = toe_1_initial_position.rotated( Vector3.UP, toes_waist_ry )
 	var d1 = t1p.normalized().dot( movement_v_norm )
 	#t1p += sign(d1) * movement_v * Util.remap_clamp( abs(d1), 0.0, toe_mv_dot_blend, 0.0, 1.0 )
 	t1p += sign(d1) * movement_v * abs(d1)
 	
-	var t2p = toe_2_initial_position.rotated( Vector3.UP, curr_ry )
+	var t2p = toe_2_initial_position.rotated( Vector3.UP, toes_waist_ry )
 	var d2 = t2p.normalized().dot( movement_v_norm )
 	#t2p += sign(d2) * movement_v * Util.remap_clamp( abs(d2), 0.0, toe_mv_dot_blend, 0.0, 1.0)
 	t2p += sign(d2) * movement_v * abs(d2)
 	
-	var t3p = toe_3_initial_position.rotated( Vector3.UP, curr_ry )
+	var t3p = toe_3_initial_position.rotated( Vector3.UP, toes_waist_ry )
 	var d3 = t3p.normalized().dot( movement_v_norm )
 	#t3p += sign(d3) * movement_v * Util.remap_clamp( abs(d3), 0.0, toe_mv_dot_blend, 0.0, 1.0 )
 	t3p += sign(d3) * movement_v * abs(d3)
 	
-	var t4p = toe_4_initial_position.rotated( Vector3.UP, curr_ry )
+	var t4p = toe_4_initial_position.rotated( Vector3.UP, toes_waist_ry )
 	var d4 = t4p.normalized().dot( movement_v_norm )
 	#t4p += sign(d4) * movement_v * Util.remap_clamp( abs(d4), 0.0, toe_mv_dot_blend, 0.0, 1.0 )
 	t4p += sign(d4) * movement_v * abs(d4)
@@ -311,7 +320,7 @@ func _process(dt):
 
 	#prints("WAIST DT", waist_ry_dt)
 	# bend knees on waist rotation
-	var _dry = waist_ry_dt * -1.0 * waist_rotation_knee_roll
+	var _dry = waist_ry_dt * waist_rotation_knee_roll
 	leg_1_node.roll = _dry
 	leg_2_node.roll = _dry
 	leg_3_node.roll = _dry
