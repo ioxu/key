@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://data/shaders/spatial_debug_boxdivide_material.tres" type="Material" id=1]
 [ext_resource path="res://scenes/fps_label.gd" type="Script" id=2]
 [ext_resource path="res://addons/SIsilicon.3d.text/label_3d.gd" type="Script" id=3]
 [ext_resource path="res://data/enemies/Enemy.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/world_environment.tres" type="Environment" id=5]
 [ext_resource path="res://data/doors/door.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/Level.gd" type="Script" id=7]
 
@@ -24,39 +25,6 @@ size = Vector3( 1, 3, 1 )
 
 [sub_resource type="BoxShape" id=6]
 extents = Vector3( 0.5, 1.5, 0.5 )
-
-[sub_resource type="ProceduralSky" id=7]
-
-[sub_resource type="Environment" id=8]
-background_mode = 2
-background_sky = SubResource( 7 )
-background_color = Color( 0.0117647, 0.0117647, 0.0117647, 1 )
-fog_depth_begin = 0.0
-fog_depth_end = 60.0
-tonemap_mode = 2
-ssao_enabled = true
-ssao_radius = 6.83
-ssao_intensity = 7.39
-ssao_radius2 = 0.1
-ssao_intensity2 = 2.0
-ssao_bias = 0.489
-ssao_light_affect = 0.31
-ssao_quality = 2
-ssao_edge_sharpness = 1.7
-dof_blur_far_distance = 28.86
-dof_blur_far_amount = 0.05
-dof_blur_near_distance = 26.04
-glow_enabled = true
-glow_levels/1 = true
-glow_levels/2 = true
-glow_levels/4 = true
-glow_levels/5 = false
-glow_levels/6 = true
-glow_intensity = 0.1
-glow_strength = 0.74
-glow_blend_mode = 0
-adjustment_contrast = 1.29
-adjustment_saturation = 6.72
 
 [node name="Level" type="Spatial"]
 script = ExtResource( 7 )
@@ -771,4 +739,4 @@ directional_shadow_bias_split_scale = 0.65
 directional_shadow_max_distance = 50.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 8 )
+environment = ExtResource( 5 )
