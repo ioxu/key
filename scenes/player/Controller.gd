@@ -33,10 +33,11 @@ var last_waist_ry := 0.0
 onready var waist = get_node("../waist")
 onready var waist_initial_position = waist.transform.origin
 onready var waist_initial_basis = waist.transform.basis
-var waist_rotation_harmonic_motion = harmonic_motion_lib.new()
-var waist_rotation_harmonic_damping := 0.85
-var waist_rotation_harmonic_frequency := 7.5
-var waist_rotation_harmonic_parms
+var waist_rotation_spring = harmonic_motion_lib.new()
+var waist_rotation_spring_damping := 0.85
+var waist_rotation_spring_frequency := 7.5
+#var waist_rotation_harmonic_parms
+
 var _w_rot_hv = 0.0
 var waist_rotation_knee_roll = -10.0
 
@@ -65,14 +66,15 @@ export(CAMERA_LOOKAHEAD_INTERP_MODE) var camera_interpolation_mode = CAMERA_LOOK
 export(float) var camera_lookahead_harmonic_damping := 0.85 setget set_camera_lookahead_harmonic_spring_damping
 export(float) var camera_lookahead_harmonic_angular_frequency := 2.5 setget set_camera_lookahead_harmonic_spring_frequency
 var c_la_hv = Vector3.ZERO # camera lookahead harmonic velocity
-var camera_lookahead_harmonic_motion = harmonic_motion_lib.new()
-var camera_lookahead_harmonic_parms
+#var camera_lookahead_harmonic_motion = harmonic_motion_lib.new()
+var camera_lookahead_spring = harmonic_motion_lib.new()
+#var camera_lookahead_harmonic_parms
 
 var camera_lookahead_factor = 0.0
 var camera_lookahead_direction : Vector3 # keep normalised
 var camera_lookahead_direction_actual : Vector3
 var camera_lookahead_factor_actual = 0.0
-const CAMERA_LOOKAHEAD_DISTANCE = 1.0#5.5#7.5
+const CAMERA_LOOKAHEAD_DISTANCE = 5.5#5.5#7.5
 
 
 # character motion
@@ -108,13 +110,15 @@ func _ready():
 	set_process(true)
 
 	if camera_interpolation_mode == CAMERA_LOOKAHEAD_INTERP_MODE.harmonic:
-		camera_lookahead_harmonic_parms = camera_lookahead_harmonic_motion.CalcDampedSpringMotionParams( camera_lookahead_harmonic_damping,
-																	camera_lookahead_harmonic_angular_frequency )
+#		camera_lookahead_harmonic_parms = camera_lookahead_harmonic_motion.CalcDampedSpringMotionParams( camera_lookahead_harmonic_damping,
+#																	camera_lookahead_harmonic_angular_frequency )
+		camera_lookahead_spring.initialise( camera_lookahead_harmonic_damping, camera_lookahead_harmonic_angular_frequency )
 
-	waist_rotation_harmonic_parms = waist_rotation_harmonic_motion.CalcDampedSpringMotionParams( 
-		waist_rotation_harmonic_damping,
-		waist_rotation_harmonic_frequency
-	)
+#	waist_rotation_harmonic_parms = waist_rotation_harmonic_motion.CalcDampedSpringMotionParams( 
+#		waist_rotation_spring_damping,
+#		waist_rotation_spring_frequency
+#	)
+	waist_rotation_spring.initialise(waist_rotation_spring_damping, waist_rotation_spring_frequency )
 
 	toes_waist_ry_spring.initialise( 0.25, 5 )
 
@@ -178,18 +182,18 @@ func get_camera_lookahead_direction(event_data : Vector2, input_method):
 
 func set_camera_lookahead_harmonic_spring_damping( damp: float = 0.0 ):
 	camera_lookahead_harmonic_damping = damp
-	_upadate_camera_lookahead_harmonic_motion_params()
+	_update_camera_lookahead_harmonic_motion_params()
 
 
 func set_camera_lookahead_harmonic_spring_frequency( freq: float = 0.0 ):
 	camera_lookahead_harmonic_angular_frequency = freq
-	_upadate_camera_lookahead_harmonic_motion_params()
+	_update_camera_lookahead_harmonic_motion_params()
 
 
-func _upadate_camera_lookahead_harmonic_motion_params() -> void:
-	camera_lookahead_harmonic_parms = camera_lookahead_harmonic_motion.CalcDampedSpringMotionParams( camera_lookahead_harmonic_damping,
-																							camera_lookahead_harmonic_angular_frequency )
-
+func _update_camera_lookahead_harmonic_motion_params() -> void:
+#	camera_lookahead_harmonic_parms = camera_lookahead_harmonic_motion.CalcDampedSpringMotionParams( camera_lookahead_harmonic_damping,
+#																							camera_lookahead_harmonic_angular_frequency )
+	camera_lookahead_spring.initialise( camera_lookahead_harmonic_damping, camera_lookahead_harmonic_angular_frequency )
 
 func rotate_mesh( event_data, input_method ):
 	match input_method:
@@ -259,15 +263,19 @@ func _process(dt):
 	
 	#curr_ry = lerp_a
 	
-	var wo = waist_rotation_harmonic_motion.calculate(
-						waist.get_rotation().y,
-						_w_rot_hv,
-						lerp_angle(waist.get_rotation().y, meshinstance.get_rotation().y, 1.0),
-						waist_rotation_harmonic_parms
-		)
-	_w_rot_hv = wo[1]
+#	var wo = waist_rotation_harmonic_motion.calculate(
+#						waist.get_rotation().y,
+#						_w_rot_hv,
+#						lerp_angle(waist.get_rotation().y, meshinstance.get_rotation().y, 1.0),
+#						waist_rotation_harmonic_parms
+#		)
+#	_w_rot_hv = wo[1]
 
-	var curr_ry = wo[0]
+	var wo = waist_rotation_spring.calculate( waist.get_rotation().y,
+						lerp_angle(waist.get_rotation().y, meshinstance.get_rotation().y, 1.0)
+						)
+
+	var curr_ry = wo
 	
 	waist.transform.basis = waist_initial_basis.rotated( Vector3.UP, curr_ry )
 
@@ -289,7 +297,8 @@ func _process(dt):
 	var movement_v_norm = movement_v.normalized()
 
 	############################
-	toes_waist_ry = toes_waist_ry_spring.calculate_c( toes_waist_ry, lerp_angle(toes_waist_ry, curr_ry, 1.0) )
+	#toes_waist_ry = toes_waist_ry_spring.calculate_c( toes_waist_ry, lerp_angle(toes_waist_ry, curr_ry, 1.0) )
+	toes_waist_ry = toes_waist_ry_spring.calculate( toes_waist_ry, lerp_angle(toes_waist_ry, curr_ry, 1.0) )
 	############################
 	
 	#var toe_mv_dot_blend = 1.0#0.75 ## !!!!!!!!!!!!!!!! at 1.0 it is completely redundant. Consider removing Util.remap_clamp quotient
@@ -381,9 +390,10 @@ func _physics_process(dt):
 		co = camera_lookahead_direction_actual * camera_lookahead_factor_actual * CAMERA_LOOKAHEAD_DISTANCE
 	elif camera_interpolation_mode == CAMERA_LOOKAHEAD_INTERP_MODE.harmonic:
 		var target = camera_lookahead_direction * camera_lookahead_factor * CAMERA_LOOKAHEAD_DISTANCE
-		co = camera_lookahead_harmonic_motion.calculate_v3( camera_root.transform.origin, c_la_hv, target, camera_lookahead_harmonic_parms )
-		c_la_hv = co[1]
-		co = co[0]
+		#co = camera_lookahead_harmonic_motion.calculate_v3( camera_root.transform.origin, c_la_hv, target, camera_lookahead_harmonic_parms )
+		co = camera_lookahead_spring.calculate_v3( camera_root.transform.origin, target )
+		#c_la_hv = co[1]
+		#co = co[0]
 
 	camera_root.transform.origin = co
 

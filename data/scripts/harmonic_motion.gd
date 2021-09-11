@@ -1,65 +1,62 @@
 extends Node
-# Harmonic Motion
+# Harmonic Motion springs
 # https://digitalsalmon.co.uk/simple-harmonic-motion-an-alternative-to-continuous-lerp/
 
 const epsilon = 0.0001
 const sixtyfps_delta = 0.016666
 
-#var velocity := 0.0
 
-var DampenedSpringMotionParams = {
-	# newPos = posPosCoef*oldPos + posVelCoef*oldVel
-	# newVel = velPosCoef*oldPos + velVelCoef*oldVel
+# newPos = posPosCoef*oldPos + posVelCoef*oldVel
+# newVel = velPosCoef*oldPos + velVelCoef*oldVel
+var _damped_spring_motion_params = {
 	PosPosCoef = 0.0,
 	PosVelCoef = 0.0,
 	VelPosCoef = 0.0,
 	VelVelCoef = 0.0,
 }
 
-#-------------------------------------------------------------------------------
-var _carry_velocity := 0.0
+var _carry_velocity := Vector3.ZERO
 
 func initialise( dampingRatio: float = 0.0, angularFrequency: float = 0.0  ):
-	DampenedSpringMotionParams = CalcDampedSpringMotionParams( dampingRatio, angularFrequency)
+	_damped_spring_motion_params = _calc_damped_spring_motion_params( dampingRatio, angularFrequency)
 
 
-func calculate_c( state: float = 0.0, targetState: float = 0.0 ):
+# float form
+func calculate( state: float = 0.0, targetState: float = 0.0 ):
 	var oldPos = state - targetState # update in equilibrium relative space
-	var oldVel = _carry_velocity
-	
-	state = oldPos * DampenedSpringMotionParams.PosPosCoef + oldVel * DampenedSpringMotionParams.PosVelCoef + targetState
-	_carry_velocity = oldPos * DampenedSpringMotionParams.VelPosCoef + oldVel * DampenedSpringMotionParams.VelVelCoef
+	var oldVel = _carry_velocity.x
+
+	state = oldPos * _damped_spring_motion_params.PosPosCoef + oldVel * _damped_spring_motion_params.PosVelCoef + targetState
+	_carry_velocity.x = oldPos * _damped_spring_motion_params.VelPosCoef + oldVel * _damped_spring_motion_params.VelVelCoef
 	return state
 
-#-------------------------------------------------------------------------------
 
-
-func calculate( state: float = 0.0, velocity: float = 0.0, targetState: float = 0.0, springMotionParams = DampenedSpringMotionParams ):
-	# float form
+# Vector2 form
+func calculate_v2( state: Vector2 = Vector2.ZERO, targetState: Vector2 = Vector2.ZERO ):
 	var oldPos = state - targetState # update in equilibrium relative space
-	var oldVel = velocity
-	
-	state = oldPos * springMotionParams.PosPosCoef + oldVel * springMotionParams.PosVelCoef + targetState
-	velocity = oldPos * springMotionParams.VelPosCoef + oldVel * springMotionParams.VelVelCoef
-	return [state, velocity]
+	var oldVel = Vector2(_carry_velocity.x, _carry_velocity.y)
+
+	state = oldPos * _damped_spring_motion_params.PosPosCoef + oldVel * _damped_spring_motion_params.PosVelCoef + targetState
+	var c = oldPos * _damped_spring_motion_params.VelPosCoef + oldVel * _damped_spring_motion_params.VelVelCoef
+	_carry_velocity.x = c.x
+	_carry_velocity.y = c.y
+	return state
 
 
-func calculate_v2(state: Vector2 = Vector2.ZERO, velocity: Vector2 = Vector2.ZERO, targetState: Vector2 = Vector2.ZERO, springMotionParams = DampenedSpringMotionParams ):
-	# Vector2 form
-	var x = calculate( state.x, velocity.x, targetState.x, springMotionParams )
-	var y = calculate( state.y, velocity.y, targetState.y, springMotionParams )
-	return [Vector2( x[0], y[0] ), Vector2( x[1], y[1] )]
+# Vector3 form
+func calculate_v3(state: Vector3 = Vector3.ZERO, targetState: Vector3 = Vector3.ZERO ):
+	var oldPos = state - targetState # update in equilibrium relative space
+	var oldVel = _carry_velocity
+
+	state = oldPos * _damped_spring_motion_params.PosPosCoef + oldVel * _damped_spring_motion_params.PosVelCoef + targetState
+	var c = oldPos * _damped_spring_motion_params.VelPosCoef + oldVel * _damped_spring_motion_params.VelVelCoef
+	_carry_velocity.x = c.x
+	_carry_velocity.y = c.y
+	_carry_velocity.z = c.z
+	return state
 
 
-func calculate_v3(state: Vector3 = Vector3.ZERO, velocity: Vector3 = Vector3.ZERO, targetState: Vector3 = Vector3.ZERO, springMotionParams = DampenedSpringMotionParams ):
-	# Vector3 form
-	var x = calculate( state.x, velocity.x, targetState.x, springMotionParams )
-	var y = calculate( state.y, velocity.y, targetState.y, springMotionParams )
-	var z = calculate( state.z, velocity.z, targetState.z, springMotionParams )
-	return [Vector3( x[0], y[0], z[0] ), Vector3( x[1], y[1], z[1] )]
-
-
-func CalcDampedSpringMotionParams( dampingRatio: float = 0.0, angularFrequency: float = 0.0  ):
+func _calc_damped_spring_motion_params( dampingRatio: float = 0.0, angularFrequency: float = 0.0  ):
 	# force values into legal range
 	if dampingRatio < 0.0: dampingRatio = 0.0
 	if angularFrequency < 0.0: angularFrequency = 0.0
@@ -67,7 +64,7 @@ func CalcDampedSpringMotionParams( dampingRatio: float = 0.0, angularFrequency: 
 	# if there is no angular frequency,
 	# the spring will not move and we can return identity
 	if angularFrequency < epsilon :
-		var d = DampenedSpringMotionParams.duplicate(true)
+		var d = _damped_spring_motion_params.duplicate(true)
 		d.PosPosCoef = 1.0
 		d.PosVelCoef = 0.0
 		d.VelPosCoef = 0.0
@@ -92,7 +89,7 @@ func CalcDampedSpringMotionParams( dampingRatio: float = 0.0, angularFrequency: 
 		var z1e1_Over_TwoZb = z1 * e1_Over_TwoZb
 		var z2e2_Over_TwoZb = z2 * e2_Over_TwoZb
 		
-		var d = DampenedSpringMotionParams.duplicate()
+		var d = _damped_spring_motion_params.duplicate()
 		d.PosPosCoef = e1_Over_TwoZb * z2 - z2e2_Over_TwoZb + e2
 		d.PosVelCoef = -e1_Over_TwoZb + e2_Over_TwoZb
 		d.VelPosCoef = (z1e1_Over_TwoZb - z2e2_Over_TwoZb + e2) * z2
@@ -114,7 +111,7 @@ func CalcDampedSpringMotionParams( dampingRatio: float = 0.0, angularFrequency: 
 		var expCos = expTerm * cosTerm
 		var expOmegaZetaSin_Over_Alpha = expTerm * omegaZeta * sinTerm * invAlpha
 		
-		var d = DampenedSpringMotionParams.duplicate()
+		var d = _damped_spring_motion_params.duplicate()
 		d.PosPosCoef = expCos + expOmegaZetaSin_Over_Alpha
 		d.PosVelCoef = expSin * invAlpha
 		d.VelPosCoef = -expSin * alpha - omegaZeta * expOmegaZetaSin_Over_Alpha
@@ -127,7 +124,7 @@ func CalcDampedSpringMotionParams( dampingRatio: float = 0.0, angularFrequency: 
 		var timeExp = sixtyfps_delta * expTerm
 		var timeExpFreq = timeExp * angularFrequency
 		
-		var d = DampenedSpringMotionParams.duplicate()
+		var d = _damped_spring_motion_params.duplicate()
 		d.PosPosCoef = timeExpFreq + expTerm
 		d.PosVelCoef = timeExp
 		d.VelPosCoef = -angularFrequency * timeExpFreq
