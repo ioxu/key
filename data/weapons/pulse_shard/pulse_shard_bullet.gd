@@ -26,7 +26,7 @@ func _physics_process(delta):
 	var collision_info = move_and_collide( delta * self.global_transform.basis.z * projectile_speed )
 	if collision_info:
 		collided(collision_info.get_collider(), collision_info)
-
+#	pass
 
 func _on_free_timer_timeout():
 	queue_free()

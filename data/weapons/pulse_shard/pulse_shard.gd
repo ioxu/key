@@ -17,6 +17,8 @@ onready var anim_player = $AnimationPlayer
 onready var muzzle_flash : MeshInstance = $geometry_hook/muzzle_flash 
 onready var muzzle_flash_light : OmniLight = $geometry_hook/muzzle_flash_light
 onready var muzzle_flash_light_initial_position = muzzle_flash_light.translation
+
+export (bool) var eject_casings := true
 const bullet_scene = preload("res://data/weapons/pulse_shard/pulse_shard_bullet.tscn")
 const bullet_casing_scene = preload("res://data/weapons/pulse_shard/pulse_shard_casing.tscn")
 onready var bullet_spawner = $bullet_spawner 
@@ -81,7 +83,6 @@ func fire():
 	var bullet = bullet_scene.instance()
 	if is_enemy_weapon:
 		bullet.is_enemy_bullet = true
-
 	get_node("/root/").add_child(bullet)
 	bullet.set_translation(bullet_spawner.get_global_transform().origin)
 	var direction = bullet_spawner.get_global_transform().basis.z
@@ -89,15 +90,16 @@ func fire():
 	bullet.start()
 
 	# eject casing
-	yield(get_tree().create_timer(0.2), "timeout")
-	var casing = bullet_casing_scene.instance()
-	casing.transform = $shell_casing_spawner.global_transform
-	get_node("/root/").add_child(casing)
-	var impulse = 3 * (Vector3(0.0, rand_range(20.0,35.0), 0.0) + casing.transform.basis.x * -rand_range(10.0,20.0)) #25.0
-	impulse += global_velocity
-	casing.apply_impulse ( Vector3.ZERO, impulse)
-	casing.apply_torque_impulse( ( $shell_casing_spawner.global_transform.basis.y * rand_range( 0.2, 2.0 ) ) + \
-		($shell_casing_spawner.global_transform.basis.x * rand_range(-0.5, 0.5 ) ) )
+	if eject_casings:
+		yield(get_tree().create_timer(0.2), "timeout")
+		var casing = bullet_casing_scene.instance()
+		casing.transform = $shell_casing_spawner.global_transform
+		get_node("/root/").add_child(casing)
+		var impulse = 3 * (Vector3(0.0, rand_range(20.0,35.0), 0.0) + casing.transform.basis.x * -rand_range(10.0,20.0)) #25.0
+		impulse += global_velocity
+		casing.apply_impulse ( Vector3.ZERO, impulse)
+		casing.apply_torque_impulse( ( $shell_casing_spawner.global_transform.basis.y * rand_range( 0.2, 2.0 ) ) + \
+			($shell_casing_spawner.global_transform.basis.x * rand_range(-0.5, 0.5 ) ) )
 
 	if !is_enemy_weapon:
 		Input.start_joy_vibration(0, 1.0, 0.0, 0.05)
