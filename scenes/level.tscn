@@ -216,7 +216,7 @@ transform = Transform( 1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0 )
 shape = SubResource( 4 )
 
 [node name="MeshInstance22" type="MeshInstance" parent="level"]
-transform = Transform( 0.111477, 0.675137, -1.69108, -0.204658, 4.32734, 0.225059, 1.06433, 0.761386, 0.2204, -14.2423, 1.22167, 4.76311 )
+transform = Transform( 0.16804, 0.742828, -3.52903, -0.308501, 4.76121, 0.469662, 1.60437, 0.837721, 0.459938, -15.1065, 1.15061, 5.93331 )
 layers = 2
 use_in_baked_light = true
 mesh = SubResource( 3 )
@@ -231,7 +231,7 @@ transform = Transform( 1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0 )
 shape = SubResource( 4 )
 
 [node name="MeshInstance36" type="MeshInstance" parent="level"]
-transform = Transform( 0.740515, 0.768446, -6.09461, 0.141116, 12.0683, 0.409807, 6.21257, -0.365722, 0.717146, -24.078, 6.871, 1.28101 )
+transform = Transform( 0.740515, 0.768446, -6.09461, 0.141116, 12.0683, 0.409807, 6.21257, -0.365722, 0.717146, -23.6932, 6.94433, 4.50947 )
 layers = 2
 use_in_baked_light = true
 mesh = SubResource( 3 )
@@ -245,8 +245,53 @@ collision_mask = 2147483677
 transform = Transform( 1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0 )
 shape = SubResource( 4 )
 
+[node name="MeshInstance43" type="MeshInstance" parent="level"]
+transform = Transform( -5.92459, 1.7939, 1.75872, 0.880092, 11.9644, -0.290368, -1.81356, -0.0542146, -5.88635, -37.3732, 7.41348, -8.75377 )
+layers = 2
+use_in_baked_light = true
+mesh = SubResource( 3 )
+material/0 = ExtResource( 1 )
+
+[node name="StaticBody" type="StaticBody" parent="level/MeshInstance43"]
+collision_layer = 2
+collision_mask = 2147483677
+
+[node name="CollisionShape" type="CollisionShape" parent="level/MeshInstance43/StaticBody"]
+transform = Transform( 1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0 )
+shape = SubResource( 4 )
+
+[node name="MeshInstance44" type="MeshInstance" parent="level"]
+transform = Transform( 2.3804, 0.614551, 5.68289, 0.0729862, 15.5993, -0.291132, -5.78728, 0.449505, 2.33379, -46.3868, 16.8729, -28.0016 )
+layers = 2
+use_in_baked_light = true
+mesh = SubResource( 3 )
+material/0 = ExtResource( 1 )
+
+[node name="StaticBody" type="StaticBody" parent="level/MeshInstance44"]
+collision_layer = 2
+collision_mask = 2147483677
+
+[node name="CollisionShape" type="CollisionShape" parent="level/MeshInstance44/StaticBody"]
+transform = Transform( 1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0 )
+shape = SubResource( 4 )
+
+[node name="MeshInstance45" type="MeshInstance" parent="level"]
+transform = Transform( 6.12121, 2.33744, -0.474585, -1.19528, 11.868, 0.21593, 0.516161, -0.237155, 6.12818, -32.7641, 5.09093, -42.1727 )
+layers = 2
+use_in_baked_light = true
+mesh = SubResource( 3 )
+material/0 = ExtResource( 1 )
+
+[node name="StaticBody" type="StaticBody" parent="level/MeshInstance45"]
+collision_layer = 2
+collision_mask = 2147483677
+
+[node name="CollisionShape" type="CollisionShape" parent="level/MeshInstance45/StaticBody"]
+transform = Transform( 1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0 )
+shape = SubResource( 4 )
+
 [node name="MeshInstance37" type="MeshInstance" parent="level"]
-transform = Transform( -0.149658, -0.0896276, -6.1484, 0.203674, 12.0914, -0.0503406, 6.25304, -0.395987, -0.145514, -13.7412, -2.63207, -31.4805 )
+transform = Transform( -0.822497, -0.119005, -6.09681, 0.196974, 16.0547, -0.071603, 6.20073, -0.52578, -0.806437, -12.2506, -4.607, -32.5752 )
 layers = 2
 use_in_baked_light = true
 mesh = SubResource( 3 )
@@ -260,18 +305,18 @@ collision_mask = 2147483677
 transform = Transform( 1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0 )
 shape = SubResource( 4 )
 
-[node name="MeshInstance40" type="MeshInstance" parent="level"]
-transform = Transform( -0.149658, -0.0104071, -8.92997, 0.203674, 1.40399, -0.0731149, 6.25304, -0.0459801, -0.211346, -13.0597, 15.6935, -11.6033 )
+[node name="MeshInstance46" type="MeshInstance" parent="level"]
+transform = Transform( 1.26419, -0.119005, -9.65943, 0.209978, 16.0547, -0.0063071, 6.12553, -0.52578, 1.99373, -13.7082, 7.74777, -55.3326 )
 layers = 2
 use_in_baked_light = true
 mesh = SubResource( 3 )
 material/0 = ExtResource( 1 )
 
-[node name="StaticBody" type="StaticBody" parent="level/MeshInstance40"]
+[node name="StaticBody" type="StaticBody" parent="level/MeshInstance46"]
 collision_layer = 2
 collision_mask = 2147483677
 
-[node name="CollisionShape" type="CollisionShape" parent="level/MeshInstance40/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="level/MeshInstance46/StaticBody"]
 transform = Transform( 1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0 )
 shape = SubResource( 4 )
 
@@ -290,23 +335,8 @@ collision_mask = 2147483677
 transform = Transform( 1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0 )
 shape = SubResource( 4 )
 
-[node name="MeshInstance23" type="MeshInstance" parent="level"]
-transform = Transform( 0.551145, 0.0557726, -1.38965, 0.096049, 4.41692, 0.121496, 0.828063, -0.482347, 0.993958, -16.0926, -0.332726, -1.08401 )
-layers = 2
-use_in_baked_light = true
-mesh = SubResource( 3 )
-material/0 = ExtResource( 1 )
-
-[node name="StaticBody" type="StaticBody" parent="level/MeshInstance23"]
-collision_layer = 2
-collision_mask = 2147483677
-
-[node name="CollisionShape" type="CollisionShape" parent="level/MeshInstance23/StaticBody"]
-transform = Transform( 1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0 )
-shape = SubResource( 4 )
-
 [node name="MeshInstance24" type="MeshInstance" parent="level"]
-transform = Transform( -0.621115, 0.846926, -1.37477, 0.0432283, 4.34754, 0.352358, 0.894121, 0.378139, -0.972038, -14.6993, 1.97319, -5.8949 )
+transform = Transform( -1.61611, 0.846926, -4.08789, 0.112478, 4.34754, 1.04774, 2.32645, 0.378139, -2.89037, -16.653, 1.62388, -3.25843 )
 layers = 2
 use_in_baked_light = true
 mesh = SubResource( 3 )
@@ -321,7 +351,7 @@ transform = Transform( 1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0 )
 shape = SubResource( 4 )
 
 [node name="MeshInstance25" type="MeshInstance" parent="level"]
-transform = Transform( -0.642698, -0.0235468, -1.389, -0.204658, 4.32734, 0.225059, 0.855662, 1.01733, -0.989462, -9.73397, 1.22167, -10.2883 )
+transform = Transform( -0.67333, 0.619714, -3.94782, 0.0522497, 4.40003, 0.6119, 1.43185, 0.13086, -1.87879, -12.7744, -1.11802, -12.6325 )
 layers = 2
 use_in_baked_light = true
 mesh = SubResource( 3 )
@@ -332,6 +362,36 @@ collision_layer = 2
 collision_mask = 2147483677
 
 [node name="CollisionShape" type="CollisionShape" parent="level/MeshInstance25/StaticBody"]
+transform = Transform( 1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0 )
+shape = SubResource( 4 )
+
+[node name="MeshInstance40" type="MeshInstance" parent="level"]
+transform = Transform( -1.23153, 0.619714, -4.04829, 0.0825835, 4.40003, 0.619202, 3.05538, 0.13086, -1.64848, -20.0364, 4.93693, -12.3279 )
+layers = 2
+use_in_baked_light = true
+mesh = SubResource( 3 )
+material/0 = ExtResource( 1 )
+
+[node name="StaticBody" type="StaticBody" parent="level/MeshInstance40"]
+collision_layer = 2
+collision_mask = 2147483677
+
+[node name="CollisionShape" type="CollisionShape" parent="level/MeshInstance40/StaticBody"]
+transform = Transform( 1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0 )
+shape = SubResource( 4 )
+
+[node name="MeshInstance42" type="MeshInstance" parent="level"]
+transform = Transform( -2.58633, 0, -12.1795, 0, 4.44538, 0, 6.38406, 0, -4.9342, -31.2423, 6.43229, -20.8724 )
+layers = 2
+use_in_baked_light = true
+mesh = SubResource( 3 )
+material/0 = ExtResource( 1 )
+
+[node name="StaticBody" type="StaticBody" parent="level/MeshInstance42"]
+collision_layer = 2
+collision_mask = 2147483677
+
+[node name="CollisionShape" type="CollisionShape" parent="level/MeshInstance42/StaticBody"]
 transform = Transform( 1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0 )
 shape = SubResource( 4 )
 
@@ -351,7 +411,7 @@ transform = Transform( 1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0 )
 shape = SubResource( 4 )
 
 [node name="MeshInstance26" type="MeshInstance" parent="level"]
-transform = Transform( -0.159771, 0.369144, -1.69463, 0.096049, 4.41692, 0.121496, 0.981795, -0.315438, -0.217554, -7.11008, -0.332726, -15.8315 )
+transform = Transform( -0.303709, 0.378063, -7.23307, 0.18258, 4.41192, 0.516832, 1.86629, -0.370095, -1.22763, -7.9642, -0.481217, -18.4742 )
 layers = 2
 use_in_baked_light = true
 mesh = SubResource( 3 )
@@ -362,6 +422,21 @@ collision_layer = 2
 collision_mask = 2147483677
 
 [node name="CollisionShape" type="CollisionShape" parent="level/MeshInstance26/StaticBody"]
+transform = Transform( 1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0 )
+shape = SubResource( 4 )
+
+[node name="MeshInstance41" type="MeshInstance" parent="level"]
+transform = Transform( 0.511115, 0.384186, -3.69849, -0.5516, 4.38906, 0.254371, 3.85198, 0.577532, 0.527174, -8.65021, 3.20124, -31.3708 )
+layers = 2
+use_in_baked_light = true
+mesh = SubResource( 3 )
+material/0 = ExtResource( 1 )
+
+[node name="StaticBody" type="StaticBody" parent="level/MeshInstance41"]
+collision_layer = 2
+collision_mask = 2147483677
+
+[node name="CollisionShape" type="CollisionShape" parent="level/MeshInstance41/StaticBody"]
 transform = Transform( 1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0 )
 shape = SubResource( 4 )
 
@@ -396,7 +471,7 @@ transform = Transform( 1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0 )
 shape = SubResource( 4 )
 
 [node name="MeshInstance20" type="MeshInstance" parent="level"]
-transform = Transform( 0.876748, 0.13349, -1.69205, -0.230956, 4.43865, 0.0414181, 5.67959, 0.159888, 0.262883, -3.33994, 1.32404, -26.212 )
+transform = Transform( 0.861806, 0.181511, -1.69205, -0.649507, 4.38858, 0.041418, 5.64935, 0.476866, 0.262883, -3.33994, 1.32404, -26.212 )
 layers = 2
 use_in_baked_light = true
 mesh = SubResource( 3 )
@@ -621,7 +696,7 @@ transform = Transform( 1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0.0617828
 shape = SubResource( 6 )
 
 [node name="MeshInstance33" type="MeshInstance" parent="level"]
-transform = Transform( 0.958894, -0.139312, 0.621281, 0.118113, 0.988085, 0.247993, -0.258012, -0.0654228, 2.4225, -5.28904, 6.07209, -34.9359 )
+transform = Transform( 0.987881, 0.0771317, 0.338491, -0.0593981, 0.989594, -0.329352, -0.143394, 0.121463, 2.46839, -4.52964, 7.73477, -34.9891 )
 layers = 2
 use_in_baked_light = true
 mesh = SubResource( 5 )
@@ -632,11 +707,11 @@ collision_layer = 2
 collision_mask = 2147483677
 
 [node name="CollisionShape" type="CollisionShape" parent="level/MeshInstance33/StaticBody"]
-transform = Transform( 1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0.0617828, 0, -0.0246525 )
+transform = Transform( 1, 1.86265e-09, 0, 7.45058e-09, 1, 0, 2.23517e-08, -1.86265e-09, 1, 0.0617833, 0, -0.0246515 )
 shape = SubResource( 6 )
 
 [node name="MeshInstance34" type="MeshInstance" parent="level"]
-transform = Transform( 0.961156, -0.120472, 0.624071, 0.0776002, 0.981372, 0.441687, -0.264868, -0.149653, 2.39404, -4.37719, 6.31841, -30.5635 )
+transform = Transform( 0.994556, 0.0263806, 0.25739, -0.015464, 1.37482, -0.0927034, -0.103042, 0.0482986, 2.49823, -3.9237, 7.5487, -30.6615 )
 layers = 2
 use_in_baked_light = true
 mesh = SubResource( 5 )
@@ -647,11 +722,11 @@ collision_layer = 2
 collision_mask = 2147483677
 
 [node name="CollisionShape" type="CollisionShape" parent="level/MeshInstance34/StaticBody"]
-transform = Transform( 1, -3.72529e-09, 0, 0, 1, 2.98023e-08, 2.23517e-08, -3.72529e-09, 1, 0.0617838, 4.76837e-07, -0.0246525 )
+transform = Transform( 1, 0, 0, 0, 1, 2.98023e-08, 2.98023e-08, 0, 1, 0.0617843, 0, -0.0246525 )
 shape = SubResource( 6 )
 
 [node name="MeshInstance35" type="MeshInstance" parent="level"]
-transform = Transform( 0.937475, -0.134497, 0.806756, 0.10614, 0.988861, 0.262229, -0.33147, -0.0637461, 2.36566, -3.0263, 6.40457, -25.6749 )
+transform = Transform( 0.937475, -0.0624687, 0.860499, 0.10614, 0.988213, -0.277238, -0.33147, 0.139759, 2.34492, -3.0263, 6.93184, -25.6749 )
 layers = 2
 use_in_baked_light = true
 mesh = SubResource( 5 )
@@ -679,6 +754,12 @@ collision_mask = 2147483677
 [node name="CollisionShape" type="CollisionShape" parent="level/MeshInstance6/StaticBody"]
 transform = Transform( 1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0 )
 shape = SubResource( 6 )
+
+[node name="door3" parent="level" instance=ExtResource( 6 )]
+transform = Transform( 0.315715, 0, 0.948853, 0, 1, 0, -0.948853, 0, 0.315715, -40.403, 10.86, -26.0334 )
+door_name = "jump_level_door"
+connected_scene = "res://scenes/level_03.tscn"
+connected_door = "A"
 
 [node name="door" parent="level" instance=ExtResource( 6 )]
 transform = Transform( 0.998834, 0, 0.0482574, 0, 1, 0, -0.0482574, 0, 0.998834, -0.329016, 3.8147e-06, -39.942 )

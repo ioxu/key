@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://data/shaders/spatial_debug_boxdivide_material_orange.tres" type="Material" id=1]
+[ext_resource path="res://data/shaders/spatial_debug_boxdivide_material_teal.tres" type="Material" id=1]
 [ext_resource path="res://scenes/fps_label.gd" type="Script" id=2]
 [ext_resource path="res://addons/SIsilicon.3d.text/label_3d.gd" type="Script" id=3]
 [ext_resource path="res://data/enemies/Enemy.tscn" type="PackedScene" id=4]
@@ -61,7 +61,7 @@ shape = SubResource( 2 )
 [node name="level" type="Spatial" parent="."]
 
 [node name="MeshInstance" type="MeshInstance" parent="level"]
-transform = Transform( 0.450784, 0, 0.892633, 0, 1, 0, -0.892633, 0, 0.450784, -19.6016, 0.99263, -10.8599 )
+transform = Transform( 7.076, 0, 5.26546, 0, 1.71102, 0, -5.26546, 0, 7.076, -10.2272, 1.40584, -13.4273 )
 layers = 2
 mesh = SubResource( 3 )
 material/0 = ExtResource( 1 )
@@ -75,7 +75,7 @@ transform = Transform( 1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0 )
 shape = SubResource( 4 )
 
 [node name="MeshInstance2" type="MeshInstance" parent="level"]
-transform = Transform( -0.974542, 0, -0.224203, 0, 1, 0, 0.224203, 0, -0.974542, -18.136, 0.99263, -3.37204 )
+transform = Transform( 7.076, 0, 9.70359, 0, 1.71102, 0, -5.26546, 0, 13.0402, -24.4557, 4.41563, -32.3406 )
 layers = 2
 mesh = SubResource( 3 )
 material/0 = ExtResource( 1 )
@@ -89,7 +89,7 @@ transform = Transform( 1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0 )
 shape = SubResource( 4 )
 
 [node name="MeshInstance3" type="MeshInstance" parent="level"]
-transform = Transform( 0.540813, 0, 0.841142, 0, 1, 0, -0.841142, 0, 0.540813, -11.4262, 0.99263, -2.39338 )
+transform = Transform( 7.076, 0, 9.70359, 0, 1.71102, 0, -5.26546, 0, 13.0402, -57.5927, 4.41563, -76.8718 )
 layers = 2
 mesh = SubResource( 3 )
 material/0 = ExtResource( 1 )
@@ -102,36 +102,8 @@ collision_mask = 2147483677
 transform = Transform( 1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0 )
 shape = SubResource( 4 )
 
-[node name="MeshInstance4" type="MeshInstance" parent="level"]
-transform = Transform( 0.540813, 0, 0.841142, 0, 1, 0, -0.841142, 0, 0.540813, 26.8314, 0.99263, 43.4557 )
-layers = 2
-mesh = SubResource( 3 )
-material/0 = ExtResource( 1 )
-
-[node name="StaticBody" type="StaticBody" parent="level/MeshInstance4"]
-collision_layer = 2
-collision_mask = 2147483677
-
-[node name="CollisionShape" type="CollisionShape" parent="level/MeshInstance4/StaticBody"]
-transform = Transform( 1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0 )
-shape = SubResource( 4 )
-
-[node name="MeshInstance5" type="MeshInstance" parent="level"]
-transform = Transform( -0.948411, 0, 0.31704, 0, 1, 0, -0.31704, 0, -0.948411, 0.351646, 0.99263, 36.7621 )
-layers = 2
-mesh = SubResource( 3 )
-material/0 = ExtResource( 1 )
-
-[node name="StaticBody" type="StaticBody" parent="level/MeshInstance5"]
-collision_layer = 2
-collision_mask = 2147483677
-
-[node name="CollisionShape" type="CollisionShape" parent="level/MeshInstance5/StaticBody"]
-transform = Transform( 1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0 )
-shape = SubResource( 4 )
-
 [node name="MeshInstance6" type="MeshInstance" parent="level"]
-transform = Transform( -0.219965, 0, 0.975507, 0, 1, 0, -0.975507, 0, -0.219965, 15.4163, 0.992634, 9.15238 )
+transform = Transform( -0.782534, 0, 7.57731, 0, 6.49627, 0, -4.05031, 0, -1.46396, -78.3446, 3.15657, -70.8472 )
 layers = 2
 mesh = SubResource( 3 )
 material/0 = ExtResource( 1 )
@@ -145,7 +117,7 @@ transform = Transform( 1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0 )
 shape = SubResource( 4 )
 
 [node name="MeshInstance7" type="MeshInstance" parent="level"]
-transform = Transform( -0.700298, 0, 0.713849, 0, 1, 0, -0.713849, 0, -0.700298, -27.1528, 0.992634, -57.1087 )
+transform = Transform( 1.1185, 0, 7.42834, 0, 6.49627, 0, -3.97069, 0, 2.09249, -87.9198, 6.78642, -74.8627 )
 layers = 2
 mesh = SubResource( 3 )
 material/0 = ExtResource( 1 )
@@ -159,7 +131,7 @@ transform = Transform( 1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0 )
 shape = SubResource( 4 )
 
 [node name="MeshInstance8" type="MeshInstance" parent="level"]
-transform = Transform( -0.0668133, 0, 0.997765, 0, 1, 0, -0.997765, 0, -0.0668133, -3.40753, 0.992634, -87.1573 )
+transform = Transform( 2.72384, 0, 5.79588, 0, 9.91192, 0, -3.09808, 0, 5.09574, -95.2558, 7.1296, -87.1019 )
 layers = 2
 mesh = SubResource( 3 )
 material/0 = ExtResource( 1 )
@@ -169,11 +141,11 @@ collision_layer = 2
 collision_mask = 2147483677
 
 [node name="CollisionShape" type="CollisionShape" parent="level/MeshInstance8/StaticBody"]
-transform = Transform( 1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 8.9407e-08, 0, 1, 0, 0, 0 )
 shape = SubResource( 4 )
 
 [node name="MeshInstance9" type="MeshInstance" parent="level"]
-transform = Transform( -0.119038, 1.39738, 0.978556, 0.0569554, 8.18894, -0.162294, -0.991254, 0.302711, -0.126838, -25.7085, 0.992634, -114.092 )
+transform = Transform( 4.10495, 0, -0.763945, 0, 13.4059, 0, 0.408353, 0, 7.67953, -88.6008, 5.96583, -100.68 )
 layers = 2
 mesh = SubResource( 3 )
 material/0 = ExtResource( 1 )
@@ -187,7 +159,7 @@ transform = Transform( 1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0 )
 shape = SubResource( 4 )
 
 [node name="MeshInstance10" type="MeshInstance" parent="level"]
-transform = Transform( -0.719084, 0.671376, 0.690213, 0, 8.25649, -0.11622, -0.694922, -0.69472, -0.714212, -14.0888, 1.01874, -140.619 )
+transform = Transform( 3.67533, 0, -3.5046, 0, 16.4064, 0, 1.87332, 0, 6.8758, -79.0776, 6.03209, -112.707 )
 layers = 2
 mesh = SubResource( 3 )
 material/0 = ExtResource( 1 )
@@ -197,11 +169,39 @@ collision_layer = 2
 collision_mask = 2147483677
 
 [node name="CollisionShape" type="CollisionShape" parent="level/MeshInstance10/StaticBody"]
-transform = Transform( 1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, 1, 0, 0, 0 )
+transform = Transform( 1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0 )
+shape = SubResource( 4 )
+
+[node name="MeshInstance13" type="MeshInstance" parent="level"]
+transform = Transform( -6.23207, -7.88234e-07, -6.44755, -9.91379e-07, 16.4064, 0, -9.47407, -1.19828e-06, 4.24121, -54.1366, 6.03209, -112.818 )
+layers = 2
+mesh = SubResource( 3 )
+material/0 = ExtResource( 1 )
+
+[node name="StaticBody" type="StaticBody" parent="level/MeshInstance13"]
+collision_layer = 2
+collision_mask = 2147483677
+
+[node name="CollisionShape" type="CollisionShape" parent="level/MeshInstance13/StaticBody"]
+transform = Transform( 1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0 )
+shape = SubResource( 4 )
+
+[node name="MeshInstance4" type="MeshInstance" parent="level"]
+transform = Transform( 0.810177, 0, 3.02196, 0, 6.16581, 0, -1.17732, 0, 2.07958, -34.099, 0.0254631, -58.8405 )
+layers = 2
+mesh = SubResource( 3 )
+material/0 = ExtResource( 1 )
+
+[node name="StaticBody" type="StaticBody" parent="level/MeshInstance4"]
+collision_layer = 2
+collision_mask = 2147483677
+
+[node name="CollisionShape" type="CollisionShape" parent="level/MeshInstance4/StaticBody"]
+transform = Transform( 1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0 )
 shape = SubResource( 4 )
 
 [node name="MeshInstance11" type="MeshInstance" parent="level"]
-transform = Transform( 1.75893, 0, 0.838299, 0, 8.31282, 0, -2.70449, 0, 0.54521, -29.3596, 0.942247, -147.516 )
+transform = Transform( 1.37627, 0, 0.988592, 0, 6.16581, 0, -0.385143, 0, 3.53264, -39.5287, 0.0254612, -67.5382 )
 layers = 2
 mesh = SubResource( 3 )
 material/0 = ExtResource( 1 )
@@ -215,7 +215,7 @@ transform = Transform( 1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0 )
 shape = SubResource( 4 )
 
 [node name="MeshInstance12" type="MeshInstance" parent="level"]
-transform = Transform( 2.73233, -0.455594, -0.528871, 0.618035, 7.97468, 0.207365, 1.60015, -2.30215, 0.822979, -19.6705, 1.13639, -146.104 )
+transform = Transform( 1.37627, 0, 0.988592, 0, 6.16581, 0, -0.385143, 0, 3.53264, -55.3745, -1.04294, -56.3101 )
 layers = 2
 mesh = SubResource( 3 )
 material/0 = ExtResource( 1 )
@@ -228,21 +228,35 @@ collision_mask = 2147483677
 transform = Transform( 1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0 )
 shape = SubResource( 4 )
 
+[node name="MeshInstance5" type="MeshInstance" parent="level"]
+transform = Transform( 1.36244, 0, 1.10768, 0, 6.16581, 0, -0.431537, 0, 3.49713, -23.7961, -0.00302124, -60.3192 )
+layers = 2
+mesh = SubResource( 3 )
+material/0 = ExtResource( 1 )
+
+[node name="StaticBody" type="StaticBody" parent="level/MeshInstance5"]
+collision_layer = 2
+collision_mask = 2147483677
+
+[node name="CollisionShape" type="CollisionShape" parent="level/MeshInstance5/StaticBody"]
+transform = Transform( 1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0 )
+shape = SubResource( 4 )
+
 [node name="door_A" parent="level" instance=ExtResource( 6 )]
-transform = Transform( -0.912906, 0, -0.408171, 0, 1, 0, 0.408171, 0, -0.912906, 21.4121, -3.8147e-06, 54.2627 )
+transform = Transform( -0.912906, 0, -0.408171, 0, 1, 0, 0.408171, 0, -0.912906, 4.34381, -3.8147e-06, 13.7698 )
 door_name = "A"
 connected_scene = "res://scenes/level.tscn"
-connected_door = "A"
+connected_door = "jump_level_door"
 
 [node name="level_label" type="Spatial" parent="level/door_A"]
 transform = Transform( -0.998205, -0.0598802, -2.61746e-09, 0, -4.37114e-08, 1, -0.0598802, 0.998205, 4.36329e-08, 1.01362, 0.0100038, 7.08328 )
 script = ExtResource( 3 )
-text = "Valley"
+text = "Jumpy"
 text_size = 5.0
 font = null
 align = 0
 billboard = false
-color = Color( 0.580392, 0.411765, 0.317647, 1 )
+color = Color( 0.584314, 0.729412, 0.72549, 1 )
 metallic = 0.0
 roughness = 0.5
 emission_color = Color( 1, 1, 1, 1 )
@@ -254,12 +268,12 @@ max_steps = 256
 [node name="level_label2" type="Spatial" parent="level/door_A"]
 transform = Transform( -0.998205, -0.0598802, -2.61746e-09, 0, -4.37114e-08, 1, -0.0598802, 0.998205, 4.36329e-08, 0.41755, 0.0100034, 17.0197 )
 script = ExtResource( 3 )
-text = "2"
+text = "3"
 text_size = 20.0
 font = null
 align = 0
 billboard = false
-color = Color( 0.58, 0.411027, 0.3132, 1 )
+color = Color( 0.584314, 0.729412, 0.72549, 1 )
 metallic = 0.0
 roughness = 0.5
 emission_color = Color( 1, 1, 1, 1 )
@@ -267,11 +281,6 @@ emission_strength = 0.0
 extrude = 0.0
 min_steps = 32
 max_steps = 256
-
-[node name="door_B" parent="level" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -24.0583, -0.0175204, -146.252 )
-door_name = "B"
-connected_door = "A"
 
 [node name="fps_label" type="Label" parent="."]
 modulate = Color( 1, 1, 1, 0.415686 )
@@ -303,73 +312,19 @@ directional_shadow_max_distance = 50.0
 environment = SubResource( 6 )
 
 [node name="Enemy" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.52531, 1.00145, -14.4108 )
-
-[node name="Enemy21" parent="." instance=ExtResource( 4 )]
-transform = Transform( 0.894451, 0, 0.447166, 0, 1, 0, -0.447166, 0, 0.894451, 15.4998, 1.00145, 38.6451 )
-
-[node name="Enemy22" parent="." instance=ExtResource( 4 )]
-transform = Transform( 0.894451, 0, 0.447166, 0, 1, 0, -0.447166, 0, 0.894451, 11.7279, 1.00145, 29.7165 )
-
-[node name="Enemy23" parent="." instance=ExtResource( 4 )]
-transform = Transform( 0.894451, 0, 0.447166, 0, 1, 0, -0.447166, 0, 0.894451, 7.64078, 1.00145, 16.4651 )
-
-[node name="Enemy24" parent="." instance=ExtResource( 4 )]
-transform = Transform( 0.894451, 0, 0.447166, 0, 1, 0, -0.447166, 0, 0.894451, 7.00532, 1.00145, 3.68782 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12.4313, 1.00145, 8.46152 )
 
 [node name="Enemy2" parent="." instance=ExtResource( 4 )]
-transform = Transform( -0.794001, 0, -0.607916, 0, 1, 0, 0.607916, 0, -0.794001, -4.36181, 1.00145, -10.2433 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -39.5882, 6.97708, -34.1015 )
 
 [node name="Enemy3" parent="." instance=ExtResource( 4 )]
-transform = Transform( -0.794001, 0, -0.607916, 0, 1, 0, 0.607916, 0, -0.794001, -27.1036, 1.00145, -12.9448 )
-
-[node name="Enemy9" parent="." instance=ExtResource( 4 )]
-transform = Transform( -0.794001, 0, -0.607916, 0, 1, 0, 0.607916, 0, -0.794001, -28.028, 1.00145, -23.8832 )
-
-[node name="Enemy10" parent="." instance=ExtResource( 4 )]
-transform = Transform( -0.794001, 0, -0.607916, 0, 1, 0, 0.607916, 0, -0.794001, -21.6936, 1.00145, -31.2689 )
-
-[node name="Enemy4" parent="." instance=ExtResource( 4 )]
-transform = Transform( -0.794001, 0, -0.607916, 0, 1, 0, 0.607916, 0, -0.794001, -16.9359, 1.00145, -18.3023 )
-
-[node name="Enemy5" parent="." instance=ExtResource( 4 )]
-transform = Transform( -0.794001, 0, -0.607916, 0, 1, 0, 0.607916, 0, -0.794001, -8.28563, 1.00145, -29.8789 )
+transform = Transform( 0.682292, 0, -0.73108, 0, 1, 0, 0.73108, 0, 0.682292, -16.2003, 6.97708, -36.3309 )
 
 [node name="Enemy6" parent="." instance=ExtResource( 4 )]
-transform = Transform( -0.794001, 0, -0.607916, 0, 1, 0, 0.607916, 0, -0.794001, 9.29155, 1.00145, -20.2105 )
+transform = Transform( 0.682292, 0, -0.73108, 0, 1, 0, 0.73108, 0, 0.682292, -61.7153, 6.97708, -58.8123 )
 
-[node name="Enemy7" parent="." instance=ExtResource( 4 )]
-transform = Transform( -0.794001, 0, -0.607916, 0, 1, 0, 0.607916, 0, -0.794001, 4.60988, 1.00145, -29.1314 )
+[node name="Enemy4" parent="." instance=ExtResource( 4 )]
+transform = Transform( -0.920444, 0, 0.390876, 0, 1, 0, -0.390876, 0, -0.920444, -25.7278, 6.97708, -17.6649 )
 
-[node name="Enemy8" parent="." instance=ExtResource( 4 )]
-transform = Transform( -0.794001, 0, -0.607916, 0, 1, 0, 0.607916, 0, -0.794001, 4.60988, 1.00145, -29.1314 )
-
-[node name="Enemy11" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.35583, 1.00145, -37.1644 )
-
-[node name="Enemy12" parent="." instance=ExtResource( 4 )]
-transform = Transform( -0.794001, 0, -0.607916, 0, 1, 0, 0.607916, 0, -0.794001, -12.4415, 1.00145, -52.6273 )
-
-[node name="Enemy13" parent="." instance=ExtResource( 4 )]
-transform = Transform( -0.794001, 0, -0.607916, 0, 1, 0, 0.607916, 0, -0.794001, -13.5524, 1.00146, -63.7024 )
-
-[node name="Enemy14" parent="." instance=ExtResource( 4 )]
-transform = Transform( -0.794001, 0, -0.607916, 0, 1, 0, 0.607916, 0, -0.794001, -13.8416, 1.00145, -72.949 )
-
-[node name="Enemy15" parent="." instance=ExtResource( 4 )]
-transform = Transform( -0.794001, 0, -0.607916, 0, 1, 0, 0.607916, 0, -0.794001, -14.2906, 1.00146, -81.2155 )
-
-[node name="Enemy16" parent="." instance=ExtResource( 4 )]
-transform = Transform( -0.794001, 0, -0.607916, 0, 1, 0, 0.607916, 0, -0.794001, -15.3706, 1.00144, -90.3733 )
-
-[node name="Enemy17" parent="." instance=ExtResource( 4 )]
-transform = Transform( -0.794001, 0, -0.607916, 0, 1, 0, 0.607916, 0, -0.794001, -16.0942, 1.00144, -101.585 )
-
-[node name="Enemy18" parent="." instance=ExtResource( 4 )]
-transform = Transform( -0.794001, 0, -0.607916, 0, 1, 0, 0.607916, 0, -0.794001, -17.6861, 1.00145, -113.899 )
-
-[node name="Enemy19" parent="." instance=ExtResource( 4 )]
-transform = Transform( -0.794001, 0, -0.607916, 0, 1, 0, 0.607916, 0, -0.794001, -20.0212, 1.00145, -126.843 )
-
-[node name="Enemy20" parent="." instance=ExtResource( 4 )]
-transform = Transform( -0.794001, 0, -0.607916, 0, 1, 0, 0.607916, 0, -0.794001, -22.6338, 1.00145, -137.777 )
+[node name="Enemy5" parent="." instance=ExtResource( 4 )]
+transform = Transform( -0.618847, 0, 0.785511, 0, 1, 0, -0.785511, 0, -0.618847, 3.68412, 4.11687, -25.2278 )
