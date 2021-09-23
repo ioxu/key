@@ -20,7 +20,8 @@ height = 0.846607
 
 [sub_resource type="CapsuleMesh" id=2]
 radius = 0.273
-radial_segments = 32
+radial_segments = 16
+rings = 4
 
 [sub_resource type="CubeMesh" id=3]
 size = Vector3( 0.075, 0.084, 0.101 )
@@ -66,6 +67,7 @@ extents = Vector3( 0.5, 1, 0.5 )
 
 [sub_resource type="CylinderShape" id=11]
 radius = 8.0
+height = 5.0
 
 [sub_resource type="SpatialMaterial" id=12]
 flags_transparent = true
@@ -75,6 +77,7 @@ albedo_color = Color( 0.882353, 0.254902, 0.254902, 0.105882 )
 material = SubResource( 12 )
 top_radius = 8.0
 bottom_radius = 8.0
+radial_segments = 16
 
 [node name="Enemy" type="KinematicBody" groups=[
 "Enemies",
@@ -148,13 +151,14 @@ collision_mask = 3
 
 [node name="CollisionPolygon" type="CollisionPolygon" parent="vision_area"]
 transform = Transform( -1.62921e-07, -1, 1.62921e-07, 0, -1.62921e-07, -1, 1, -1.62921e-07, 2.65431e-14, 0, 0, 0 )
+depth = 3.0
 polygon = PoolVector2Array( -2, 2, 15, 5, 15, -5, -2, -2 )
 
 [node name="CSGPolygon" type="CSGPolygon" parent="vision_area"]
-transform = Transform( -1.62921e-07, -1, 1.62921e-07, 0, -1.62921e-07, -1, 1, -1.62921e-07, 2.65431e-14, 0, -0.5, 0 )
+transform = Transform( -1.62921e-07, -1, 1.62921e-07, 0, -1.62921e-07, -1, 1, -1.62921e-07, 2.65431e-14, 0, -1.52057, 0 )
 visible = false
 polygon = PoolVector2Array( -2, -2, -2, 2, 15, 5, 15, -5 )
-depth = 0.139
+depth = 3.0
 material = SubResource( 9 )
 
 [node name="sensable_area" type="Area" parent="." groups=[
@@ -188,7 +192,7 @@ parent_npc = NodePath("..")
 shape = SubResource( 11 )
 
 [node name="MeshInstance" type="MeshInstance" parent="sensing_area"]
-transform = Transform( 1, 0, 0, 0, 0.0920906, 0, 0, 0, 1, 0, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 2.5, 0, 0, 0, 1, 0, 0, 0 )
 visible = false
 mesh = SubResource( 13 )
 material/0 = null
