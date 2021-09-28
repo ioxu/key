@@ -241,7 +241,8 @@ func _process(dt):
 		
 	# jump
 	if (Input.is_action_pressed("jump")) and not is_airborne:
-		current_vertical_speed = Vector3(0.0, max_jump, 0.0)
+		var lateral_movement = Vector3(movement.x, 0.0, movement.z)
+		current_vertical_speed = Vector3(0.0, max_jump, 0.0) + lateral_movement * 25 * dt
 		is_airborne = true
 
 
@@ -375,7 +376,8 @@ func _physics_process(dt):
 	
 	player.move_and_slide(movement, Vector3.UP)
 	if player.is_on_floor():
-		current_vertical_speed.y = 0.0
+		#current_vertical_speed.y = 0.0
+		current_vertical_speed = Vector3.ZERO
 		is_airborne = false
 
 	# camera dolly
