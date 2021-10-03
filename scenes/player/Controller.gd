@@ -44,6 +44,7 @@ var waist_rotation_knee_roll = -10.0
 var toes_waist_ry_spring = harmonic_motion_lib.new()
 var toes_waist_ry = 0.0
 
+var toes_ypos_spring = harmonic_motion_lib.new()
 
 onready var toe_1_node = get_node("../toe_1_position")
 onready var toe_2_node = get_node("../toe_2_position")
@@ -122,6 +123,8 @@ func _ready():
 
 	toes_waist_ry_spring.initialise( 0.25, 5 )
 
+	toes_ypos_spring.initialise( 0.225, 70 )
+
 
 func _unhandled_input(event):
 	# mesh rotaion with joystick
@@ -194,6 +197,7 @@ func _update_camera_lookahead_harmonic_motion_params() -> void:
 #	camera_lookahead_harmonic_parms = camera_lookahead_harmonic_motion.CalcDampedSpringMotionParams( camera_lookahead_harmonic_damping,
 #																							camera_lookahead_harmonic_angular_frequency )
 	camera_lookahead_spring.initialise( camera_lookahead_harmonic_damping, camera_lookahead_harmonic_angular_frequency )
+
 
 func rotate_mesh( event_data, input_method ):
 	match input_method:
@@ -298,35 +302,36 @@ func _process(dt):
 	var movement_v_norm = movement_v.normalized()
 
 	############################
-	#toes_waist_ry = toes_waist_ry_spring.calculate_c( toes_waist_ry, lerp_angle(toes_waist_ry, curr_ry, 1.0) )
 	toes_waist_ry = toes_waist_ry_spring.calculate( toes_waist_ry, lerp_angle(toes_waist_ry, curr_ry, 1.0) )
 	############################
 	
-	#var toe_mv_dot_blend = 1.0#0.75 ## !!!!!!!!!!!!!!!! at 1.0 it is completely redundant. Consider removing Util.remap_clamp quotient
 	var t1p = toe_1_initial_position.rotated( Vector3.UP, toes_waist_ry )
 	var d1 = t1p.normalized().dot( movement_v_norm )
-	#t1p += sign(d1) * movement_v * Util.remap_clamp( abs(d1), 0.0, toe_mv_dot_blend, 0.0, 1.0 )
 	t1p += sign(d1) * movement_v * abs(d1)
 	
 	var t2p = toe_2_initial_position.rotated( Vector3.UP, toes_waist_ry )
 	var d2 = t2p.normalized().dot( movement_v_norm )
-	#t2p += sign(d2) * movement_v * Util.remap_clamp( abs(d2), 0.0, toe_mv_dot_blend, 0.0, 1.0)
 	t2p += sign(d2) * movement_v * abs(d2)
 	
 	var t3p = toe_3_initial_position.rotated( Vector3.UP, toes_waist_ry )
 	var d3 = t3p.normalized().dot( movement_v_norm )
-	#t3p += sign(d3) * movement_v * Util.remap_clamp( abs(d3), 0.0, toe_mv_dot_blend, 0.0, 1.0 )
 	t3p += sign(d3) * movement_v * abs(d3)
 	
 	var t4p = toe_4_initial_position.rotated( Vector3.UP, toes_waist_ry )
 	var d4 = t4p.normalized().dot( movement_v_norm )
-	#t4p += sign(d4) * movement_v * Util.remap_clamp( abs(d4), 0.0, toe_mv_dot_blend, 0.0, 1.0 )
 	t4p += sign(d4) * movement_v * abs(d4)
 	
-	toe_1_node.transform.origin = t1p
-	toe_2_node.transform.origin = t2p
-	toe_3_node.transform.origin = t3p
-	toe_4_node.transform.origin = t4p
+#	toe_1_node.transform.origin = t1p
+#	toe_2_node.transform.origin = t2p
+#	toe_3_node.transform.origin = t3p
+#	toe_4_node.transform.origin = t4p
+
+	var movement_v_y = movement_v.y * 0.35 # pure y component of movement_v, scaled and added anyway ..
+	
+	toe_1_node.transform.origin = Vector3(t1p.x, toes_ypos_spring.calculate( toe_1_node.transform.origin.y, t1p.y - movement_v_y ), t1p.z)
+	toe_2_node.transform.origin = Vector3(t2p.x, toes_ypos_spring.calculate( toe_2_node.transform.origin.y, t2p.y - movement_v_y ), t2p.z)
+	toe_3_node.transform.origin = Vector3(t3p.x, toes_ypos_spring.calculate( toe_3_node.transform.origin.y, t3p.y - movement_v_y ), t3p.z)
+	toe_4_node.transform.origin = Vector3(t4p.x, toes_ypos_spring.calculate( toe_4_node.transform.origin.y, t4p.y - movement_v_y ), t4p.z)
 
 	#prints("WAIST DT", waist_ry_dt)
 	# bend knees on waist rotation
