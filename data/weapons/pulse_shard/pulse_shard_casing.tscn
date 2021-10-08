@@ -28,12 +28,13 @@ material = SubResource( 3 )
 size = Vector3( 0.061, 0.061, 0.3 )
 
 [node name="pulse_shard_casing" type="RigidBody"]
+process_priority = 1000
+input_ray_pickable = false
 collision_layer = 2048
 collision_mask = 2311
 mass = 10.0
 physics_material_override = SubResource( 1 )
 gravity_scale = 5.0
-continuous_cd = true
 script = ExtResource( 1 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]

@@ -34,6 +34,8 @@ var _stats = {
 
 signal die(object)
 
+onready var dui_root = get_node("MeshInstance/dui_root")
+
 
 func _ready():
 	#spawn_point = get_node(spawn_point)
@@ -53,6 +55,14 @@ func _process(delta):
 	waist.transform.origin = waist_initial_position + recoil_v
 	body.transform.origin = body_initial_position + recoil_v
 
+	# inspect dui
+	if Input.is_action_just_pressed("inspect_digetic_ui"):
+		print("INSPECT DUI")
+		dui_root.invoke()
+	
+	if Input.is_action_just_released("inspect_digetic_ui"):
+		print("UN-INSPECT DUI")
+		dui_root.devoke()
 
 func set_active(new_value) -> void:
 	active = new_value

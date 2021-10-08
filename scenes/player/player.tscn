@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://scenes/player/Controller.gd" type="Script" id=1]
 [ext_resource path="res://data/weapons/pulse_shard/pulse_shard.tscn" type="PackedScene" id=2]
@@ -9,9 +9,12 @@
 [ext_resource path="res://data/enemies/hurt_meter.tscn" type="PackedScene" id=7]
 [ext_resource path="res://data/textures/debug/symbols_16px_xbones.png" type="Texture" id=8]
 [ext_resource path="res://data/scripts/travel_path_line.gd" type="Script" id=9]
+[ext_resource path="res://data/LineRenderer/LineRenderer.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/player/player_material.tres" type="Material" id=11]
 [ext_resource path="res://data/scripts/three_joint_leg.gd" type="Script" id=12]
 [ext_resource path="res://scenes/player/player_leg_material.tres" type="Material" id=13]
+[ext_resource path="res://scenes/player/dui_root.gd" type="Script" id=14]
+[ext_resource path="res://data/textures/noise_beam_01.png" type="Texture" id=15]
 
 [sub_resource type="Animation" id=1]
 resource_name = "recoil_time_animation"
@@ -50,6 +53,17 @@ material = ExtResource( 6 )
 height = 0.2
 radial_segments = 32
 rings = 1
+
+[sub_resource type="SpatialMaterial" id=10]
+flags_transparent = true
+albedo_color = Color( 1, 1, 1, 0.0745098 )
+albedo_texture = ExtResource( 15 )
+emission_enabled = true
+emission = Color( 0.317647, 0.85098, 0.921569, 1 )
+emission_energy = 7.68
+emission_operator = 0
+emission_on_uv2 = false
+uv1_scale = Vector3( 10.179, 1, 1 )
 
 [sub_resource type="QuadMesh" id=7]
 size = Vector2( 2, 2 )
@@ -94,6 +108,23 @@ transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, -0.4
 [node name="hurt_meter" parent="MeshInstance" instance=ExtResource( 7 )]
 transform = Transform( 0.5, 0, 0, 0, -3.27835e-08, 0.5, 0, -0.75, -2.18557e-08, 0, 0, 0.858 )
 mesh = SubResource( 6 )
+
+[node name="dui_root" type="Spatial" parent="MeshInstance"]
+visible = false
+script = ExtResource( 14 )
+__meta__ = {
+"_editor_description_": "diegetic UI root"
+}
+
+[node name="inventory_ring" parent="MeshInstance/dui_root" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, -5.58265e-07, 1.27697 )
+material_override = SubResource( 10 )
+startThickness = 0.075
+endThickness = 0.075
+globalCoords = false
+scaleTexture = false
+
+[node name="invoke_tween" type="Tween" parent="MeshInstance/dui_root"]
 
 [node name="Controller" type="Spatial" parent="."]
 script = ExtResource( 1 )
@@ -404,3 +435,5 @@ distance_threshold = 0.2
 max_points = 1000
 trail_colour = Color( 0.133333, 0.94902, 0.968627, 0.521569 )
 emission_multiplier = 0.5
+
+[connection signal="tween_completed" from="MeshInstance/dui_root/invoke_tween" to="MeshInstance/dui_root" method="_on_invoke_tween_tween_completed"]
