@@ -7,6 +7,7 @@ export(NodePath) var PlayerPath  = ""
 export(NodePath) var CameraPath  = ""
 export(NodePath) var CameraRootPath  = ""
 export(NodePath) var MeshInstancePath  = ""
+export(NodePath) var DUI_Root = ""
 export(float) var movement_speed = 15.0
 export(float) var acceleration = 3.0
 export(float) var deaceleration = 6.5#5.0
@@ -25,6 +26,7 @@ onready var meshinstance = get_node(MeshInstancePath)
 onready var weapon = player.find_node("weapon_mount").get_child(0)
 onready var raycast : RayCast = player.get_node("RayCast")
 
+onready var dui_root : Spatial = get_node(DUI_Root)
 
 # movement and legs and animation and things
 var last_waist_ry := 0.0
@@ -72,6 +74,7 @@ var camera_lookahead_spring = harmonic_motion_lib.new()
 #var camera_lookahead_harmonic_parms
 
 var camera_lookahead_factor = 0.0
+var camera_lookahead_external_factor = 1.0
 var camera_lookahead_direction : Vector3 # keep normalised
 var camera_lookahead_direction_actual : Vector3
 var camera_lookahead_factor_actual = 0.0
@@ -136,6 +139,10 @@ func _unhandled_input(event):
 			rotate_mesh( v, ROTATION_INPUT.JOYSTICK )
 			camera_lookahead_direction = get_camera_lookahead_direction(v, ROTATION_INPUT.JOYSTICK)
 			camera_lookahead_factor = v.length()
+			
+			# scale by the amount w're focusing on the charaters diegetic UI
+			# TODO : do this another way
+			camera_lookahead_factor *= camera_lookahead_external_factor
 		else:
 			camera_lookahead_factor = 0.0
 			rotate_mesh( speed, ROTATION_INPUT.MOVE_DIR )
@@ -248,6 +255,7 @@ func _process(dt):
 		var lateral_movement = Vector3(movement.x, 0.0, movement.z)
 		current_vertical_speed = Vector3(0.0, max_jump, 0.0) + lateral_movement * 25 * dt
 		is_airborne = true
+
 
 
 	############################################################################
@@ -389,14 +397,19 @@ func _physics_process(dt):
 	actual_zoom = lerp(actual_zoom, zoom_factor, dt * zoom_speed)
 	camera_boom.translation = Vector3(0.0, 0.0, actual_zoom)
 
+
+	# TODO : do this differently (removes camera lookahaead when diegetic ui is invoked)
+	camera_lookahead_external_factor = 1.0 - (float(dui_root.is_invoked) * 0.35) #( 1.0 - dui_root.get_invoke_amount() )
+	#camera_lookahead_factor *= camera_lookahead_external_factor
+
 	# camera lookahead
 	var co = Vector3.ZERO
 	if camera_interpolation_mode == CAMERA_LOOKAHEAD_INTERP_MODE.linear:
-		camera_lookahead_factor_actual = lerp(camera_lookahead_factor_actual, camera_lookahead_factor, dt * 3.0 )
+		camera_lookahead_factor_actual = lerp(camera_lookahead_factor_actual, camera_lookahead_factor * camera_lookahead_external_factor, dt * 3.0 )
 		camera_lookahead_direction_actual = camera_lookahead_direction_actual.linear_interpolate(camera_lookahead_direction, dt * 1.5)
 		co = camera_lookahead_direction_actual * camera_lookahead_factor_actual * CAMERA_LOOKAHEAD_DISTANCE
 	elif camera_interpolation_mode == CAMERA_LOOKAHEAD_INTERP_MODE.harmonic:
-		var target = camera_lookahead_direction * camera_lookahead_factor * CAMERA_LOOKAHEAD_DISTANCE
+		var target = camera_lookahead_direction * camera_lookahead_factor * camera_lookahead_external_factor * CAMERA_LOOKAHEAD_DISTANCE
 		#co = camera_lookahead_harmonic_motion.calculate_v3( camera_root.transform.origin, c_la_hv, target, camera_lookahead_harmonic_parms )
 		co = camera_lookahead_spring.calculate_v3( camera_root.transform.origin, target )
 		#c_la_hv = co[1]

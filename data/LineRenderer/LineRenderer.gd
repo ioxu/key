@@ -1,3 +1,4 @@
+tool
 extends ImmediateGeometry
 
 export var points = [Vector3(0,0,0),Vector3(0,5,0)]
