@@ -64,6 +64,7 @@ size = Vector2( 0.75, 1 )
 
 [sub_resource type="SpatialMaterial" id=8]
 flags_transparent = true
+flags_no_depth_test = true
 params_cull_mode = 2
 albedo_color = Color( 0.317647, 0.737255, 0.921569, 0.0509804 )
 emission_enabled = true
@@ -74,6 +75,7 @@ emission_on_uv2 = false
 
 [sub_resource type="SpatialMaterial" id=9]
 flags_transparent = true
+flags_no_depth_test = true
 params_cull_mode = 2
 albedo_color = Color( 0.882353, 0.184314, 0.462745, 0.254902 )
 albedo_texture = ExtResource( 19 )
@@ -85,6 +87,7 @@ emission_on_uv2 = false
 
 [sub_resource type="SpatialMaterial" id=10]
 flags_transparent = true
+flags_no_depth_test = true
 albedo_color = Color( 1, 1, 1, 0.0352941 )
 albedo_texture = ExtResource( 15 )
 emission_enabled = true
@@ -92,7 +95,7 @@ emission = Color( 0.317647, 0.85098, 0.921569, 1 )
 emission_energy = 7.68
 emission_operator = 0
 emission_on_uv2 = false
-uv1_scale = Vector3( 5.904, 1, 1 )
+uv1_scale = Vector3( 6.305, 1, 1 )
 
 [sub_resource type="QuadMesh" id=11]
 material = ExtResource( 18 )
@@ -235,6 +238,7 @@ material/0 = SubResource( 8 )
 
 [node name="outline" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/items/Back_Spatial/MeshInstance"]
 transform = Transform( 1, 7.10543e-15, 0, 0, 1, 0, 0, -7.10543e-15, 1, 0, 0, -0.15 )
+visible = false
 mesh = SubResource( 7 )
 material/0 = SubResource( 9 )
 

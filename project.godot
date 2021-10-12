@@ -179,6 +179,7 @@ inspect_digetic_ui={
 3d_physics/layer_10="enemy_sensing_areas"
 3d_physics/layer_11="doors"
 3d_physics/layer_12="bullet casings"
+3d_physics/layer_13="pads"
 
 [physics]
 

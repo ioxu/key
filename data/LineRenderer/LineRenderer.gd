@@ -132,14 +132,14 @@ func cap(center, pivot, thickness, smoothing):
 	var axis = (center - cameraOrigin).normalized();
 	
 	var array = []
-	for i in range(smoothing + 1):
+	for _i in range(smoothing + 1):
 		array.append(Vector3(0,0,0))
 	array[0] = center + orthogonal;
 	array[smoothing] = center - orthogonal;
-	
+
 	for i in range(1, smoothing):
 		array[i] = center + (orthogonal.rotated(axis, lerp(0, PI, float(i) / smoothing)));
-	
+
 	for i in range(1, smoothing + 1):
 		set_uv(Vector2(0, (i - 1) / smoothing))
 		add_vertex(array[i - 1]);
@@ -147,21 +147,21 @@ func cap(center, pivot, thickness, smoothing):
 		add_vertex(array[i]);
 		set_uv(Vector2(0.5, 0.5))
 		add_vertex(center);
-		
+
 func corner(center, start, end, smoothing):
 	var array = []
-	for i in range(smoothing + 1):
+	for _i in range(smoothing + 1):
 		array.append(Vector3(0,0,0))
 	array[0] = start;
 	array[smoothing] = end;
-	
+
 	var axis = start.cross(end).normalized()
 	var offset = start - center
 	var angle = offset.angle_to(end - center)
-	
+
 	for i in range(1, smoothing):
 		array[i] = center + offset.rotated(axis.normalized(), lerp(0, angle, float(i) / smoothing));
-	
+
 	for i in range(1, smoothing + 1):
 		set_uv(Vector2(0, (i - 1) / smoothing))
 		add_vertex(array[i - 1]);
@@ -169,4 +169,4 @@ func corner(center, start, end, smoothing):
 		add_vertex(array[i]);
 		set_uv(Vector2(0.5, 0.5))
 		add_vertex(center);
-		
+

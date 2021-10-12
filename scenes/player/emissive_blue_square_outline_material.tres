@@ -4,6 +4,7 @@
 
 [resource]
 flags_transparent = true
+flags_no_depth_test = true
 params_cull_mode = 2
 albedo_color = Color( 0.317647, 0.737255, 0.921569, 0.254902 )
 albedo_texture = ExtResource( 1 )
