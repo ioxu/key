@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://scenes/player/Controller.gd" type="Script" id=1]
 [ext_resource path="res://data/weapons/pulse_shard/pulse_shard.tscn" type="PackedScene" id=2]
@@ -14,11 +14,12 @@
 [ext_resource path="res://data/scripts/three_joint_leg.gd" type="Script" id=12]
 [ext_resource path="res://scenes/player/player_leg_material.tres" type="Material" id=13]
 [ext_resource path="res://scenes/player/dui_root.gd" type="Script" id=14]
-[ext_resource path="res://data/textures/noise_beam_01.png" type="Texture" id=15]
+[ext_resource path="res://scenes/player/radar_dots.gd" type="Script" id=15]
 [ext_resource path="res://scenes/player/emissive_blue_material.tres" type="Material" id=16]
 [ext_resource path="res://scenes/player/emissive_blue_semiopaque_material.tres" type="Material" id=17]
 [ext_resource path="res://scenes/player/emissive_blue_square_outline_material.tres" type="Material" id=18]
 [ext_resource path="res://data/textures/square_01.png" type="Texture" id=19]
+[ext_resource path="res://scenes/player/radar_dot.tscn" type="PackedScene" id=20]
 
 [sub_resource type="Animation" id=1]
 resource_name = "recoil_time_animation"
@@ -85,11 +86,14 @@ emission_energy = 5.0
 emission_operator = 0
 emission_on_uv2 = false
 
+[sub_resource type="CylinderShape" id=15]
+radius = 100.0
+height = 30.0
+
 [sub_resource type="SpatialMaterial" id=10]
 flags_transparent = true
 flags_no_depth_test = true
 albedo_color = Color( 1, 1, 1, 0.0352941 )
-albedo_texture = ExtResource( 15 )
 emission_enabled = true
 emission = Color( 0.317647, 0.85098, 0.921569, 1 )
 emission_energy = 7.68
@@ -242,12 +246,24 @@ visible = false
 mesh = SubResource( 7 )
 material/0 = SubResource( 9 )
 
+[node name="radar_dots" type="Spatial" parent="MeshInstance/dui_root/static_stack"]
+script = ExtResource( 15 )
+
+[node name="Area" type="Area" parent="MeshInstance/dui_root/static_stack/radar_dots"]
+
+[node name="CollisionShape" type="CollisionShape" parent="MeshInstance/dui_root/static_stack/radar_dots/Area"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.24177, -1.48031e-07 )
+shape = SubResource( 15 )
+
+[node name="radar_dot" parent="MeshInstance/dui_root/static_stack/radar_dots" instance=ExtResource( 20 )]
+transform = Transform( 0.2, 0, 0, 0, -8.74228e-09, 0.2, 0, -0.2, -8.74228e-09, 0, -2.38419e-07, 2.39805 )
+
 [node name="inventory_ring" parent="MeshInstance/dui_root" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0 )
 material_override = SubResource( 10 )
 points = [ Vector3( 0, 0, 2.25 ), Vector3( 0.439, 0, 2.207 ), Vector3( 0.861, 0, 2.079 ), Vector3( 1.25, 0, 1.87 ), Vector3( 1.591, 0, 1.591 ), Vector3( 1.871, 0, 1.25 ), Vector3( 2.079, 0, 0.861 ), Vector3( 2.207, 0, 0.439 ), Vector3( 2.25, 0, 0 ), Vector3( 2.207, 0, -0.439 ), Vector3( 2.079, 0, -0.861 ), Vector3( 1.871, 0, -1.25 ), Vector3( 1.591, 0, -1.591 ), Vector3( 1.25, 0, -1.871 ), Vector3( 0.861, 0, -2.079 ), Vector3( 0.439, 0, -2.207 ), Vector3( 0, 0, -2.25 ), Vector3( -0.439, 0, -2.207 ), Vector3( -0.861, 0, -2.079 ), Vector3( -1.25, 0, -1.871 ), Vector3( -1.591, 0, -1.591 ), Vector3( -1.871, 0, -1.25 ), Vector3( -2.079, 0, -0.861 ), Vector3( -2.207, 0, -0.439 ), Vector3( -2.25, 0, 0 ), Vector3( -2.207, 0, 0.439 ), Vector3( -2.079, 0, 0.861 ), Vector3( -1.871, 0, 1.25 ), Vector3( -1.591, 0, 1.591 ), Vector3( -1.25, 0, 1.871 ), Vector3( -0.861, 0, 2.079 ), Vector3( -0.439, 0, 2.207 ), Vector3( 0, 0, 2.25 ) ]
-startThickness = 0.075
-endThickness = 0.075
+startThickness = 0.02
+endThickness = 0.02
 cornerSmooth = 2
 capSmooth = 2
 drawCaps = false
@@ -602,4 +618,6 @@ max_points = 1000
 trail_colour = Color( 0.133333, 0.94902, 0.968627, 0.521569 )
 emission_multiplier = 0.5
 
+[connection signal="body_entered" from="MeshInstance/dui_root/static_stack/radar_dots/Area" to="MeshInstance/dui_root/static_stack/radar_dots" method="_on_Area_body_entered"]
+[connection signal="body_exited" from="MeshInstance/dui_root/static_stack/radar_dots/Area" to="MeshInstance/dui_root/static_stack/radar_dots" method="_on_Area_body_exited"]
 [connection signal="tween_completed" from="MeshInstance/dui_root/invoke_tween" to="MeshInstance/dui_root" method="_on_invoke_tween_tween_completed"]
