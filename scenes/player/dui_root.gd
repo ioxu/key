@@ -1,9 +1,8 @@
 extends Spatial
 
-export var inventory_ring_npoints = 32.0
-export var inventory_ring_radius = 2.25
+export var inventory_ring_npoints := 32.0
+export var inventory_ring_radius := 2.25
 
-var ring_points= []
 
 var _invoke_amount = 0.0
 
@@ -14,18 +13,19 @@ var _gtime = 0.0
 
 func _ready():
 	self.visible = false
-	_update_ring_points()
 
-	$inventory_ring.points = ring_points
+	$inventory_ring.points =_generate_ring_points(inventory_ring_npoints, inventory_ring_radius)
+	$weapons_ring.points = _generate_ring_points(inventory_ring_npoints, inventory_ring_radius * 0.95)
 	$static_stack.set_as_toplevel(true) # to make control not concat parent's transforms 
 
 
-func _update_ring_points() -> void:
-	ring_points = []
-	for i in range(inventory_ring_npoints):
-		var p = (i/inventory_ring_npoints) * (2*PI)
-		ring_points.append( Vector3( sin( p ) , 0.0, cos( p ) ) * inventory_ring_radius )
-	ring_points.append( Vector3( sin( 2*PI ) , 0.0, cos( 2*PI ) ) * inventory_ring_radius ) 
+func _generate_ring_points(npoints, radius) -> Array:
+	var ring_points = []
+	for i in range(npoints):
+		var p = (i/npoints) * (2*PI)
+		ring_points.append( Vector3( sin( p ) , 0.0, cos( p ) ) * radius )
+	ring_points.append( Vector3( sin( 2*PI ) , 0.0, cos( 2*PI ) ) * radius )
+	return ring_points
 
 
 func get_invoke_amount():
@@ -37,15 +37,15 @@ func _process(dt):
 	_gtime += dt
 
 	if self.visible:
+		########################################################################
+		# TODO : do this another way
 		# realign static_statck
 		$static_stack.transform.origin = self.global_transform.origin + Vector3(0.0, 1.25, 0.0)
 		$static_stack.set_rotation(Vector3(0.0, 0.0, 0.0))
 
-		########################################################################
-		# TODO : do this another way
 		var g_dir = self.global_transform.basis.z
 		# iter over static_stat/items
-		for i in $static_stack/items.get_children():
+		for i in $static_stack/inventory_items.get_children():
 			# pretend they're a type and "hightlight item"
 			if g_dir.normalized().dot( i.global_transform.basis.z ) > (1.0 - 0.02):
 				i.get_node("MeshInstance/outline").set_visible(true)
@@ -64,6 +64,9 @@ func invoke():
 	$invoke_tween.interpolate_property( $inventory_ring, "scale",
 		Vector3(0.002, 0.002, 0.002), Vector3(1.0, 1.0, 1.0), 0.55,
 		Tween.TRANS_ELASTIC, Tween.EASE_OUT)
+	$invoke_tween.interpolate_property( $weapons_ring, "scale",
+		Vector3(0.002, 0.002, 0.002), Vector3(1.0, 1.0, 1.0), 0.55,
+		Tween.TRANS_ELASTIC, Tween.EASE_OUT)		
 #	$invoke_tween.interpolate_property( $inventory_ring, "startThickness",
 #		2.500, 0.075, 0.55,
 #		Tween.TRANS_ELASTIC, Tween.EASE_OUT)
@@ -88,6 +91,9 @@ func devoke():
 	$invoke_tween.interpolate_property( $inventory_ring, "scale",
 		Vector3(1.0, 1.0, 1.0), Vector3(0.002, .002, .002), 0.3,
 		Tween.TRANS_CUBIC, Tween.EASE_IN)
+	$invoke_tween.interpolate_property( $weapons_ring, "scale",
+		Vector3(1.0, 1.0, 1.0), Vector3(0.002, .002, .002), 0.3,
+		Tween.TRANS_CUBIC, Tween.EASE_IN)		
 #	$invoke_tween.interpolate_property( $inventory_ring, "startThickness",
 #		.075, 0.25, 0.3,
 #		Tween.TRANS_ELASTIC, Tween.EASE_OUT)

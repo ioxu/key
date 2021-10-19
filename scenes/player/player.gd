@@ -64,6 +64,7 @@ func _process(delta):
 		print("UN-INSPECT DUI")
 		dui_root.devoke()
 
+
 func set_active(new_value) -> void:
 	active = new_value
 	$CollisionShape.disabled = !new_value

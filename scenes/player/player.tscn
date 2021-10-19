@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://scenes/player/Controller.gd" type="Script" id=1]
 [ext_resource path="res://data/weapons/pulse_shard/pulse_shard.tscn" type="PackedScene" id=2]
@@ -15,7 +15,6 @@
 [ext_resource path="res://scenes/player/player_leg_material.tres" type="Material" id=13]
 [ext_resource path="res://scenes/player/dui_root.gd" type="Script" id=14]
 [ext_resource path="res://scenes/player/radar_dots.gd" type="Script" id=15]
-[ext_resource path="res://scenes/player/emissive_blue_material.tres" type="Material" id=16]
 [ext_resource path="res://scenes/player/emissive_blue_semiopaque_material.tres" type="Material" id=17]
 [ext_resource path="res://scenes/player/emissive_blue_square_outline_material.tres" type="Material" id=18]
 [ext_resource path="res://data/textures/square_01.png" type="Texture" id=19]
@@ -86,11 +85,11 @@ emission_energy = 5.0
 emission_operator = 0
 emission_on_uv2 = false
 
-[sub_resource type="CylinderShape" id=15]
+[sub_resource type="CylinderShape" id=10]
 radius = 100.0
 height = 30.0
 
-[sub_resource type="SpatialMaterial" id=10]
+[sub_resource type="SpatialMaterial" id=11]
 flags_transparent = true
 flags_no_depth_test = true
 albedo_color = Color( 1, 1, 1, 0.0352941 )
@@ -101,20 +100,26 @@ emission_operator = 0
 emission_on_uv2 = false
 uv1_scale = Vector3( 6.305, 1, 1 )
 
-[sub_resource type="QuadMesh" id=11]
-material = ExtResource( 18 )
-size = Vector2( 0.25, 0.25 )
+[sub_resource type="SpatialMaterial" id=12]
+flags_transparent = true
+flags_no_depth_test = true
+albedo_color = Color( 0.776471, 0.239216, 0.239216, 0.513726 )
+emission_enabled = true
+emission = Color( 0.717647, 0.152941, 0.152941, 1 )
+emission_energy = 3.0
+emission_operator = 0
+emission_on_uv2 = false
 
-[sub_resource type="QuadMesh" id=12]
+[sub_resource type="QuadMesh" id=13]
 size = Vector2( 2, 2 )
 
-[sub_resource type="CylinderMesh" id=13]
+[sub_resource type="CylinderMesh" id=14]
 material = ExtResource( 11 )
 top_radius = 0.2
 bottom_radius = 0.2
 height = 0.077
 
-[sub_resource type="CubeMesh" id=14]
+[sub_resource type="CubeMesh" id=15]
 
 [node name="player" type="KinematicBody" groups=[
 "Player",
@@ -160,87 +165,87 @@ __meta__ = {
 [node name="static_stack" type="Spatial" parent="MeshInstance/dui_root"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0 )
 
-[node name="items" type="Spatial" parent="MeshInstance/dui_root/static_stack"]
+[node name="inventory_items" type="Spatial" parent="MeshInstance/dui_root/static_stack"]
 transform = Transform( -0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 0, 0, 0 )
 
-[node name="Spatial" type="Spatial" parent="MeshInstance/dui_root/static_stack/items"]
+[node name="Spatial" type="Spatial" parent="MeshInstance/dui_root/static_stack/inventory_items"]
 
-[node name="MeshInstance" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/items/Spatial"]
+[node name="MeshInstance" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/Spatial"]
 transform = Transform( 1, -1.42109e-14, 0, 0, 0.762319, 0, 0, 1.42109e-14, 1, 2.36219e-07, 0.749689, 2.4 )
 mesh = SubResource( 7 )
 material/0 = null
 
-[node name="outline" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/items/Spatial/MeshInstance"]
+[node name="outline" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/Spatial/MeshInstance"]
 transform = Transform( 1, 7.10543e-15, 0, 0, 1, 0, 0, -7.10543e-15, 1, 0, 0, -0.15 )
 visible = false
 mesh = SubResource( 7 )
 material/0 = ExtResource( 18 )
 
-[node name="Spatial2" type="Spatial" parent="MeshInstance/dui_root/static_stack/items"]
+[node name="Spatial2" type="Spatial" parent="MeshInstance/dui_root/static_stack/inventory_items"]
 transform = Transform( 0.906308, 0, -0.422618, 0, 1, 0, 0.422618, 0, 0.906308, 0, 0, 0 )
 
-[node name="MeshInstance" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/items/Spatial2"]
+[node name="MeshInstance" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/Spatial2"]
 transform = Transform( 1, 0, -1.78814e-07, 0, 0.762319, -4.9738e-14, 1.78814e-07, 4.26326e-14, 1, -6.26127e-08, 0.749689, 2.4 )
 mesh = SubResource( 7 )
 material/0 = null
 
-[node name="outline" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/items/Spatial2/MeshInstance"]
+[node name="outline" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/Spatial2/MeshInstance"]
 transform = Transform( 0.999999, 0, 2.08616e-07, 3.55271e-15, 1, 4.26326e-14, -2.08616e-07, -4.9738e-14, 0.999999, 0, 0, -0.15 )
 visible = false
 mesh = SubResource( 7 )
 material/0 = ExtResource( 18 )
 
-[node name="Spatial3" type="Spatial" parent="MeshInstance/dui_root/static_stack/items"]
+[node name="Spatial3" type="Spatial" parent="MeshInstance/dui_root/static_stack/inventory_items"]
 transform = Transform( 0.906308, 0, 0.422618, 0, 1, 0, -0.422618, 0, 0.906308, 0, 0, 0 )
 
-[node name="MeshInstance" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/items/Spatial3"]
+[node name="MeshInstance" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/Spatial3"]
 transform = Transform( 1, -3.55271e-14, 1.49012e-07, 4.9738e-14, 0.762319, 0, -1.49012e-07, 3.55271e-15, 1, -8.29208e-08, 0.749689, 2.4 )
 mesh = SubResource( 7 )
 material/0 = null
 
-[node name="outline" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/items/Spatial3/MeshInstance"]
+[node name="outline" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/Spatial3/MeshInstance"]
 transform = Transform( 0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 0, -0.15 )
 visible = false
 mesh = SubResource( 7 )
 material/0 = ExtResource( 18 )
 
-[node name="Spatial5" type="Spatial" parent="MeshInstance/dui_root/static_stack/items"]
+[node name="Spatial5" type="Spatial" parent="MeshInstance/dui_root/static_stack/inventory_items"]
 transform = Transform( 0.642788, 0, 0.766044, 0, 1, 0, -0.766044, 0, 0.642788, 0, 0, 0 )
 
-[node name="MeshInstance" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/items/Spatial5"]
+[node name="MeshInstance" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/Spatial5"]
 transform = Transform( 1, 0, 3.72529e-08, 0, 0.762319, 0, -2.98023e-08, 0, 1, -4.37687e-08, 0.749689, 2.4 )
 mesh = SubResource( 7 )
 material/0 = null
 
-[node name="outline" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/items/Spatial5/MeshInstance"]
+[node name="outline" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/Spatial5/MeshInstance"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.15 )
 visible = false
 mesh = SubResource( 7 )
 material/0 = ExtResource( 18 )
 
-[node name="Spatial4" type="Spatial" parent="MeshInstance/dui_root/static_stack/items"]
+[node name="Spatial4" type="Spatial" parent="MeshInstance/dui_root/static_stack/inventory_items"]
 transform = Transform( 0.642788, 0, -0.766044, -8.88178e-16, 1, 0, 0.766044, 0, 0.642788, 0, 0, 0 )
 
-[node name="MeshInstance" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/items/Spatial4"]
+[node name="MeshInstance" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/Spatial4"]
 transform = Transform( 1, 0, -1.49012e-08, 0, 0.762319, 0, 2.98023e-08, 0, 1, -1.03829e-07, 0.749689, 2.4 )
 mesh = SubResource( 7 )
 material/0 = null
 
-[node name="outline" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/items/Spatial4/MeshInstance"]
+[node name="outline" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/Spatial4/MeshInstance"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.15 )
 visible = false
 mesh = SubResource( 7 )
 material/0 = ExtResource( 18 )
 
-[node name="Back_Spatial" type="Spatial" parent="MeshInstance/dui_root/static_stack/items"]
+[node name="Back_Spatial" type="Spatial" parent="MeshInstance/dui_root/static_stack/inventory_items"]
 transform = Transform( -0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, 0, 0, 0 )
 
-[node name="MeshInstance" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/items/Back_Spatial"]
+[node name="MeshInstance" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/Back_Spatial"]
 transform = Transform( 1, -1.42109e-14, 0, 0, 0.762319, 0, 0, 1.42109e-14, 1, 2.36219e-07, 0.749689, 2.4 )
 mesh = SubResource( 7 )
 material/0 = SubResource( 8 )
 
-[node name="outline" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/items/Back_Spatial/MeshInstance"]
+[node name="outline" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/Back_Spatial/MeshInstance"]
 transform = Transform( 1, 7.10543e-15, 0, 0, 1, 0, 0, -7.10543e-15, 1, 0, 0, -0.15 )
 visible = false
 mesh = SubResource( 7 )
@@ -253,14 +258,14 @@ script = ExtResource( 15 )
 
 [node name="CollisionShape" type="CollisionShape" parent="MeshInstance/dui_root/static_stack/radar_dots/Area"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.24177, -1.48031e-07 )
-shape = SubResource( 15 )
+shape = SubResource( 10 )
 
 [node name="radar_dot" parent="MeshInstance/dui_root/static_stack/radar_dots" instance=ExtResource( 20 )]
 transform = Transform( 0.2, 0, 0, 0, -8.74228e-09, 0.2, 0, -0.2, -8.74228e-09, 0, -2.38419e-07, 2.39805 )
 
 [node name="inventory_ring" parent="MeshInstance/dui_root" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0 )
-material_override = SubResource( 10 )
+material_override = SubResource( 11 )
 points = [ Vector3( 0, 0, 2.25 ), Vector3( 0.439, 0, 2.207 ), Vector3( 0.861, 0, 2.079 ), Vector3( 1.25, 0, 1.87 ), Vector3( 1.591, 0, 1.591 ), Vector3( 1.871, 0, 1.25 ), Vector3( 2.079, 0, 0.861 ), Vector3( 2.207, 0, 0.439 ), Vector3( 2.25, 0, 0 ), Vector3( 2.207, 0, -0.439 ), Vector3( 2.079, 0, -0.861 ), Vector3( 1.871, 0, -1.25 ), Vector3( 1.591, 0, -1.591 ), Vector3( 1.25, 0, -1.871 ), Vector3( 0.861, 0, -2.079 ), Vector3( 0.439, 0, -2.207 ), Vector3( 0, 0, -2.25 ), Vector3( -0.439, 0, -2.207 ), Vector3( -0.861, 0, -2.079 ), Vector3( -1.25, 0, -1.871 ), Vector3( -1.591, 0, -1.591 ), Vector3( -1.871, 0, -1.25 ), Vector3( -2.079, 0, -0.861 ), Vector3( -2.207, 0, -0.439 ), Vector3( -2.25, 0, 0 ), Vector3( -2.207, 0, 0.439 ), Vector3( -2.079, 0, 0.861 ), Vector3( -1.871, 0, 1.25 ), Vector3( -1.591, 0, 1.591 ), Vector3( -1.25, 0, 1.871 ), Vector3( -0.861, 0, 2.079 ), Vector3( -0.439, 0, 2.207 ), Vector3( 0, 0, 2.25 ) ]
 startThickness = 0.02
 endThickness = 0.02
@@ -270,40 +275,17 @@ drawCaps = false
 globalCoords = false
 scaleTexture = false
 
-[node name="LineRenderer" parent="MeshInstance/dui_root/inventory_ring" instance=ExtResource( 10 )]
-material_override = ExtResource( 17 )
-points = [ Vector3( 0, 0, 2.037 ), Vector3( 0, 0, 1.742 ) ]
-startThickness = 0.035
-endThickness = 0.035
+[node name="weapons_ring" parent="MeshInstance/dui_root" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0 )
+material_override = SubResource( 12 )
+points = [ Vector3( 0, 0, 2.25 ), Vector3( 0.439, 0, 2.207 ), Vector3( 0.861, 0, 2.079 ), Vector3( 1.25, 0, 1.87 ), Vector3( 1.591, 0, 1.591 ), Vector3( 1.871, 0, 1.25 ), Vector3( 2.079, 0, 0.861 ), Vector3( 2.207, 0, 0.439 ), Vector3( 2.25, 0, 0 ), Vector3( 2.207, 0, -0.439 ), Vector3( 2.079, 0, -0.861 ), Vector3( 1.871, 0, -1.25 ), Vector3( 1.591, 0, -1.591 ), Vector3( 1.25, 0, -1.871 ), Vector3( 0.861, 0, -2.079 ), Vector3( 0.439, 0, -2.207 ), Vector3( 0, 0, -2.25 ), Vector3( -0.439, 0, -2.207 ), Vector3( -0.861, 0, -2.079 ), Vector3( -1.25, 0, -1.871 ), Vector3( -1.591, 0, -1.591 ), Vector3( -1.871, 0, -1.25 ), Vector3( -2.079, 0, -0.861 ), Vector3( -2.207, 0, -0.439 ), Vector3( -2.25, 0, 0 ), Vector3( -2.207, 0, 0.439 ), Vector3( -2.079, 0, 0.861 ), Vector3( -1.871, 0, 1.25 ), Vector3( -1.591, 0, 1.591 ), Vector3( -1.25, 0, 1.871 ), Vector3( -0.861, 0, 2.079 ), Vector3( -0.439, 0, 2.207 ), Vector3( 0, 0, 2.25 ) ]
+startThickness = 0.02
+endThickness = 0.02
+cornerSmooth = 2
+capSmooth = 2
+drawCaps = false
 globalCoords = false
-
-[node name="MeshInstance" type="MeshInstance" parent="MeshInstance/dui_root/inventory_ring"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 2.25 )
-visible = false
-cast_shadow = 0
-mesh = SubResource( 11 )
-material/0 = ExtResource( 16 )
-
-[node name="MeshInstance4" type="MeshInstance" parent="MeshInstance/dui_root/inventory_ring"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, -2.25 )
-visible = false
-cast_shadow = 0
-mesh = SubResource( 11 )
-material/0 = ExtResource( 16 )
-
-[node name="MeshInstance2" type="MeshInstance" parent="MeshInstance/dui_root/inventory_ring"]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.25, 0.25, 0 )
-visible = false
-cast_shadow = 0
-mesh = SubResource( 11 )
-material/0 = ExtResource( 16 )
-
-[node name="MeshInstance3" type="MeshInstance" parent="MeshInstance/dui_root/inventory_ring"]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.25, 0.25, 0 )
-visible = false
-cast_shadow = 0
-mesh = SubResource( 11 )
-material/0 = ExtResource( 16 )
+scaleTexture = false
 
 [node name="invoke_tween" type="Tween" parent="MeshInstance/dui_root"]
 
@@ -341,7 +323,7 @@ far = 300.0
 [node name="motion_blur" type="MeshInstance" parent="camera_root/camera_base/camera_tilt/camera_boom/Camera"]
 transform = Transform( 1, 0, 0, 0, 1, 1.49012e-07, 0, 0, 1, 0, 0, -1.05979 )
 visible = false
-mesh = SubResource( 12 )
+mesh = SubResource( 13 )
 material/0 = ExtResource( 4 )
 script = ExtResource( 3 )
 
@@ -372,7 +354,7 @@ transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -
 transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -0.110306, -0.05, -0.110302 )
 
 [node name="waist_geo" type="MeshInstance" parent="waist"]
-mesh = SubResource( 13 )
+mesh = SubResource( 14 )
 material/0 = null
 
 [node name="leg_1" type="Spatial" parent="."]
@@ -421,7 +403,7 @@ depth = 0.15
 
 [node name="MeshInstance" type="MeshInstance" parent="leg_1/hip_joint/thigh_joint/shin_joint"]
 transform = Transform( 0.381, -1.90664e-09, 5.16261e-09, 1.11759e-08, 0.065, 0, -1.49012e-08, 7.45701e-17, 0.132, 0.253681, 0.108, 5.96046e-08 )
-mesh = SubResource( 14 )
+mesh = SubResource( 15 )
 material/0 = null
 
 [node name="leg_2" type="Spatial" parent="."]
@@ -471,7 +453,7 @@ depth = 0.15
 
 [node name="MeshInstance2" type="MeshInstance" parent="leg_2/hip_joint/thigh_joint/shin_joint"]
 transform = Transform( 0.380996, 0, 0, 0, 0.065, 0, 0, 0, 0.132, 0.254, 0.108, 0 )
-mesh = SubResource( 14 )
+mesh = SubResource( 15 )
 material/0 = null
 
 [node name="leg_3" type="Spatial" parent="."]
@@ -521,7 +503,7 @@ depth = 0.15
 
 [node name="MeshInstance2" type="MeshInstance" parent="leg_3/hip_joint/thigh_joint/shin_joint"]
 transform = Transform( 0.380996, -3.17607e-24, -3.87199e-09, 0, 0.065, -2.19882e-16, 1.11759e-08, 1.08275e-16, 0.132, 0.254, 0.108, -2.98023e-08 )
-mesh = SubResource( 14 )
+mesh = SubResource( 15 )
 material/0 = null
 
 [node name="leg_4" type="Spatial" parent="."]
@@ -571,7 +553,7 @@ depth = 0.15
 
 [node name="MeshInstance2" type="MeshInstance" parent="leg_4/hip_joint/thigh_joint/shin_joint"]
 transform = Transform( 0.380996, -3.17607e-24, -3.87199e-09, 0, 0.065, -2.19882e-16, 1.11759e-08, 1.08275e-16, 0.132, 0.254, 0.108, -2.98023e-08 )
-mesh = SubResource( 14 )
+mesh = SubResource( 15 )
 material/0 = null
 
 [node name="toe_1_position" type="Position3D" parent="."]
