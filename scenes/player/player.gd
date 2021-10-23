@@ -58,11 +58,19 @@ func _process(delta):
 	# inspect dui
 	if Input.is_action_just_pressed("inspect_digetic_ui"):
 		print("INSPECT DUI")
-		dui_root.invoke()
+		dui_root.invoke_inventory_ring()
 	
 	if Input.is_action_just_released("inspect_digetic_ui"):
 		print("UN-INSPECT DUI")
-		dui_root.devoke()
+		dui_root.devoke_inventory_ring()
+
+	if Input.is_action_just_pressed("inspect_weapons_ui"):
+		print("INSPECT DUI")
+		dui_root.invoke_weapons_ring()
+	
+	if Input.is_action_just_released("inspect_weapons_ui"):
+		print("UN-INSPECT DUI")
+		dui_root.devoke_weapons_ring()
 
 
 func set_active(new_value) -> void:

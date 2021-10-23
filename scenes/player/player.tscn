@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://scenes/player/Controller.gd" type="Script" id=1]
 [ext_resource path="res://data/weapons/pulse_shard/pulse_shard.tscn" type="PackedScene" id=2]
@@ -100,12 +100,32 @@ emission_operator = 0
 emission_on_uv2 = false
 uv1_scale = Vector3( 6.305, 1, 1 )
 
+[sub_resource type="SpatialMaterial" id=16]
+flags_transparent = true
+flags_no_depth_test = true
+albedo_color = Color( 1, 1, 1, 0.443137 )
+emission_enabled = true
+emission = Color( 0.180392, 0.286275, 0.85098, 1 )
+emission_energy = 3.0
+emission_operator = 0
+emission_on_uv2 = false
+
 [sub_resource type="SpatialMaterial" id=12]
 flags_transparent = true
 flags_no_depth_test = true
 albedo_color = Color( 0.776471, 0.239216, 0.239216, 0.513726 )
 emission_enabled = true
 emission = Color( 0.717647, 0.152941, 0.152941, 1 )
+emission_energy = 3.0
+emission_operator = 0
+emission_on_uv2 = false
+
+[sub_resource type="SpatialMaterial" id=17]
+flags_transparent = true
+flags_no_depth_test = true
+albedo_color = Color( 1, 1, 1, 0.443137 )
+emission_enabled = true
+emission = Color( 0.905882, 0.101961, 0.101961, 1 )
 emission_energy = 3.0
 emission_operator = 0
 emission_on_uv2 = false
@@ -155,7 +175,7 @@ transform = Transform( 0.5, 0, 0, 0, -3.27835e-08, 0.5, 0, -0.75, -2.18557e-08, 
 mesh = SubResource( 6 )
 
 [node name="dui_root" type="Spatial" parent="MeshInstance"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.69631e-07, -1.04118 )
 script = ExtResource( 14 )
 __meta__ = {
 "_editor_description_": "diegetic UI root
@@ -275,6 +295,14 @@ drawCaps = false
 globalCoords = false
 scaleTexture = false
 
+[node name="LineRenderer" parent="MeshInstance/dui_root/inventory_ring" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.38419e-07, 1.54801 )
+material_override = SubResource( 16 )
+points = [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 0.5 ) ]
+startThickness = 0.05
+endThickness = 0.05
+globalCoords = false
+
 [node name="weapons_ring" parent="MeshInstance/dui_root" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0 )
 material_override = SubResource( 12 )
@@ -286,6 +314,14 @@ capSmooth = 2
 drawCaps = false
 globalCoords = false
 scaleTexture = false
+
+[node name="LineRenderer" parent="MeshInstance/dui_root/weapons_ring" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.38419e-07, 2.41203 )
+material_override = SubResource( 17 )
+points = [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 0.5 ) ]
+startThickness = 0.05
+endThickness = 0.05
+globalCoords = false
 
 [node name="invoke_tween" type="Tween" parent="MeshInstance/dui_root"]
 

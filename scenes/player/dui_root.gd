@@ -54,8 +54,30 @@ func _process(dt):
 		########################################################################
 
 
-func invoke():
+func invoke_inventory_ring():
+	if is_invoked:
+		return
 	is_invoked = true
+	$weapons_ring.visible = false
+	$inventory_ring.visible = true
+	$static_stack/radar_dots.visible = false
+	$static_stack/inventory_items.visible = true
+	_invoke()
+
+
+func invoke_weapons_ring():
+	if is_invoked:
+		return
+	is_invoked = true
+	$weapons_ring.visible = true
+	$inventory_ring.visible = false
+	$static_stack/radar_dots.visible = true
+	$static_stack/inventory_items.visible = false
+	_invoke()
+
+
+func _invoke():
+	#is_invoked = true
 	$invoke_tween.reset_all()
 	$invoke_tween.remove_all()
 	$invoke_tween.interpolate_property( $static_stack, "scale",
@@ -81,7 +103,21 @@ func invoke():
 	self.visible = true
 
 
-func devoke():
+func devoke_inventory_ring():
+	if $weapons_ring.visible == true: 
+		return
+	else:
+		_devoke()
+
+
+func devoke_weapons_ring():
+	if $inventory_ring.visible == true:
+		return
+	else:
+		_devoke()
+
+
+func _devoke():
 	is_invoked = false
 	$invoke_tween.reset_all()
 	$invoke_tween.remove_all()
