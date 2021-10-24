@@ -13,7 +13,11 @@ var _gtime = 0.0
 
 func _ready():
 	self.visible = false
-
+	$weapons_ring.visible = false
+	$inventory_ring.visible = false
+	$static_stack/radar_dots.visible = false
+	$static_stack/inventory_items.visible = false
+	
 	$inventory_ring.points =_generate_ring_points(inventory_ring_npoints, inventory_ring_radius)
 	$weapons_ring.points = _generate_ring_points(inventory_ring_npoints, inventory_ring_radius * 0.95)
 	$static_stack.set_as_toplevel(true) # to make control not concat parent's transforms 
@@ -146,3 +150,7 @@ func _on_invoke_tween_tween_completed(object, key):
 	#if self.scale.x == 0.002 :
 	if self._invoke_amount == 0.0:
 		self.visible = false
+		$weapons_ring.visible = false
+		$inventory_ring.visible = false
+		$static_stack/radar_dots.visible = false
+		$static_stack/inventory_items.visible = false

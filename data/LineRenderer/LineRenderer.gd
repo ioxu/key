@@ -18,6 +18,9 @@ func _ready():
 	pass
 
 func _process(delta):
+	if not self.visible:
+		return
+
 	if points.size() < 2:
 		return
 	
