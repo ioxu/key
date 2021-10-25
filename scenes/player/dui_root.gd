@@ -3,10 +3,13 @@ extends Spatial
 export var inventory_ring_npoints := 32.0
 export var inventory_ring_radius := 2.25
 
+export (NodePath) var weapon_mount 
 
 var _invoke_amount = 0.0
 
 var is_invoked = false
+var is_weapons_invoked = false
+var is_inventory_invoked = false
 
 var _gtime = 0.0
 
@@ -18,18 +21,16 @@ func _ready():
 	$static_stack/radar_dots.visible = false
 	$static_stack/inventory_items.visible = false
 	
-	$inventory_ring.points =_generate_ring_points(inventory_ring_npoints, inventory_ring_radius)
-	$weapons_ring.points = _generate_ring_points(inventory_ring_npoints, inventory_ring_radius * 0.95)
+	$inventory_ring.points = Util.ring_points(inventory_ring_npoints, inventory_ring_radius)
+	$weapons_ring.points = Util.ring_points(inventory_ring_npoints, inventory_ring_radius * 0.95)
 	$static_stack.set_as_toplevel(true) # to make control not concat parent's transforms 
 
-
-func _generate_ring_points(npoints, radius) -> Array:
-	var ring_points = []
-	for i in range(npoints):
-		var p = (i/npoints) * (2*PI)
-		ring_points.append( Vector3( sin( p ) , 0.0, cos( p ) ) * radius )
-	ring_points.append( Vector3( sin( 2*PI ) , 0.0, cos( 2*PI ) ) * radius )
-	return ring_points
+	# connect to weapon signals
+	weapon_mount = get_node(weapon_mount)
+	var weapon = weapon_mount.get_child(0)
+	weapon.connect("magazine_count_changed", self, "_on_magazine_count_changed")
+	$static_stack/magazine/full_arc.points = Util.arc_points(16, 180, 270, inventory_ring_radius * 0.95 * 0.8)
+	$static_stack/magazine/count.points = Util.arc_points(16, 180, 270, inventory_ring_radius * 0.95 * 0.8)
 
 
 func get_invoke_amount():
@@ -58,10 +59,17 @@ func _process(dt):
 		########################################################################
 
 
+func _on_magazine_count_changed(mag_count, norm_mag_count):
+	var c = 180 + (270-180) * norm_mag_count
+	$static_stack/magazine/count.points = Util.arc_points(16, 180, c, inventory_ring_radius * 0.95 * 0.8)
+
+
 func invoke_inventory_ring():
 	if is_invoked:
 		return
 	is_invoked = true
+	is_inventory_invoked = true
+	is_weapons_invoked = false
 	$weapons_ring.visible = false
 	$inventory_ring.visible = true
 	$static_stack/radar_dots.visible = false
@@ -73,6 +81,8 @@ func invoke_weapons_ring():
 	if is_invoked:
 		return
 	is_invoked = true
+	is_inventory_invoked = false
+	is_weapons_invoked = true
 	$weapons_ring.visible = true
 	$inventory_ring.visible = false
 	$static_stack/radar_dots.visible = true
@@ -123,6 +133,8 @@ func devoke_weapons_ring():
 
 func _devoke():
 	is_invoked = false
+	is_inventory_invoked = false
+	is_weapons_invoked = false
 	$invoke_tween.reset_all()
 	$invoke_tween.remove_all()
 	$invoke_tween.interpolate_property( $static_stack, "scale",
@@ -154,3 +166,4 @@ func _on_invoke_tween_tween_completed(object, key):
 		$inventory_ring.visible = false
 		$static_stack/radar_dots.visible = false
 		$static_stack/inventory_items.visible = false
+

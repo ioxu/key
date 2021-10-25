@@ -44,15 +44,10 @@ func _process(delta) -> void:
 
 func _on_Area_body_entered(body):
 	if body.is_in_group("Enemies"):
-		print("--------")
-		prints("track enemy ", body.get_path())
 		tracked_enemies.append( body )
-		prints("tracked_enemies.size() ", tracked_enemies.size())
 
 
 func _on_Area_body_exited(body):
 	if body.is_in_group("Enemies"):
-		print("--------")
-		prints("untrack enemy ", body.get_path())
 		tracked_enemies.erase( body )
-		prints("tracked_enemies.size() ", tracked_enemies.size())
+

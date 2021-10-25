@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://scenes/player/Controller.gd" type="Script" id=1]
 [ext_resource path="res://data/weapons/pulse_shard/pulse_shard.tscn" type="PackedScene" id=2]
@@ -92,6 +92,26 @@ height = 30.0
 [sub_resource type="SpatialMaterial" id=11]
 flags_transparent = true
 flags_no_depth_test = true
+albedo_color = Color( 0.137255, 0.862745, 0.156863, 0.0313726 )
+emission_enabled = true
+emission = Color( 0.8, 0.8, 0.145098, 1 )
+emission_energy = 3.0
+emission_operator = 0
+emission_on_uv2 = false
+
+[sub_resource type="SpatialMaterial" id=12]
+flags_transparent = true
+flags_no_depth_test = true
+albedo_color = Color( 0.219608, 0.835294, 0.129412, 0.117647 )
+emission_enabled = true
+emission = Color( 0.788235, 0.772549, 0.0941176, 1 )
+emission_energy = 3.0
+emission_operator = 0
+emission_on_uv2 = false
+
+[sub_resource type="SpatialMaterial" id=13]
+flags_transparent = true
+flags_no_depth_test = true
 albedo_color = Color( 1, 1, 1, 0.0352941 )
 emission_enabled = true
 emission = Color( 0.317647, 0.85098, 0.921569, 1 )
@@ -100,7 +120,7 @@ emission_operator = 0
 emission_on_uv2 = false
 uv1_scale = Vector3( 6.305, 1, 1 )
 
-[sub_resource type="SpatialMaterial" id=16]
+[sub_resource type="SpatialMaterial" id=14]
 flags_transparent = true
 flags_no_depth_test = true
 albedo_color = Color( 1, 1, 1, 0.443137 )
@@ -110,7 +130,7 @@ emission_energy = 3.0
 emission_operator = 0
 emission_on_uv2 = false
 
-[sub_resource type="SpatialMaterial" id=12]
+[sub_resource type="SpatialMaterial" id=15]
 flags_transparent = true
 flags_no_depth_test = true
 albedo_color = Color( 0.776471, 0.239216, 0.239216, 0.513726 )
@@ -120,7 +140,7 @@ emission_energy = 3.0
 emission_operator = 0
 emission_on_uv2 = false
 
-[sub_resource type="SpatialMaterial" id=17]
+[sub_resource type="SpatialMaterial" id=16]
 flags_transparent = true
 flags_no_depth_test = true
 albedo_color = Color( 1, 1, 1, 0.443137 )
@@ -130,16 +150,16 @@ emission_energy = 3.0
 emission_operator = 0
 emission_on_uv2 = false
 
-[sub_resource type="QuadMesh" id=13]
+[sub_resource type="QuadMesh" id=17]
 size = Vector2( 2, 2 )
 
-[sub_resource type="CylinderMesh" id=14]
+[sub_resource type="CylinderMesh" id=18]
 material = ExtResource( 11 )
 top_radius = 0.2
 bottom_radius = 0.2
 height = 0.077
 
-[sub_resource type="CubeMesh" id=15]
+[sub_resource type="CubeMesh" id=19]
 
 [node name="player" type="KinematicBody" groups=[
 "Player",
@@ -169,6 +189,7 @@ material/0 = SubResource( 5 )
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, -0.44367, 0.628556 )
 
 [node name="pulse_shard" parent="MeshInstance/weapon_mount" instance=ExtResource( 2 )]
+base_magazine_size = 50
 
 [node name="hurt_meter" parent="MeshInstance" instance=ExtResource( 7 )]
 transform = Transform( 0.5, 0, 0, 0, -3.27835e-08, 0.5, 0, -0.75, -2.18557e-08, 0, 0, 0.858 )
@@ -181,6 +202,7 @@ __meta__ = {
 "_editor_description_": "diegetic UI root
 - gets hidden on _ready"
 }
+weapon_mount = NodePath("../weapon_mount")
 
 [node name="static_stack" type="Spatial" parent="MeshInstance/dui_root"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0 )
@@ -281,11 +303,32 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.24177, -1.48031e-07 )
 shape = SubResource( 10 )
 
 [node name="radar_dot" parent="MeshInstance/dui_root/static_stack/radar_dots" instance=ExtResource( 20 )]
-transform = Transform( 0.2, 0, 0, 0, -8.74228e-09, 0.2, 0, -0.2, -8.74228e-09, 0, -2.38419e-07, 2.39805 )
+transform = Transform( 0.2, 0, 0, 0, -8.74228e-09, 0.2, 0, -0.2, -8.74228e-09, 0, -2.38419e-07, 1.88822 )
+
+[node name="magazine" type="Spatial" parent="MeshInstance/dui_root/static_stack"]
+
+[node name="full_arc" parent="MeshInstance/dui_root/static_stack/magazine" instance=ExtResource( 10 )]
+material_override = SubResource( 11 )
+startThickness = 0.075
+endThickness = 0.075
+cornerSmooth = 3
+capSmooth = 3
+drawCaps = false
+globalCoords = false
+
+[node name="count" parent="MeshInstance/dui_root/static_stack/magazine" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0 )
+material_override = SubResource( 12 )
+startThickness = 0.075
+endThickness = 0.075
+cornerSmooth = 2
+capSmooth = 3
+drawCaps = false
+globalCoords = false
 
 [node name="inventory_ring" parent="MeshInstance/dui_root" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0 )
-material_override = SubResource( 11 )
+material_override = SubResource( 13 )
 points = [ Vector3( 0, 0, 2.25 ), Vector3( 0.439, 0, 2.207 ), Vector3( 0.861, 0, 2.079 ), Vector3( 1.25, 0, 1.87 ), Vector3( 1.591, 0, 1.591 ), Vector3( 1.871, 0, 1.25 ), Vector3( 2.079, 0, 0.861 ), Vector3( 2.207, 0, 0.439 ), Vector3( 2.25, 0, 0 ), Vector3( 2.207, 0, -0.439 ), Vector3( 2.079, 0, -0.861 ), Vector3( 1.871, 0, -1.25 ), Vector3( 1.591, 0, -1.591 ), Vector3( 1.25, 0, -1.871 ), Vector3( 0.861, 0, -2.079 ), Vector3( 0.439, 0, -2.207 ), Vector3( 0, 0, -2.25 ), Vector3( -0.439, 0, -2.207 ), Vector3( -0.861, 0, -2.079 ), Vector3( -1.25, 0, -1.871 ), Vector3( -1.591, 0, -1.591 ), Vector3( -1.871, 0, -1.25 ), Vector3( -2.079, 0, -0.861 ), Vector3( -2.207, 0, -0.439 ), Vector3( -2.25, 0, 0 ), Vector3( -2.207, 0, 0.439 ), Vector3( -2.079, 0, 0.861 ), Vector3( -1.871, 0, 1.25 ), Vector3( -1.591, 0, 1.591 ), Vector3( -1.25, 0, 1.871 ), Vector3( -0.861, 0, 2.079 ), Vector3( -0.439, 0, 2.207 ), Vector3( 0, 0, 2.25 ) ]
 startThickness = 0.02
 endThickness = 0.02
@@ -297,7 +340,7 @@ scaleTexture = false
 
 [node name="LineRenderer" parent="MeshInstance/dui_root/inventory_ring" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.38419e-07, 1.54801 )
-material_override = SubResource( 16 )
+material_override = SubResource( 14 )
 points = [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 0.5 ) ]
 startThickness = 0.05
 endThickness = 0.05
@@ -305,7 +348,7 @@ globalCoords = false
 
 [node name="weapons_ring" parent="MeshInstance/dui_root" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0 )
-material_override = SubResource( 12 )
+material_override = SubResource( 15 )
 points = [ Vector3( 0, 0, 2.25 ), Vector3( 0.439, 0, 2.207 ), Vector3( 0.861, 0, 2.079 ), Vector3( 1.25, 0, 1.87 ), Vector3( 1.591, 0, 1.591 ), Vector3( 1.871, 0, 1.25 ), Vector3( 2.079, 0, 0.861 ), Vector3( 2.207, 0, 0.439 ), Vector3( 2.25, 0, 0 ), Vector3( 2.207, 0, -0.439 ), Vector3( 2.079, 0, -0.861 ), Vector3( 1.871, 0, -1.25 ), Vector3( 1.591, 0, -1.591 ), Vector3( 1.25, 0, -1.871 ), Vector3( 0.861, 0, -2.079 ), Vector3( 0.439, 0, -2.207 ), Vector3( 0, 0, -2.25 ), Vector3( -0.439, 0, -2.207 ), Vector3( -0.861, 0, -2.079 ), Vector3( -1.25, 0, -1.871 ), Vector3( -1.591, 0, -1.591 ), Vector3( -1.871, 0, -1.25 ), Vector3( -2.079, 0, -0.861 ), Vector3( -2.207, 0, -0.439 ), Vector3( -2.25, 0, 0 ), Vector3( -2.207, 0, 0.439 ), Vector3( -2.079, 0, 0.861 ), Vector3( -1.871, 0, 1.25 ), Vector3( -1.591, 0, 1.591 ), Vector3( -1.25, 0, 1.871 ), Vector3( -0.861, 0, 2.079 ), Vector3( -0.439, 0, 2.207 ), Vector3( 0, 0, 2.25 ) ]
 startThickness = 0.02
 endThickness = 0.02
@@ -316,8 +359,8 @@ globalCoords = false
 scaleTexture = false
 
 [node name="LineRenderer" parent="MeshInstance/dui_root/weapons_ring" instance=ExtResource( 10 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.38419e-07, 2.41203 )
-material_override = SubResource( 17 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.38419e-07, 2.27603 )
+material_override = SubResource( 16 )
 points = [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 0.222 ) ]
 startThickness = 0.03
 endThickness = 0.0
@@ -359,7 +402,7 @@ far = 300.0
 [node name="motion_blur" type="MeshInstance" parent="camera_root/camera_base/camera_tilt/camera_boom/Camera"]
 transform = Transform( 1, 0, 0, 0, 1, 1.49012e-07, 0, 0, 1, 0, 0, -1.05979 )
 visible = false
-mesh = SubResource( 13 )
+mesh = SubResource( 17 )
 material/0 = ExtResource( 4 )
 script = ExtResource( 3 )
 
@@ -390,11 +433,11 @@ transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -
 transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -0.110306, -0.05, -0.110302 )
 
 [node name="waist_geo" type="MeshInstance" parent="waist"]
-mesh = SubResource( 14 )
+mesh = SubResource( 18 )
 material/0 = null
 
 [node name="leg_1" type="Spatial" parent="."]
-transform = Transform( 0.706987, 0, 0.707003, 0, 0.99999, 0, -0.707003, 0, 0.706986, 0.110324, 0.746836, -0.110315 )
+transform = Transform( 0.706988, 0, 0.707003, 0, 0.99999, 0, -0.707004, 0, 0.706987, 0.110324, 0.746836, -0.110315 )
 script = ExtResource( 12 )
 hip_node_path = NodePath("../waist/hip_1_position")
 toe_node_path = NodePath("../toe_1_position")
@@ -439,7 +482,7 @@ depth = 0.15
 
 [node name="MeshInstance" type="MeshInstance" parent="leg_1/hip_joint/thigh_joint/shin_joint"]
 transform = Transform( 0.381, -1.90664e-09, 5.16261e-09, 1.11759e-08, 0.065, 0, -1.49012e-08, 7.45701e-17, 0.132, 0.253681, 0.108, 5.96046e-08 )
-mesh = SubResource( 15 )
+mesh = SubResource( 19 )
 material/0 = null
 
 [node name="leg_2" type="Spatial" parent="."]
@@ -489,7 +532,7 @@ depth = 0.15
 
 [node name="MeshInstance2" type="MeshInstance" parent="leg_2/hip_joint/thigh_joint/shin_joint"]
 transform = Transform( 0.380996, 0, 0, 0, 0.065, 0, 0, 0, 0.132, 0.254, 0.108, 0 )
-mesh = SubResource( 15 )
+mesh = SubResource( 19 )
 material/0 = null
 
 [node name="leg_3" type="Spatial" parent="."]
@@ -539,7 +582,7 @@ depth = 0.15
 
 [node name="MeshInstance2" type="MeshInstance" parent="leg_3/hip_joint/thigh_joint/shin_joint"]
 transform = Transform( 0.380996, -3.17607e-24, -3.87199e-09, 0, 0.065, -2.19882e-16, 1.11759e-08, 1.08275e-16, 0.132, 0.254, 0.108, -2.98023e-08 )
-mesh = SubResource( 15 )
+mesh = SubResource( 19 )
 material/0 = null
 
 [node name="leg_4" type="Spatial" parent="."]
@@ -589,7 +632,7 @@ depth = 0.15
 
 [node name="MeshInstance2" type="MeshInstance" parent="leg_4/hip_joint/thigh_joint/shin_joint"]
 transform = Transform( 0.380996, -3.17607e-24, -3.87199e-09, 0, 0.065, -2.19882e-16, 1.11759e-08, 1.08275e-16, 0.132, 0.254, 0.108, -2.98023e-08 )
-mesh = SubResource( 15 )
+mesh = SubResource( 19 )
 material/0 = null
 
 [node name="toe_1_position" type="Position3D" parent="."]

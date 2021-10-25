@@ -397,10 +397,8 @@ func _physics_process(dt):
 	actual_zoom = lerp(actual_zoom, zoom_factor, dt * zoom_speed)
 	camera_boom.translation = Vector3(0.0, 0.0, actual_zoom)
 
-
-	# TODO : do this differently (removes camera lookahaead when diegetic ui is invoked)
-	camera_lookahead_external_factor = 1.0 - (float(dui_root.is_invoked) * 0.35) #( 1.0 - dui_root.get_invoke_amount() )
-	#camera_lookahead_factor *= camera_lookahead_external_factor
+	# TODO : do this differently (removes camera lookahaead when diegetic inventory ui is invoked)
+	camera_lookahead_external_factor = 1.0 - (float(dui_root.is_inventory_invoked) * 0.35)
 
 	# camera lookahead
 	var co = Vector3.ZERO

@@ -2,8 +2,8 @@ extends "res://data/weapons/weapon.gd"
 
 export var is_enemy_weapon := false setget set_is_enemy_weapon
 
-export var base_magazine_size := 800
-var magazine_count : = base_magazine_size
+export var base_magazine_size := 100
+var magazine_count : = 100
 var base_reload_speed := 0.2
 export var base_fire_rate := 0.08
 export var fire_kickback := 65.0
@@ -12,6 +12,7 @@ var firing_timer := Timer.new()
 var can_fire := false
 
 signal fire
+signal magazine_count_changed(current_magazine_count, normalised_magazine_count)
 
 onready var anim_player = $AnimationPlayer 
 onready var muzzle_flash : MeshInstance = $geometry_hook/muzzle_flash 
@@ -36,6 +37,8 @@ func _ready():
 	muzzle_flash_light.visible = false
 	anim_player.get_animation("muzzle_flash").set_loop(false)
 
+	magazine_count = base_magazine_size
+	
 
 func set_is_enemy_weapon(new_value):
 	is_enemy_weapon = new_value
@@ -77,8 +80,12 @@ func fire():
 	muzzle_flash_light.set_translation( muzzle_flash_light_initial_position + muzz_rand_pos )
 	anim_player.stop(true)
 	anim_player.play("muzzle_flash")
-	#print("  pew (%s/%s) %s"%[magazine_count, base_magazine_size, firing_time])
 	magazine_count -= 1
+	if magazine_count == 0:
+		magazine_count = base_magazine_size
+
+
+	emit_signal("magazine_count_changed", magazine_count, float(magazine_count)/base_magazine_size)
 	
 	var bullet = bullet_scene.instance()
 	if is_enemy_weapon:
@@ -102,7 +109,8 @@ func fire():
 			($shell_casing_spawner.global_transform.basis.x * rand_range(-0.5, 0.5 ) ) )
 
 	if !is_enemy_weapon:
-		Input.start_joy_vibration(0, 1.0, 0.0, 0.05)
+		Input.start_joy_vibration(0, 0.2, 1.0, 0.05)
+
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):
