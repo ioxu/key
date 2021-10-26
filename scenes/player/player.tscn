@@ -86,8 +86,8 @@ emission_operator = 0
 emission_on_uv2 = false
 
 [sub_resource type="CylinderShape" id=10]
-radius = 100.0
-height = 30.0
+radius = 200.0
+height = 100.0
 
 [sub_resource type="SpatialMaterial" id=11]
 flags_transparent = true
@@ -679,6 +679,8 @@ max_points = 1000
 trail_colour = Color( 0.133333, 0.94902, 0.968627, 0.521569 )
 emission_multiplier = 0.5
 
+[connection signal="area_entered" from="MeshInstance/dui_root/static_stack/radar_dots/Area" to="MeshInstance/dui_root/static_stack/radar_dots" method="_on_Area_area_entered"]
+[connection signal="area_exited" from="MeshInstance/dui_root/static_stack/radar_dots/Area" to="MeshInstance/dui_root/static_stack/radar_dots" method="_on_Area_area_exited"]
 [connection signal="body_entered" from="MeshInstance/dui_root/static_stack/radar_dots/Area" to="MeshInstance/dui_root/static_stack/radar_dots" method="_on_Area_body_entered"]
 [connection signal="body_exited" from="MeshInstance/dui_root/static_stack/radar_dots/Area" to="MeshInstance/dui_root/static_stack/radar_dots" method="_on_Area_body_exited"]
 [connection signal="tween_completed" from="MeshInstance/dui_root/invoke_tween" to="MeshInstance/dui_root" method="_on_invoke_tween_tween_completed"]
