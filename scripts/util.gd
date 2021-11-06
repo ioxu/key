@@ -70,3 +70,14 @@ func arc_points(npoints, start, end, radius) -> Array:
 		var p = deg2rad(start + i * (end-start) / npoints - 90)
 		arc_points.append( Vector3( cos( p ) , 0.0, sin( p ) ) * radius )
 	return arc_points
+
+
+# ------------------------------------------------------------------------------
+# nodes
+# ------------------------------------------------------------------------------
+
+
+func set_tree_visible( node : Node, visible : bool) -> void:
+	node.visible = visible
+	for n in node.get_children():
+		set_tree_visible( n, visible )

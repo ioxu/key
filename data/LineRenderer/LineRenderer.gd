@@ -21,6 +21,9 @@ func _process(delta):
 	if not self.visible:
 		return
 
+#	if not Engine.is_editor_hint():
+#		prints("# LINE_RENDERER._process ", self.get_name())
+
 	if points.size() < 2:
 		return
 	
@@ -163,6 +166,7 @@ func corner(center, start, end, smoothing):
 	var angle = offset.angle_to(end - center)
 
 	for i in range(1, smoothing):
+		#prints("### AXIS ", axis.normalized(), " ", self.get_path())
 		array[i] = center + offset.rotated(axis.normalized(), lerp(0, angle, float(i) / smoothing));
 
 	for i in range(1, smoothing + 1):

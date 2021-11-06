@@ -408,7 +408,7 @@ transform = Transform( 1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0 )
 shape = SubResource( 6 )
 
 [node name="MeshInstance14" type="MeshInstance" parent="level"]
-transform = Transform( 1.37627, 0, 0.988592, 0, 6.16581, 0, -0.385143, 0, 3.53264, 16.5804, -1.74243, -30.9576 )
+transform = Transform( 1.37627, 1.06226e-12, 0.988592, 1.81899e-12, 6.16581, 0, -0.385143, 0, 3.53264, 16.6374, -1.82641, -30.8685 )
 layers = 2
 mesh = SubResource( 5 )
 material/0 = ExtResource( 1 )
@@ -418,6 +418,20 @@ collision_layer = 2
 collision_mask = 2147483677
 
 [node name="CollisionShape" type="CollisionShape" parent="level/MeshInstance14/StaticBody"]
+transform = Transform( 1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0 )
+shape = SubResource( 6 )
+
+[node name="MeshInstance31" type="MeshInstance" parent="level"]
+transform = Transform( -0.51678, -1.34489e-05, -0.394075, 1.2932e-05, -0.457731, 1.3495e-05, 0.489191, -2.10707e-06, -0.4163, 14.206, 0.674685, -19.3838 )
+layers = 2
+mesh = SubResource( 5 )
+material/0 = ExtResource( 1 )
+
+[node name="StaticBody" type="StaticBody" parent="level/MeshInstance31"]
+collision_layer = 2
+collision_mask = 2147483677
+
+[node name="CollisionShape" type="CollisionShape" parent="level/MeshInstance31/StaticBody"]
 transform = Transform( 1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0 )
 shape = SubResource( 6 )
 

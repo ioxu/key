@@ -90,8 +90,6 @@ func update_ik(target_pos:Vector2, root_pos:Vector2) -> void:
 	$hip_joint.transform.basis = Basis(Vector3(0,0,1), -1*(base_angles.B - next_angles.B + base_r ) )
 	$hip_joint/thigh_joint.transform.basis = Basis(Vector3(0,0,1), next_angles.C )
 	$hip_joint/thigh_joint/shin_joint.transform.basis = Basis(Vector3(0,0,1) , -1*(base_angles.C - next_angles.A) )
-	
-	
 
 
 func SSS_calc(side_a, side_b, side_c):

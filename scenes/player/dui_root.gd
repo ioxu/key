@@ -16,11 +16,11 @@ var _gtime = 0.0
 
 func _ready():
 	self.visible = false
-	$weapons_ring.visible = false
-	$inventory_ring.visible = false
+	Util.set_tree_visible($weapons_ring, false)
+	Util.set_tree_visible($inventory_ring, false)
 	$static_stack/radar_dots.visible = false
 	$static_stack/inventory_items.visible = false
-	
+	Util.set_tree_visible($static_stack/magazine, false)
 	$inventory_ring.points = Util.ring_points(inventory_ring_npoints, inventory_ring_radius)
 	$weapons_ring.points = Util.ring_points(inventory_ring_npoints, inventory_ring_radius * 0.95)
 	$static_stack.set_as_toplevel(true) # to make control not concat parent's transforms 
@@ -70,10 +70,11 @@ func invoke_inventory_ring():
 	is_invoked = true
 	is_inventory_invoked = true
 	is_weapons_invoked = false
-	$weapons_ring.visible = false
-	$inventory_ring.visible = true
+	Util.set_tree_visible($weapons_ring, false)
+	Util.set_tree_visible($inventory_ring, true)
 	$static_stack/radar_dots.visible = false
 	$static_stack/inventory_items.visible = true
+	Util.set_tree_visible($static_stack/magazine, false)
 	_invoke()
 
 
@@ -83,10 +84,11 @@ func invoke_weapons_ring():
 	is_invoked = true
 	is_inventory_invoked = false
 	is_weapons_invoked = true
-	$weapons_ring.visible = true
-	$inventory_ring.visible = false
+	Util.set_tree_visible($weapons_ring, true)
+	Util.set_tree_visible($inventory_ring, false)
 	$static_stack/radar_dots.visible = true
 	$static_stack/inventory_items.visible = false
+	Util.set_tree_visible($static_stack/magazine, true)
 	_invoke()
 
 
@@ -162,8 +164,13 @@ func _on_invoke_tween_tween_completed(object, key):
 	#if self.scale.x == 0.002 :
 	if self._invoke_amount == 0.0:
 		self.visible = false
-		$weapons_ring.visible = false
-		$inventory_ring.visible = false
+		Util.set_tree_visible($weapons_ring, false)
+		Util.set_tree_visible($inventory_ring, false)
 		$static_stack/radar_dots.visible = false
 		$static_stack/inventory_items.visible = false
+		Util.set_tree_visible($static_stack/magazine, false)
 
+
+		
+		
+		

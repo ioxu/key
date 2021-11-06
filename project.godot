@@ -63,12 +63,21 @@ Util="*res://scripts/util.gd"
 
 [debug]
 
+settings/fps/force_fps=60
 gdscript/warnings/unused_argument=false
 gdscript/warnings/return_value_discarded=false
+
+[display]
+
+window/vsync/use_vsync=false
 
 [editor_plugins]
 
 enabled=PoolStringArray( "SIsilicon.3d.text" )
+
+[global]
+
+vsync=false
 
 [input]
 
@@ -167,6 +176,11 @@ inspect_digetic_ui={
 inspect_weapons_ui={
 "deadzone": 0.5,
 "events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":6,"pressure":0.0,"pressed":false,"script":null)
+ ]
+}
+ui_options={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":11,"pressure":0.0,"pressed":false,"script":null)
  ]
 }
 

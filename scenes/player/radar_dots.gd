@@ -37,7 +37,7 @@ func _ready():
 func _process(delta) -> void:
 	if self.visible == false:
 		return
-		
+
 	for i in range(enemy_dots.size() -1 ):
 		if i >= (tracked_enemies.size() -1) :
 			enemy_dots[i].visible = false
