@@ -67,6 +67,12 @@ func _process(delta):
 	
 	if Input.is_action_just_released("inspect_weapons_ui"):
 		dui_root.devoke_weapons_ring()
+		
+	if Input.is_action_just_pressed("ui_options"):
+		dui_root.invoke_options_ring()
+
+#	if Input.is_action_just_released("ui_options"):
+#		dui_root.devoke_options_ring()
 
 
 func set_active(new_value) -> void:
