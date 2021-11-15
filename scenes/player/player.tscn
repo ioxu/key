@@ -128,12 +128,16 @@ flags_no_depth_test = true
 flags_do_not_receive_shadows = true
 albedo_color = Color( 0.972549, 0.972549, 0.972549, 1 )
 albedo_texture = SubResource( 13 )
+roughness = 0.4
 emission_enabled = true
 emission = Color( 0, 0, 0, 1 )
 emission_energy = 1.5
 emission_operator = 0
 emission_on_uv2 = false
 emission_texture = SubResource( 24 )
+refraction_enabled = true
+refraction_scale = 0.05
+refraction_texture_channel = 0
 
 [sub_resource type="SpatialMaterial" id=15]
 flags_transparent = true
