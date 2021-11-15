@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=2]
+[gd_scene load_steps=47 format=2]
 
 [ext_resource path="res://scenes/player/Controller.gd" type="Script" id=1]
 [ext_resource path="res://data/weapons/pulse_shard/pulse_shard.tscn" type="PackedScene" id=2]
@@ -117,14 +117,23 @@ emission_on_uv2 = false
 flags = 29
 viewport_path = NodePath("MeshInstance/dui_root/options_viewport")
 
+[sub_resource type="ViewportTexture" id=24]
+flags = 25
+viewport_path = NodePath("MeshInstance/dui_root/options_viewport")
+
 [sub_resource type="SpatialMaterial" id=14]
 resource_local_to_scene = true
 flags_transparent = true
-flags_unshaded = true
 flags_no_depth_test = true
 flags_do_not_receive_shadows = true
 albedo_color = Color( 0.972549, 0.972549, 0.972549, 1 )
 albedo_texture = SubResource( 13 )
+emission_enabled = true
+emission = Color( 0, 0, 0, 1 )
+emission_energy = 1.5
+emission_operator = 0
+emission_on_uv2 = false
+emission_texture = SubResource( 24 )
 
 [sub_resource type="SpatialMaterial" id=15]
 flags_transparent = true
@@ -514,7 +523,7 @@ globalCoords = false
 [node name="options" type="Spatial" parent="MeshInstance/dui_root/static_stack"]
 
 [node name="screen" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/options"]
-transform = Transform( -0.707107, -6.18172e-08, 0.707107, -8.74228e-08, 1, 2.86828e-15, 0.707107, 6.18172e-08, 0.707107, 0, 0, 0 )
+transform = Transform( -1.31568, -2.16204e-07, 1.31568, -2.80951e-07, 2.02495, 0, 1.31568, 2.16204e-07, 1.31568, 0, 0, 0 )
 material_override = SubResource( 14 )
 mesh = ExtResource( 22 )
 material/0 = null
