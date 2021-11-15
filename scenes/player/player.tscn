@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://scenes/player/Controller.gd" type="Script" id=1]
 [ext_resource path="res://data/weapons/pulse_shard/pulse_shard.tscn" type="PackedScene" id=2]
@@ -23,6 +23,7 @@
 [ext_resource path="res://scenes/player/emissive_green_semiopaque_material.tres" type="Material" id=21]
 [ext_resource path="res://data/objects/screen-90.obj" type="ArrayMesh" id=22]
 [ext_resource path="res://scenes/player/options_menu_2d.tscn" type="PackedScene" id=23]
+[ext_resource path="res://scenes/player/options_menu_bg_2d.tscn" type="PackedScene" id=24]
 
 [sub_resource type="Animation" id=1]
 resource_name = "recoil_time_animation"
@@ -121,6 +122,10 @@ viewport_path = NodePath("MeshInstance/dui_root/options_viewport")
 flags = 25
 viewport_path = NodePath("MeshInstance/dui_root/options_viewport")
 
+[sub_resource type="ViewportTexture" id=25]
+flags = 5
+viewport_path = NodePath("MeshInstance/dui_root/options_bg_viewport")
+
 [sub_resource type="SpatialMaterial" id=14]
 resource_local_to_scene = true
 flags_transparent = true
@@ -128,16 +133,18 @@ flags_no_depth_test = true
 flags_do_not_receive_shadows = true
 albedo_color = Color( 0.972549, 0.972549, 0.972549, 1 )
 albedo_texture = SubResource( 13 )
-roughness = 0.4
+roughness = 0.39
+roughness_texture = SubResource( 25 )
 emission_enabled = true
 emission = Color( 0, 0, 0, 1 )
-emission_energy = 1.5
+emission_energy = 1.0
 emission_operator = 0
 emission_on_uv2 = false
 emission_texture = SubResource( 24 )
 refraction_enabled = true
-refraction_scale = 0.05
-refraction_texture_channel = 0
+refraction_scale = 0.06
+refraction_texture = SubResource( 25 )
+refraction_texture_channel = 3
 
 [sub_resource type="SpatialMaterial" id=15]
 flags_transparent = true
@@ -255,6 +262,20 @@ gui_disable_input = true
 gui_snap_controls_to_pixels = false
 
 [node name="Node2D" parent="MeshInstance/dui_root/options_viewport" instance=ExtResource( 23 )]
+
+[node name="options_bg_viewport" type="Viewport" parent="MeshInstance/dui_root"]
+size = Vector2( 512, 512 )
+transparent_bg = true
+msaa = 3
+fxaa = true
+hdr = false
+disable_3d = true
+usage = 0
+render_target_v_flip = true
+gui_disable_input = true
+gui_snap_controls_to_pixels = false
+
+[node name="Node2D" parent="MeshInstance/dui_root/options_bg_viewport" instance=ExtResource( 24 )]
 
 [node name="static_stack" type="Spatial" parent="MeshInstance/dui_root"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0 )
