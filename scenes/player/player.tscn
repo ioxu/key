@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=2]
+[gd_scene load_steps=46 format=2]
 
 [ext_resource path="res://scenes/player/Controller.gd" type="Script" id=1]
 [ext_resource path="res://data/weapons/pulse_shard/pulse_shard.tscn" type="PackedScene" id=2]
@@ -114,7 +114,7 @@ emission_operator = 0
 emission_on_uv2 = false
 
 [sub_resource type="ViewportTexture" id=13]
-flags = 13
+flags = 29
 viewport_path = NodePath("MeshInstance/dui_root/options_viewport")
 
 [sub_resource type="SpatialMaterial" id=14]
@@ -177,15 +177,6 @@ emission_energy = 5.0
 emission_operator = 0
 emission_on_uv2 = false
 
-[sub_resource type="SpatialMaterial" id=20]
-flags_no_depth_test = true
-albedo_color = Color( 0.678431, 0.917647, 0.0901961, 1 )
-emission_enabled = true
-emission = Color( 0.85098, 0.937255, 0.180392, 1 )
-emission_energy = 3.0
-emission_operator = 0
-emission_on_uv2 = false
-
 [sub_resource type="QuadMesh" id=21]
 size = Vector2( 2, 2 )
 
@@ -197,9 +188,7 @@ height = 0.077
 
 [sub_resource type="CubeMesh" id=23]
 
-[node name="player" type="KinematicBody" groups=[
-"Player",
-]]
+[node name="player" type="KinematicBody" groups=["Player"]]
 collision_layer = 2147483649
 collision_mask = 2070
 script = ExtResource( 5 )
@@ -581,15 +570,6 @@ capSmooth = 2
 drawCaps = false
 globalCoords = false
 scaleTexture = false
-
-[node name="LineRenderer" parent="MeshInstance/dui_root/options_ring" instance=ExtResource( 10 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.38419e-07, 1.8546 )
-material_override = SubResource( 20 )
-points = [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 0.222 ) ]
-startThickness = 0.03
-endThickness = 0.168
-capSmooth = 6
-globalCoords = false
 
 [node name="invoke_tween" type="Tween" parent="MeshInstance/dui_root"]
 

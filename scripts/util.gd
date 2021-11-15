@@ -51,23 +51,23 @@ func bias_lut( b = 0.5, resolution = 32 ) -> Curve:
 # ------------------------------------------------------------------------------
 
 
-func ring_points(npoints, radius) -> Array:
+func ring_points(npoints:int = 32, radius:float = 5.0) -> Array:
 	# a ring of points on the x-z plane
 	var ring_points = []
 	for i in range(npoints):
-		var p = (i/npoints) * (2*PI)
+		var p = (i/float(npoints)) * (2*PI)
 		ring_points.append( Vector3( sin( p ) , 0.0, cos( p ) ) * radius )
 	ring_points.append( Vector3( sin( 2*PI ) , 0.0, cos( 2*PI ) ) * radius )
 	return ring_points
 
 
-func arc_points(npoints, start, end, radius) -> Array:
+func arc_points(npoints:int = 10, start:float = 45.0, end:float = 315.0, radius:float = 5.0) -> Array:
 	# an arc of points on the x-z plane
 	# start and end are in degrees,
 	# 0 degrees is at 3 o'clock on the x-z plane
 	var arc_points = []
 	for i in range(npoints+1):
-		var p = deg2rad(start + i * (end-start) / npoints - 90)
+		var p = deg2rad(start + i * (end-start) / float(npoints) - 90)
 		arc_points.append( Vector3( cos( p ) , 0.0, sin( p ) ) * radius )
 	return arc_points
 

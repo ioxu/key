@@ -23,9 +23,12 @@ func _ready():
 	$static_stack/radar_dots.visible = false
 	$static_stack/inventory_items.visible = false
 	Util.set_tree_visible($static_stack/magazine, false)
+	$static_stack.set_as_toplevel(true) # to make control not concat parent's transforms 
+	
 	$inventory_ring.points = Util.ring_points(inventory_ring_npoints, inventory_ring_radius)
 	$weapons_ring.points = Util.ring_points(inventory_ring_npoints, inventory_ring_radius * 0.95)
-	$static_stack.set_as_toplevel(true) # to make control not concat parent's transforms 
+	$options_ring.points = Util.arc_points(32, 45/2.0, 225+ 45/2.0, inventory_ring_radius )
+	$options_ring.set_as_toplevel(true)
 
 	# connect to weapon signals
 	weapon_mount = get_node(weapon_mount)
@@ -43,7 +46,9 @@ func _process(dt):
 		# realign static_statck
 		$static_stack.transform.origin = self.global_transform.origin + Vector3(0.0, 1.25, 0.0)
 		$static_stack.set_rotation(Vector3(0.0, 0.0, 0.0))
-
+		$options_ring.transform.origin = self.global_transform.origin + Vector3(0.0, 1.225, 0.0)
+		$options_ring.set_rotation(Vector3(0.0, 0.0, 0.0))
+		
 		var g_dir = self.global_transform.basis.z
 
 		if is_inventory_invoked:

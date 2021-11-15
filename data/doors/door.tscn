@@ -11,9 +11,7 @@ extents = Vector3( 1, 1.984, 0.24459 )
 [sub_resource type="CubeMesh" id=2]
 size = Vector3( 2, 4, 0.5 )
 
-[node name="door" type="Area" groups=[
-"Doors",
-]]
+[node name="door" type="Area" groups=["Doors"]]
 collision_layer = 1024
 collision_mask = 2147483649
 script = ExtResource( 1 )
