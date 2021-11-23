@@ -5,9 +5,23 @@ extends Node
 func _ready():
 	print("util.dg autoload ready")
 
+
+# ------------------------------------------------------------------------------
+# context 
+# ------------------------------------------------------------------------------
+
+
+func is_f6(node:Node):
+	# checks if node is running through GUI by F6,
+	# TODO: needs rigorous testing
+	return node.get_parent().get_path() == "/root/"
+
+
 # ------------------------------------------------------------------------------
 # maths 
 # ------------------------------------------------------------------------------
+
+
 func remap( f, start1, stop1, start2, stop2):
 	return start2 + (stop2 - start2) * ((f - start1) / (stop1 - start1))
 
@@ -78,6 +92,22 @@ func arc_points(npoints:int = 10, start:float = 45.0, end:float = 315.0, radius:
 
 
 func set_tree_visible( node : Node, visible : bool) -> void:
-	node.visible = visible
+	if node.has_method("set_visible"):
+		node.set_visible( visible )
 	for n in node.get_children():
 		set_tree_visible( n, visible )
+
+
+func get_all_children(node):
+	# reursively get a list of all children
+	var cl = []
+	_gac_r(node, cl)
+	return cl
+
+
+func _gac_r(node, acc):
+	# get_all_children recursoin
+	for c in node.get_children():
+		acc.append(c)
+		if c.get_child_count() > 0 :
+			_gac_r(c, acc)

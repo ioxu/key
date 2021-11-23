@@ -242,19 +242,22 @@ func magnitude(vector):
 
 func _process(dt):
 	global_time += dt
-	
-	# shoot
-	if Input.is_action_just_pressed("shoot"):
-		weapon.activated = true
-	
-	if Input.is_action_just_released("shoot"):
-		weapon.activated = false
-		
-	# jump
-	if (Input.is_action_pressed("jump")) and not is_airborne:
-		var lateral_movement = Vector3(movement.x, 0.0, movement.z)
-		current_vertical_speed = Vector3(0.0, max_jump, 0.0) + lateral_movement * 25 * dt
-		is_airborne = true
+
+	if not dui_root.is_options_invoked:
+
+		# shoot
+		if Input.is_action_just_pressed("shoot"):
+			weapon.activated = true
+
+		if Input.is_action_just_released("shoot"):
+			weapon.activated = false
+
+		# jump
+		if (Input.is_action_pressed("jump")):
+			if not is_airborne:
+				var lateral_movement = Vector3(movement.x, 0.0, movement.z)
+				current_vertical_speed = Vector3(0.0, max_jump, 0.0) + lateral_movement * 25 * dt
+				is_airborne = true
 
 
 
