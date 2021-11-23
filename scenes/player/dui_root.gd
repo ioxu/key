@@ -11,7 +11,7 @@ var is_invoked = false
 var is_weapons_invoked = false
 var is_inventory_invoked = false
 var is_options_invoked = false
-
+onready var options_menu_2d = $viewports/options/options_viewport/options_menu_2d
 var _gtime = 0.0
 
 
@@ -66,6 +66,7 @@ func _input(event):
 	
 	if is_options_invoked:
 		# options ui ring interaction
+		$viewports/options/options_viewport.input(event)
 		if event.is_action_pressed("ui_up"):
 			prints("OPTIONS: UP")
 		if event.is_action_pressed("ui_down"):
@@ -74,6 +75,10 @@ func _input(event):
 			prints("OPTIONS: LEFT")
 		if event.is_action_pressed("ui_right"):
 			prints("OPTIONS: RIGHT")
+		if event.is_action_pressed("ui_accept"):
+			prints("OPTIONS: ACCEPT")
+		if event.is_action_pressed("ui_back"):
+			prints("OPTIONS: BACK")
 
 
 func _on_magazine_count_changed(mag_count, norm_mag_count):
@@ -124,6 +129,7 @@ func invoke_options_ring():
 	if is_invoked:
 		return
 
+	prints("OPTIONS: INVOKE")
 	is_invoked = true
 	is_inventory_invoked = false
 	is_weapons_invoked = false
@@ -136,6 +142,7 @@ func invoke_options_ring():
 	Util.set_tree_visible($options_ring, true)
 	Util.set_tree_visible($static_stack/options, true)
 	_invoke()
+	options_menu_2d.focus()
 
 
 func _invoke():
