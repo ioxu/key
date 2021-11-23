@@ -115,11 +115,9 @@ emission_operator = 0
 emission_on_uv2 = false
 
 [sub_resource type="ViewportTexture" id=13]
-flags = 29
 viewport_path = NodePath("MeshInstance/dui_root/viewports/options/options_viewport")
 
 [sub_resource type="ViewportTexture" id=14]
-flags = 25
 viewport_path = NodePath("MeshInstance/dui_root/viewports/options/options_viewport")
 
 [sub_resource type="ViewportTexture" id=15]
@@ -133,7 +131,7 @@ flags_no_depth_test = true
 flags_do_not_receive_shadows = true
 albedo_color = Color( 0.972549, 0.972549, 0.972549, 1 )
 albedo_texture = SubResource( 13 )
-roughness = 0.42
+roughness = 0.4
 roughness_texture = SubResource( 15 )
 emission_enabled = true
 emission = Color( 0, 0, 0, 1 )
@@ -142,7 +140,7 @@ emission_operator = 0
 emission_on_uv2 = false
 emission_texture = SubResource( 14 )
 refraction_enabled = true
-refraction_scale = 0.06
+refraction_scale = 0.07
 refraction_texture = SubResource( 15 )
 refraction_texture_channel = 3
 
@@ -190,9 +188,9 @@ emission_on_uv2 = false
 [sub_resource type="SpatialMaterial" id=21]
 flags_transparent = true
 flags_no_depth_test = true
-albedo_color = Color( 0.462745, 0.803922, 0.219608, 1 )
+albedo_color = Color( 0.101961, 0.109804, 0.180392, 0.729412 )
 emission_enabled = true
-emission = Color( 0.266667, 0.882353, 0.286275, 1 )
+emission = Color( 0.0470588, 0.0980392, 0.12549, 1 )
 emission_energy = 5.0
 emission_operator = 0
 emission_on_uv2 = false
@@ -257,8 +255,7 @@ weapon_mount = NodePath("../weapon_mount")
 size = Vector2( 512, 512 )
 transparent_bg = true
 handle_input_locally = false
-msaa = 1
-hdr = false
+msaa = 2
 disable_3d = true
 usage = 0
 render_target_v_flip = true

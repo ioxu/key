@@ -25,7 +25,7 @@ __meta__ = {
 }
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
-color = Color( 0.501961, 0.8, 0.501961, 0.266667 )
+color = Color( 0.0117647, 0.0431373, 0.0705882, 0.796078 )
 invert_border = 0.1
 polygon = PoolVector2Array( 80, 0, 416, 0, 416, 408, 288, 408, 248, 512, 208, 408, 80, 408 )
 
@@ -49,10 +49,10 @@ __meta__ = {
 }
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
-margin_left = 96.0
-margin_top = 104.0
-margin_right = 401.0
-margin_bottom = 392.0
+margin_left = 100.254
+margin_top = 104.749
+margin_right = 396.254
+margin_bottom = 384.749
 theme = ExtResource( 1 )
 follow_focus = true
 scroll_horizontal_enabled = false
@@ -74,7 +74,7 @@ margin_bottom = 50.0
 focus_neighbour_top = NodePath("../HBoxContainer4/dreamboat")
 focus_neighbour_bottom = NodePath("../controls")
 focus_mode = 2
-custom_colors/font_color = Color( 1, 1, 1, 0.352941 )
+custom_colors/font_color = Color( 1, 1, 1, 0.117647 )
 custom_fonts/font = SubResource( 2 )
 text = "game"
 
@@ -85,7 +85,7 @@ margin_bottom = 104.0
 focus_neighbour_top = NodePath("../game")
 focus_neighbour_bottom = NodePath("../graphics")
 focus_mode = 2
-custom_colors/font_color = Color( 1, 1, 1, 0.352941 )
+custom_colors/font_color = Color( 1, 1, 1, 0.117647 )
 custom_fonts/font = SubResource( 2 )
 text = "controls"
 
@@ -96,7 +96,7 @@ margin_bottom = 158.0
 focus_neighbour_top = NodePath("../controls")
 focus_neighbour_bottom = NodePath("../debug")
 focus_mode = 2
-custom_colors/font_color = Color( 1, 1, 1, 0.352941 )
+custom_colors/font_color = Color( 1, 1, 1, 0.117647 )
 custom_fonts/font = SubResource( 2 )
 text = "graphics"
 
@@ -107,7 +107,7 @@ margin_bottom = 212.0
 focus_neighbour_top = NodePath("../graphics")
 focus_neighbour_bottom = NodePath("../exit")
 focus_mode = 2
-custom_colors/font_color = Color( 1, 1, 1, 0.352941 )
+custom_colors/font_color = Color( 1, 1, 1, 0.117647 )
 custom_fonts/font = SubResource( 2 )
 text = "debug"
 
@@ -137,7 +137,7 @@ focus_neighbour_left = NodePath("../HSlider")
 focus_neighbour_top = NodePath("../../exit")
 focus_neighbour_bottom = NodePath("../../HBoxContainer2/dreamer")
 focus_mode = 2
-custom_colors/font_color = Color( 1, 1, 1, 0.352941 )
+custom_colors/font_color = Color( 1, 1, 1, 0.117647 )
 custom_fonts/font = SubResource( 2 )
 text = "drama"
 
@@ -168,7 +168,7 @@ focus_neighbour_left = NodePath("../HSlider")
 focus_neighbour_top = NodePath("../../HBoxContainer/drama")
 focus_neighbour_bottom = NodePath("../../HBoxContainer3/dreamy")
 focus_mode = 2
-custom_colors/font_color = Color( 1, 1, 1, 0.352941 )
+custom_colors/font_color = Color( 1, 1, 1, 0.117647 )
 custom_fonts/font = SubResource( 2 )
 text = "dreamer"
 
@@ -199,7 +199,7 @@ focus_neighbour_left = NodePath("../HSlider")
 focus_neighbour_top = NodePath("../../HBoxContainer2/dreamer")
 focus_neighbour_bottom = NodePath("../../HBoxContainer4/dreamboat")
 focus_mode = 2
-custom_colors/font_color = Color( 1, 1, 1, 0.352941 )
+custom_colors/font_color = Color( 1, 1, 1, 0.117647 )
 custom_fonts/font = SubResource( 2 )
 text = "dreamy"
 
@@ -230,7 +230,7 @@ focus_neighbour_left = NodePath("../HSlider")
 focus_neighbour_top = NodePath("../../HBoxContainer3/dreamy")
 focus_neighbour_bottom = NodePath("../../game")
 focus_mode = 2
-custom_colors/font_color = Color( 1, 1, 1, 0.352941 )
+custom_colors/font_color = Color( 1, 1, 1, 0.117647 )
 custom_fonts/font = SubResource( 2 )
 text = "dreamboat"
 

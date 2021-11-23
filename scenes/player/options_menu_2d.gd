@@ -4,7 +4,7 @@ var global_time = 0
 
 var f6 = false #true if run in F6 mode (see Util.is_f6())
 
-var label_opac_default = .4
+var label_opac_default = .2
 var label_opac_focus = 1.0
 var focus_owner = null
 var last_focus_owner = null
@@ -25,7 +25,7 @@ func _ready():
 	prints("  LABELS", labels)
 
 	# set scrollcontainer size and vscrollbar theme
-	$ScrollContainer.rect_size = Vector2($ScrollContainer.rect_size.x, 296)
+	$ScrollContainer.rect_size = Vector2($ScrollContainer.rect_size.x, 280)
 	var _v_scroll = $ScrollContainer.get_child(1)
 	_v_scroll.set_theme(vs_theme)
 
@@ -50,7 +50,7 @@ func _on_control_focus_exited():
 func _on_control_focus_entered():
 	focus_owner = $ScrollContainer.get_focus_owner()
 	var cc = focus_owner.get("custom_colors/font_color")
-	focus_owner.set("custom_colors/font_color", Color(cc.r, cc.g, cc.b, int(255*label_opac_focus) ))
+	focus_owner.set("custom_colors/font_color", Color(cc.r, cc.g, cc.b, label_opac_focus ))
 
 
 func _input(event):

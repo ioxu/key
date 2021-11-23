@@ -37,6 +37,10 @@ func _ready():
 	$static_stack/magazine/full_arc.points = Util.arc_points(16, 180, 270, inventory_ring_radius * 0.95 * 0.8)
 	$static_stack/magazine/count.points = Util.arc_points(16, 180, 270, inventory_ring_radius * 0.95 * 0.8)
 
+	# filter on options_menu_2d ViewportTexture?
+	$static_stack/options/screen.get_material_override().get_texture( SpatialMaterial.TEXTURE_ALBEDO ).flags = Texture.FLAGS_DEFAULT + Texture.FLAG_ANISOTROPIC_FILTER
+	#$static_stack/options/screen.get_material_override().get_texture( SpatialMaterial.TEXTURE_EMISSION ).flags = Texture.FLAGS_DEFAULT + Texture.FLAG_ANISOTROPIC_FILTER
+
 
 func _process(dt):
 	_gtime += dt
