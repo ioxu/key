@@ -32,6 +32,7 @@ func _input(event):
 		get_tree().quit()
 	elif event.is_action_pressed("ui_fullscreen"):
 		_go_fullscreen()
+		get_tree().set_input_as_handled()
 	elif event.is_action_pressed("ui_reset"):
 		get_tree().reload_current_scene()
 

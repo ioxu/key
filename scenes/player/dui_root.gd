@@ -71,18 +71,18 @@ func _input(event):
 	if is_options_invoked:
 		# options ui ring interaction
 		$viewports/options/options_viewport.input(event)
-		if event.is_action_pressed("ui_up"):
-			prints("OPTIONS: UP")
-		if event.is_action_pressed("ui_down"):
-			prints("OPTIONS: DOWN")
-		if event.is_action_pressed("ui_left"):
-			prints("OPTIONS: LEFT")
-		if event.is_action_pressed("ui_right"):
-			prints("OPTIONS: RIGHT")
-		if event.is_action_pressed("ui_accept"):
-			prints("OPTIONS: ACCEPT")
-		if event.is_action_pressed("ui_back"):
-			prints("OPTIONS: BACK")
+#		if event.is_action_pressed("ui_up"):
+#			prints("DUI_ROOT: UP")
+#		if event.is_action_pressed("ui_down"):
+#			prints("DUI_ROOT: DOWN")
+#		if event.is_action_pressed("ui_left"):
+#			prints("DUI_ROOT: LEFT")
+#		if event.is_action_pressed("ui_right"):
+#			prints("DUI_ROOT: RIGHT")
+#		if event.is_action_pressed("ui_accept"):
+#			prints("DUI_ROOT: ACCEPT")
+#		if event.is_action_pressed("ui_back"):
+#			prints("DUI_ROOT: BACK")
 
 
 func _on_magazine_count_changed(mag_count, norm_mag_count):
@@ -233,3 +233,7 @@ func _on_invoke_tween_tween_completed(object, key):
 func get_invoke_amount():
 	# TODO : do this another way
 	return _invoke_amount
+
+
+func _on_options_menu_2d_close_options_menu():
+	devoke_options_ring()

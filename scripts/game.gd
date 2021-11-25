@@ -36,7 +36,6 @@ func _on_player_die(object):
 	exit_door(last_door_exited)
 
 
-
 func enter_door(door_name, connected_scene, connected_door) -> void:
 	prints("game.gd", "enter_door", door_name, connected_scene, connected_door)
 	# unparent player
@@ -83,3 +82,8 @@ func find_door(door_name) -> Node:
 				prints(" found door", "'"+c.door_name+"'", c.get_path())
 				return c
 	return null
+
+
+func set_SSAO(value):
+	prints("SETTING SSAO FROM GAME AUTOLOAD", value)
+	current_level.get_node("WorldEnvironment").environment.ssao_enabled = value

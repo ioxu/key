@@ -273,6 +273,9 @@ usage = 0
 render_target_v_flip = true
 gui_disable_input = true
 gui_snap_controls_to_pixels = false
+__meta__ = {
+"_editor_description_": "this viewport is simply for an alpha for the options viewport texture"
+}
 
 [node name="Node2D" parent="MeshInstance/dui_root/viewports/options/options_bg_viewport" instance=ExtResource( 24 )]
 
@@ -917,6 +920,7 @@ max_points = 1000
 trail_colour = Color( 0.133333, 0.94902, 0.968627, 0.521569 )
 emission_multiplier = 0.5
 
+[connection signal="close_options_menu" from="MeshInstance/dui_root/viewports/options/options_viewport/options_menu_2d" to="MeshInstance/dui_root" method="_on_options_menu_2d_close_options_menu"]
 [connection signal="area_entered" from="MeshInstance/dui_root/static_stack/radar_dots/Area" to="MeshInstance/dui_root/static_stack/radar_dots" method="_on_Area_area_entered"]
 [connection signal="area_exited" from="MeshInstance/dui_root/static_stack/radar_dots/Area" to="MeshInstance/dui_root/static_stack/radar_dots" method="_on_Area_area_exited"]
 [connection signal="body_entered" from="MeshInstance/dui_root/static_stack/radar_dots/Area" to="MeshInstance/dui_root/static_stack/radar_dots" method="_on_Area_body_entered"]
