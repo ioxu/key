@@ -1,4 +1,5 @@
 extends Spatial
+class_name Weapon
 # weapons can activate
 # weapons dictate damage
 # weapons have modifiers

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://data/shaders/spatial_debug_boxdivide_material.tres" type="Material" id=1]
 [ext_resource path="res://scenes/fps_label.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://data/doors/door.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/Level.gd" type="Script" id=7]
 [ext_resource path="res://data/jumpPad/jumpPad.tscn" type="PackedScene" id=8]
+[ext_resource path="res://data/pickups/orb_pickup.tscn" type="PackedScene" id=9]
 
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 500, 1, 500 )
@@ -814,6 +815,9 @@ door_name = "start"
 
 [node name="Enemy" parent="level" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.88642, 1.00073, -26.3141 )
+
+[node name="orb_pickup" parent="level" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.60026, 2.43347, 3.98761 )
 
 [node name="fps_label" type="Label" parent="."]
 modulate = Color( 1, 1, 1, 0.415686 )

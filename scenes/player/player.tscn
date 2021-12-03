@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://scenes/player/Controller.gd" type="Script" id=1]
 [ext_resource path="res://data/weapons/pulse_shard/pulse_shard.tscn" type="PackedScene" id=2]
@@ -18,9 +18,7 @@
 [ext_resource path="res://scenes/player/emissive_red_semiopaque_material.tres" type="Material" id=16]
 [ext_resource path="res://scenes/player/emissive_blue_semiopaque_material.tres" type="Material" id=17]
 [ext_resource path="res://scenes/player/emissive_blue_square_outline_material.tres" type="Material" id=18]
-[ext_resource path="res://data/textures/square_01.png" type="Texture" id=19]
 [ext_resource path="res://scenes/player/radar_dot.tscn" type="PackedScene" id=20]
-[ext_resource path="res://scenes/player/emissive_green_semiopaque_material.tres" type="Material" id=21]
 [ext_resource path="res://data/objects/screen-90.obj" type="ArrayMesh" id=22]
 [ext_resource path="res://scenes/player/options_menu_2d.tscn" type="PackedScene" id=23]
 [ext_resource path="res://scenes/player/options_menu_bg_2d.tscn" type="PackedScene" id=24]
@@ -66,29 +64,6 @@ rings = 1
 [sub_resource type="QuadMesh" id=7]
 material = ExtResource( 17 )
 size = Vector2( 0.75, 1 )
-
-[sub_resource type="SpatialMaterial" id=8]
-flags_transparent = true
-flags_no_depth_test = true
-params_cull_mode = 2
-albedo_color = Color( 0.317647, 0.737255, 0.921569, 0.0509804 )
-emission_enabled = true
-emission = Color( 0.945098, 0.364706, 0.921569, 1 )
-emission_energy = 3.0
-emission_operator = 0
-emission_on_uv2 = false
-
-[sub_resource type="SpatialMaterial" id=9]
-flags_transparent = true
-flags_no_depth_test = true
-params_cull_mode = 2
-albedo_color = Color( 0.882353, 0.184314, 0.462745, 0.254902 )
-albedo_texture = ExtResource( 19 )
-emission_enabled = true
-emission = Color( 0.933333, 0.290196, 0.878431, 1 )
-emission_energy = 5.0
-emission_operator = 0
-emission_on_uv2 = false
 
 [sub_resource type="CylinderShape" id=10]
 radius = 200.0
@@ -285,165 +260,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0 )
 [node name="inventory_items" type="Spatial" parent="MeshInstance/dui_root/static_stack"]
 transform = Transform( -0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 0, 0, 0 )
 
-[node name="mods" type="Spatial" parent="MeshInstance/dui_root/static_stack/inventory_items"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
-
-[node name="Spatial6" type="Spatial" parent="MeshInstance/dui_root/static_stack/inventory_items/mods"]
-
-[node name="MeshInstance" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/mods/Spatial6"]
-transform = Transform( 1, -1.42109e-14, 0, 0, 0.762319, 0, 0, 1.42109e-14, 1, 2.36219e-07, 0, 2.4 )
-mesh = SubResource( 7 )
-material/0 = ExtResource( 21 )
-
-[node name="outline" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/mods/Spatial6/MeshInstance"]
-transform = Transform( 1, 7.10543e-15, 0, 0, 1, 0, 0, -7.10543e-15, 1, 0, 0, -0.15 )
-visible = false
-mesh = SubResource( 7 )
-material/0 = ExtResource( 18 )
-
-[node name="Spatial7" type="Spatial" parent="MeshInstance/dui_root/static_stack/inventory_items/mods"]
-transform = Transform( 0.906308, 0, -0.422618, 0, 1, -7.10543e-15, 0.422618, 0, 0.906308, 0, 0, 0 )
-
-[node name="MeshInstance" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/mods/Spatial7"]
-transform = Transform( 1, 0, -1.78814e-07, 0, 0.762319, -4.9738e-14, 1.78814e-07, 4.26326e-14, 1, -6.26127e-08, 0, 2.4 )
-mesh = SubResource( 7 )
-material/0 = ExtResource( 21 )
-
-[node name="outline" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/mods/Spatial7/MeshInstance"]
-transform = Transform( 0.999999, 0, 2.08616e-07, 3.55271e-15, 1, 4.26326e-14, -2.08616e-07, -4.9738e-14, 0.999999, 0, 0, -0.15 )
-visible = false
-mesh = SubResource( 7 )
-material/0 = ExtResource( 18 )
-
-[node name="Spatial8" type="Spatial" parent="MeshInstance/dui_root/static_stack/inventory_items/mods"]
-transform = Transform( 0.906308, 0, 0.422618, 7.10543e-15, 1, 0, -0.422618, 0, 0.906308, 0, 0, 0 )
-
-[node name="MeshInstance" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/mods/Spatial8"]
-transform = Transform( 1, -4.26326e-14, 2.08616e-07, 6.39488e-14, 0.762319, 0, -2.08616e-07, 7.10543e-15, 1, -0.00366774, 0, 2.38992 )
-mesh = SubResource( 7 )
-material/0 = ExtResource( 21 )
-
-[node name="outline" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/mods/Spatial8/MeshInstance"]
-transform = Transform( 0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 0, -0.15 )
-visible = false
-mesh = SubResource( 7 )
-material/0 = ExtResource( 18 )
-
-[node name="Spatial9" type="Spatial" parent="MeshInstance/dui_root/static_stack/inventory_items/mods"]
-transform = Transform( 0.642788, 0, 0.766044, 0, 1, 8.88178e-16, -0.766044, 0, 0.642788, 0, 0, 0 )
-
-[node name="MeshInstance" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/mods/Spatial9"]
-transform = Transform( 1, 0, 2.98023e-08, 0, 0.762319, 0, -2.23517e-08, -1.77636e-15, 1, 0.000934576, 0, 2.38932 )
-mesh = SubResource( 7 )
-material/0 = ExtResource( 21 )
-
-[node name="outline" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/mods/Spatial9/MeshInstance"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.15 )
-visible = false
-mesh = SubResource( 7 )
-material/0 = ExtResource( 18 )
-
-[node name="Spatial10" type="Spatial" parent="MeshInstance/dui_root/static_stack/inventory_items/mods"]
-transform = Transform( 0.642788, 0, -0.766044, -8.88178e-16, 1, 0, 0.766044, 0, 0.642788, 0, 0, 0 )
-
-[node name="MeshInstance" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/mods/Spatial10"]
-transform = Transform( 1, 0, -1.49012e-08, 0, 0.762319, 0, 2.98023e-08, 0, 1, -1.03829e-07, 0, 2.4 )
-mesh = SubResource( 7 )
-material/0 = ExtResource( 21 )
-
-[node name="outline" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/mods/Spatial10/MeshInstance"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.15 )
-visible = false
-mesh = SubResource( 7 )
-material/0 = ExtResource( 18 )
-
-[node name="general" type="Spatial" parent="MeshInstance/dui_root/static_stack/inventory_items"]
-
-[node name="Spatial" type="Spatial" parent="MeshInstance/dui_root/static_stack/inventory_items/general"]
-
-[node name="MeshInstance" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/general/Spatial"]
-transform = Transform( 1, -1.42109e-14, 0, 0, 0.762319, 0, 0, 1.42109e-14, 1, 2.36219e-07, 0, 2.4 )
-mesh = SubResource( 7 )
-material/0 = null
-
-[node name="outline" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/general/Spatial/MeshInstance"]
-transform = Transform( 1, 7.10543e-15, 0, 0, 1, 0, 0, -7.10543e-15, 1, 0, 0, -0.15 )
-visible = false
-mesh = SubResource( 7 )
-material/0 = ExtResource( 18 )
-
-[node name="Spatial2" type="Spatial" parent="MeshInstance/dui_root/static_stack/inventory_items/general"]
-transform = Transform( 0.906308, 0, -0.422618, 0, 1, -7.10543e-15, 0.422618, 0, 0.906308, 0, 0, 0 )
-
-[node name="MeshInstance" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/general/Spatial2"]
-transform = Transform( 1, 0, -1.78814e-07, 0, 0.762319, -4.9738e-14, 1.78814e-07, 4.26326e-14, 1, -6.26127e-08, 0, 2.4 )
-mesh = SubResource( 7 )
-material/0 = null
-
-[node name="outline" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/general/Spatial2/MeshInstance"]
-transform = Transform( 0.999999, 0, 2.08616e-07, 3.55271e-15, 1, 4.26326e-14, -2.08616e-07, -4.9738e-14, 0.999999, 0, 0, -0.15 )
-visible = false
-mesh = SubResource( 7 )
-material/0 = ExtResource( 18 )
-
-[node name="Spatial3" type="Spatial" parent="MeshInstance/dui_root/static_stack/inventory_items/general"]
-transform = Transform( 0.906308, 0, 0.422618, 7.10543e-15, 1, 0, -0.422618, 0, 0.906308, 0, 0, 0 )
-
-[node name="MeshInstance" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/general/Spatial3"]
-transform = Transform( 1, -3.55271e-14, 1.49012e-07, 4.9738e-14, 0.762319, 0, -1.49012e-07, 3.55271e-15, 1, -8.29208e-08, 0, 2.4 )
-mesh = SubResource( 7 )
-material/0 = null
-
-[node name="outline" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/general/Spatial3/MeshInstance"]
-transform = Transform( 0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 0, -0.15 )
-visible = false
-mesh = SubResource( 7 )
-material/0 = ExtResource( 18 )
-
-[node name="Spatial5" type="Spatial" parent="MeshInstance/dui_root/static_stack/inventory_items/general"]
-transform = Transform( 0.642788, 0, 0.766044, 0, 1, 8.88178e-16, -0.766044, 0, 0.642788, 0, 0, 0 )
-
-[node name="MeshInstance" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/general/Spatial5"]
-transform = Transform( 1, 0, 3.72529e-08, 0, 0.762319, 0, -2.98023e-08, 0, 1, -4.37687e-08, 0, 2.4 )
-mesh = SubResource( 7 )
-material/0 = null
-
-[node name="outline" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/general/Spatial5/MeshInstance"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.15 )
-visible = false
-mesh = SubResource( 7 )
-material/0 = ExtResource( 18 )
-
-[node name="Spatial4" type="Spatial" parent="MeshInstance/dui_root/static_stack/inventory_items/general"]
-transform = Transform( 0.642788, 0, -0.766044, -8.88178e-16, 1, 0, 0.766044, 0, 0.642788, 0, 0, 0 )
-
-[node name="MeshInstance" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/general/Spatial4"]
-transform = Transform( 1, 0, -1.49012e-08, 0, 0.762319, 0, 2.98023e-08, 0, 1, -1.03829e-07, 0, 2.4 )
-mesh = SubResource( 7 )
-material/0 = null
-
-[node name="outline" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/general/Spatial4/MeshInstance"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.15 )
-visible = false
-mesh = SubResource( 7 )
-material/0 = ExtResource( 18 )
-
-[node name="Back_Spatial" type="Spatial" parent="MeshInstance/dui_root/static_stack/inventory_items/general"]
-transform = Transform( -0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, 0, 0, 0 )
-
-[node name="MeshInstance" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/general/Back_Spatial"]
-transform = Transform( 1, -1.42109e-14, 0, 0, 0.762319, 0, 0, 1.42109e-14, 1, 2.36219e-07, 0, 2.4 )
-mesh = SubResource( 7 )
-material/0 = SubResource( 8 )
-
-[node name="outline" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/general/Back_Spatial/MeshInstance"]
-transform = Transform( 1, 7.10543e-15, 0, 0, 1, 0, 0, -7.10543e-15, 1, 0, 0, -0.15 )
-visible = false
-mesh = SubResource( 7 )
-material/0 = SubResource( 9 )
-
 [node name="weapons" type="Spatial" parent="MeshInstance/dui_root/static_stack/inventory_items"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
 
 [node name="Spatial6" type="Spatial" parent="MeshInstance/dui_root/static_stack/inventory_items/weapons"]
 
@@ -551,6 +368,7 @@ globalCoords = false
 
 [node name="screen" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/options"]
 transform = Transform( -1.31568, -2.16204e-07, 1.31568, -2.80951e-07, 2.02495, 0, 1.31568, 2.16204e-07, 1.31568, 0, 0, 0 )
+visible = false
 material_override = SubResource( 16 )
 mesh = ExtResource( 22 )
 material/0 = null

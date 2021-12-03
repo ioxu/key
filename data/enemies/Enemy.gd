@@ -49,6 +49,9 @@ var damage_rng = RandomNumberGenerator.new()
 const point_of_interest_scene = preload("res://data/enemies/PointOfInterest.tscn")
 const enemy_corpse_scene = preload("res://data/enemies/EnemyCorpse.tscn")
 
+const orb_pickup_scene = preload("res://data/pickups/orb_pickup.tscn") 
+
+
 onready var hurt_meter = $MeshInstance/hurt_meter
 onready var fsm = $statemachine
 
@@ -133,16 +136,25 @@ func bullet_hit(bullet, collision_info):
 #		if DO_TRAVEL_PATH and active:
 #			travel_path.queue_free()
 
-		if (target as PointOfInterest):
+		if is_instance_valid(target) and (target as PointOfInterest):
 			target.queue_free()
 			target = null
 
+		# corpse
 		var corpse = enemy_corpse_scene.instance()
 		corpse.transform = self.transform
 		get_node("/root/").add_child(corpse)
 		var impulse = 5.0 * (Vector3(0.0, 60.0, 0.0) + bullet.transform.basis.z * 35.0) #25.0
 		var impulse_location = transform.basis.z * -.28 + Vector3(0.0, -0.55, 0.0)
 		corpse.apply_impulse ( impulse_location, impulse)
+
+		# drops
+		for i in range(randi()%6):
+			var orb = orb_pickup_scene.instance()
+			orb.transform.origin = self.transform.origin + Vector3(0.0, 0.45, 0.0)
+			get_tree().get_root().add_child( orb )
+			var oimp = Vector3(0.0, 250, 0.0)
+			orb.apply_central_impulse(oimp)
 
 		$vision_raycast.stop()
 		$vision_raycast.sight_line.queue_free()
@@ -164,7 +176,7 @@ func _apply_bullet_knockback(bullet):
 func _idle_enter():
 	$alert_icon.visible = false
 	weapon.set_activated(false)
-	if (target as PointOfInterest):
+	if is_instance_valid(target) and (target as PointOfInterest):
 		target.queue_free()
 	target = null
 	weapon.visible = false
@@ -206,7 +218,7 @@ func _attack(delta) -> void:
 		if target_last_known_position == null:
 			fsm.set_state("idle")
 		else:
-			if (target as PointOfInterest):
+			if is_instance_valid(target) and (target as PointOfInterest):
 				target.queue_free()
 				target = null
 			var poi = point_of_interest_scene.instance()
@@ -262,7 +274,7 @@ func _search(delta):
 		rotate_toward_target(delta)
 		search_toward_target(delta)
 		if (self.transform.origin - target.transform.origin).length() < 1.5:
-			if (target as PointOfInterest):
+			if is_instance_valid(target) and (target as PointOfInterest):
 				target.queue_free()
 				target = null
 			fsm.set_state("idle")
@@ -454,7 +466,7 @@ func toggle_active(new_value) -> void:
 
 func _on_vision_area_body_entered(body) -> void:
 	if body.is_in_group("Player") and body.targetable:
-		if (target as PointOfInterest):
+		if is_instance_valid(target) and (target as PointOfInterest):
 			target.queue_free()
 			target=null
 		target = body
@@ -469,7 +481,7 @@ func _on_vision_area_body_exited(body) -> void:
 	# I think this gets called when self is
 	# queue_free'd, and the vision area is removed
 	if self.is_queued_for_deletion():
-		if (target as PointOfInterest):
+		if is_instance_valid(target) and (target as PointOfInterest):
 			target.queue_free()
 			target = null
 
@@ -485,7 +497,7 @@ func _on_vision_area_body_exited(body) -> void:
 
 func clear_poi_target() -> void:
 		if is_instance_valid(target) and target:
-			if (target as PointOfInterest):
+			if is_instance_valid(target) and (target as PointOfInterest):
 				target.queue_free()
 				target = null
 

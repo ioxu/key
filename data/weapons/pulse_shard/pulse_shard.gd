@@ -2,7 +2,7 @@ extends "res://data/weapons/weapon.gd"
 
 export var is_enemy_weapon := false setget set_is_enemy_weapon
 
-export var base_magazine_size := 100
+export var base_magazine_size := 200
 var magazine_count : = 100
 var base_reload_speed := 0.2
 export var base_fire_rate := 0.08

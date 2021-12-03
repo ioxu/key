@@ -36,6 +36,9 @@ signal die(object)
 
 onready var dui_root = get_node("MeshInstance/dui_root")
 
+var inventory_resource = load("res://data/inventory/inventory.gd")
+var inventory = inventory_resource.new()
+
 
 func _ready():
 	#spawn_point = get_node(spawn_point)
