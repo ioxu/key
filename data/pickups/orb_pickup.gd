@@ -1,9 +1,13 @@
 extends RigidBody
 
+# pickup-type object based on RiginBody base
+
 export var pickup_name := "Orb"
+export var orb_value := 1
 
 var magnet_to = null
 var magnet_time = 0.0
+
 
 func _ready():
 	pass
@@ -23,12 +27,12 @@ func _physics_process(dt):
 
 func _on_orb_pickup_body_entered(body):
 	if body.is_in_group("Player"):
-		#prints(body.get_name(), "has picked up", self.get_name())
+		if body.has_method("pickup"):
+			body.pickup(self)
 		self.queue_free()
-		pass
 
 
 func _on_magnet_area_body_entered(body):
 	if body.is_in_group("Player") and magnet_to == null:
-		#prints(self.get_name(), "will magnet to", body.get_name())
 		magnet_to = body
+

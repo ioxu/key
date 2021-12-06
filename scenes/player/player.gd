@@ -146,11 +146,17 @@ func bullet_hit(bullet, collision_info) -> void:
 
 
 func add_level_visit(level_name, door_name) -> void :
-	_level_visits += level_name + ":" + door_name + ","
-	
+	_level_visits += level_name + ":" + door_name + ","	
+
 
 func add_additional_force(force:Vector3) -> void:
 	$Controller.additional_force += force
 
+
+func pickup( pickup_object ):
+	prints(self.get_name(), "picked up", pickup_object.get_name())
+	if pickup_object.pickup_name == "Orb":
+		self.inventory.add_orbs( pickup_object.orb_value )
+	
 
 

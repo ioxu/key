@@ -5,6 +5,10 @@ export var inventory_name := "inventory"
 export var n_slots : int = -1
 export var _weapon_items = Array() setget set_weapon_items, get_weapon_items
 
+# currencies 
+var n_orbs := 0 
+
+
 signal inventory_changed
 
 
@@ -26,4 +30,9 @@ func add_weapon_item(item, quantity):
 	if item is Weapon:
 		_weapon_items.append( item )
 		emit_signal("inventory_changed" ,self)
+
+
+func add_orbs(norbs:int = 0) -> void:
+	self.n_orbs += norbs
+	emit_signal("inventory_changed" ,self)
 

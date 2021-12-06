@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://data/fonts/Roboto-Regular_DynamicFont.tres" type="DynamicFont" id=2]
+
+[node name="inventory_front_2d" type="Node2D"]
+
+[node name="orbs_label" type="Label" parent="."]
+margin_left = 16.0
+margin_top = -8.0
+margin_right = 116.0
+margin_bottom = 52.0
+rect_scale = Vector2( 1.73837, 1.73837 )
+custom_fonts/font = ExtResource( 2 )
+text = "orbs"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="orbs_number" type="Label" parent="."]
+margin_left = 208.0
+margin_top = -8.0
+margin_right = 308.0
+margin_bottom = 52.0
+rect_scale = Vector2( 1.73837, 1.73837 )
+custom_fonts/font = ExtResource( 2 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}

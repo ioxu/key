@@ -17,16 +17,14 @@ rings = 3
 
 [sub_resource type="SpatialMaterial" id=3]
 params_depth_draw_mode = 3
-albedo_color = Color( 0.270588, 0.54902, 0.235294, 0.447059 )
+albedo_color = Color( 0.270588, 0.54902, 0.235294, 0.0784314 )
 metallic_specular = 1.0
 roughness = 0.15
 emission_enabled = true
 emission = Color( 0.184314, 0.431373, 0.184314, 1 )
-emission_energy = 3.0
+emission_energy = 20.0
 emission_operator = 0
 emission_on_uv2 = false
-transmission_enabled = true
-transmission = Color( 0.74902, 0.74902, 0.74902, 1 )
 
 [sub_resource type="SphereShape" id=5]
 radius = 7.5
@@ -47,6 +45,7 @@ script = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
+cast_shadow = 2
 mesh = SubResource( 2 )
 material/0 = SubResource( 3 )
 
