@@ -9,7 +9,7 @@ export var _weapon_items = Array() setget set_weapon_items, get_weapon_items
 var n_orbs := 0 
 
 
-signal inventory_changed
+signal inventory_changed(object)
 
 
 func set_weapon_items(new_items: Array) -> void:
@@ -35,4 +35,5 @@ func add_weapon_item(item, quantity):
 func add_orbs(norbs:int = 0) -> void:
 	self.n_orbs += norbs
 	emit_signal("inventory_changed" ,self)
+	
 

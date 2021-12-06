@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://scenes/player/Controller.gd" type="Script" id=1]
 [ext_resource path="res://data/weapons/pulse_shard/pulse_shard.tscn" type="PackedScene" id=2]
@@ -69,11 +69,20 @@ size = Vector2( 0.75, 1 )
 [sub_resource type="ViewportTexture" id=26]
 viewport_path = NodePath("MeshInstance/dui_root/viewports/inventory_front/Viewport")
 
+[sub_resource type="ViewportTexture" id=27]
+viewport_path = NodePath("MeshInstance/dui_root/viewports/inventory_front/Viewport")
+
 [sub_resource type="SpatialMaterial" id=25]
 resource_local_to_scene = true
 flags_transparent = true
-params_cull_mode = 1
+flags_no_depth_test = true
 albedo_texture = SubResource( 26 )
+emission_enabled = true
+emission = Color( 0, 0, 0, 1 )
+emission_energy = 3.0
+emission_operator = 0
+emission_on_uv2 = false
+emission_texture = SubResource( 27 )
 
 [sub_resource type="CylinderShape" id=10]
 radius = 200.0
@@ -350,8 +359,8 @@ visible = false
 mesh = SubResource( 7 )
 material/0 = ExtResource( 18 )
 
-[node name="front_screen" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items"]
-transform = Transform( 1.13474, 1.63701e-07, 0.0716305, -1.71682e-07, 1.082, -1.08159e-08, -0.0716305, -2.04237e-11, 1.13474, -3.59241e-07, -2.37444, 4.48495e-11 )
+[node name="screen" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items"]
+transform = Transform( 1.13301, 1.63701e-07, -0.0951222, -1.71421e-07, 1.082, 1.43701e-08, -0.0951222, -2.04414e-11, -1.13301, 3.71472e-07, 2.45529, -4.63132e-11 )
 material_override = SubResource( 25 )
 mesh = ExtResource( 22 )
 skeleton = NodePath("../../options")
@@ -394,6 +403,7 @@ globalCoords = false
 
 [node name="screen" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/options"]
 transform = Transform( -1.31568, -2.16204e-07, 1.31568, -2.80951e-07, 2.02495, 0, 1.31568, 2.16204e-07, 1.31568, 0, 0, 0 )
+visible = false
 material_override = SubResource( 16 )
 mesh = ExtResource( 22 )
 material/0 = null

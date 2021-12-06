@@ -41,6 +41,8 @@ func _ready():
 	$static_stack/options/screen.get_material_override().get_texture( SpatialMaterial.TEXTURE_ALBEDO ).flags = Texture.FLAGS_DEFAULT + Texture.FLAG_ANISOTROPIC_FILTER
 	#$static_stack/options/screen.get_material_override().get_texture( SpatialMaterial.TEXTURE_EMISSION ).flags = Texture.FLAGS_DEFAULT + Texture.FLAG_ANISOTROPIC_FILTER
 
+	
+
 
 func _process(dt):
 	_gtime += dt
@@ -237,3 +239,10 @@ func get_invoke_amount():
 
 func _on_options_menu_2d_close_options_menu():
 	devoke_options_ring()
+
+
+func _on_inventory_changed(object):
+	#prints("DUI_ROOT inventory changed", object, ".")
+	var on = $viewports/inventory_front/Viewport/inventory_front_2d.find_node("orbs_number")
+	#prints("   on:", on)
+	on.text = str(object.n_orbs)

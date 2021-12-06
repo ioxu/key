@@ -51,6 +51,8 @@ func _ready():
 	current_wepon = $MeshInstance/weapon_mount.get_child(0)
 	current_wepon.connect("fire", self, "_on_weapon_fire")
 
+	# connect to inventory
+	inventory.connect("inventory_changed", dui_root, "_on_inventory_changed")
 
 func _process(delta):
 	# recoil on waist
@@ -155,7 +157,7 @@ func add_additional_force(force:Vector3) -> void:
 
 func pickup( pickup_object ):
 	prints(self.get_name(), "picked up", pickup_object.get_name())
-	if pickup_object.pickup_name == "Orb":
+	if pickup_object.pickup_name == "Orb" or pickup_object.pickup_name == "Gem":
 		self.inventory.add_orbs( pickup_object.orb_value )
 	
 

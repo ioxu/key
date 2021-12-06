@@ -15,7 +15,6 @@ var rng = RandomNumberGenerator.new()
 func _ready():
 	rng.randomize()
 	var r = rng.randf_range(0.5, 1.5)
-	prints("RAND",r)
 	$RigidBody/CollisionShape.shape = $RigidBody/CollisionShape.shape.duplicate()
 	$RigidBody/MeshInstance.mesh = $RigidBody/MeshInstance.mesh.duplicate()
 	
