@@ -150,17 +150,18 @@ func bullet_hit(bullet, collision_info):
 		corpse.apply_impulse ( impulse_location, impulse)
 
 		# drops
-		for _i in range(1+randi()%4):
-			var orb = orb_pickup_scene.instance()
-			orb.transform.origin = self.transform.origin + Vector3(0.0, 0.45, 0.0)
-			get_tree().get_root().add_child( orb )
-			var oimp = Vector3(0.0, 250, 0.0)
-			orb.apply_central_impulse(oimp)
+		for _i in range(1+randi()%12):
+#			var orb = orb_pickup_scene.instance()
+#			orb.transform.origin = self.transform.origin + Vector3(0.0, 0.45, 0.0)
+#			get_tree().get_root().add_child( orb )
+#			var oimp = Vector3(0.0, 250, 0.0)
+#			orb.apply_central_impulse(oimp)
 			
-			orb = gem_pickup_scene.instance()
-			orb.transform.origin = self.transform.origin + Vector3(0.0, 0.45, 0.0)
-			get_tree().get_root().add_child( orb )
-			orb.find_node("RigidBody").apply_central_impulse(oimp)
+			var gem = gem_pickup_scene.instance()
+			gem.transform.origin = self.transform.origin + Vector3(0.0, 0.45, 0.0)
+			get_tree().get_root().add_child( gem )
+			var oimp = Vector3(0.0, 250, 0.0)
+			gem.find_node("RigidBody").apply_central_impulse(oimp)
 
 
 
