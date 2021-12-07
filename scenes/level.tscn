@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://data/shaders/spatial_debug_boxdivide_material.tres" type="Material" id=1]
 [ext_resource path="res://scenes/fps_label.gd" type="Script" id=2]
@@ -8,8 +8,7 @@
 [ext_resource path="res://data/doors/door.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/Level.gd" type="Script" id=7]
 [ext_resource path="res://data/jumpPad/jumpPad.tscn" type="PackedScene" id=8]
-[ext_resource path="res://data/pickups/orb_pickup.tscn" type="PackedScene" id=9]
-[ext_resource path="res://data/pickups/gem_pickup.tscn" type="PackedScene" id=10]
+[ext_resource path="res://data/pickups/orb_pickup.tscn" type="PackedScene" id=10]
 
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 500, 1, 500 )
@@ -816,30 +815,6 @@ door_name = "start"
 
 [node name="Enemy" parent="level" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.88642, 1.00073, -26.3141 )
-
-[node name="orb_pickup" parent="level" instance=ExtResource( 9 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.60026, 2.43347, 3.98761 )
-
-[node name="orb_pickup2" parent="level" instance=ExtResource( 9 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.46832, 2.43347, 5.49473 )
-
-[node name="orb_pickup3" parent="level" instance=ExtResource( 9 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.7861, 2.43347, 2.83235 )
-
-[node name="orb_pickup4" parent="level" instance=ExtResource( 9 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.37974, 2.43347, 13.9605 )
-
-[node name="orb_pickup5" parent="level" instance=ExtResource( 9 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.9404, 2.43347, 10.1189 )
-
-[node name="orb_pickup6" parent="level" instance=ExtResource( 9 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15.2274, 10.3698, -5.55631 )
-
-[node name="orb_pickup7" parent="level" instance=ExtResource( 9 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.149, 10.3698, -5.29955 )
-
-[node name="orb_pickup8" parent="level" instance=ExtResource( 9 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.917531, 3.15793, 17.0279 )
 
 [node name="gem_pickup" parent="level" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.10131, 3.96638, 13.8154 )

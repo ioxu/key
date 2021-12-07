@@ -50,7 +50,6 @@ const point_of_interest_scene = preload("res://data/enemies/PointOfInterest.tscn
 const enemy_corpse_scene = preload("res://data/enemies/EnemyCorpse.tscn")
 
 const orb_pickup_scene = preload("res://data/pickups/orb_pickup.tscn")
-const gem_pickup_scene = preload("res://data/pickups/gem_pickup.tscn")
 
 
 onready var hurt_meter = $MeshInstance/hurt_meter
@@ -151,17 +150,12 @@ func bullet_hit(bullet, collision_info):
 
 		# drops
 		for _i in range(1+randi()%12):
-#			var orb = orb_pickup_scene.instance()
-#			orb.transform.origin = self.transform.origin + Vector3(0.0, 0.45, 0.0)
-#			get_tree().get_root().add_child( orb )
-#			var oimp = Vector3(0.0, 250, 0.0)
-#			orb.apply_central_impulse(oimp)
 			
-			var gem = gem_pickup_scene.instance()
-			gem.transform.origin = self.transform.origin + Vector3(0.0, 0.45, 0.0)
-			get_tree().get_root().add_child( gem )
+			var orb = orb_pickup_scene.instance()
+			orb.transform.origin = self.transform.origin + Vector3(0.0, 0.45, 0.0)
+			get_tree().get_root().add_child( orb )
 			var oimp = Vector3(0.0, 250, 0.0)
-			gem.find_node("RigidBody").apply_central_impulse(oimp)
+			orb.apply_central_impulse(oimp)
 
 
 
