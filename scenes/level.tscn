@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://data/shaders/spatial_debug_boxdivide_material.tres" type="Material" id=1]
 [ext_resource path="res://scenes/fps_label.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://data/doors/door.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/Level.gd" type="Script" id=7]
 [ext_resource path="res://data/jumpPad/jumpPad.tscn" type="PackedScene" id=8]
+[ext_resource path="res://data/pickups/orb_pickup.gd" type="Script" id=9]
 [ext_resource path="res://data/pickups/orb_pickup.tscn" type="PackedScene" id=10]
 
 [sub_resource type="CubeMesh" id=1]
@@ -818,27 +819,35 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.88642, 1.00073, -26.3141 )
 
 [node name="gem_pickup" parent="level" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.10131, 3.96638, 13.8154 )
+script = ExtResource( 9 )
 
 [node name="gem_pickup2" parent="level" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.164428, 3.96638, 5.20376 )
+script = ExtResource( 9 )
 
 [node name="gem_pickup3" parent="level" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.98159, 3.96638, 9.43582 )
+script = ExtResource( 9 )
 
 [node name="gem_pickup4" parent="level" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.66623, 3.96638, 5.98695 )
+script = ExtResource( 9 )
 
 [node name="gem_pickup5" parent="level" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.09226, 3.96638, 8.61506 )
+script = ExtResource( 9 )
 
 [node name="gem_pickup6" parent="level" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.05964, 1.84102, 4.69603 )
+script = ExtResource( 9 )
 
 [node name="gem_pickup7" parent="level" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.332844, 1.84102, 2.23136 )
+script = ExtResource( 9 )
 
 [node name="gem_pickup8" parent="level" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.16364, 1.84102, 1.94052 )
+script = ExtResource( 9 )
 
 [node name="fps_label" type="Label" parent="."]
 modulate = Color( 1, 1, 1, 0.415686 )

@@ -20,10 +20,10 @@ __meta__ = {
 }
 
 [node name="orbs_label" type="Label" parent="."]
-margin_left = 96.0
+margin_left = 16.0
 margin_top = 392.0
-margin_right = 145.0
-margin_bottom = 423.0
+margin_right = 75.0
+margin_bottom = 428.0
 rect_scale = Vector2( 1.73837, 1.73837 )
 custom_colors/font_color = Color( 0.505882, 1, 0.305882, 1 )
 custom_fonts/font = SubResource( 1 )
@@ -33,9 +33,9 @@ __meta__ = {
 }
 
 [node name="orbs_number" type="Label" parent="."]
-margin_left = 208.0
+margin_left = 128.0
 margin_top = 392.0
-margin_right = 305.0
+margin_right = 225.0
 margin_bottom = 428.0
 rect_scale = Vector2( 1.73837, 1.73837 )
 custom_colors/font_color = Color( 0.203922, 0.996078, 0.180392, 1 )
