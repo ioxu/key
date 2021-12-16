@@ -4,6 +4,8 @@ class_name Weapon
 # weapons dictate damage
 # weapons have modifiers
 
+export var weapon_name := "undefined"
+
 export var modifiers = []
 export var base_damage = 100.0
 export var activated : bool = false setget set_activated, get_activated

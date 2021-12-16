@@ -3,6 +3,6 @@
 [ext_resource path="res://data/pickups/orb_pickup.gd" type="Script" id=1]
 [ext_resource path="res://data/pickups/pickup.tscn" type="PackedScene" id=2]
 
-[node name="pickup" instance=ExtResource( 2 )]
+[node name="orb_pickup" instance=ExtResource( 2 )]
 script = ExtResource( 1 )
 pickup_type = "Orb"

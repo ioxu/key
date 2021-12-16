@@ -156,9 +156,16 @@ func add_additional_force(force:Vector3) -> void:
 
 
 func pickup( pickup_object ):
-	prints(self.get_name(), "picked up", pickup_object.get_name())
+	prints(self.get_name(), "picked up", pickup_object.get_name(), "(%s)"%pickup_object.pickup_type)
+	
+	#orbs
 	if pickup_object.pickup_type == "Orb" or pickup_object.pickup_type == "Gem":
 		self.inventory.add_orbs( pickup_object.orb_value )
 	
+	#weapons
+	elif pickup_object.pickup_type == "Weapon":
+		prints("  inventory add weapon: ","\n     ",
+			pickup_object.weapon.get_state().get_node_property_name(0,1),":",
+			pickup_object.weapon.get_state().get_node_property_value(0,1))
 
 
