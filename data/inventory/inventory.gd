@@ -8,6 +8,8 @@ export var _weapon_items = Array() setget set_weapon_items, get_weapon_items
 # currencies 
 var n_orbs := 0 
 
+# weapons
+var n_weapons := 0
 
 signal inventory_changed(object)
 
@@ -29,11 +31,12 @@ func add_weapon_item(item, quantity):
 	# TODO: add stackable slots logic (https://www.youtube.com/watch?v=hYRN0eYttLc&ab_channel=CodewithTom)
 	if item is Weapon:
 		_weapon_items.append( item )
+		n_weapons = self._weapon_items.size()
 		emit_signal("inventory_changed" ,self)
 
 
 func add_orbs(norbs:int = 0) -> void:
 	self.n_orbs += norbs
 	emit_signal("inventory_changed" ,self)
-	
+
 

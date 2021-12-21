@@ -122,7 +122,7 @@ func respawn() -> void:
 
 
 func _on_weapon_fire(weapon) -> void:
-	# recoil
+	# recoily
 	$recoil_animplayer.stop()
 	$recoil_animplayer.play("recoil_time_animation", -1, 5.0)#3.5)#5.0) #7.5)
 	# force
@@ -165,7 +165,17 @@ func pickup( pickup_object ):
 	#weapons
 	elif pickup_object.pickup_type == "Weapon":
 		prints("  inventory add weapon: ","\n     ",
-			pickup_object.weapon.get_state().get_node_property_name(0,1),":",
-			pickup_object.weapon.get_state().get_node_property_value(0,1))
+			#pickup_object.weapon_archetype.get_state().get_node_property_name(0,1),":",
+			#pickup_object.weapon_archetype.get_state().get_node_property_value(0,1))
+			pickup_object.weapon.weapon_name)
+		self.inventory.add_weapon_item( pickup_object.weapon, 1 )
+		var w = pickup_object.weapon
+		#prints("BEFORE", w, w.get_parent().get_path())
+		w.get_parent().remove_child( w )
+		#prints("AFTER1", w, w.get_path())
+		$MeshInstance/dui_root/static_stack/inventory_items/weapons/Spatial1/MeshInstance.add_child( w )
+		w.set_owner( $MeshInstance/dui_root/static_stack/inventory_items/weapons/Spatial1/MeshInstance )
+		#prints("AFTER2", w, w.get_parent().get_path())
+		w.transform.origin = Vector3.ZERO
 
 

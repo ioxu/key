@@ -38,7 +38,11 @@ func _ready():
 	anim_player.get_animation("muzzle_flash").set_loop(false)
 
 	magazine_count = base_magazine_size
-	
+
+	if self.activated:
+		yield(get_tree().create_timer(0.025), "timeout")
+		set_activated( true )
+
 
 func set_is_enemy_weapon(new_value):
 	is_enemy_weapon = new_value

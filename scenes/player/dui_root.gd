@@ -241,8 +241,8 @@ func _on_options_menu_2d_close_options_menu():
 	devoke_options_ring()
 
 
-func _on_inventory_changed(object):
-	#prints("DUI_ROOT inventory changed", object, ".")
-	var on = $viewports/inventory_front/Viewport/inventory_front_2d.find_node("orbs_number")
-	#prints("   on:", on)
-	on.text = str(object.n_orbs)
+func _on_inventory_changed( inventory ):
+	var on = $viewports/inventory/inventory_2d_viewport/inventory_2d.find_node("orbs_number")
+	on.text = str(inventory.n_orbs)
+	var wn = $viewports/inventory/inventory_2d_viewport/inventory_2d.find_node("weapons_number")
+	wn.text = str(inventory.n_weapons)

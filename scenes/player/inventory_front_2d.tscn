@@ -13,7 +13,7 @@ font_data = ExtResource( 1 )
 size = 30
 font_data = ExtResource( 1 )
 
-[node name="inventory_front_2d" type="Node2D"]
+[node name="inventory_2d" type="Node2D"]
 __meta__ = {
 "_edit_horizontal_guides_": [ 512.0 ],
 "_edit_vertical_guides_": [ 512.0 ]
@@ -39,6 +39,32 @@ margin_right = 225.0
 margin_bottom = 428.0
 rect_scale = Vector2( 1.73837, 1.73837 )
 custom_colors/font_color = Color( 0.203922, 0.996078, 0.180392, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="weapons_label" type="Label" parent="."]
+margin_left = 16.0
+margin_top = 336.0
+margin_right = 137.0
+margin_bottom = 372.0
+rect_scale = Vector2( 1.73837, 1.73837 )
+custom_colors/font_color = Color( 1, 0.698039, 0.305882, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "weapons"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="weapons_number" type="Label" parent="."]
+margin_left = 232.0
+margin_top = 336.0
+margin_right = 329.0
+margin_bottom = 372.0
+rect_scale = Vector2( 1.73837, 1.73837 )
+custom_colors/font_color = Color( 1, 0.698039, 0.305882, 1 )
 custom_fonts/font = SubResource( 2 )
 text = "0"
 __meta__ = {
