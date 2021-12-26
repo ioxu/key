@@ -30,10 +30,11 @@ func _ready():
 	$options_ring.points = Util.arc_points(32, 45/2.0, 225+ 45/2.0, inventory_ring_radius )
 	$options_ring.set_as_toplevel(true)
 
-	# connect to weapon signals
+	# connect to weapon
 	weapon_mount = get_node(weapon_mount)
 	var weapon = weapon_mount.get_child(0)
-	weapon.connect("magazine_count_changed", self, "_on_magazine_count_changed")
+	if weapon:
+		weapon.connect("magazine_count_changed", self, "_on_magazine_count_changed")
 	$static_stack/magazine/full_arc.points = Util.arc_points(16, 180, 270, inventory_ring_radius * 0.95 * 0.8)
 	$static_stack/magazine/count.points = Util.arc_points(16, 180, 270, inventory_ring_radius * 0.95 * 0.8)
 

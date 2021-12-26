@@ -23,7 +23,7 @@ onready var camera_root = get_node(CameraRootPath)
 onready var camera_base = get_node(CameraRootPath).find_node("camera_base") # InnerGimbal
 onready var camera_boom = camera_root.find_node("camera_boom")
 onready var meshinstance = get_node(MeshInstancePath)
-onready var weapon = player.find_node("weapon_mount").get_child(0)
+onready var weapon = null #player.find_node("weapon_mount").get_child(0)
 onready var raycast : RayCast = player.get_node("RayCast")
 
 onready var dui_root : Spatial = get_node(DUI_Root)
@@ -112,6 +112,9 @@ func _ready():
 	set_process(false)
 	yield(get_tree().create_timer(0.25), "timeout")
 	set_process(true)
+
+	weapon = player.find_node("weapon_mount").get_child(0)
+
 
 	if camera_interpolation_mode == CAMERA_LOOKAHEAD_INTERP_MODE.harmonic:
 #		camera_lookahead_harmonic_parms = camera_lookahead_harmonic_motion.CalcDampedSpringMotionParams( camera_lookahead_harmonic_damping,
@@ -246,10 +249,10 @@ func _process(dt):
 	if not dui_root.is_options_invoked:
 
 		# shoot
-		if Input.is_action_just_pressed("shoot"):
+		if self.weapon and Input.is_action_just_pressed("shoot"):
 			weapon.activated = true
 
-		if Input.is_action_just_released("shoot"):
+		if self.weapon and Input.is_action_just_released("shoot"):
 			weapon.activated = false
 
 		# jump

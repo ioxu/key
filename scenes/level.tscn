@@ -83,6 +83,12 @@ max_steps = 256
 
 [node name="level" type="Spatial" parent="."]
 
+[node name="weapon_pickup" parent="level" instance=ExtResource( 9 )]
+transform = Transform( 0.102408, 0.894268, 0.435658, 0.177005, -0.447353, 0.876667, 0.978868, -0.0126643, -0.204103, -10.821, 1.51713, 11.1429 )
+
+[node name="weapon_pickup2" parent="level" instance=ExtResource( 9 )]
+transform = Transform( 0.102408, 0.894268, 0.435658, 0.177005, -0.447353, 0.876667, 0.978868, -0.0126643, -0.204103, -9.69163, 12.436, -23.2119 )
+
 [node name="jumpPad" parent="level" instance=ExtResource( 8 )]
 transform = Transform( 0.578185, 0, 0.815906, 0, 1, 0, -0.815906, 0, 0.578185, -10.0301, 0.503874, -1.18655 )
 
@@ -781,9 +787,6 @@ collision_mask = 2147483677
 [node name="CollisionShape" type="CollisionShape" parent="level/MeshInstance6/StaticBody"]
 transform = Transform( 1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0 )
 shape = SubResource( 6 )
-
-[node name="weapon_pickup" parent="level" instance=ExtResource( 9 )]
-transform = Transform( 0.102408, 0.894268, 0.435658, 0.177005, -0.447353, 0.876667, 0.978868, -0.0126643, -0.204103, -10.821, 1.51713, 11.1429 )
 
 [node name="door3" parent="level" instance=ExtResource( 6 )]
 transform = Transform( 0.315715, 0, 0.948853, 0, 1, 0, -0.948853, 0, 0.315715, -40.403, 10.86, -26.0334 )
