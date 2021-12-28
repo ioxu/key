@@ -268,7 +268,7 @@ func _on_inventory_changed( inventory ):
 		var wc = $static_stack/inventory_items/weapons.get_children()
 		#print("spacing")
 		for i in range(wc.size()):
-			var yr = lerp( -wc.size()/2.0, wc.size()/2.0, i/float((wc.size()-1)) )
+			var yr = lerp( -(wc.size()-1.0)/2.0, (wc.size()-1.0)/2.0, i/float((wc.size()-1)) )
 			#print("   %s (%s) %s"%[i, i/float((wc.size()-1)), yr])
 			wc[i].set_rotation_degrees(Vector3(0.0, yr * 25, 0.0))
 
