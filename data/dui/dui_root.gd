@@ -46,8 +46,9 @@ func _ready():
 	$static_stack/options/screen.get_material_override().get_texture( SpatialMaterial.TEXTURE_ALBEDO ).flags = Texture.FLAGS_DEFAULT + Texture.FLAG_ANISOTROPIC_FILTER
 	#$static_stack/options/screen.get_material_override().get_texture( SpatialMaterial.TEXTURE_EMISSION ).flags = Texture.FLAGS_DEFAULT + Texture.FLAG_ANISOTROPIC_FILTER
 
-	
-
+	########
+	$static_stack/inventory_items/weapons/weapon_inv_slot.queue_free()
+	########
 
 func _process(dt):
 	_gtime += dt
@@ -264,11 +265,18 @@ func _on_inventory_changed( inventory ):
 			var wis = weapon_inv_slot.instance()
 			$static_stack/inventory_items/weapons.add_child(wis)
 
+		var ws = $static_stack/inventory_items/weapons.get_children()
+		for i in range(inventory.n_weapons):
+			if not ws[i].has_weapon():
+				ws[i].set_weapon( inventory.get_weapon_item(i) )
+
+
 		# space out $static_stack/inventory_items/weapons children
-		var wc = $static_stack/inventory_items/weapons.get_children()
+
 		#print("spacing")
-		for i in range(wc.size()):
-			var yr = lerp( -(wc.size()-1.0)/2.0, (wc.size()-1.0)/2.0, i/float((wc.size()-1)) )
-			#print("   %s (%s) %s"%[i, i/float((wc.size()-1)), yr])
-			wc[i].set_rotation_degrees(Vector3(0.0, yr * 25, 0.0))
+		if ws.size() > 1:
+			for i in range(ws.size()):
+				var yr = lerp( -(ws.size()-1.0)/2.0, (ws.size()-1.0)/2.0, i/float((ws.size()-1)) )
+				#print("   %s (%s) %s"%[i, i/float((wc.size()-1)), yr])
+				ws[i].set_rotation_degrees(Vector3(0.0, yr * 25, 0.0))
 

@@ -170,11 +170,9 @@ func pickup( pickup_object ):
 	elif pickup_object.pickup_type == "Weapon":
 		prints("  inventory add weapon: ","\n     ",
 			pickup_object.weapon.weapon_name)
+		
+		# weapon becomes parentless, but held in refernce in player's inventory 
+		pickup_object.weapon.get_parent().remove_child( pickup_object.weapon )
 		self.inventory.add_weapon_item( pickup_object.weapon, 1 )
-		var w = pickup_object.weapon
-		w.get_parent().remove_child( w )
-		$MeshInstance/dui_root/static_stack/inventory_items/weapons/weapon_inv_slot/bg.add_child( w )
-		w.set_owner( $MeshInstance/dui_root/static_stack/inventory_items/weapons/weapon_inv_slot/bg )
-		w.transform.origin = Vector3.ZERO
 
 

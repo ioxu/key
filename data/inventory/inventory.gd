@@ -11,7 +11,8 @@ var n_orbs := 0
 # weapons
 var n_weapons := 0
 
-signal inventory_changed(object)
+signal inventory_changed(inventory)
+signal inventory_weapon_item_added(inventory, weapon, quantity)
 
 
 func set_weapon_items(new_items: Array) -> void:
@@ -33,6 +34,7 @@ func add_weapon_item(item, quantity):
 		_weapon_items.append( item )
 		n_weapons = self._weapon_items.size()
 		emit_signal("inventory_changed" ,self)
+		emit_signal("inventory_weapon_item_added", self, item, quantity)
 
 
 func add_orbs(norbs:int = 0) -> void:
