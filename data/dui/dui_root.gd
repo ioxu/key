@@ -1,6 +1,6 @@
 extends Spatial
 
-export var inventory_ring_npoints := 32.0
+export var inventory_ring_npoints := 32
 export var inventory_ring_radius := 2.25
 
 export (NodePath) var weapon_mount 
@@ -14,6 +14,7 @@ var is_options_invoked = false
 onready var options_menu_2d = $viewports/options/options_viewport/options_menu_2d
 var _gtime = 0.0
 
+var weapon_inv_slot = preload("res://data/dui/weapon_inv_slot.tscn")
 
 func _ready():
 	self.visible = false
@@ -31,8 +32,11 @@ func _ready():
 	$options_ring.set_as_toplevel(true)
 
 	# connect to weapon
+	# TODO: replace with player function for switching weapon
 	weapon_mount = get_node(weapon_mount)
-	var weapon = weapon_mount.get_child(0)
+	var weapon = null
+	if weapon_mount.get_child_count() > 0 :
+		weapon = weapon_mount.get_child(0)
 	if weapon:
 		weapon.connect("magazine_count_changed", self, "_on_magazine_count_changed")
 	$static_stack/magazine/full_arc.points = Util.arc_points(16, 180, 270, inventory_ring_radius * 0.95 * 0.8)
@@ -64,9 +68,9 @@ func _process(dt):
 				for i in c.get_children():
 					# pretend they're a type and "hightlight item"
 					if g_dir.normalized().dot( i.global_transform.basis.z ) > (1.0 - 0.02):
-						i.get_node("MeshInstance/outline").set_visible(true)
+						i.get_node("bg/outline").set_visible(true)
 					else:
-						i.get_node("MeshInstance/outline").set_visible(false)
+						i.get_node("bg/outline").set_visible(false)
 
 
 func _input(event):
@@ -247,3 +251,24 @@ func _on_inventory_changed( inventory ):
 	on.text = str(inventory.n_orbs)
 	var wn = $viewports/inventory/inventory_2d_viewport/inventory_2d.find_node("weapons_number")
 	wn.text = str(inventory.n_weapons)
+	
+	var n_weapon_slots = $static_stack/inventory_items/weapons.get_child_count()
+	if inventory.n_weapons > n_weapon_slots:
+		#prints("n weapons changed, update dui weapon slots")
+		#prints("\t", inventory.n_weapons, "vs", n_weapon_slots)
+		#print_stack()
+		#Util.debug_stack("n weapons changed, update dui weapon slots (%s vs. %s)"%[inventory.n_weapons,n_weapon_slots])
+		var slots_to_add = inventory.n_weapons - n_weapon_slots
+		#print("adding %s slots .."%[slots_to_add])
+		for _i in range(slots_to_add):
+			var wis = weapon_inv_slot.instance()
+			$static_stack/inventory_items/weapons.add_child(wis)
+
+		# space out $static_stack/inventory_items/weapons children
+		var wc = $static_stack/inventory_items/weapons.get_children()
+		#print("spacing")
+		for i in range(wc.size()):
+			var yr = lerp( -wc.size()/2.0, wc.size()/2.0, i/float((wc.size()-1)) )
+			#print("   %s (%s) %s"%[i, i/float((wc.size()-1)), yr])
+			wc[i].set_rotation_degrees(Vector3(0.0, yr * 25, 0.0))
+

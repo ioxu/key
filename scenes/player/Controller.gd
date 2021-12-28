@@ -113,7 +113,8 @@ func _ready():
 	yield(get_tree().create_timer(0.25), "timeout")
 	set_process(true)
 
-	weapon = player.find_node("weapon_mount").get_child(0)
+	if player.find_node("weapon_mount").get_child_count() > 0:
+		weapon = player.find_node("weapon_mount").get_child(0)
 
 
 	if camera_interpolation_mode == CAMERA_LOOKAHEAD_INTERP_MODE.harmonic:

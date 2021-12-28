@@ -89,6 +89,15 @@ transform = Transform( 0.102408, 0.894268, 0.435658, 0.177005, -0.447353, 0.8766
 [node name="weapon_pickup2" parent="level" instance=ExtResource( 9 )]
 transform = Transform( 0.102408, 0.894268, 0.435658, 0.177005, -0.447353, 0.876667, 0.978868, -0.0126643, -0.204103, -9.69163, 12.436, -23.2119 )
 
+[node name="weapon_pickup3" parent="level" instance=ExtResource( 9 )]
+transform = Transform( 0.102408, 0.894268, 0.435658, 0.177005, -0.447353, 0.876667, 0.978868, -0.0126643, -0.204103, -27.8904, 12.436, -34.141 )
+
+[node name="weapon_pickup4" parent="level" instance=ExtResource( 9 )]
+transform = Transform( 0.102408, 0.894268, 0.435658, 0.177005, -0.447353, 0.876667, 0.978868, -0.0126643, -0.204103, -32.7452, 12.436, -16.5312 )
+
+[node name="weapon_pickup5" parent="level" instance=ExtResource( 9 )]
+transform = Transform( 0.102408, 0.894268, 0.435658, 0.177005, -0.447353, 0.876667, 0.978868, -0.0126643, -0.204103, -26.8936, 12.436, -23.7975 )
+
 [node name="jumpPad" parent="level" instance=ExtResource( 8 )]
 transform = Transform( 0.578185, 0, 0.815906, 0, 1, 0, -0.815906, 0, 0.578185, -10.0301, 0.503874, -1.18655 )
 

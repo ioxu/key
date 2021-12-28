@@ -48,7 +48,10 @@ func _ready():
 	targetable = visible
 
 	# connect to weapon
-	current_weapon = $MeshInstance/weapon_mount.get_child(0)
+	# TODO: replace with player function for switching weapon
+	if $MeshInstance/weapon_mount.get_child_count() > 0:
+		current_weapon = $MeshInstance/weapon_mount.get_child(0)
+	
 	if current_weapon:
 		current_weapon.connect("fire", self, "_on_weapon_fire")
 
@@ -170,8 +173,8 @@ func pickup( pickup_object ):
 		self.inventory.add_weapon_item( pickup_object.weapon, 1 )
 		var w = pickup_object.weapon
 		w.get_parent().remove_child( w )
-		$MeshInstance/dui_root/static_stack/inventory_items/weapons/Spatial1/MeshInstance.add_child( w )
-		w.set_owner( $MeshInstance/dui_root/static_stack/inventory_items/weapons/Spatial1/MeshInstance )
+		$MeshInstance/dui_root/static_stack/inventory_items/weapons/weapon_inv_slot/bg.add_child( w )
+		w.set_owner( $MeshInstance/dui_root/static_stack/inventory_items/weapons/weapon_inv_slot/bg )
 		w.transform.origin = Vector3.ZERO
 
 

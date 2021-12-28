@@ -111,3 +111,24 @@ func _gac_r(node, acc):
 		acc.append(c)
 		if c.get_child_count() > 0 :
 			_gac_r(c, acc)
+
+
+# ------------------------------------------------------------------------------
+# debug
+# ------------------------------------------------------------------------------
+
+
+func debug(text):
+	# https://github.com/godotengine/godot/issues/18319#issuecomment-389895583
+	var frame = get_stack()[1]
+	print( "%30s:%-4d %s" % [frame.source.get_file(), frame.line, text] )
+
+
+func debug_stack(text):
+	# https://github.com/godotengine/godot/issues/18319#issuecomment-389895583
+	#var frame = get_stack()[1]
+	print("debug_stack: %s"%[text])
+	var st = get_stack()
+	st.remove(0)
+	for frame in st:
+		print( "%30s:%-4d %s()" % [frame.source.get_file(), frame.line, frame.function] )

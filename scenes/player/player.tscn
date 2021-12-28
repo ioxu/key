@@ -1,6 +1,7 @@
-[gd_scene load_steps=48 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://scenes/player/Controller.gd" type="Script" id=1]
+[ext_resource path="res://data/dui/weapon_inv_slot.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/player/motion_blur.gd" type="Script" id=3]
 [ext_resource path="res://scenes/player/motion_blur_material.tres" type="Material" id=4]
 [ext_resource path="res://scenes/player/player.gd" type="Script" id=5]
@@ -12,11 +13,8 @@
 [ext_resource path="res://scenes/player/player_material.tres" type="Material" id=11]
 [ext_resource path="res://data/scripts/three_joint_leg.gd" type="Script" id=12]
 [ext_resource path="res://scenes/player/player_leg_material.tres" type="Material" id=13]
-[ext_resource path="res://scenes/player/dui_root.gd" type="Script" id=14]
+[ext_resource path="res://data/dui/dui_root.gd" type="Script" id=14]
 [ext_resource path="res://scenes/player/radar_dots.gd" type="Script" id=15]
-[ext_resource path="res://scenes/player/emissive_red_semiopaque_material.tres" type="Material" id=16]
-[ext_resource path="res://scenes/player/emissive_blue_semiopaque_material.tres" type="Material" id=17]
-[ext_resource path="res://scenes/player/emissive_blue_square_outline_material.tres" type="Material" id=18]
 [ext_resource path="res://scenes/player/inventory_front_2d.tscn" type="PackedScene" id=19]
 [ext_resource path="res://scenes/player/radar_dot.tscn" type="PackedScene" id=20]
 [ext_resource path="res://data/objects/screen-90.obj" type="ArrayMesh" id=22]
@@ -60,10 +58,6 @@ material = ExtResource( 6 )
 height = 0.2
 radial_segments = 32
 rings = 1
-
-[sub_resource type="QuadMesh" id=7]
-material = ExtResource( 17 )
-size = Vector2( 0.75, 1 )
 
 [sub_resource type="ViewportTexture" id=26]
 viewport_path = NodePath("MeshInstance/dui_root/viewports/inventory/inventory_2d_viewport")
@@ -287,78 +281,7 @@ transform = Transform( -0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107,
 
 [node name="weapons" type="Spatial" parent="MeshInstance/dui_root/static_stack/inventory_items"]
 
-[node name="Spatial1" type="Spatial" parent="MeshInstance/dui_root/static_stack/inventory_items/weapons"]
-transform = Transform( 0.642788, 0, 0.766044, 0, 1, 8.88178e-16, -0.766044, 0, 0.642788, 0, 0, 0 )
-
-[node name="MeshInstance" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/weapons/Spatial1"]
-transform = Transform( 1, 0, 3.72529e-08, 0, 0.762319, 0, -2.98023e-08, 0, 1, -4.37687e-08, 0, 2.4 )
-mesh = SubResource( 7 )
-material/0 = ExtResource( 16 )
-
-[node name="outline" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/weapons/Spatial1/MeshInstance"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.15 )
-visible = false
-mesh = SubResource( 7 )
-material/0 = ExtResource( 18 )
-
-[node name="Spatial2" type="Spatial" parent="MeshInstance/dui_root/static_stack/inventory_items/weapons"]
-transform = Transform( 0.906308, 0, 0.422618, 7.10543e-15, 1, 0, -0.422618, 0, 0.906308, 0, 0, 0 )
-visible = false
-
-[node name="MeshInstance" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/weapons/Spatial2"]
-transform = Transform( 1, -3.55271e-14, 1.49012e-07, 4.9738e-14, 0.762319, 0, -1.49012e-07, 3.55271e-15, 1, -8.29208e-08, 0, 2.4 )
-mesh = SubResource( 7 )
-material/0 = ExtResource( 16 )
-
-[node name="outline" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/weapons/Spatial2/MeshInstance"]
-transform = Transform( 0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 0, -0.15 )
-visible = false
-mesh = SubResource( 7 )
-material/0 = ExtResource( 18 )
-
-[node name="Spatial3" type="Spatial" parent="MeshInstance/dui_root/static_stack/inventory_items/weapons"]
-visible = false
-
-[node name="MeshInstance" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/weapons/Spatial3"]
-transform = Transform( 1, -1.42109e-14, 0, 0, 0.762319, 0, 0, 1.42109e-14, 1, 2.36219e-07, 0, 2.4 )
-mesh = SubResource( 7 )
-material/0 = ExtResource( 16 )
-
-[node name="outline" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/weapons/Spatial3/MeshInstance"]
-transform = Transform( 1, 7.10543e-15, 0, 0, 1, 0, 0, -7.10543e-15, 1, 0, 0, -0.15 )
-visible = false
-mesh = SubResource( 7 )
-material/0 = ExtResource( 18 )
-
-[node name="Spatial4" type="Spatial" parent="MeshInstance/dui_root/static_stack/inventory_items/weapons"]
-transform = Transform( 0.906308, 0, -0.422618, 0, 1, -7.10543e-15, 0.422618, 0, 0.906308, 0, 0, 0 )
-visible = false
-
-[node name="MeshInstance" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/weapons/Spatial4"]
-transform = Transform( 1, 0, -1.78814e-07, 0, 0.762319, -4.9738e-14, 1.78814e-07, 4.26326e-14, 1, -6.26127e-08, 0, 2.4 )
-mesh = SubResource( 7 )
-material/0 = ExtResource( 16 )
-
-[node name="outline" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/weapons/Spatial4/MeshInstance"]
-transform = Transform( 0.999999, 0, 2.08616e-07, 3.55271e-15, 1, 4.26326e-14, -2.08616e-07, -4.9738e-14, 0.999999, 0, 0, -0.15 )
-visible = false
-mesh = SubResource( 7 )
-material/0 = ExtResource( 18 )
-
-[node name="Spatial5" type="Spatial" parent="MeshInstance/dui_root/static_stack/inventory_items/weapons"]
-transform = Transform( 0.642788, 0, -0.766044, -8.88178e-16, 1, 0, 0.766044, 0, 0.642788, 0, 0, 0 )
-visible = false
-
-[node name="MeshInstance" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/weapons/Spatial5"]
-transform = Transform( 1, 0, -1.49012e-08, 0, 0.762319, 0, 2.98023e-08, 0, 1, -1.03829e-07, 0, 2.4 )
-mesh = SubResource( 7 )
-material/0 = ExtResource( 16 )
-
-[node name="outline" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/weapons/Spatial5/MeshInstance"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.15 )
-visible = false
-mesh = SubResource( 7 )
-material/0 = ExtResource( 18 )
+[node name="weapon_inv_slot" parent="MeshInstance/dui_root/static_stack/inventory_items/weapons" instance=ExtResource( 2 )]
 
 [node name="screen" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items"]
 transform = Transform( 1.13301, 1.63701e-07, -0.0951222, -1.71421e-07, 1.082, 1.43701e-08, -0.0951222, -2.04414e-11, -1.13301, 3.71472e-07, 2.45529, -4.63132e-11 )
