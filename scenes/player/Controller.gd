@@ -256,6 +256,20 @@ func _process(dt):
 		if self.weapon and Input.is_action_just_released("shoot"):
 			weapon.activated = false
 
+		# TEMP: FIRE ALL IN INVENTORY
+		if Input.is_action_just_pressed("shoot"):
+			for w in dui_root.find_node("weapons_items").get_children():
+				w.slotted_weapon.eject_casings = false
+				
+				yield(get_tree().create_timer( randf() * 0.002 ), "timeout")
+				w.slotted_weapon.activated = true
+
+		if Input.is_action_just_released("shoot"):
+			for w in dui_root.find_node("weapons_items").get_children():
+				w.slotted_weapon.activated = false
+		#\TEMP: FIRE ALL IN INVENTORY
+
+
 		# jump
 		if (Input.is_action_pressed("jump")):
 			if not is_airborne:

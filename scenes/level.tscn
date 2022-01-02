@@ -48,7 +48,7 @@ collision_mask = 31
 shape = SubResource( 2 )
 
 [node name="level_label" type="Spatial" parent="."]
-transform = Transform( 0.9967, 0.0811731, 1.32248e-08, 0, -1.62921e-07, 1, 0.0811731, -0.9967, -1.62383e-07, 2.61792, 0.01, 17.6085 )
+transform = Transform( 0.9967, 0.0811731, 1.32248e-08, 0, -1.62921e-07, 1, 0.0811731, -0.9967, -1.62383e-07, 2.61792, 0.550135, 17.6085 )
 script = ExtResource( 3 )
 text = "cordon"
 text_size = 5.0
@@ -65,7 +65,7 @@ min_steps = 32
 max_steps = 256
 
 [node name="level_label2" type="Spatial" parent="."]
-transform = Transform( 0.9967, 0.0811731, 1.32248e-08, 0, -1.62921e-07, 1, 0.0811731, -0.9967, -1.62383e-07, 3.41277, 0.00999841, 7.84884 )
+transform = Transform( 0.9967, 0.0811731, 1.32248e-08, 0, -1.62921e-07, 1, 0.0811731, -0.9967, -1.62383e-07, 3.41277, 0.550134, 7.84884 )
 script = ExtResource( 3 )
 text = "1"
 text_size = 20.0
@@ -100,6 +100,24 @@ transform = Transform( 0.102408, 0.894268, 0.435658, 0.177005, -0.447353, 0.8766
 
 [node name="weapon_pickup5" parent="level" instance=ExtResource( 9 )]
 transform = Transform( 0.102408, 0.894268, 0.435658, 0.177005, -0.447353, 0.876667, 0.978868, -0.0126643, -0.204103, -26.8936, 12.436, -23.7975 )
+
+[node name="weapon_pickup7" parent="level" instance=ExtResource( 9 )]
+transform = Transform( 0.102408, 0.894268, 0.435658, 0.177005, -0.447353, 0.876667, 0.978868, -0.0126643, -0.204103, -30.9041, 12.436, -34.4141 )
+
+[node name="weapon_pickup8" parent="level" instance=ExtResource( 9 )]
+transform = Transform( 0.102408, 0.894268, 0.435658, 0.177005, -0.447353, 0.876667, 0.978868, -0.0126643, -0.204103, -35.759, 12.436, -16.8044 )
+
+[node name="weapon_pickup9" parent="level" instance=ExtResource( 9 )]
+transform = Transform( 0.102408, 0.894268, 0.435658, 0.177005, -0.447353, 0.876667, 0.978868, -0.0126643, -0.204103, -29.9074, 12.436, -24.0707 )
+
+[node name="weapon_pickup10" parent="level" instance=ExtResource( 9 )]
+transform = Transform( 0.102408, 0.894268, 0.435658, 0.177005, -0.447353, 0.876667, 0.978868, -0.0126643, -0.204103, -33.8758, 12.436, -34.8403 )
+
+[node name="weapon_pickup11" parent="level" instance=ExtResource( 9 )]
+transform = Transform( 0.102408, 0.894268, 0.435658, 0.177005, -0.447353, 0.876667, 0.978868, -0.0126643, -0.204103, -38.7306, 12.436, -17.2305 )
+
+[node name="weapon_pickup12" parent="level" instance=ExtResource( 9 )]
+transform = Transform( 0.102408, 0.894268, 0.435658, 0.177005, -0.447353, 0.876667, 0.978868, -0.0126643, -0.204103, -32.8791, 12.436, -24.4968 )
 
 [node name="jumpPad" parent="level" instance=ExtResource( 8 )]
 transform = Transform( 0.578185, 0, 0.815906, 0, 1, 0, -0.815906, 0, 0.578185, -10.0301, 0.503874, -1.18655 )

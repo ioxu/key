@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=2]
+[gd_scene load_steps=46 format=2]
 
 [ext_resource path="res://scenes/player/Controller.gd" type="Script" id=1]
 [ext_resource path="res://data/dui/weapon_inv_slot.tscn" type="PackedScene" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://scenes/player/player_leg_material.tres" type="Material" id=13]
 [ext_resource path="res://data/dui/dui_root.gd" type="Script" id=14]
 [ext_resource path="res://scenes/player/radar_dots.gd" type="Script" id=15]
+[ext_resource path="res://scenes/player/dui_weapons_items.gd" type="Script" id=16]
 [ext_resource path="res://scenes/player/inventory_front_2d.tscn" type="PackedScene" id=19]
 [ext_resource path="res://scenes/player/radar_dot.tscn" type="PackedScene" id=20]
 [ext_resource path="res://data/objects/screen-90.obj" type="ArrayMesh" id=22]
@@ -279,9 +280,10 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0 )
 [node name="inventory_items" type="Spatial" parent="MeshInstance/dui_root/static_stack"]
 transform = Transform( -0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 0, 0, 0 )
 
-[node name="weapons" type="Spatial" parent="MeshInstance/dui_root/static_stack/inventory_items"]
+[node name="weapons_items" type="Spatial" parent="MeshInstance/dui_root/static_stack/inventory_items"]
+script = ExtResource( 16 )
 
-[node name="weapon_inv_slot" parent="MeshInstance/dui_root/static_stack/inventory_items/weapons" instance=ExtResource( 2 )]
+[node name="weapon_inv_slot" parent="MeshInstance/dui_root/static_stack/inventory_items/weapons_items" instance=ExtResource( 2 )]
 
 [node name="screen" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items"]
 transform = Transform( 1.13301, 1.63701e-07, -0.0951222, -1.71421e-07, 1.082, 1.43701e-08, -0.0951222, -2.04414e-11, -1.13301, 3.71472e-07, 2.45529, -4.63132e-11 )

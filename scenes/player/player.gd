@@ -168,8 +168,7 @@ func pickup( pickup_object ):
 	
 	#weapons
 	elif pickup_object.pickup_type == "Weapon":
-		prints("  inventory add weapon: ","\n     ",
-			pickup_object.weapon.weapon_name)
+		prints("  inventory add weapon: ","\n     ", pickup_object.weapon.weapon_name)
 		
 		# weapon becomes parentless, but held in refernce in player's inventory 
 		pickup_object.weapon.get_parent().remove_child( pickup_object.weapon )

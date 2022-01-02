@@ -19,6 +19,10 @@ func remove_weapon():
 	self.slotted_weapon = null
 
 
+func hilight( show: bool = false) -> void :
+	$bg/outline.visible = show
+
+
 func has_weapon() -> bool:
 	if self.slotted_weapon:
 		return true

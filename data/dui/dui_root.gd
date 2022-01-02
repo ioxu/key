@@ -14,7 +14,9 @@ var is_options_invoked = false
 onready var options_menu_2d = $viewports/options/options_viewport/options_menu_2d
 var _gtime = 0.0
 
-var weapon_inv_slot = preload("res://data/dui/weapon_inv_slot.tscn")
+# weapons inv
+onready var weapons_items = $static_stack/inventory_items/weapons_items
+
 
 func _ready():
 	self.visible = false
@@ -44,11 +46,7 @@ func _ready():
 
 	# filter on options_menu_2d ViewportTexture?
 	$static_stack/options/screen.get_material_override().get_texture( SpatialMaterial.TEXTURE_ALBEDO ).flags = Texture.FLAGS_DEFAULT + Texture.FLAG_ANISOTROPIC_FILTER
-	#$static_stack/options/screen.get_material_override().get_texture( SpatialMaterial.TEXTURE_EMISSION ).flags = Texture.FLAGS_DEFAULT + Texture.FLAG_ANISOTROPIC_FILTER
 
-	########
-	$static_stack/inventory_items/weapons/weapon_inv_slot.queue_free()
-	########
 
 func _process(dt):
 	_gtime += dt
@@ -60,37 +58,16 @@ func _process(dt):
 		$static_stack.set_rotation(Vector3(0.0, 0.0, 0.0))
 		$options_ring.transform.origin = self.global_transform.origin + Vector3(0.0, 1.225, 0.0)
 		$options_ring.set_rotation(Vector3(0.0, 0.0, 0.0))
-		
-		var g_dir = self.global_transform.basis.z
+
 
 		if is_inventory_invoked:
-			# iter over static_stat/items
-			for c in $static_stack/inventory_items.get_children():
-				for i in c.get_children():
-					# pretend they're a type and "hightlight item"
-					if g_dir.normalized().dot( i.global_transform.basis.z ) > (1.0 - 0.02):
-						i.get_node("bg/outline").set_visible(true)
-					else:
-						i.get_node("bg/outline").set_visible(false)
+			weapons_items.update( self.global_transform.basis.z )
+
 
 
 func _input(event):
-	
 	if is_options_invoked:
-		# options ui ring interaction
 		$viewports/options/options_viewport.input(event)
-#		if event.is_action_pressed("ui_up"):
-#			prints("DUI_ROOT: UP")
-#		if event.is_action_pressed("ui_down"):
-#			prints("DUI_ROOT: DOWN")
-#		if event.is_action_pressed("ui_left"):
-#			prints("DUI_ROOT: LEFT")
-#		if event.is_action_pressed("ui_right"):
-#			prints("DUI_ROOT: RIGHT")
-#		if event.is_action_pressed("ui_accept"):
-#			prints("DUI_ROOT: ACCEPT")
-#		if event.is_action_pressed("ui_back"):
-#			prints("DUI_ROOT: BACK")
 
 
 func _on_magazine_count_changed(mag_count, norm_mag_count):
@@ -253,30 +230,5 @@ func _on_inventory_changed( inventory ):
 	var wn = $viewports/inventory/inventory_2d_viewport/inventory_2d.find_node("weapons_number")
 	wn.text = str(inventory.n_weapons)
 	
-	var n_weapon_slots = $static_stack/inventory_items/weapons.get_child_count()
-	if inventory.n_weapons > n_weapon_slots:
-		#prints("n weapons changed, update dui weapon slots")
-		#prints("\t", inventory.n_weapons, "vs", n_weapon_slots)
-		#print_stack()
-		#Util.debug_stack("n weapons changed, update dui weapon slots (%s vs. %s)"%[inventory.n_weapons,n_weapon_slots])
-		var slots_to_add = inventory.n_weapons - n_weapon_slots
-		#print("adding %s slots .."%[slots_to_add])
-		for _i in range(slots_to_add):
-			var wis = weapon_inv_slot.instance()
-			$static_stack/inventory_items/weapons.add_child(wis)
-
-		var ws = $static_stack/inventory_items/weapons.get_children()
-		for i in range(inventory.n_weapons):
-			if not ws[i].has_weapon():
-				ws[i].set_weapon( inventory.get_weapon_item(i) )
-
-
-		# space out $static_stack/inventory_items/weapons children
-
-		#print("spacing")
-		if ws.size() > 1:
-			for i in range(ws.size()):
-				var yr = lerp( -(ws.size()-1.0)/2.0, (ws.size()-1.0)/2.0, i/float((ws.size()-1)) )
-				#print("   %s (%s) %s"%[i, i/float((wc.size()-1)), yr])
-				ws[i].set_rotation_degrees(Vector3(0.0, yr * 25, 0.0))
-
+	weapons_items.weapon_inventory_changed( inventory )
+	
