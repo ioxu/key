@@ -14,6 +14,9 @@ export(float, 0.0, 1.0) var arc_length = 0.5 setget set_arc_length
 export(float, -1.0, 1.0) var arc_offset = 0.0 setget set_arc_offset
 
 export(bool) var join_radial = false setget set_join_radial
+export(bool) var normalise_UVs = true setget set_normalise_UVs
+export(bool) var flip_u = false setget set_flip_u
+export(bool) var flip_v = false setget set_flip_v
 
 func _ready():
 	generate_mesh()
@@ -50,7 +53,16 @@ func generate_mesh() -> void:
 			var vert = Vector3(x * radius * w, y, z * radius * w)
 			verts.append(vert)
 			normals.append(vert.normalized())
-			uvs.append(Vector2(u, v))
+
+			if normalise_UVs:
+				u = (float(j) / (radial_segments-1))
+				v = 1.0 - (float(i) / rings)
+			if flip_u:
+				u = 1.0 - u
+			if flip_v:
+				v = 1.0 - v
+			uvs.append(Vector2( u, v) )
+
 			point += 1
 
 			# Create triangles in ring using indices.
@@ -129,3 +141,19 @@ func set_arc_length(new_value) -> void:
 func set_arc_offset(new_value) -> void:
 	arc_offset = new_value
 	generate_mesh()
+
+
+func set_normalise_UVs(new_value) -> void:
+	normalise_UVs = new_value
+	generate_mesh()
+
+
+func set_flip_u(new_value) -> void:
+	flip_u = new_value
+	generate_mesh()
+
+
+func set_flip_v(new_value) -> void:
+	flip_v = new_value
+	generate_mesh()
+
