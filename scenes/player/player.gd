@@ -11,7 +11,7 @@ onready var hurt_meter = $MeshInstance/hurt_meter
 #export (NodePath) var spawn_point
 
 export var recoil_time := 0.0 # animated by recoil_animplayer
-var recoil_magnitude := 0.65#0.65#0.35
+var recoil_magnitude := 0.65 #0.65#0.35
 
 onready var body = $MeshInstance
 onready var body_initial_position = body.transform.origin

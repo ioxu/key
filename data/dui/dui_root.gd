@@ -61,13 +61,18 @@ func _process(dt):
 
 
 		if is_inventory_invoked:
-			weapons_items.update( self.global_transform.basis.z )
+			weapons_items.update( dt, self.global_transform.basis )
 
 
 
 func _input(event):
 	if is_options_invoked:
 		$viewports/options/options_viewport.input(event)
+	if is_inventory_invoked:
+		if Input.is_action_just_pressed("inventory_select"):
+			weapons_items.select()
+		if Input.is_action_just_released("inventory_select"):
+			weapons_items.release_select()
 
 
 func _on_magazine_count_changed(mag_count, norm_mag_count):

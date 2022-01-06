@@ -116,20 +116,11 @@ func _ready():
 	if player.find_node("weapon_mount").get_child_count() > 0:
 		weapon = player.find_node("weapon_mount").get_child(0)
 
-
 	if camera_interpolation_mode == CAMERA_LOOKAHEAD_INTERP_MODE.harmonic:
-#		camera_lookahead_harmonic_parms = camera_lookahead_harmonic_motion.CalcDampedSpringMotionParams( camera_lookahead_harmonic_damping,
-#																	camera_lookahead_harmonic_angular_frequency )
 		camera_lookahead_spring.initialise( camera_lookahead_harmonic_damping, camera_lookahead_harmonic_angular_frequency )
 
-#	waist_rotation_harmonic_parms = waist_rotation_harmonic_motion.CalcDampedSpringMotionParams( 
-#		waist_rotation_spring_damping,
-#		waist_rotation_spring_frequency
-#	)
 	waist_rotation_spring.initialise(waist_rotation_spring_damping, waist_rotation_spring_frequency )
-
 	toes_waist_ry_spring.initialise( 0.25, 5 )
-
 	toes_ypos_spring.initialise( 0.225, 70 )
 
 
@@ -205,8 +196,6 @@ func set_camera_lookahead_harmonic_spring_frequency( freq: float = 0.0 ):
 
 
 func _update_camera_lookahead_harmonic_motion_params() -> void:
-#	camera_lookahead_harmonic_parms = camera_lookahead_harmonic_motion.CalcDampedSpringMotionParams( camera_lookahead_harmonic_damping,
-#																							camera_lookahead_harmonic_angular_frequency )
 	camera_lookahead_spring.initialise( camera_lookahead_harmonic_damping, camera_lookahead_harmonic_angular_frequency )
 
 
@@ -258,14 +247,14 @@ func _process(dt):
 
 		# TEMP: FIRE ALL IN INVENTORY
 		if Input.is_action_just_pressed("shoot"):
-			for w in dui_root.find_node("weapons_items").get_children():
+			for w in dui_root.find_node("slots").get_children():
 				w.slotted_weapon.eject_casings = false
 				
 				yield(get_tree().create_timer( randf() * 0.002 ), "timeout")
 				w.slotted_weapon.activated = true
 
 		if Input.is_action_just_released("shoot"):
-			for w in dui_root.find_node("weapons_items").get_children():
+			for w in dui_root.find_node("slots").get_children():
 				w.slotted_weapon.activated = false
 		#\TEMP: FIRE ALL IN INVENTORY
 

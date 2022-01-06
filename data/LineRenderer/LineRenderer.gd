@@ -18,6 +18,7 @@ func _ready():
 	pass
 
 func _process(delta):
+	#prints("drawing ImmediateGeometry", self.get_path())
 	if not self.visible:
 		return
 

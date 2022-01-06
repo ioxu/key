@@ -3,7 +3,8 @@ extends Spatial
 var slotted_weapon = null
 
 func _ready():
-	pass
+	$bg/outline.visible = false
+	$bg/selected.visible = false
 
 
 func set_weapon(weapon):
@@ -21,6 +22,10 @@ func remove_weapon():
 
 func hilight( show: bool = false) -> void :
 	$bg/outline.visible = show
+	
+	
+func select( show: bool = false ) -> void:
+	$bg/selected.visible = show
 
 
 func has_weapon() -> bool:
