@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/player/emissive_red_semiopaque_material.tres" type="Material" id=1]
 [ext_resource path="res://scenes/player/emissive_blue_square_outline_material.tres" type="Material" id=2]
 [ext_resource path="res://scenes/player/emissive_blue_semiopaque_material.tres" type="Material" id=3]
 [ext_resource path="res://data/dui/weapon_inv_slot.gd" type="Script" id=4]
 [ext_resource path="res://data/textures/square_01.png" type="Texture" id=5]
+[ext_resource path="res://addons/SIsilicon.3d.text/label_3d.gd" type="Script" id=6]
+[ext_resource path="res://data/fonts/rainyhearts.fnt" type="BitmapFont" id=7]
 
 [sub_resource type="QuadMesh" id=7]
 material = ExtResource( 3 )
@@ -44,3 +46,20 @@ transform = Transform( 1, 4.44089e-16, 5.32907e-15, 4.44089e-16, 1, 5.32907e-15,
 mesh = SubResource( 7 )
 skeleton = NodePath("../..")
 material/0 = SubResource( 8 )
+
+[node name="Label3D" type="Spatial" parent="."]
+transform = Transform( 1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, -4.37687e-08, 0.9188, 2.4 )
+script = ExtResource( 6 )
+text = "1"
+text_size = 1.5
+font = ExtResource( 7 )
+align = 0
+billboard = true
+color = Color( 0.847059, 0.25098, 0.25098, 1 )
+metallic = 0.0
+roughness = 0.5
+emission_color = Color( 0.866667, 0.180392, 0.180392, 1 )
+emission_strength = 1.0
+extrude = 0.0
+min_steps = 32
+max_steps = 256

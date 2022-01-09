@@ -58,6 +58,14 @@ func _ready():
 	# connect to inventory
 	inventory.connect("inventory_changed", dui_root, "_on_inventory_changed")
 
+
+	# deck the character with 50 pulse shards
+#	yield(get_tree().create_timer(1.0), "timeout")
+#	for i in range(20):
+#		var w = preload("res://data/weapons/pulse_shard/pulse_shard.tscn").instance()
+#		self.inventory.add_weapon_item( w, 1 )
+
+
 func _process(delta):
 	# recoil on waist
 	var recoil_v = Vector3(0.0, 0.0, recoil_time * -1.0 * recoil_magnitude).rotated(Vector3.UP, waist.get_rotation().y )
@@ -116,6 +124,7 @@ func die() -> void:
 	#spawn_point.transport_player_to_spawn_point()
 	emit_signal("die", self)
 	_stats.died += 1
+
 
 func respawn() -> void:
 	set_health(initial_health)

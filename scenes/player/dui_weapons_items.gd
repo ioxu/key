@@ -77,8 +77,8 @@ func weapon_inventory_changed( inventory ) -> void:
 
 		# fill out weapon_inv_slots with weapons, as listed in inventory weapon items
 		var ws = $slots.get_children()
-		prints("get children", ws)
 		for i in range(inventory.n_weapons):
+			ws[i].get_node( "Label3D" ).set_text(str(i)) # TODO: temporary
 			if not ws[i].has_weapon():
 				ws[i].set_weapon( inventory.get_weapon_item(i) )
 
