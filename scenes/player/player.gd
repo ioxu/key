@@ -59,11 +59,12 @@ func _ready():
 	inventory.connect("inventory_changed", dui_root, "_on_inventory_changed")
 
 
-	# deck the character with 50 pulse shards
-#	yield(get_tree().create_timer(1.0), "timeout")
-#	for i in range(20):
-#		var w = preload("res://data/weapons/pulse_shard/pulse_shard.tscn").instance()
-#		self.inventory.add_weapon_item( w, 1 )
+	# deck the character with starting weapons in the inventory
+	yield(get_tree().create_timer(1.0), "timeout")
+	for _i in range(2):
+		var w = preload("res://data/weapons/pulse_shard/pulse_shard.tscn").instance()
+		w.set_visible(false)
+		self.inventory.add_weapon_item( w, 1 )
 
 
 func _process(delta):
