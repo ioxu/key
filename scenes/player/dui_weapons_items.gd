@@ -79,8 +79,8 @@ func weapon_inventory_changed( inventory ) -> void:
 		var slots_to_add = inventory.n_weapons - n_weapon_slots
 		for _i in range(slots_to_add):
 			var wis = weapon_inv_slot.instance()
-			wis.set_do_hide(false)
 			$slots.add_child(wis)
+			wis.invoke()
 
 		# fill out weapon_inv_slots with weapons, as listed in inventory weapon items
 		var ws = $slots.get_children()
@@ -103,16 +103,16 @@ func _arrange_items( spacing : float = item_spacing) -> void:
 		var suffix = ""
 		if offset_index < -2 or offset_index > 3:
 			suffix = "hide"
-			ws[i].set_do_hide(true)
+			ws[i].devoke()
 		else:
 			suffix = "show"
-			ws[i].set_do_hide(false)
+			ws[i].invoke()
 		prints( "\tarrange (%s, >%s) %s"%[i, offset_index, suffix ] )
 		ws[i].set_rotation_degrees(Vector3(0.0, (i + -0.5 + visible_list_offset) * spacing , 0.0))
 
 
 func shift_left() -> void:
-	# shit the list to the left 
+	# shift the list to the left 
 	var ns = get_n_slots()
 	if ns < visible_list_max_items_visible: return
 
@@ -126,7 +126,7 @@ func shift_left() -> void:
 
 
 func shift_right() -> void:
-	# shit the list to the right
+	# shift the list to the right
 	var ns = get_n_slots()
 	if ns < visible_list_max_items_visible: return
 

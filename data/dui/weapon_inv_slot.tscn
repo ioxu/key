@@ -55,3 +55,7 @@ transform = Transform( 1, 4.44089e-16, 5.32907e-15, 4.44089e-16, 1, 5.32907e-15,
 mesh = SubResource( 7 )
 skeleton = NodePath("../..")
 material/0 = SubResource( 8 )
+
+[node name="visibility_tween" type="Tween" parent="."]
+
+[connection signal="tween_completed" from="visibility_tween" to="." method="_on_visibility_tween_tween_completed"]
