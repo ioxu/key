@@ -61,7 +61,7 @@ func _ready():
 
 	# deck the character with starting weapons in the inventory
 	yield(get_tree().create_timer(1.0), "timeout")
-	for _i in range(2):
+	for _i in range(4):
 		var w = preload("res://data/weapons/pulse_shard/pulse_shard.tscn").instance()
 		w.set_visible(false)
 		self.inventory.add_weapon_item( w, 1 )

@@ -34,33 +34,6 @@ func select() -> void:
 		$selector.visible = true
 
 
-func shift_left() -> void:
-	var ws = $slots.get_children().size()
-	if ws < visible_list_max_items_visible: return
-
-	prints("< cc", visible_list_offset, -visible_list_max_items_visible/2.0 +1.0 )
-	if visible_list_offset >= -visible_list_max_items_visible/2.0 +1.0:
-		return
-
-	visible_list_offset +=1
-	prints("inventory_items shift_left <-- (%s, n %s)"%[visible_list_offset, ws])
-	_arrange_items()
-
-
-func shift_right() -> void:
-	var ws = $slots.get_children().size()
-	if ws < visible_list_max_items_visible: return
-
-	prints("> cc", visible_list_offset,  (visible_list_max_items_visible/2.0) - ws +1.0 )
-	if visible_list_offset <=  (visible_list_max_items_visible/2.0) - ws +1.0:
-		return
-		
-	visible_list_offset -=1
-#	prints("inventory_items shift_right --> (%s, %s)"%[visible_list_offset, (visible_list_minimum_offset * -1.0) + ws])
-	prints("inventory_items shift_right --> (%s, n %s)"%[visible_list_offset, ws])
-	_arrange_items()
-
-
 func release_select() -> void:
 	if weapon_item_selected:
 		weapon_item_selected.select(false)
@@ -106,12 +79,12 @@ func weapon_inventory_changed( inventory ) -> void:
 		var slots_to_add = inventory.n_weapons - n_weapon_slots
 		for _i in range(slots_to_add):
 			var wis = weapon_inv_slot.instance()
+			wis.set_do_hide(false)
 			$slots.add_child(wis)
 
 		# fill out weapon_inv_slots with weapons, as listed in inventory weapon items
 		var ws = $slots.get_children()
 		for i in range(inventory.n_weapons):
-			ws[i].get_node( "Label3D" ).set_text(str(i)) # TODO: temporary
 			if not ws[i].has_weapon():
 				ws[i].set_weapon( inventory.get_weapon_item(i) )
 
@@ -126,43 +99,48 @@ func _arrange_items( spacing : float = item_spacing) -> void:
 	# space out $static_stack/inventory_items/weapons_items children
 	var ws = $slots.get_children()
 	for i in range(ws.size()):
+		var offset_index = i+visible_list_offset
+		var suffix = ""
+		if offset_index < -2 or offset_index > 3:
+			suffix = "hide"
+			ws[i].set_do_hide(true)
+		else:
+			suffix = "show"
+			ws[i].set_do_hide(false)
+		prints( "\tarrange (%s, >%s) %s"%[i, offset_index, suffix ] )
 		ws[i].set_rotation_degrees(Vector3(0.0, (i + -0.5 + visible_list_offset) * spacing , 0.0))
 
 
+func shift_left() -> void:
+	# shit the list to the left 
+	var ns = get_n_slots()
+	if ns < visible_list_max_items_visible: return
+
+	var right_limit = -visible_list_max_items_visible/2.0 +1.0
+	if visible_list_offset >= right_limit:
+		return
+
+	visible_list_offset +=1
+	prints("inventory_items shift_left <-- (%s, %s, n %s)"%[visible_list_offset, right_limit, ns])
+	_arrange_items()
 
 
-#func _arrange_items( spacing : float = item_spacing) -> void:
-#	# space out $static_stack/inventory_items/weapons_items children
-#	var ws = $slots.get_children()
-#	var rotation_offset = 0.0
-#	var even_offset = 0.0
-#
-#	# only start introducing list offset if list is long enough
-#	if ws.size() > visible_list_max_items_visible:
-#		rotation_offset = visible_list_offset + even_offset
-#		prints("visible list offset", visible_list_offset, "rotation offset", rotation_offset)
-#	else:
-#		visible_list_offset = 0
-#
-#	var display_range
-#
-#	if ws.size() > visible_list_max_items_visible:
-#		display_range = visible_list_max_items_visible
-#	else:
-#		display_range = ws.size()
-#
-#	if ws.size() > 1 and ws.size() < visible_list_max_items_visible+1:
-#		for i in range(display_range):
-#			var yr = lerp( -(display_range-1.0)/2.0, (display_range-1.0)/2.0, i/float((display_range-1)) )
-#			prints("yr", yr, ":", yr + rotation_offset	)
-##			ws[i].set_rotation_degrees(Vector3(0.0, (yr + rotation_offset) * spacing , 0.0))
-#			ws[i].set_rotation_degrees(Vector3(0.0, yr * spacing , 0.0))
-	
-#	if ws.size() > 1:
-#		for i in range(ws.size()):
-#			var yr = lerp( -(ws.size()-1.0)/2.0, (ws.size()-1.0)/2.0, i/float((ws.size()-1)) )
-#			prints("yr", yr, ":", yr + rotation_offset)
-#			ws[i].set_rotation_degrees(Vector3(0.0, (yr + rotation_offset) * spacing , 0.0))
+func shift_right() -> void:
+	# shit the list to the right
+	var ns = get_n_slots()
+	if ns < visible_list_max_items_visible: return
+
+	var left_limit = (visible_list_max_items_visible/2.0) - ns +1.0
+	if visible_list_offset <=  left_limit:
+		return
+		
+	visible_list_offset -=1
+	prints("inventory_items shift_right --> (%s, %s, n %s)"%[visible_list_offset, left_limit, ns])
+	_arrange_items()
+
+
+func get_n_slots() -> int:
+	return $slots.get_children().size()
 
 
 func find_item( item ) -> int:
