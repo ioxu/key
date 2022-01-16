@@ -22,7 +22,7 @@ func _ready():
 
 	$selector.visible = false
 
-	visible_list_offset = (-1.0 * float(visible_list_max_items_visible) / 2.0) + 1.0
+	visible_list_offset = int( (-1.0 * float(visible_list_max_items_visible) / 2.0) + 1.0 )
 	visible_list_minimum_offset = visible_list_offset
 
 func select() -> void:
@@ -98,16 +98,19 @@ func set_item_spacing( new_value ) -> void:
 func _arrange_items( spacing : float = item_spacing) -> void:
 	# space out $static_stack/inventory_items/weapons_items children
 	var ws = $slots.get_children()
+	prints("weapons_items._arrange_items")
 	for i in range(ws.size()):
 		var offset_index = i+visible_list_offset
 		var suffix = ""
 		if offset_index < -2 or offset_index > 3:
-			suffix = "hide"
+			suffix = " - "
 			ws[i].devoke()
 		else:
-			suffix = "show"
+			suffix = "[ ]"
 			ws[i].invoke()
-		prints( "\tarrange (%s, >%s) %s"%[i, offset_index, suffix ] )
+		
+		var shift_str = "(%s, >%s)"%[i, offset_index]
+		prints( "%12s %s"%[shift_str ,suffix ] )
 		ws[i].set_rotation_degrees(Vector3(0.0, (i + -0.5 + visible_list_offset) * spacing , 0.0))
 
 

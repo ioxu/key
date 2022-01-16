@@ -57,7 +57,6 @@ func devoke() -> void:
 
 
 func _on_visibility_tween_tween_completed(object, key):
-	print("TWEEN TELL visibility_tween ", $visibility_tween.tell())
 	if self._invoke_amount == 0.0:
 		self.visible = false
 

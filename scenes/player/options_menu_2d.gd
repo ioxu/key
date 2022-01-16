@@ -38,10 +38,6 @@ func _ready():
 		# theme the vertical scroll bar
 		sc.get_child(1).set_theme(vs_theme)
 
-	prints("  LABELS")
-	for l in labels:
-		prints("    ", l.get_name() )
-
 	# default menu
 	$OPTIONS_menu.show()
 	_current_menu = $OPTIONS_menu
