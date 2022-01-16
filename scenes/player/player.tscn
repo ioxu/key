@@ -412,6 +412,8 @@ arc_length = 0.06
 arc_offset = -0.03
 flip_v = true
 
+[node name="slots_shift_tween" type="Tween" parent="MeshInstance/dui_root/static_stack/inventory_items/weapons_items"]
+
 [node name="screen" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items"]
 transform = Transform( 1.13301, 1.63701e-07, -0.0951222, -1.71421e-07, 1.082, 1.43701e-08, -0.0951222, -2.04414e-11, -1.13301, 3.71472e-07, 2.45529, -4.63132e-11 )
 material_override = SubResource( 25 )
@@ -827,6 +829,7 @@ trail_colour = Color( 0.133333, 0.94902, 0.968627, 0.521569 )
 emission_multiplier = 0.5
 
 [connection signal="close_options_menu" from="MeshInstance/dui_root/viewports/options/options_viewport/options_menu_2d" to="MeshInstance/dui_root" method="_on_options_menu_2d_close_options_menu"]
+[connection signal="tween_completed" from="MeshInstance/dui_root/static_stack/inventory_items/weapons_items/slots_shift_tween" to="MeshInstance/dui_root/static_stack/inventory_items/weapons_items" method="_on_slots_shift_tween_tween_completed"]
 [connection signal="area_entered" from="MeshInstance/dui_root/static_stack/radar_dots/Area" to="MeshInstance/dui_root/static_stack/radar_dots" method="_on_Area_area_entered"]
 [connection signal="area_exited" from="MeshInstance/dui_root/static_stack/radar_dots/Area" to="MeshInstance/dui_root/static_stack/radar_dots" method="_on_Area_area_exited"]
 [connection signal="body_entered" from="MeshInstance/dui_root/static_stack/radar_dots/Area" to="MeshInstance/dui_root/static_stack/radar_dots" method="_on_Area_body_entered"]
