@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=2]
+[gd_scene load_steps=57 format=2]
 
 [ext_resource path="res://scenes/player/Controller.gd" type="Script" id=1]
 [ext_resource path="res://data/dui/weapon_inv_slot.tscn" type="PackedScene" id=2]
@@ -126,6 +126,85 @@ surfaces/0 = {
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 10
+}
+
+[sub_resource type="Shader" id=36]
+code = "// NOTE: Shader automatically converted from Godot Engine 3.4.stable's SpatialMaterial.
+
+shader_type spatial;
+render_mode blend_mix,depth_draw_opaque,cull_disabled,diffuse_burley,specular_schlick_ggx,depth_test_disable;
+
+uniform float ext1 : hint_range(0,1) = 0.25;
+uniform float ext2 : hint_range(0,1) = 0.75;
+
+uniform vec4 albedo : hint_color;
+uniform sampler2D texture_albedo : hint_albedo;
+uniform float specular;
+uniform float metallic;
+uniform float roughness : hint_range(0,1);
+uniform float point_size : hint_range(0,128);
+uniform sampler2D texture_emission : hint_black_albedo;
+uniform vec4 emission : hint_color;
+uniform float emission_energy;
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+float remap( float f, float start1, float stop1, float start2, float stop2){
+	return start2 + (stop2 - start2) * ((f - start1) / (stop1 - start1));
+}
+
+
+void vertex() {
+	UV=UV*uv1_scale.xy+uv1_offset.xy;
+}
+
+
+void fragment() {
+	vec2 base_uv = UV;
+	vec4 albedo_tex = texture(texture_albedo,base_uv);
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+	METALLIC = metallic;
+	ROUGHNESS = roughness;
+	SPECULAR = specular;
+	vec3 emission_tex = texture(texture_emission,base_uv).rgb;
+	EMISSION = (emission.rgb+emission_tex)*emission_energy;
+	float a = albedo.a *
+		albedo_tex.a *
+		clamp(remap( UV.x, ext1, ext1+.0001, 0.0, 1.0  ), 0.25, 1.0) * 
+		clamp(remap( UV.x, ext2, ext2-.0001, 0.0, 1.0  ), 0.25, 1.0); 
+	ALPHA = a;
+}
+"
+
+[sub_resource type="ShaderMaterial" id=37]
+shader = SubResource( 36 )
+shader_param/ext1 = 0.512
+shader_param/ext2 = 0.87
+shader_param/albedo = Color( 0.968627, 0.929412, 0.262745, 0.282353 )
+shader_param/specular = 0.5
+shader_param/metallic = 0.0
+shader_param/roughness = 1.0
+shader_param/point_size = 1.0
+shader_param/emission = Color( 0.960784, 1, 0.345098, 1 )
+shader_param/emission_energy = 1.0
+shader_param/uv1_scale = Vector3( 1, 1, 1 )
+shader_param/uv1_offset = Vector3( 0, 0, 0 )
+shader_param/uv2_scale = Vector3( 1, 1, 1 )
+shader_param/uv2_offset = Vector3( 0, 0, 0 )
+
+[sub_resource type="ArrayMesh" id=35]
+surfaces/0 = {
+"aabb": AABB( 0.696088, -0.104448, -2.21943, 1.64138, 0.208905, 4.45708 ),
+"array_data": PoolByteArray( 214, 50, 50, 63, 179, 232, 213, 61, 96, 53, 15, 64, 83, 29, 102, 4, 0, 0, 0, 60, 240, 157, 135, 63, 179, 232, 213, 61, 5, 198, 5, 64, 172, 41, 27, 4, 68, 44, 0, 60, 21, 86, 178, 63, 179, 232, 213, 61, 3, 47, 241, 63, 186, 52, 243, 3, 68, 48, 0, 60, 141, 15, 216, 63, 179, 232, 213, 61, 177, 16, 208, 63, 54, 63, 233, 3, 102, 50, 0, 60, 219, 187, 247, 63, 179, 232, 213, 61, 138, 30, 169, 63, 180, 73, 250, 3, 68, 52, 0, 60, 243, 59, 8, 64, 179, 232, 213, 61, 150, 223, 122, 63, 204, 84, 41, 4, 85, 53, 0, 60, 44, 201, 16, 64, 179, 232, 213, 61, 84, 123, 28, 63, 60, 97, 125, 4, 102, 54, 0, 60, 70, 72, 21, 64, 179, 232, 213, 61, 93, 212, 102, 62, 35, 112, 5, 5, 119, 55, 0, 60, 4, 153, 21, 64, 179, 232, 213, 61, 165, 187, 42, 190, 223, 122, 78, 13, 68, 56, 0, 60, 35, 185, 17, 64, 179, 232, 213, 61, 223, 224, 13, 191, 113, 123, 183, 28, 204, 56, 0, 60, 108, 196, 9, 64, 179, 232, 213, 61, 143, 25, 109, 191, 203, 123, 112, 41, 85, 57, 0, 60, 210, 231, 251, 63, 179, 232, 213, 61, 30, 215, 162, 191, 255, 123, 174, 52, 221, 57, 0, 60, 161, 56, 221, 63, 179, 232, 213, 61, 227, 145, 202, 191, 20, 124, 57, 63, 102, 58, 0, 60, 70, 87, 184, 63, 179, 232, 213, 61, 57, 160, 236, 191, 14, 124, 172, 73, 238, 58, 0, 60, 48, 76, 142, 63, 179, 232, 213, 61, 249, 6, 4, 192, 235, 123, 154, 84, 119, 59, 0, 60, 165, 137, 64, 63, 179, 232, 213, 61, 50, 11, 14, 192, 166, 123, 179, 96, 0, 60, 0, 60, 214, 50, 50, 63, 179, 232, 213, 189, 96, 53, 15, 64, 83, 29, 154, 251, 0, 0, 0, 0, 240, 157, 135, 63, 179, 232, 213, 189, 5, 198, 5, 64, 172, 41, 229, 251, 68, 44, 0, 0, 21, 86, 178, 63, 179, 232, 213, 189, 3, 47, 241, 63, 186, 52, 13, 252, 68, 48, 0, 0, 141, 15, 216, 63, 179, 232, 213, 189, 177, 16, 208, 63, 54, 63, 23, 252, 102, 50, 0, 0, 219, 187, 247, 63, 179, 232, 213, 189, 138, 30, 169, 63, 180, 73, 6, 252, 68, 52, 0, 0, 243, 59, 8, 64, 179, 232, 213, 189, 150, 223, 122, 63, 204, 84, 215, 251, 85, 53, 0, 0, 44, 201, 16, 64, 179, 232, 213, 189, 84, 123, 28, 63, 60, 97, 131, 251, 102, 54, 0, 0, 70, 72, 21, 64, 179, 232, 213, 189, 93, 212, 102, 62, 35, 112, 251, 250, 119, 55, 0, 0, 4, 153, 21, 64, 179, 232, 213, 189, 165, 187, 42, 190, 223, 122, 178, 242, 68, 56, 0, 0, 35, 185, 17, 64, 179, 232, 213, 189, 223, 224, 13, 191, 113, 123, 73, 227, 204, 56, 0, 0, 108, 196, 9, 64, 179, 232, 213, 189, 143, 25, 109, 191, 203, 123, 144, 214, 85, 57, 0, 0, 210, 231, 251, 63, 179, 232, 213, 189, 30, 215, 162, 191, 255, 123, 82, 203, 221, 57, 0, 0, 161, 56, 221, 63, 179, 232, 213, 189, 227, 145, 202, 191, 20, 124, 199, 192, 102, 58, 0, 0, 70, 87, 184, 63, 179, 232, 213, 189, 57, 160, 236, 191, 14, 124, 84, 182, 238, 58, 0, 0, 48, 76, 142, 63, 179, 232, 213, 189, 249, 6, 4, 192, 235, 123, 102, 171, 119, 59, 0, 0, 165, 137, 64, 63, 179, 232, 213, 189, 50, 11, 14, 192, 166, 123, 77, 159, 0, 60, 0, 0 ),
+"array_index_data": PoolByteArray( 0, 0, 1, 0, 16, 0, 1, 0, 17, 0, 16, 0, 1, 0, 2, 0, 17, 0, 2, 0, 18, 0, 17, 0, 2, 0, 3, 0, 18, 0, 3, 0, 19, 0, 18, 0, 3, 0, 4, 0, 19, 0, 4, 0, 20, 0, 19, 0, 4, 0, 5, 0, 20, 0, 5, 0, 21, 0, 20, 0, 5, 0, 6, 0, 21, 0, 6, 0, 22, 0, 21, 0, 6, 0, 7, 0, 22, 0, 7, 0, 23, 0, 22, 0, 7, 0, 8, 0, 23, 0, 8, 0, 24, 0, 23, 0, 8, 0, 9, 0, 24, 0, 9, 0, 25, 0, 24, 0, 9, 0, 10, 0, 25, 0, 10, 0, 26, 0, 25, 0, 10, 0, 11, 0, 26, 0, 11, 0, 27, 0, 26, 0, 11, 0, 12, 0, 27, 0, 12, 0, 28, 0, 27, 0, 12, 0, 13, 0, 28, 0, 13, 0, 29, 0, 28, 0, 13, 0, 14, 0, 29, 0, 14, 0, 30, 0, 29, 0, 14, 0, 15, 0, 30, 0, 15, 0, 31, 0, 30, 0 ),
+"blend_shape_data": [  ],
+"format": 2194707,
+"index_count": 90,
+"primitive": 4,
+"skeleton_aabb": [  ],
+"vertex_count": 32
 }
 
 [sub_resource type="ViewportTexture" id=26]
@@ -289,7 +368,7 @@ material/0 = SubResource( 5 )
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, -0.44367, 0.628556 )
 
 [node name="hurt_meter" parent="MeshInstance" instance=ExtResource( 7 )]
-transform = Transform( 0.5, 0, 0, 0, -3.27835e-08, 0.5, 0, -0.75, -2.18557e-08, 0, 0, 0.858 )
+transform = Transform( 0.5, 0, 0, 0, -3.27835e-08, 0.5, 0, -0.75, -2.18557e-08, 0, -2.84217e-14, 0.858 )
 mesh = SubResource( 6 )
 
 [node name="dui_root" type="Spatial" parent="MeshInstance"]
@@ -411,6 +490,21 @@ zenith_max = 0.575
 arc_length = 0.06
 arc_offset = -0.03
 flip_v = true
+
+[node name="scrollbar" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/weapons_items"]
+transform = Transform( -8.9407e-08, 0, -1, 0, 1, 0, 1, 0, -8.9407e-08, 2.84217e-14, 1.04696, -2.84217e-14 )
+material_override = SubResource( 37 )
+mesh = SubResource( 35 )
+material/0 = null
+script = ExtResource( 18 )
+rings = 1
+radial_segments = 16
+height = 0.338
+radius = 2.464
+zenith_min = 0.4
+zenith_max = 0.6
+arc_length = 0.4
+arc_offset = 0.048
 
 [node name="slots_shift_tween" type="Tween" parent="MeshInstance/dui_root/static_stack/inventory_items/weapons_items"]
 

@@ -18,11 +18,20 @@ export(bool) var normalise_UVs = true setget set_normalise_UVs
 export(bool) var flip_u = false setget set_flip_u
 export(bool) var flip_v = false setget set_flip_v
 
+
 func _ready():
 	generate_mesh()
 
 
+func _get_configuration_warning():
+	if not mesh or mesh.get_class() != "ArrayMesh":
+		return 'mesh needs to be set to an ArrayMesh'
+	return ''
+
 func generate_mesh() -> void:
+	if mesh.get_class() == "ArrayMesh":
+		update_configuration_warning()
+
 	mesh.clear_surfaces()
 	var arr = []
 	arr.resize(Mesh.ARRAY_MAX)
