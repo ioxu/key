@@ -176,8 +176,8 @@ func _arrange_items( spacing : float = item_spacing) -> void:
 		prints( "%12s %s"%[shift_str ,pr_suffix ] )
 
 	# set scrollbar shader
-	$scrollbar.material_override.set_shader_param("ext1", scrollbar_min_ext)
-	$scrollbar.material_override.set_shader_param("ext2", scrollbar_max_ext)
+	$scrollbar.material_override.set_shader_param("ext2", 1.0 - scrollbar_min_ext)
+	$scrollbar.material_override.set_shader_param("ext1", 1.0 - scrollbar_max_ext)
 
 
 func _process(delta):
