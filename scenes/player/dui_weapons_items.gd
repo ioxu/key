@@ -14,7 +14,7 @@ var scrollbar_min_ext := 0.0
 var scrollbar_max_ext := 0.0
 
 var weapon_item_hilighted = null
-var weapon_item_selected = null
+var selected_weapon_slot = null
 
 # res
 var weapon_inv_slot = preload("res://data/dui/weapon_inv_slot.tscn")
@@ -30,18 +30,24 @@ func _ready():
 
 
 func select() -> void:
-	if !weapon_item_selected and weapon_item_hilighted:
-		weapon_item_selected = weapon_item_hilighted
-		weapon_item_selected.select(true)
-		prints("weapon_items", "select", find_item( weapon_item_selected ) ,weapon_item_selected, weapon_item_selected.slotted_weapon)
-		Util.debug_stack("")
+	if !selected_weapon_slot and weapon_item_hilighted:
+		selected_weapon_slot = weapon_item_hilighted
+		selected_weapon_slot.select(true)
+		prints("weapon_items", "select", find_item( selected_weapon_slot ) ,selected_weapon_slot, selected_weapon_slot.slotted_weapon)
+		Util.debug_stack("select()")
 		$selector.visible = true
+
+		#move weapon to selector
+		if $selector.has_item == false:
+			var weapon = selected_weapon_slot.slotted_weapon
+			$selector.select(weapon, selected_weapon_slot)
 
 
 func release_select() -> void:
-	if weapon_item_selected:
-		weapon_item_selected.select(false)
-		weapon_item_selected = null
+	if selected_weapon_slot:
+		selected_weapon_slot.select(false)
+		selected_weapon_slot = null
+		$selector.clear() ##
 	$selector.visible = false
 
 
@@ -67,7 +73,7 @@ func update( delta : float,  basis : Basis = Basis.IDENTITY ) -> void:
 		weapon_item_hilighted = closest_item
 
 	# ################################
-	if weapon_item_selected:
+	if selected_weapon_slot:
 		pass
 	# ################################
 
@@ -76,7 +82,7 @@ func update( delta : float,  basis : Basis = Basis.IDENTITY ) -> void:
 
 
 func weapon_inventory_changed( inventory ) -> void:
-	var n_weapon_slots = $slots.get_child_count()
+	var n_weapon_slots = get_n_slots()
 	
 	# add extra slots if needed
 	if inventory.n_weapons > n_weapon_slots:

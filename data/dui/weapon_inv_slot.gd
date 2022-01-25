@@ -61,14 +61,25 @@ func _on_visibility_tween_tween_completed(object, key):
 		self.visible = false
 
 
-func set_weapon(weapon):
-	$bg.add_child( weapon )
-	weapon.set_owner( $bg )
-	weapon.transform.origin = Vector3.ZERO
-	self.slotted_weapon = weapon
+func set_weapon(weapon) -> void:
+	# a slotted weapon is slotted for ever
+	# until remove_weapon()
+	if not self.slotted_weapon:
+		$bg.add_child( weapon )
+		weapon.set_owner( $bg )
+		weapon.transform.origin = Vector3.ZERO
+		self.slotted_weapon = weapon
 
 
-func remove_weapon():
+func return_weapon() -> void:
+	if self.slotted_weapon:
+		self.slotted_weapon.get_parent().remove_child( self.slotted_weapon )
+		$bg.add_child( self.slotted_weapon )
+		self.slotted_weapon.set_owner( $bg )
+		self.slotted_weapon.transform.origin = Vector3.ZERO
+
+
+func remove_weapon() -> void:
 	$bg.remove_child(self.slotted_weapon)
 	self.slotted_weapon = null
 

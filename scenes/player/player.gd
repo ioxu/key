@@ -63,7 +63,7 @@ func _ready():
 	yield(get_tree().create_timer(1.0), "timeout")
 	for _i in range(4):
 		var w = preload("res://data/weapons/pulse_shard/pulse_shard.tscn").instance()
-		w.set_visible(false)
+		#w.set_visible(false)
 		self.inventory.add_weapon_item( w, 1 )
 
 

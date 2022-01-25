@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=2]
+[gd_scene load_steps=59 format=2]
 
 [ext_resource path="res://scenes/player/Controller.gd" type="Script" id=1]
 [ext_resource path="res://data/dui/weapon_inv_slot.tscn" type="PackedScene" id=2]
@@ -20,9 +20,11 @@
 [ext_resource path="res://data/procmesh/arcplane.gd" type="Script" id=18]
 [ext_resource path="res://scenes/player/inventory_front_2d.tscn" type="PackedScene" id=19]
 [ext_resource path="res://scenes/player/radar_dot.tscn" type="PackedScene" id=20]
+[ext_resource path="res://data/textures/square_01.png" type="Texture" id=21]
 [ext_resource path="res://data/objects/screen-90.obj" type="ArrayMesh" id=22]
 [ext_resource path="res://scenes/player/options_menu_2d.tscn" type="PackedScene" id=23]
 [ext_resource path="res://scenes/player/options_menu_bg_2d.tscn" type="PackedScene" id=24]
+[ext_resource path="res://scenes/player/selector.gd" type="Script" id=25]
 
 [sub_resource type="Animation" id=1]
 resource_name = "recoil_time_animation"
@@ -75,58 +77,6 @@ emission = Color( 0.101961, 1, 0.137255, 1 )
 emission_energy = 12.0
 emission_operator = 0
 emission_on_uv2 = false
-
-[sub_resource type="SpatialMaterial" id=31]
-flags_transparent = true
-flags_no_depth_test = true
-params_cull_mode = 2
-params_depth_draw_mode = 1
-albedo_color = Color( 0.258824, 0.937255, 0.243137, 1 )
-emission_enabled = true
-emission = Color( 0.529412, 0.913725, 0.227451, 1 )
-emission_energy = 1.5
-emission_operator = 0
-emission_on_uv2 = false
-
-[sub_resource type="ArrayMesh" id=30]
-lightmap_size_hint = Vector2( 78, 46 )
-surfaces/0 = {
-"aabb": AABB( -0.449679, -0.466891, 2.3573, 0.899359, 0.933791, 0.0425072 ),
-"array_data": PoolByteArray( 95, 60, 230, 190, 77, 12, 239, 62, 8, 222, 22, 64, 108, 238, 64, 18, 0, 0, 0, 0, 30, 67, 103, 190, 77, 12, 239, 62, 249, 231, 24, 64, 159, 246, 100, 19, 0, 52, 0, 0, 0, 0, 0, 0, 77, 12, 239, 62, 120, 150, 25, 64, 0, 0, 216, 20, 0, 56, 0, 0, 30, 67, 103, 62, 77, 12, 239, 62, 249, 231, 24, 64, 97, 9, 100, 19, 0, 58, 0, 0, 95, 60, 230, 62, 77, 12, 239, 62, 8, 222, 22, 64, 148, 17, 64, 18, 0, 60, 0, 0, 95, 60, 230, 190, 77, 12, 239, 190, 8, 222, 22, 64, 108, 238, 192, 237, 0, 0, 0, 60, 30, 67, 103, 190, 77, 12, 239, 190, 249, 231, 24, 64, 159, 246, 156, 236, 0, 52, 0, 60, 0, 0, 0, 0, 77, 12, 239, 190, 120, 150, 25, 64, 0, 0, 40, 235, 0, 56, 0, 60, 30, 67, 103, 62, 77, 12, 239, 190, 249, 231, 24, 64, 97, 9, 156, 236, 0, 58, 0, 60, 95, 60, 230, 62, 77, 12, 239, 190, 8, 222, 22, 64, 148, 17, 192, 237, 0, 60, 0, 60 ),
-"array_index_data": PoolByteArray( 0, 0, 1, 0, 5, 0, 1, 0, 6, 0, 5, 0, 1, 0, 2, 0, 6, 0, 2, 0, 7, 0, 6, 0, 2, 0, 3, 0, 7, 0, 3, 0, 8, 0, 7, 0, 3, 0, 4, 0, 8, 0, 4, 0, 9, 0, 8, 0 ),
-"blend_shape_data": [  ],
-"format": 2194707,
-"index_count": 24,
-"primitive": 4,
-"skeleton_aabb": [  ],
-"vertex_count": 10
-}
-
-[sub_resource type="ArrayMesh" id=32]
-surfaces/0 = {
-"aabb": AABB( -0.449679, -0.466891, 2.3573, 0.899359, 0.933791, 0.0425072 ),
-"array_data": PoolByteArray( 95, 60, 230, 190, 77, 12, 239, 62, 8, 222, 22, 64, 108, 238, 64, 18, 0, 0, 0, 0, 30, 67, 103, 190, 77, 12, 239, 62, 249, 231, 24, 64, 159, 246, 100, 19, 0, 52, 0, 0, 0, 0, 0, 0, 77, 12, 239, 62, 120, 150, 25, 64, 0, 0, 216, 20, 0, 56, 0, 0, 30, 67, 103, 62, 77, 12, 239, 62, 249, 231, 24, 64, 97, 9, 100, 19, 0, 58, 0, 0, 95, 60, 230, 62, 77, 12, 239, 62, 8, 222, 22, 64, 148, 17, 64, 18, 0, 60, 0, 0, 95, 60, 230, 190, 77, 12, 239, 190, 8, 222, 22, 64, 108, 238, 192, 237, 0, 0, 0, 60, 30, 67, 103, 190, 77, 12, 239, 190, 249, 231, 24, 64, 159, 246, 156, 236, 0, 52, 0, 60, 0, 0, 0, 0, 77, 12, 239, 190, 120, 150, 25, 64, 0, 0, 40, 235, 0, 56, 0, 60, 30, 67, 103, 62, 77, 12, 239, 190, 249, 231, 24, 64, 97, 9, 156, 236, 0, 58, 0, 60, 95, 60, 230, 62, 77, 12, 239, 190, 8, 222, 22, 64, 148, 17, 192, 237, 0, 60, 0, 60 ),
-"array_index_data": PoolByteArray( 0, 0, 1, 0, 5, 0, 1, 0, 6, 0, 5, 0, 1, 0, 2, 0, 6, 0, 2, 0, 7, 0, 6, 0, 2, 0, 3, 0, 7, 0, 3, 0, 8, 0, 7, 0, 3, 0, 4, 0, 8, 0, 4, 0, 9, 0, 8, 0 ),
-"blend_shape_data": [  ],
-"format": 2194707,
-"index_count": 24,
-"primitive": 4,
-"skeleton_aabb": [  ],
-"vertex_count": 10
-}
-
-[sub_resource type="ArrayMesh" id=33]
-surfaces/0 = {
-"aabb": AABB( -0.449679, -0.466891, 2.3573, 0.899359, 0.933791, 0.0425072 ),
-"array_data": PoolByteArray( 95, 60, 230, 190, 77, 12, 239, 62, 8, 222, 22, 64, 108, 238, 64, 18, 0, 0, 0, 0, 30, 67, 103, 190, 77, 12, 239, 62, 249, 231, 24, 64, 159, 246, 100, 19, 0, 52, 0, 0, 0, 0, 0, 0, 77, 12, 239, 62, 120, 150, 25, 64, 0, 0, 216, 20, 0, 56, 0, 0, 30, 67, 103, 62, 77, 12, 239, 62, 249, 231, 24, 64, 97, 9, 100, 19, 0, 58, 0, 0, 95, 60, 230, 62, 77, 12, 239, 62, 8, 222, 22, 64, 148, 17, 64, 18, 0, 60, 0, 0, 95, 60, 230, 190, 77, 12, 239, 190, 8, 222, 22, 64, 108, 238, 192, 237, 0, 0, 0, 60, 30, 67, 103, 190, 77, 12, 239, 190, 249, 231, 24, 64, 159, 246, 156, 236, 0, 52, 0, 60, 0, 0, 0, 0, 77, 12, 239, 190, 120, 150, 25, 64, 0, 0, 40, 235, 0, 56, 0, 60, 30, 67, 103, 62, 77, 12, 239, 190, 249, 231, 24, 64, 97, 9, 156, 236, 0, 58, 0, 60, 95, 60, 230, 62, 77, 12, 239, 190, 8, 222, 22, 64, 148, 17, 192, 237, 0, 60, 0, 60 ),
-"array_index_data": PoolByteArray( 0, 0, 1, 0, 5, 0, 1, 0, 6, 0, 5, 0, 1, 0, 2, 0, 6, 0, 2, 0, 7, 0, 6, 0, 2, 0, 3, 0, 7, 0, 3, 0, 8, 0, 7, 0, 3, 0, 4, 0, 8, 0, 4, 0, 9, 0, 8, 0 ),
-"blend_shape_data": [  ],
-"format": 2194707,
-"index_count": 24,
-"primitive": 4,
-"skeleton_aabb": [  ],
-"vertex_count": 10
-}
 
 [sub_resource type="Shader" id=36]
 code = "// NOTE: Shader automatically converted from Godot Engine 3.4.stable's SpatialMaterial.
@@ -279,6 +229,59 @@ refraction_enabled = true
 refraction_scale = 0.07
 refraction_texture = SubResource( 15 )
 refraction_texture_channel = 3
+
+[sub_resource type="SpatialMaterial" id=31]
+flags_transparent = true
+flags_no_depth_test = true
+params_cull_mode = 2
+params_depth_draw_mode = 1
+albedo_color = Color( 0.258824, 0.937255, 0.243137, 0.207843 )
+albedo_texture = ExtResource( 21 )
+emission_enabled = true
+emission = Color( 0.529412, 0.913725, 0.227451, 1 )
+emission_energy = 1.5
+emission_operator = 0
+emission_on_uv2 = false
+
+[sub_resource type="ArrayMesh" id=30]
+lightmap_size_hint = Vector2( 78, 46 )
+surfaces/0 = {
+"aabb": AABB( -0.462616, -0.466891, 2.42512, 0.925232, 0.933791, 0.04373 ),
+"array_data": PoolByteArray( 252, 219, 236, 190, 77, 12, 239, 62, 31, 53, 27, 64, 90, 238, 208, 17, 0, 0, 0, 0, 74, 234, 109, 190, 77, 12, 239, 62, 20, 78, 29, 64, 149, 246, 237, 18, 0, 52, 0, 0, 0, 0, 0, 0, 77, 12, 239, 62, 152, 1, 30, 64, 0, 0, 91, 20, 0, 56, 0, 0, 74, 234, 109, 62, 77, 12, 239, 62, 20, 78, 29, 64, 107, 9, 237, 18, 0, 58, 0, 0, 252, 219, 236, 62, 77, 12, 239, 62, 31, 53, 27, 64, 166, 17, 208, 17, 0, 60, 0, 0, 252, 219, 236, 190, 77, 12, 239, 190, 31, 53, 27, 64, 90, 238, 48, 238, 0, 0, 0, 60, 74, 234, 109, 190, 77, 12, 239, 190, 20, 78, 29, 64, 149, 246, 19, 237, 0, 52, 0, 60, 0, 0, 0, 0, 77, 12, 239, 190, 152, 1, 30, 64, 0, 0, 165, 235, 0, 56, 0, 60, 74, 234, 109, 62, 77, 12, 239, 190, 20, 78, 29, 64, 107, 9, 19, 237, 0, 58, 0, 60, 252, 219, 236, 62, 77, 12, 239, 190, 31, 53, 27, 64, 166, 17, 48, 238, 0, 60, 0, 60 ),
+"array_index_data": PoolByteArray( 0, 0, 1, 0, 5, 0, 1, 0, 6, 0, 5, 0, 1, 0, 2, 0, 6, 0, 2, 0, 7, 0, 6, 0, 2, 0, 3, 0, 7, 0, 3, 0, 8, 0, 7, 0, 3, 0, 4, 0, 8, 0, 4, 0, 9, 0, 8, 0 ),
+"blend_shape_data": [  ],
+"format": 2194707,
+"index_count": 24,
+"primitive": 4,
+"skeleton_aabb": [  ],
+"vertex_count": 10
+}
+
+[sub_resource type="ArrayMesh" id=32]
+surfaces/0 = {
+"aabb": AABB( -0.462616, -0.466891, 2.42512, 0.925232, 0.933791, 0.04373 ),
+"array_data": PoolByteArray( 252, 219, 236, 190, 77, 12, 239, 62, 31, 53, 27, 64, 90, 238, 208, 17, 0, 0, 0, 0, 74, 234, 109, 190, 77, 12, 239, 62, 20, 78, 29, 64, 149, 246, 237, 18, 0, 52, 0, 0, 0, 0, 0, 0, 77, 12, 239, 62, 152, 1, 30, 64, 0, 0, 91, 20, 0, 56, 0, 0, 74, 234, 109, 62, 77, 12, 239, 62, 20, 78, 29, 64, 107, 9, 237, 18, 0, 58, 0, 0, 252, 219, 236, 62, 77, 12, 239, 62, 31, 53, 27, 64, 166, 17, 208, 17, 0, 60, 0, 0, 252, 219, 236, 190, 77, 12, 239, 190, 31, 53, 27, 64, 90, 238, 48, 238, 0, 0, 0, 60, 74, 234, 109, 190, 77, 12, 239, 190, 20, 78, 29, 64, 149, 246, 19, 237, 0, 52, 0, 60, 0, 0, 0, 0, 77, 12, 239, 190, 152, 1, 30, 64, 0, 0, 165, 235, 0, 56, 0, 60, 74, 234, 109, 62, 77, 12, 239, 190, 20, 78, 29, 64, 107, 9, 19, 237, 0, 58, 0, 60, 252, 219, 236, 62, 77, 12, 239, 190, 31, 53, 27, 64, 166, 17, 48, 238, 0, 60, 0, 60 ),
+"array_index_data": PoolByteArray( 0, 0, 1, 0, 5, 0, 1, 0, 6, 0, 5, 0, 1, 0, 2, 0, 6, 0, 2, 0, 7, 0, 6, 0, 2, 0, 3, 0, 7, 0, 3, 0, 8, 0, 7, 0, 3, 0, 4, 0, 8, 0, 4, 0, 9, 0, 8, 0 ),
+"blend_shape_data": [  ],
+"format": 2194707,
+"index_count": 24,
+"primitive": 4,
+"skeleton_aabb": [  ],
+"vertex_count": 10
+}
+
+[sub_resource type="ArrayMesh" id=33]
+surfaces/0 = {
+"aabb": AABB( -0.462616, -0.466891, 2.42512, 0.925232, 0.933791, 0.04373 ),
+"array_data": PoolByteArray( 252, 219, 236, 190, 77, 12, 239, 62, 31, 53, 27, 64, 90, 238, 208, 17, 0, 0, 0, 0, 74, 234, 109, 190, 77, 12, 239, 62, 20, 78, 29, 64, 149, 246, 237, 18, 0, 52, 0, 0, 0, 0, 0, 0, 77, 12, 239, 62, 152, 1, 30, 64, 0, 0, 91, 20, 0, 56, 0, 0, 74, 234, 109, 62, 77, 12, 239, 62, 20, 78, 29, 64, 107, 9, 237, 18, 0, 58, 0, 0, 252, 219, 236, 62, 77, 12, 239, 62, 31, 53, 27, 64, 166, 17, 208, 17, 0, 60, 0, 0, 252, 219, 236, 190, 77, 12, 239, 190, 31, 53, 27, 64, 90, 238, 48, 238, 0, 0, 0, 60, 74, 234, 109, 190, 77, 12, 239, 190, 20, 78, 29, 64, 149, 246, 19, 237, 0, 52, 0, 60, 0, 0, 0, 0, 77, 12, 239, 190, 152, 1, 30, 64, 0, 0, 165, 235, 0, 56, 0, 60, 74, 234, 109, 62, 77, 12, 239, 190, 20, 78, 29, 64, 107, 9, 19, 237, 0, 58, 0, 60, 252, 219, 236, 62, 77, 12, 239, 190, 31, 53, 27, 64, 166, 17, 48, 238, 0, 60, 0, 60 ),
+"array_index_data": PoolByteArray( 0, 0, 1, 0, 5, 0, 1, 0, 6, 0, 5, 0, 1, 0, 2, 0, 6, 0, 2, 0, 7, 0, 6, 0, 2, 0, 3, 0, 7, 0, 3, 0, 8, 0, 7, 0, 3, 0, 4, 0, 8, 0, 4, 0, 9, 0, 8, 0 ),
+"blend_shape_data": [  ],
+"format": 2194707,
+"index_count": 24,
+"primitive": 4,
+"skeleton_aabb": [  ],
+"vertex_count": 10
+}
 
 [sub_resource type="SpatialMaterial" id=17]
 flags_transparent = true
@@ -435,61 +438,12 @@ script = ExtResource( 16 )
 [node name="weapon_inv_slot" parent="MeshInstance/dui_root/static_stack/inventory_items/weapons_items/slots" instance=ExtResource( 2 )]
 
 [node name="selector" type="Spatial" parent="MeshInstance/dui_root/static_stack/inventory_items/weapons_items"]
+script = ExtResource( 25 )
 
 [node name="selector_icon" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/weapons_items/selector"]
 transform = Transform( -1.40034, -7.10543e-15, -2.38419e-07, 6.39488e-14, 1.40034, -5.68434e-14, 2.38419e-07, 7.10543e-15, -1.40034, 2.04776e-07, 1.19209e-07, 2.33735 )
 mesh = SubResource( 28 )
 material/0 = SubResource( 29 )
-
-[node name="equip_slots" type="Spatial" parent="MeshInstance/dui_root/static_stack/inventory_items/weapons_items"]
-
-[node name="slot1" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/weapons_items/equip_slots"]
-transform = Transform( -0.906308, 0, 0.422619, 0, 1, 0, -0.422619, 0, -0.906308, 0, 0, 0 )
-material_override = SubResource( 31 )
-mesh = SubResource( 30 )
-material/0 = null
-script = ExtResource( 18 )
-rings = 1
-radial_segments = 5
-height = 2.0
-radius = 2.468
-zenith_min = 0.425
-zenith_max = 0.575
-arc_length = 0.06
-arc_offset = -0.03
-flip_v = true
-
-[node name="slot2" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/weapons_items/equip_slots"]
-transform = Transform( -1, 0, 8.74227e-08, 0, 1, 0, -8.74227e-08, 0, -1, 0, 0, 0 )
-material_override = SubResource( 31 )
-mesh = SubResource( 32 )
-material/0 = null
-script = ExtResource( 18 )
-rings = 1
-radial_segments = 5
-height = 2.0
-radius = 2.468
-zenith_min = 0.425
-zenith_max = 0.575
-arc_length = 0.06
-arc_offset = -0.03
-flip_v = true
-
-[node name="slot3" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/weapons_items/equip_slots"]
-transform = Transform( -0.906308, 0, -0.422618, 0, 1, 0, 0.422618, 0, -0.906308, 0, 0, 0 )
-material_override = SubResource( 31 )
-mesh = SubResource( 33 )
-material/0 = null
-script = ExtResource( 18 )
-rings = 1
-radial_segments = 5
-height = 2.0
-radius = 2.468
-zenith_min = 0.425
-zenith_max = 0.575
-arc_length = 0.06
-arc_offset = -0.03
-flip_v = true
 
 [node name="scrollbar" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/weapons_items"]
 transform = Transform( -8.9407e-08, 0, -1, 0, 1, 0, 1, 0, -8.9407e-08, 2.84217e-14, 1.04696, -2.84217e-14 )
@@ -556,6 +510,57 @@ visible = false
 material_override = SubResource( 16 )
 mesh = ExtResource( 22 )
 material/0 = null
+
+[node name="equip_slots" type="Spatial" parent="MeshInstance/dui_root/static_stack"]
+transform = Transform( -0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 0, 0, 0 )
+
+[node name="slot1" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/equip_slots"]
+transform = Transform( 0.906308, 0, -0.422619, 0, 1, 7.10543e-15, 0.422619, 0, 0.906308, 1.50791e-07, 1.78887, -1.50791e-07 )
+material_override = SubResource( 31 )
+mesh = SubResource( 30 )
+material/0 = null
+script = ExtResource( 18 )
+rings = 1
+radial_segments = 5
+height = 2.0
+radius = 2.539
+zenith_min = 0.425
+zenith_max = 0.575
+arc_length = 0.06
+arc_offset = -0.03
+flip_v = true
+
+[node name="slot2" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/equip_slots"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.50791e-07, 1.78887, -1.50791e-07 )
+material_override = SubResource( 31 )
+mesh = SubResource( 32 )
+material/0 = null
+script = ExtResource( 18 )
+rings = 1
+radial_segments = 5
+height = 2.0
+radius = 2.539
+zenith_min = 0.425
+zenith_max = 0.575
+arc_length = 0.06
+arc_offset = -0.03
+flip_v = true
+
+[node name="slot3" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/equip_slots"]
+transform = Transform( 0.906308, 0, 0.422618, -7.10543e-15, 1, 0, -0.422618, 0, 0.906308, 1.50791e-07, 1.78887, -1.50791e-07 )
+material_override = SubResource( 31 )
+mesh = SubResource( 33 )
+material/0 = null
+script = ExtResource( 18 )
+rings = 1
+radial_segments = 5
+height = 2.0
+radius = 2.539
+zenith_min = 0.425
+zenith_max = 0.575
+arc_length = 0.06
+arc_offset = -0.03
+flip_v = true
 
 [node name="inventory_ring" parent="MeshInstance/dui_root" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0 )

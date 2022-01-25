@@ -21,9 +21,9 @@ __meta__ = {
 
 [node name="orbs_label" type="Label" parent="."]
 margin_left = 16.0
-margin_top = 336.0
+margin_top = 80.0
 margin_right = 75.0
-margin_bottom = 372.0
+margin_bottom = 116.0
 rect_scale = Vector2( 1.73837, 1.73837 )
 custom_colors/font_color = Color( 0.505882, 1, 0.305882, 1 )
 custom_fonts/font = SubResource( 1 )
@@ -34,9 +34,9 @@ __meta__ = {
 
 [node name="orbs_number" type="Label" parent="."]
 margin_left = 128.0
-margin_top = 336.0
+margin_top = 80.0
 margin_right = 225.0
-margin_bottom = 372.0
+margin_bottom = 116.0
 rect_scale = Vector2( 1.73837, 1.73837 )
 custom_colors/font_color = Color( 0.203922, 0.996078, 0.180392, 1 )
 custom_fonts/font = SubResource( 2 )
@@ -47,9 +47,9 @@ __meta__ = {
 
 [node name="weapons_label" type="Label" parent="."]
 margin_left = 16.0
-margin_top = 280.0
+margin_top = 24.0
 margin_right = 137.0
-margin_bottom = 316.0
+margin_bottom = 60.0
 rect_scale = Vector2( 1.73837, 1.73837 )
 custom_colors/font_color = Color( 0.666667, 0.380392, 0.00784314, 1 )
 custom_fonts/font = SubResource( 1 )
@@ -60,9 +60,9 @@ __meta__ = {
 
 [node name="weapons_number" type="Label" parent="."]
 margin_left = 232.0
-margin_top = 280.0
+margin_top = 24.0
 margin_right = 329.0
-margin_bottom = 316.0
+margin_bottom = 60.0
 rect_scale = Vector2( 1.73837, 1.73837 )
 custom_colors/font_color = Color( 0.666667, 0.380392, 0.00784314, 1 )
 custom_fonts/font = SubResource( 2 )
