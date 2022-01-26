@@ -27,6 +27,5 @@ func clear():
 	if selected_item:
 		selected_item = null
 		has_item = false
-		selected_item_slot.return_weapon()
+		#selected_item_slot.return_weapon()
 		selected_item_slot = null
-		Util.debug_stack("selector clear()")
