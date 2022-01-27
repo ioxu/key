@@ -37,8 +37,6 @@ func select() -> void:
 	if !selected_weapon_slot and hilighted_weapon_item:
 		selected_weapon_slot = hilighted_weapon_item
 		selected_weapon_slot.select(true)
-		prints("weapon_items", "select", find_item( selected_weapon_slot ) ,selected_weapon_slot, selected_weapon_slot.slotted_weapon)
-		Util.debug_stack("select()")
 		$selector.visible = true
 
 		#move weapon to selector
@@ -68,8 +66,8 @@ func update( delta : float,  basis : Basis = Basis.IDENTITY ) -> void:
 	# update pointing direction
 	# update hilighted item
 
-	if $selector.visible:
-		$selector.global_transform.basis = basis
+	#if $selector.visible:
+	$selector.global_transform.basis = basis
 
 
 	# find weapon inventory slot that's being pointed at

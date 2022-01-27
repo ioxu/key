@@ -58,7 +58,6 @@ func _ready():
 	# connect to inventory
 	inventory.connect("inventory_changed", dui_root, "_on_inventory_changed")
 
-
 	# deck the character with starting weapons in the inventory
 	yield(get_tree().create_timer(1.0), "timeout")
 	for _i in range(4):

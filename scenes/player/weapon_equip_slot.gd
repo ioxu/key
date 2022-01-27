@@ -21,7 +21,7 @@ func set_weapon(weapon, inv_slot) -> void:
 	self.slotted_weapon_inv_slot = inv_slot
 
 
-func hilight( show: bool = false) -> void :
+func hilight( show: bool = false, mult: float = 1.0) -> void :
 	#$bg/outline.visible = show
 	if show:
 		$bg.get_material_override().albedo_color = Color(starting_col.r,

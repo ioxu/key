@@ -106,6 +106,12 @@ var global_time := 0.0
 
 enum ROTATION_INPUT{MOUSE, JOYSTICK, MOVE_DIR}
 
+var weapon_switch_engaged := false 
+var weapon_switch_time := 0.0
+var weapon_switch_selected
+const WEAPON_SWITCH_DOUBLTAP_TME := 0.25
+const WEAPON_SWITCH_MAX_TME := 0.6
+
 
 func _ready():
 	# avoid taking any input that is dribbled over from before the node is ready
@@ -235,8 +241,36 @@ func magnitude(vector):
 
 func _process(dt):
 	global_time += dt
+	
+	weapon_switch_time +=dt
+
+	# toggle active weapon
+	# times out and resets timers
+	if weapon_switch_engaged:
+		if weapon_switch_time > WEAPON_SWITCH_MAX_TME:
+			weapon_switch_engaged = false
+			weapon_switch_selected =  false
+		# if ovr double tap timer, register the single click
+		elif weapon_switch_time > WEAPON_SWITCH_DOUBLTAP_TME and not weapon_switch_selected:
+			prints("single TAP >", weapon_switch_time)
+			weapon_switch_selected = true
 
 	if not dui_root.is_options_invoked:
+
+		# toggle active weapon
+		# double tap within time WEAPON_SWITCH_DOUBLTAP_TME
+		# no more tap until WEAPON_SWITCH_MAX_TME
+		if Input.is_action_just_pressed("switch_weapons"):
+			if not weapon_switch_engaged:
+				weapon_switch_time = 0.0
+				weapon_switch_engaged = true
+			elif weapon_switch_time < WEAPON_SWITCH_DOUBLTAP_TME:
+				prints("dbl TAP", weapon_switch_time)
+				weapon_switch_selected = true
+			elif weapon_switch_time > WEAPON_SWITCH_DOUBLTAP_TME:
+				prints("miss TAP", weapon_switch_time)
+				weapon_switch_selected = true
+
 
 		# shoot
 		if self.weapon and Input.is_action_just_pressed("shoot"):
@@ -245,7 +279,7 @@ func _process(dt):
 		if self.weapon and Input.is_action_just_released("shoot"):
 			weapon.activated = false
 
-		# TEMP: FIRE ALL IN INVENTORY
+		# TEMP: FIRE ALL IN INVENTORY ##############################################################
 		if Input.is_action_just_pressed("shoot"):
 			for w in dui_root.find_node("slots").get_children():
 				w.slotted_weapon.eject_casings = false
@@ -256,8 +290,7 @@ func _process(dt):
 		if Input.is_action_just_released("shoot"):
 			for w in dui_root.find_node("slots").get_children():
 				w.slotted_weapon.activated = false
-		#\TEMP: FIRE ALL IN INVENTORY
-
+		#\TEMP: FIRE ALL IN INVENTORY ##############################################################
 
 		# jump
 		if (Input.is_action_pressed("jump")):
@@ -266,34 +299,13 @@ func _process(dt):
 				current_vertical_speed = Vector3(0.0, max_jump, 0.0) + lateral_movement * 25 * dt
 				is_airborne = true
 
+	hip_and_toes_movement()
 
 
-	############################################################################
-	############################################################################
-	# IK LEGS HIPS AND TOES
+func hip_and_toes_movement() -> void:
+	# do springs and delay on hip and toes motion
 
-	# waist and toes rotating in a circle
-#	waist.transform.basis = waist_initial_basis.rotated( Vector3.UP, global_time * 5 )
-#	toe_1_node.transform.origin = toe_1_initial_position.rotated( Vector3.UP, global_time * 5  )
-#	toe_2_node.transform.origin = toe_2_initial_position.rotated( Vector3.UP, global_time * 5 )
-#	toe_3_node.transform.origin = toe_3_initial_position.rotated( Vector3.UP, global_time * 5 )
-#	toe_4_node.transform.origin = toe_4_initial_position.rotated( Vector3.UP, global_time * 5 )
-
-	# waist and toes following look-at direction
-	#var lerp_a :=  lerp_angle(last_waist_ry, meshinstance.get_rotation().y, 0.06)#0.075)
-	
-	#var curr_ry := 0.0
-	
-	#curr_ry = lerp_a
-	
-#	var wo = waist_rotation_harmonic_motion.calculate(
-#						waist.get_rotation().y,
-#						_w_rot_hv,
-#						lerp_angle(waist.get_rotation().y, meshinstance.get_rotation().y, 1.0),
-#						waist_rotation_harmonic_parms
-#		)
-#	_w_rot_hv = wo[1]
-
+	# IK hips and toes
 	var wo = waist_rotation_spring.calculate( waist.get_rotation().y,
 						lerp_angle(waist.get_rotation().y, meshinstance.get_rotation().y, 1.0)
 						)
@@ -305,13 +317,6 @@ func _process(dt):
 	var waist_ry_dt = last_waist_ry - curr_ry
 	last_waist_ry = curr_ry
 	
-	# TOES LEADING MOVEMENT ####################################################
-#	var movement_v = movement * + 0.04
-#	toe_1_node.transform.origin = toe_1_initial_position.rotated( Vector3.UP, curr_ry ) + movement_v
-#	toe_2_node.transform.origin = toe_2_initial_position.rotated( Vector3.UP, curr_ry ) + movement_v
-#	toe_3_node.transform.origin = toe_3_initial_position.rotated( Vector3.UP, curr_ry ) + movement_v
-#	toe_4_node.transform.origin = toe_4_initial_position.rotated( Vector3.UP, curr_ry ) + movement_v
-
 	# TOES SPREADING OUT FROM MOVEMENT #########################################
 	# length that leg is spread from body, maybe measure in worldspace and soft-limit?
 	# so that speed isn't taken into account. Speed could scale but toes would only be some constant
@@ -319,10 +324,8 @@ func _process(dt):
 	var movement_v = movement * + 0.06 
 	var movement_v_norm = movement_v.normalized()
 
-	############################
 	toes_waist_ry = toes_waist_ry_spring.calculate( toes_waist_ry, lerp_angle(toes_waist_ry, curr_ry, 1.0) )
-	############################
-	
+
 	var t1p = toe_1_initial_position.rotated( Vector3.UP, toes_waist_ry )
 	var d1 = t1p.normalized().dot( movement_v_norm )
 	t1p += sign(d1) * movement_v * abs(d1)
@@ -338,11 +341,6 @@ func _process(dt):
 	var t4p = toe_4_initial_position.rotated( Vector3.UP, toes_waist_ry )
 	var d4 = t4p.normalized().dot( movement_v_norm )
 	t4p += sign(d4) * movement_v * abs(d4)
-	
-#	toe_1_node.transform.origin = t1p
-#	toe_2_node.transform.origin = t2p
-#	toe_3_node.transform.origin = t3p
-#	toe_4_node.transform.origin = t4p
 
 	var movement_v_y = movement_v.y * 0.35 # pure y component of movement_v, scaled and added anyway ..
 	
@@ -351,17 +349,13 @@ func _process(dt):
 	toe_3_node.transform.origin = Vector3(t3p.x, toes_ypos_spring.calculate( toe_3_node.transform.origin.y, t3p.y - movement_v_y ), t3p.z)
 	toe_4_node.transform.origin = Vector3(t4p.x, toes_ypos_spring.calculate( toe_4_node.transform.origin.y, t4p.y - movement_v_y ), t4p.z)
 
-	#prints("WAIST DT", waist_ry_dt)
 	# bend knees on waist rotation
 	var _dry = waist_ry_dt * waist_rotation_knee_roll
 	leg_1_node.roll = _dry
 	leg_2_node.roll = _dry
 	leg_3_node.roll = _dry
 	leg_4_node.roll = _dry
-
-	# /IK LEGS HIPS AND TOES
-	############################################################################
-	############################################################################
+	#/ IK hips and toes
 
 
 func _physics_process(dt):
