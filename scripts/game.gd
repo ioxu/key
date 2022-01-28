@@ -48,7 +48,7 @@ func enter_door(door_name, connected_scene, connected_door) -> void:
 func level_ready(level):
 	# once level is ready
 	# find passthrough_door and enter level through it
-	prints("Game.gd level_ready", level.level_name, "enter through door", "'"+passthrough_door+"'" )
+	prints("game.gd level_ready", level.level_name, "enter through door", "'"+passthrough_door+"'" )
 	current_level = level
 
 	# reparent player

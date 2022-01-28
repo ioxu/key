@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=2]
+[gd_scene load_steps=66 format=2]
 
 [ext_resource path="res://scenes/player/Controller.gd" type="Script" id=1]
 [ext_resource path="res://data/dui/weapon_inv_slot.tscn" type="PackedScene" id=2]
@@ -26,6 +26,7 @@
 [ext_resource path="res://scenes/player/options_menu_bg_2d.tscn" type="PackedScene" id=24]
 [ext_resource path="res://scenes/player/selector.gd" type="Script" id=25]
 [ext_resource path="res://scenes/player/weapon_equip_slot.gd" type="Script" id=26]
+[ext_resource path="res://scenes/player/WeaponController.gd" type="Script" id=27]
 
 [sub_resource type="Animation" id=1]
 resource_name = "recoil_time_animation"
@@ -714,7 +715,7 @@ scaleTexture = false
 
 [node name="invoke_tween" type="Tween" parent="MeshInstance/dui_root"]
 
-[node name="Controller" type="Spatial" parent="."]
+[node name="Controller" type="Node" parent="."]
 script = ExtResource( 1 )
 PlayerPath = NodePath("..")
 CameraPath = NodePath("../camera_root/camera_base/camera_tilt/camera_boom/Camera")
@@ -722,6 +723,11 @@ CameraRootPath = NodePath("../camera_root")
 MeshInstancePath = NodePath("../MeshInstance")
 DUI_Root = NodePath("../MeshInstance/dui_root")
 min_zoom = 80.0
+
+[node name="WeaponController" type="Node" parent="."]
+script = ExtResource( 27 )
+PlayerPath = NodePath("..")
+DUI_Root = NodePath("../MeshInstance/dui_root")
 
 [node name="RayCast" type="RayCast" parent="."]
 collision_mask = 2

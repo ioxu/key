@@ -1,4 +1,4 @@
-extends Spatial
+extends Node
 # player controller
 
 const harmonic_motion_lib = preload("res://data/scripts/harmonic_motion.gd")
@@ -23,9 +23,7 @@ onready var camera_root = get_node(CameraRootPath)
 onready var camera_base = get_node(CameraRootPath).find_node("camera_base") # InnerGimbal
 onready var camera_boom = camera_root.find_node("camera_boom")
 onready var meshinstance = get_node(MeshInstancePath)
-onready var weapon = null #player.find_node("weapon_mount").get_child(0)
 onready var raycast : RayCast = player.get_node("RayCast")
-
 onready var dui_root : Spatial = get_node(DUI_Root)
 
 # movement and legs and animation and things
@@ -106,13 +104,7 @@ var global_time := 0.0
 
 enum ROTATION_INPUT{MOUSE, JOYSTICK, MOVE_DIR}
 
-# weapon switching and equipping
-var weapon_current_equip_slot : int = 0
-var weapon_switch_engaged := false 
-var weapon_switch_time := 0.0
-var weapon_switch_selected
-const WEAPON_SWITCH_DOUBLTAP_TME := 0.2
-const WEAPON_SWITCH_MAX_TME := 0.45
+
 
 
 func _ready():
@@ -120,9 +112,6 @@ func _ready():
 	set_process(false)
 	yield(get_tree().create_timer(0.25), "timeout")
 	set_process(true)
-
-	if player.find_node("weapon_mount").get_child_count() > 0:
-		weapon = player.find_node("weapon_mount").get_child(0)
 
 	if camera_interpolation_mode == CAMERA_LOOKAHEAD_INTERP_MODE.harmonic:
 		camera_lookahead_spring.initialise( camera_lookahead_harmonic_damping, camera_lookahead_harmonic_angular_frequency )
@@ -244,56 +233,7 @@ func magnitude(vector):
 func _process(dt):
 	global_time += dt
 	
-	weapon_switch_time +=dt
-
-	# toggle active weapon
-	# times out and resets timers
-	if weapon_switch_engaged:
-		if weapon_switch_time > WEAPON_SWITCH_MAX_TME:
-			weapon_switch_engaged = false
-			weapon_switch_selected =  false
-		# if ovr double tap timer, register the single click
-		elif weapon_switch_time > WEAPON_SWITCH_DOUBLTAP_TME and not weapon_switch_selected:
-			prints("single TAP >", weapon_switch_time)
-			weapon_switch_selected = true
-
 	if not dui_root.is_options_invoked:
-
-		# toggle active weapon
-		# double tap within time WEAPON_SWITCH_DOUBLTAP_TME
-		# no more tap until WEAPON_SWITCH_MAX_TME
-		if Input.is_action_just_pressed("switch_weapons"):
-			if not weapon_switch_engaged:
-				weapon_switch_time = 0.0
-				weapon_switch_engaged = true
-			elif weapon_switch_time < WEAPON_SWITCH_DOUBLTAP_TME:
-				prints("dbl TAP", weapon_switch_time)
-				weapon_switch_selected = true
-			elif weapon_switch_time > WEAPON_SWITCH_DOUBLTAP_TME:
-				prints("miss TAP", weapon_switch_time)
-				weapon_switch_selected = true
-
-
-		# shoot
-		if self.weapon and Input.is_action_just_pressed("shoot"):
-			weapon.activated = true
-
-		if self.weapon and Input.is_action_just_released("shoot"):
-			weapon.activated = false
-
-		# TEMP: FIRE ALL IN INVENTORY ##############################################################
-		if Input.is_action_just_pressed("shoot"):
-			for w in dui_root.find_node("slots").get_children():
-				w.slotted_weapon.eject_casings = false
-				
-				yield(get_tree().create_timer( randf() * 0.002 ), "timeout")
-				w.slotted_weapon.activated = true
-
-		if Input.is_action_just_released("shoot"):
-			for w in dui_root.find_node("slots").get_children():
-				w.slotted_weapon.activated = false
-		#\TEMP: FIRE ALL IN INVENTORY ##############################################################
-
 		# jump
 		if (Input.is_action_pressed("jump")):
 			if not is_airborne:

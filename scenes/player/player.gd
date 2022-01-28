@@ -100,8 +100,8 @@ func set_active(new_value) -> void:
 	$Controller.set_process(new_value)
 	$Controller.set_process_input(new_value)
 	$Controller.set_process_unhandled_input(new_value)
-	if $Controller.weapon:
-		$Controller.weapon.activated = false
+	if $WeaponController.weapon:
+		$WeaponController.weapon.activated = false
 
 
 func get_active():
