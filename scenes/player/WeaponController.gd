@@ -4,6 +4,8 @@ export(NodePath) var PlayerPath  = ""
 onready var player : KinematicBody = get_node(PlayerPath)
 export(NodePath) var DUI_Root = ""
 onready var dui_root : Spatial = get_node(DUI_Root)
+export(NodePath) var EquipSlots = ""
+onready var equip_slots : Spatial = get_node(EquipSlots)
 
 onready var weapon = null #player.find_node("weapon_mount").get_child(0)
 
@@ -19,6 +21,7 @@ const WEAPON_SWITCH_MAX_TME := 0.45
 func _ready():
 	if player.find_node("weapon_mount").get_child_count() > 0:
 		weapon = player.find_node("weapon_mount").get_child(0)
+	equip_slots.get_child(0).show_equip_indicator(true)
 
 
 func _process(dt):
@@ -33,6 +36,7 @@ func _process(dt):
 		# if ovr double tap timer, register the single click
 		elif weapon_switch_time > WEAPON_SWITCH_DOUBLTAP_TME and not weapon_switch_selected:
 			prints("single TAP >", weapon_switch_time)
+			switch_weapon()
 			weapon_switch_selected = true
 
 	if not dui_root.is_options_invoked:
@@ -47,9 +51,11 @@ func _process(dt):
 			elif weapon_switch_time < WEAPON_SWITCH_DOUBLTAP_TME:
 				prints("dbl TAP", weapon_switch_time)
 				weapon_switch_selected = true
+				switch_weapon( true )
 			elif weapon_switch_time > WEAPON_SWITCH_DOUBLTAP_TME:
 				prints("miss TAP", weapon_switch_time)
 				weapon_switch_selected = true
+				switch_weapon()
 
 
 		# shoot
@@ -73,3 +79,22 @@ func _process(dt):
 		#\TEMP: FIRE ALL IN INVENTORY ##############################################################
 
 
+func switch_weapon( double_tap: bool = false) -> void:
+	if double_tap == true:
+		if weapon_current_equip_slot == 0 or weapon_current_equip_slot == 1:
+			weapon_current_equip_slot = 2
+		elif weapon_current_equip_slot == 2:
+			weapon_current_equip_slot = 0
+	else:
+		if weapon_current_equip_slot == 0:
+			weapon_current_equip_slot = 1
+		elif weapon_current_equip_slot == 1:
+			weapon_current_equip_slot = 0
+
+	var eslots = equip_slots.get_children()
+	for i in range(eslots.size()):
+		if weapon_current_equip_slot == i:
+			eslots[i].show_equip_indicator(true)
+		else:
+			eslots[i].show_equip_indicator(false)
+	

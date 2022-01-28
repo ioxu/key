@@ -583,7 +583,7 @@ material/0 = null
 transform = Transform( -0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 0, 0, 0 )
 
 [node name="slot1" type="Spatial" parent="MeshInstance/dui_root/static_stack/equip_slots"]
-transform = Transform( 0.906308, 0, -0.422618, 0, 1, 0, 0.422618, 0, 0.906308, 0, 0, 0 )
+transform = Transform( 0.906308, 0, 0.422618, 0, 1, 0, -0.422618, 0, 0.906308, 0, 0, 0 )
 script = ExtResource( 26 )
 
 [node name="bg" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/equip_slots/slot1"]
@@ -635,7 +635,7 @@ skeleton = NodePath("../../../slot1/bg")
 material/0 = SubResource( 43 )
 
 [node name="slot3" type="Spatial" parent="MeshInstance/dui_root/static_stack/equip_slots"]
-transform = Transform( 0.906308, 0, 0.422618, 0, 1, 0, -0.422618, 0, 0.906308, 0, 0, 0 )
+transform = Transform( 0.906308, 0, -0.422618, 0, 1, 0, 0.422618, 0, 0.906308, 0, 0, 0 )
 script = ExtResource( 26 )
 
 [node name="bg" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/equip_slots/slot3"]
@@ -728,6 +728,7 @@ min_zoom = 80.0
 script = ExtResource( 27 )
 PlayerPath = NodePath("..")
 DUI_Root = NodePath("../MeshInstance/dui_root")
+EquipSlots = NodePath("../MeshInstance/dui_root/static_stack/equip_slots")
 
 [node name="RayCast" type="RayCast" parent="."]
 collision_mask = 2
