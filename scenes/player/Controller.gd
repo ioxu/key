@@ -106,11 +106,13 @@ var global_time := 0.0
 
 enum ROTATION_INPUT{MOUSE, JOYSTICK, MOVE_DIR}
 
+# weapon switching and equipping
+var weapon_current_equip_slot : int = 0
 var weapon_switch_engaged := false 
 var weapon_switch_time := 0.0
 var weapon_switch_selected
-const WEAPON_SWITCH_DOUBLTAP_TME := 0.25
-const WEAPON_SWITCH_MAX_TME := 0.6
+const WEAPON_SWITCH_DOUBLTAP_TME := 0.2
+const WEAPON_SWITCH_MAX_TME := 0.45
 
 
 func _ready():

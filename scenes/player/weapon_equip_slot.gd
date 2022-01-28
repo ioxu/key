@@ -8,6 +8,7 @@ var starting_col : Color
 func _ready():
 	starting_col = $bg.get_material_override().get_albedo()
 	hilight(false)
+	show_equip_indicator(false)
 
 
 func set_weapon(weapon, inv_slot) -> void:
@@ -26,8 +27,12 @@ func hilight( show: bool = false, mult: float = 1.0) -> void :
 	if show:
 		$bg.get_material_override().albedo_color = Color(starting_col.r,
 												starting_col.g,
-												starting_col.b,1.0)
+												starting_col.b,1.0) * mult
 	else:
 		$bg.get_material_override().albedo_color = starting_col
 	pass
+
+
+func show_equip_indicator( show: bool = false ) -> void:
+	$bg/equip_indicator.visible = show
 
