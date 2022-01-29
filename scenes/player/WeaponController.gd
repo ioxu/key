@@ -90,6 +90,8 @@ func switch_weapon( double_tap: bool = false) -> void:
 			weapon_current_equip_slot = 1
 		elif weapon_current_equip_slot == 1:
 			weapon_current_equip_slot = 0
+		elif weapon_current_equip_slot == 2: # if in 3rd weapon, don't need to double-press out of it
+			weapon_current_equip_slot = 0
 
 	var eslots = equip_slots.get_children()
 	for i in range(eslots.size()):
