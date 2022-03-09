@@ -126,7 +126,6 @@ func debug(text):
 
 func debug_stack(text):
 	# https://github.com/godotengine/godot/issues/18319#issuecomment-389895583
-	#var frame = get_stack()[1]
 	print("debug_stack: %s"%[text])
 	var st = get_stack()
 	st.remove(0)

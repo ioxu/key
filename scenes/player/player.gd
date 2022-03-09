@@ -184,3 +184,7 @@ func pickup( pickup_object ):
 		self.inventory.add_weapon_item( pickup_object.weapon, 1 )
 
 
+func set_current_weapon( weapon ) -> void:
+	self.current_weapon = weapon
+
+
