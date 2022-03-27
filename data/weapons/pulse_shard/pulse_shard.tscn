@@ -156,6 +156,7 @@ material/0 = null
 
 [node name="muzzle_flash" type="MeshInstance" parent="geometry_hook" index="1"]
 transform = Transform( 3, 0, 0, 0, 1, 0, 0, 0, 3, 0, -0.444842, 0.046 )
+visible = false
 cast_shadow = 0
 mesh = SubResource( 3 )
 material/0 = null

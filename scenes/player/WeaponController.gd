@@ -22,6 +22,8 @@ const WEAPON_SWITCH_DOUBLTAP_TME := 0.25
 const WEAPON_SWITCH_MAX_TME := 0.45
 
 
+var weapon_equips_from_equip_slots = {}
+
 func _ready():
 	if player.find_node("weapon_mount").get_child_count() > 0:
 		weapon = player.find_node("weapon_mount").get_child(0)
@@ -46,10 +48,6 @@ func _process(dt):
 			prints("single TAP >", weapon_switch_time)
 			toggle_weapon()
 			weapon_switch_selected = true
-
-	# update weapon to mount global transform
-	if self.weapon:
-		self.weapon.global_transform = weapon_mount.global_transform
 
 	if not dui_root.is_options_invoked:
 
@@ -165,12 +163,37 @@ func update_equipped_weapon() -> void:
 			# switched-to slot is empty, don't change weapon
 			pass
 
-	prints("self.weapon", self.weapon,"\n")
+	prints("update_equipped_weapon() self.weapon", self.weapon,"\n")
 
 
 func set_weapon_from_equipped_slot() -> void:
 	# move this function to player???
+	
 	self.weapon = get_equipped_slot().slotted_weapon
+	
+	# store which weapon camer from which equip slot
+	weapon_equips_from_equip_slots[weapon] = get_equipped_slot()
+#	print("\nhsistory of weapons from equip_slots")
+#	for key in weapon_equips_from_equip_slots.keys():
+#		prints("  ", key, ":", weapon_equips_from_equip_slots[key])
+#	print("")
+
+	# return currently mounted weapon to equip slot
+	var mounted_weapon = weapon_mount.get_child(0)
+	prints( "mounted_weapon:", mounted_weapon )
+	if mounted_weapon:
+		var original_equip_slot = weapon_equips_from_equip_slots[mounted_weapon]
+		prints(" return ",mounted_weapon, "to", original_equip_slot)
+		original_equip_slot.return_weapon()
+		mounted_weapon = null
+
+	# move weapon to actual mount
+	get_equipped_slot().get_child(0).remove_child( weapon )
+	weapon_mount.add_child( weapon )
+	self.weapon.global_transform = weapon_mount.global_transform
+	weapon.set_owner( weapon_mount )
+
+	# do weapon connections
 	if self.weapon.is_connected( "fire" , player, "_on_weapon_fire" ):
 		self.weapon.disconnect("fire" , player, "_on_weapon_fire" )
 	player.set_current_weapon( self.weapon )

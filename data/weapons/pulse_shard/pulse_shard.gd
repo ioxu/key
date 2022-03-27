@@ -26,6 +26,7 @@ onready var bullet_spawner = $bullet_spawner
 
 
 func _ready():
+	prints("PULSE_SHARD.ready", self.get_path())
 	#yield(get_tree(), "idle_frame")
 	$bullet_spawner/pulse_shard_bullet.queue_free()
 	$bullet_spawner/pulse_shard_bullet_impact.queue_free()
@@ -122,3 +123,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		"muzzle_flash":
 			muzzle_flash.visible = false
 			muzzle_flash_light.visible = false
+
+
+func randomize_color() -> void:
+	prints(self.get_path(), "RANDOMIZE_COLOR")

@@ -8,6 +8,7 @@ func _ready():
 	weapon.transform.origin = Vector3(0.0, 0.0, 0.5)
 	#weapon.set_activated( true )
 	$RigidBody.add_child( self.weapon )
+	weapon.randomize_color()
 
 
 func _process(dt):

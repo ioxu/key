@@ -14,6 +14,7 @@ func _ready():
 
 
 func set_weapon(weapon, inv_slot) -> void:
+	# setting a weapon for the slot for the first time
 	if self.slotted_weapon:
 		slotted_weapon_inv_slot.return_weapon()
 	weapon.get_parent().remove_child( weapon )
@@ -21,9 +22,18 @@ func set_weapon(weapon, inv_slot) -> void:
 	weapon.set_owner( $bg )
 	self.slotted_weapon = weapon
 	self.reset_weapon_transform()
-	self.slotted_weapon_inv_slot = inv_slot
+	if inv_slot != null:
+		self.slotted_weapon_inv_slot = inv_slot
 	if is_current_equip_slot():
 		emit_signal("weapon_equip_slot_set", self)
+
+
+func return_weapon() -> void:
+	# when returning a child that has been set before
+	self.slotted_weapon.get_parent().remove_child( self.slotted_weapon )
+	$bg.add_child( self.slotted_weapon )
+	self.slotted_weapon.set_owner( $bg )
+	self.reset_weapon_transform()
 
 
 func hilight( show: bool = false, mult: float = 1.0) -> void :
