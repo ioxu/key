@@ -1,5 +1,6 @@
 extends "res://data/weapons/weapon.gd"
 
+export var colour = Color(0.14, 0.68, 0.95)
 export var is_enemy_weapon := false setget set_is_enemy_weapon
 
 export var base_magazine_size := 200
@@ -10,6 +11,7 @@ export var fire_kickback := 65.0
 var firing_time := 0.0
 var firing_timer := Timer.new()
 var can_fire := false
+
 
 signal fire
 signal magazine_count_changed(current_magazine_count, normalised_magazine_count)
@@ -103,7 +105,7 @@ func fire():
 
 	# eject casing
 	if eject_casings:
-		yield(get_tree().create_timer(0.2), "timeout")
+		#yield(get_tree().create_timer(0.2), "timeout")
 		var casing = bullet_casing_scene.instance()
 		casing.transform = $shell_casing_spawner.global_transform
 		get_node("/root/").add_child(casing)

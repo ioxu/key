@@ -179,13 +179,14 @@ func set_weapon_from_equipped_slot() -> void:
 #	print("")
 
 	# return currently mounted weapon to equip slot
-	var mounted_weapon = weapon_mount.get_child(0)
-	prints( "mounted_weapon:", mounted_weapon )
-	if mounted_weapon:
-		var original_equip_slot = weapon_equips_from_equip_slots[mounted_weapon]
-		prints(" return ",mounted_weapon, "to", original_equip_slot)
-		original_equip_slot.return_weapon()
-		mounted_weapon = null
+	if weapon_mount.get_child_count() > 0:
+		var mounted_weapon = weapon_mount.get_child(0)
+		prints( "mounted_weapon:", mounted_weapon )
+		if mounted_weapon:
+			var original_equip_slot = weapon_equips_from_equip_slots[mounted_weapon]
+			prints(" return ",mounted_weapon, "to", original_equip_slot)
+			original_equip_slot.return_weapon()
+			mounted_weapon = null
 
 	# move weapon to actual mount
 	get_equipped_slot().get_child(0).remove_child( weapon )

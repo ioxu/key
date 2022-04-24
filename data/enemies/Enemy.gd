@@ -163,6 +163,9 @@ func bullet_hit(bullet, collision_info):
 		$vision_raycast.sight_line.queue_free()
 		$vision_raycast.queue_free()
 		repeat_attack_notification_timer.queue_free()
+		# free weapon
+		if $MeshInstance/weapon_mount.get_child_count() >0:
+			$MeshInstance/weapon_mount.get_child(0).queue_free()
 		queue_free()
 
 
@@ -475,7 +478,7 @@ func _on_vision_area_body_entered(body) -> void:
 		target = body
 		$vision_raycast.target = body
 		$vision_raycast.start()
-		yield(get_tree().create_timer(.05), "timeout")
+		#yield(get_tree().create_timer(.05), "timeout")
 		if $vision_raycast.can_see_target:
 			$statemachine.set_state("attack")
 
