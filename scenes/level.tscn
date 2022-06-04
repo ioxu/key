@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://data/shaders/spatial_debug_boxdivide_material.tres" type="Material" id=1]
 [ext_resource path="res://scenes/fps_label.gd" type="Script" id=2]
@@ -17,6 +17,16 @@ size = Vector3( 500, 1, 500 )
 
 [sub_resource type="BoxShape" id=2]
 extents = Vector3( 250, 0.5, 250 )
+
+[sub_resource type="CylinderMesh" id=7]
+material = ExtResource( 1 )
+top_radius = 2.0
+bottom_radius = 2.0
+radial_segments = 24
+
+[sub_resource type="CylinderShape" id=8]
+radius = 2.02472
+height = 2.04586
 
 [sub_resource type="CubeMesh" id=3]
 size = Vector3( 5, 2, 2 )
@@ -127,6 +137,17 @@ transform = Transform( 0.384424, 0, 0.923157, 0, 1, 0, -0.923157, 0, 0.384424, -
 
 [node name="jumpPad2" parent="level" instance=ExtResource( 8 )]
 transform = Transform( 0.578185, 0.168006, 0.798421, 0, 0.97857, -0.205914, -0.815906, 0.119056, 0.565795, -15.695, 6.23618, -6.0833 )
+
+[node name="MeshInstance47" type="MeshInstance" parent="level"]
+transform = Transform( -0.70612, 0, 0.69146, 0, 1.48225, 0, -0.69146, 0, -0.70612, -1.02986, -0.393124, 14.5507 )
+mesh = SubResource( 7 )
+skeleton = NodePath("../MeshInstance")
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="level/MeshInstance47"]
+
+[node name="CollisionShape" type="CollisionShape" parent="level/MeshInstance47/StaticBody"]
+shape = SubResource( 8 )
 
 [node name="MeshInstance" type="MeshInstance" parent="level"]
 transform = Transform( 0.924146, 0, 0.382038, 0, 1, 0, -0.382038, 0, 0.924146, -4.49112, 0.99263, -3.46241 )
