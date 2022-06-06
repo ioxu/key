@@ -16,19 +16,19 @@ var can_fire := false
 signal fire
 signal magazine_count_changed(current_magazine_count, normalised_magazine_count)
 
-onready var anim_player = $AnimationPlayer 
-onready var muzzle_flash : MeshInstance = $geometry_hook/muzzle_flash 
+onready var anim_player = $AnimationPlayer
+onready var muzzle_flash : MeshInstance = $geometry_hook/muzzle_flash
 onready var muzzle_flash_light : OmniLight = $geometry_hook/muzzle_flash_light
 onready var muzzle_flash_light_initial_position = muzzle_flash_light.translation
 
 export (bool) var eject_casings := true
 const bullet_scene = preload("res://data/weapons/pulse_shard/pulse_shard_bullet.tscn")
 const bullet_casing_scene = preload("res://data/weapons/pulse_shard/pulse_shard_casing.tscn")
-onready var bullet_spawner = $bullet_spawner 
+onready var bullet_spawner = $bullet_spawner
 
 
 func _ready():
-	prints("PULSE_SHARD.ready", self.get_path())
+	prints("PULSE_SHARD.ready!", self.get_path())
 	#yield(get_tree(), "idle_frame")
 	$bullet_spawner/pulse_shard_bullet.queue_free()
 	$bullet_spawner/pulse_shard_bullet_impact.queue_free()
@@ -93,7 +93,7 @@ func fire():
 
 
 	emit_signal("magazine_count_changed", magazine_count, float(magazine_count)/base_magazine_size)
-	
+
 	var bullet = bullet_scene.instance()
 	if is_enemy_weapon:
 		bullet.is_enemy_bullet = true
