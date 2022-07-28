@@ -1,6 +1,6 @@
 extends Node
 # Harmonic Motion springs
-# https://digitalsalmon.co.uk/simple-harmonic-motion-an-alternative-to-continuous-lerp/
+# http://www.digitalsalmon.co.uk/simple-harmonic-motion
 
 const epsilon = 0.0001
 const sixtyfps_delta = 0.016666

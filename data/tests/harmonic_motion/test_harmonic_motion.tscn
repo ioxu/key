@@ -13,8 +13,8 @@ colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 0.12252, 1, 1, 1, 0.25098 )
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
-damping_ratio = 0.35
-angular_frequency = 12.0
+damping_ratio = 0.75
+angular_frequency = 8.0
 
 [node name="target_sprite" type="Sprite" parent="."]
 modulate = Color( 0.513726, 0.188235, 0.188235, 0.282353 )
