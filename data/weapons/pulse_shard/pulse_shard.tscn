@@ -126,6 +126,12 @@ tracks/8/keys = {
 [node name="pulse_shard" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 weapon_name = "Pulse Shard"
+colour = Color( 0.14, 0.68, 0.95, 1 )
+is_enemy_weapon = false
+base_magazine_size = 200
+base_fire_rate = 0.08
+fire_kickback = 65.0
+eject_casings = true
 
 [node name="shell_casing_spawner" type="Spatial" parent="." index="0"]
 transform = Transform( 0.955386, 0.294901, -0.0164577, -0.294941, 0.955515, -1.28923e-08, 0.0157255, 0.00485405, 0.999865, -0.279503, -0.346127, -0.448279 )
@@ -152,14 +158,12 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.1214 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.444842, 0.046 )
 cast_shadow = 0
 mesh = SubResource( 1 )
-material/0 = null
 
 [node name="muzzle_flash" type="MeshInstance" parent="geometry_hook" index="1"]
 transform = Transform( 3, 0, 0, 0, 1, 0, 0, 0, 3, 0, -0.444842, 0.046 )
 visible = false
 cast_shadow = 0
 mesh = SubResource( 3 )
-material/0 = null
 
 [node name="muzzle_flash_light" type="OmniLight" parent="geometry_hook" index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.356412, 0.222734 )

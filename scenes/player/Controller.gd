@@ -3,11 +3,11 @@ extends Node
 
 const harmonic_motion_lib = preload("res://data/scripts/harmonic_motion.gd")
 
-export(NodePath) var PlayerPath  = ""
-export(NodePath) var CameraPath  = ""
-export(NodePath) var CameraRootPath  = ""
-export(NodePath) var MeshInstancePath  = ""
-export(NodePath) var DUI_Root = ""
+export(NodePath) var PlayerPath
+export(NodePath) var CameraPath
+export(NodePath) var CameraRootPath
+export(NodePath) var MeshInstancePath
+export(NodePath) var DUI_Root
 export(float) var movement_speed = 15.0
 export(float) var acceleration = 3.0
 export(float) var deaceleration = 6.5#5.0

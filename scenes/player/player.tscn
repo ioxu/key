@@ -190,8 +190,8 @@ emission_on_uv2 = false
 emission_texture = SubResource( 27 )
 
 [sub_resource type="CylinderShape" id=10]
-radius = 200.0
 height = 100.0
+radius = 200.0
 
 [sub_resource type="SpatialMaterial" id=11]
 flags_transparent = true
@@ -412,7 +412,6 @@ shape = SubResource( 2 )
 [node name="MeshInstance" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 1.54973, -3.5022e-07 )
 mesh = SubResource( 3 )
-material/0 = null
 
 [node name="MeshInstance" type="MeshInstance" parent="MeshInstance"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.261, 0.194 )
@@ -517,7 +516,6 @@ material/0 = SubResource( 29 )
 transform = Transform( -8.9407e-08, 0, -1, 0, 1, 0, 1, 0, -8.9407e-08, 4.26326e-14, -0.717915, -4.26326e-14 )
 material_override = SubResource( 37 )
 mesh = SubResource( 35 )
-material/0 = null
 script = ExtResource( 18 )
 rings = 1
 radial_segments = 16
@@ -535,7 +533,6 @@ transform = Transform( 1.13301, 1.63701e-07, -0.0951222, -1.71421e-07, 1.082, 1.
 material_override = SubResource( 25 )
 mesh = ExtResource( 22 )
 skeleton = NodePath("../../options")
-material/0 = null
 
 [node name="radar_dots" type="Spatial" parent="MeshInstance/dui_root/static_stack"]
 script = ExtResource( 15 )
@@ -577,7 +574,6 @@ transform = Transform( -1.31568, -2.16204e-07, 1.31568, -2.80951e-07, 2.02495, 0
 visible = false
 material_override = SubResource( 16 )
 mesh = ExtResource( 22 )
-material/0 = null
 
 [node name="equip_slots" type="Spatial" parent="MeshInstance/dui_root/static_stack"]
 transform = Transform( -0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 0, 0, 0 )
@@ -591,7 +587,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.50791e-07, 0, -1.50791e-07 )
 material_override = SubResource( 39 )
 mesh = SubResource( 30 )
 skeleton = NodePath("../..")
-material/0 = null
 script = ExtResource( 18 )
 rings = 1
 radial_segments = 5
@@ -616,7 +611,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.50791e-07, 0, -1.50791e-07 )
 material_override = SubResource( 40 )
 mesh = SubResource( 32 )
 skeleton = NodePath("../..")
-material/0 = null
 script = ExtResource( 18 )
 rings = 1
 radial_segments = 5
@@ -643,7 +637,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0039e-07, 0, -7.2936e-08 )
 material_override = SubResource( 41 )
 mesh = SubResource( 33 )
 skeleton = NodePath("../..")
-material/0 = null
 script = ExtResource( 18 )
 rings = 1
 radial_segments = 5
@@ -788,7 +781,6 @@ transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -
 
 [node name="waist_geo" type="MeshInstance" parent="waist"]
 mesh = SubResource( 23 )
-material/0 = null
 
 [node name="leg_1" type="Spatial" parent="."]
 transform = Transform( 0.706988, 0, 0.707003, 0, 0.99999, 0, -0.707004, 0, 0.706987, 0.110324, 0.746836, -0.110315 )
@@ -837,7 +829,6 @@ depth = 0.15
 [node name="MeshInstance" type="MeshInstance" parent="leg_1/hip_joint/thigh_joint/shin_joint"]
 transform = Transform( 0.381, -1.90664e-09, 5.16261e-09, 1.11759e-08, 0.065, 0, -1.49012e-08, 7.45701e-17, 0.132, 0.253681, 0.108, 5.96046e-08 )
 mesh = SubResource( 24 )
-material/0 = null
 
 [node name="leg_2" type="Spatial" parent="."]
 transform = Transform( 0.706997, 0, -0.70699, 0, 1, 0, 0.70699, 0, 0.706997, 0.110311, 0.746748, 0.110315 )
@@ -887,7 +878,6 @@ depth = 0.15
 [node name="MeshInstance2" type="MeshInstance" parent="leg_2/hip_joint/thigh_joint/shin_joint"]
 transform = Transform( 0.380996, 0, 0, 0, 0.065, 0, 0, 0, 0.132, 0.254, 0.108, 0 )
 mesh = SubResource( 24 )
-material/0 = null
 
 [node name="leg_3" type="Spatial" parent="."]
 transform = Transform( -0.707003, 0, -0.706986, 0, 1, 0, 0.706986, 0, -0.707003, -0.110306, 0.746748, 0.110315 )
@@ -937,7 +927,6 @@ depth = 0.15
 [node name="MeshInstance2" type="MeshInstance" parent="leg_3/hip_joint/thigh_joint/shin_joint"]
 transform = Transform( 0.380996, -3.17607e-24, -3.87199e-09, 0, 0.065, -2.19882e-16, 1.11759e-08, 1.08275e-16, 0.132, 0.254, 0.108, -2.98023e-08 )
 mesh = SubResource( 24 )
-material/0 = null
 
 [node name="leg_4" type="Spatial" parent="."]
 transform = Transform( -0.706974, 0, 0.706981, 0, 1, 0, -0.706981, 0, -0.706974, -0.110306, 0.746748, -0.110302 )
@@ -987,7 +976,6 @@ depth = 0.15
 [node name="MeshInstance2" type="MeshInstance" parent="leg_4/hip_joint/thigh_joint/shin_joint"]
 transform = Transform( 0.380996, -3.17607e-24, -3.87199e-09, 0, 0.065, -2.19882e-16, 1.11759e-08, 1.08275e-16, 0.132, 0.254, 0.108, -2.98023e-08 )
 mesh = SubResource( 24 )
-material/0 = null
 
 [node name="toe_1_position" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.999997, 0, 0, 0, 1, 0.5, 0, -0.5 )

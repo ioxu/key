@@ -1,12 +1,12 @@
 extends Node
 
-export(NodePath) var PlayerPath  = ""
+export(NodePath) var PlayerPath
 onready var player : KinematicBody = get_node(PlayerPath)
-export(NodePath) var WeaponMountPath = ""
+export(NodePath) var WeaponMountPath
 onready var weapon_mount : Spatial = get_node(WeaponMountPath)
-export(NodePath) var DUI_Root = ""
+export(NodePath) var DUI_Root
 onready var dui_root : Spatial = get_node(DUI_Root)
-export(NodePath) var EquipSlots = ""
+export(NodePath) var EquipSlots
 onready var equip_slots : Spatial = get_node(EquipSlots)
 
 onready var weapon = null #player.find_node("weapon_mount").get_child(0)

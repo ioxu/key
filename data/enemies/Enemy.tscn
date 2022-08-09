@@ -66,8 +66,8 @@ emission_on_uv2 = false
 extents = Vector3( 0.5, 1, 0.5 )
 
 [sub_resource type="CylinderShape" id=11]
-radius = 8.0
 height = 5.0
+radius = 8.0
 
 [sub_resource type="SpatialMaterial" id=12]
 flags_transparent = true
@@ -115,7 +115,12 @@ mesh = SubResource( 6 )
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, -0.444, 0.629 )
 
 [node name="pulse_shard" parent="MeshInstance/weapon_mount" instance=ExtResource( 10 )]
+colour = Color( 0.14, 0.68, 0.95, 1 )
 is_enemy_weapon = true
+base_magazine_size = 200
+base_fire_rate = 0.08
+fire_kickback = 65.0
+eject_casings = true
 
 [node name="hurtbox" type="Area" parent="."]
 collision_layer = 32
@@ -188,7 +193,6 @@ shape = SubResource( 11 )
 transform = Transform( 1, 0, 0, 0, 2.5, 0, 0, 0, 1, 0, 0, 0 )
 visible = false
 mesh = SubResource( 13 )
-material/0 = null
 
 [node name="alert_icon" type="Sprite3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.67777, 0 )
