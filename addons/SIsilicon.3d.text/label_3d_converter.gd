@@ -21,8 +21,8 @@ func _on_Button_pressed() -> void:
 
 func generate_geometry() -> void:
 	$PopupDialog.popup_centered()
-	var text_size := label3d.text_size / 200.0
-	var extrude := label3d.extrude
+	var text_size :float= label3d.text_size / 200.0
+	var extrude :float= label3d.extrude
 	var viewport := label3d.get_node("Viewport")
 	
 	viewport.render_target_update_mode = Viewport.UPDATE_ALWAYS
