@@ -10,3 +10,5 @@ Key, a game made with the Godot Engine.
 [Rainy Hearts](https://www.dafont.com/rainyhearts.font) bitmap font by Camellina
 
 [Roboto Google font](https://fonts.google.com/specimen/Roboto) by [Christian Robertson](https://fonts.google.com/?query=Christian+Robertson)
+
+["Box Divide ID" shader for the ground shader](https://www.shadertoy.com/view/WlsSRs) by [shadertoy user Shane](https://www.shadertoy.com/user/Shane)
