@@ -908,12 +908,7 @@ orb_value = 1
 [node name="pulse_shard" parent="level" instance=ExtResource( 11 )]
 transform = Transform( -0.212894, 0, 0.977075, 0, 1, 0, -0.977075, 0, -0.212894, -4.82653, 1.72821, 0 )
 activated = true
-colour = Color( 0.14, 0.68, 0.95, 1 )
 is_enemy_weapon = true
-base_magazine_size = 200
-base_fire_rate = 0.08
-fire_kickback = 65.0
-eject_casings = true
 
 [node name="fps_label" type="Label" parent="."]
 modulate = Color( 1, 1, 1, 0.415686 )

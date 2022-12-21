@@ -115,12 +115,7 @@ mesh = SubResource( 6 )
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, -0.444, 0.629 )
 
 [node name="pulse_shard" parent="MeshInstance/weapon_mount" instance=ExtResource( 10 )]
-colour = Color( 0.14, 0.68, 0.95, 1 )
 is_enemy_weapon = true
-base_magazine_size = 200
-base_fire_rate = 0.08
-fire_kickback = 65.0
-eject_casings = true
 
 [node name="hurtbox" type="Area" parent="."]
 collision_layer = 32
