@@ -15,14 +15,14 @@
 [ext_resource type="PackedScene" uid="uid://b330s652jv5y8" path="res://data/props/bollard-02-piece-02/bollard_02_piece_02.tscn" id="13_yiev5"]
 [ext_resource type="PackedScene" uid="uid://c0vn2jqnejado" path="res://data/props/bollard-02-piece-03/bollard_02_piece_03.tscn" id="14_ocuww"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_u84cv"]
+[sub_resource type="BoxMesh" id="BoxMesh_r0bwf"]
 size = Vector3(500, 1, 500)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_am7jx"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_sl0qh"]
 margin = 0.001
 size = Vector3(500, 1, 500)
 
-[sub_resource type="Shader" id="Shader_5uh0v"]
+[sub_resource type="Shader" id="Shader_exh0g"]
 code = "// NOTE: Shader automatically converted from Godot Engine 4.0.beta9's StandardMaterial3D.
 
 shader_type spatial;
@@ -77,14 +77,14 @@ void fragment() {
 }
 "
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_a14xp"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_vgf2r"]
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_w61di"]
-noise = SubResource("FastNoiseLite_a14xp")
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_l2yvd"]
+noise = SubResource("FastNoiseLite_vgf2r")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_0ed5o"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h2sxr"]
 render_priority = 0
-shader = SubResource("Shader_5uh0v")
+shader = SubResource("Shader_exh0g")
 shader_parameter/albedo = Color(1, 1, 1, 1)
 shader_parameter/point_size = 1.0
 shader_parameter/roughness = 1.0
@@ -98,34 +98,34 @@ shader_parameter/uv2_offset = Vector3(0, 0, 0)
 shader_parameter/texture_albedo = ExtResource("4_cm41q")
 shader_parameter/wind_speed = 0.1
 shader_parameter/wind_strength = 0.0
-shader_parameter/noise_tex = SubResource("NoiseTexture2D_w61di")
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_l2yvd")
 
-[sub_resource type="BoxMesh" id="BoxMesh_0dlnu"]
-material = SubResource("ShaderMaterial_0ed5o")
+[sub_resource type="BoxMesh" id="BoxMesh_oewap"]
+material = SubResource("ShaderMaterial_h2sxr")
 size = Vector3(5, 2, 2)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_lqmfm"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_kbaeg"]
 size = Vector3(5, 2, 2)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_spi32"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uftc1"]
 emission_enabled = true
 emission = Color(0.615686, 0.282353, 0.741176, 1)
 emission_energy_multiplier = 10.0
 
-[sub_resource type="SphereMesh" id="SphereMesh_f74k3"]
-material = SubResource("StandardMaterial3D_spi32")
+[sub_resource type="SphereMesh" id="SphereMesh_eae1n"]
+material = SubResource("StandardMaterial3D_uftc1")
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_vcmi1"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_bg5ba"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_w6rdx"]
+[sub_resource type="BoxMesh" id="BoxMesh_gm4p1"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yyvlc"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pcsvn"]
 albedo_color = Color(0.862745, 0.521569, 0.215686, 1)
 emission_enabled = true
 emission = Color(0.509804, 0.32549, 0.0745098, 1)
 emission_energy_multiplier = 10.0
 
-[sub_resource type="GDScript" id="GDScript_677uj"]
+[sub_resource type="GDScript" id="GDScript_yufar"]
 script/source = "extends SpotLight3D
 
 var gtime := 0.0
@@ -160,7 +160,7 @@ func _process(delta):
 	light_energy = current_le * 10.0
 "
 
-[sub_resource type="GDScript" id="GDScript_265vd"]
+[sub_resource type="GDScript" id="GDScript_uoj0r"]
 script/source = "extends Node2D
 
 func _ready():
@@ -172,15 +172,15 @@ func _process(delta):
 	$fps_label.text = \"fps %0.2f\"%Engine.get_frames_per_second()
 "
 
-[sub_resource type="FogMaterial" id="FogMaterial_ws2ut"]
+[sub_resource type="FogMaterial" id="FogMaterial_w1bjm"]
 density = 0.0708
 albedo = Color(0.388235, 0.2, 0.129412, 1)
 emission = Color(1, 0.305882, 0.215686, 1)
 edge_fade = 0.168179
 
-[sub_resource type="QuadMesh" id="QuadMesh_ug847"]
+[sub_resource type="QuadMesh" id="QuadMesh_6u57j"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d6ae4"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_quqiw"]
 transparency = 2
 alpha_scissor_threshold = 0.5
 alpha_antialiasing_mode = 0
@@ -190,7 +190,7 @@ emission_enabled = true
 emission = Color(0.976471, 0.2, 0.470588, 1)
 emission_energy_multiplier = 5.0
 
-[sub_resource type="FogMaterial" id="FogMaterial_2p5c8"]
+[sub_resource type="FogMaterial" id="FogMaterial_hf03k"]
 density = 0.3601
 edge_fade = 1.34543
 
@@ -200,14 +200,14 @@ level_name = "RE[zero,zero]"
 
 [node name="ground" type="MeshInstance3D" parent="."]
 material_override = ExtResource("2_nhyfj")
-mesh = SubResource("BoxMesh_u84cv")
+mesh = SubResource("BoxMesh_r0bwf")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="ground"]
 collision_layer = 2
 collision_mask = 31
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ground/StaticBody3D"]
-shape = SubResource("BoxShape3D_am7jx")
+shape = SubResource("BoxShape3D_sl0qh")
 
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="ground/StaticBody3D"]
 extents = Vector3(500, 1, 500)
@@ -225,9 +225,9 @@ connected_door = "start"
 [node name="block" type="MeshInstance3D" parent="level/walls"]
 transform = Transform3D(1.28036, 0.734875, -4.48456, 0.112478, 4.34754, 1.04774, 2.52683, -0.565889, 2.22572, -7.57635, 1.62388, 24.1371)
 layers = 2
-mesh = SubResource("BoxMesh_0dlnu")
+mesh = SubResource("BoxMesh_oewap")
 skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("ShaderMaterial_0ed5o")
+surface_material_override/0 = SubResource("ShaderMaterial_h2sxr")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="level/walls/block"]
 collision_layer = 2
@@ -235,7 +235,7 @@ collision_mask = 2147483677
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="level/walls/block/StaticBody3D"]
 transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0)
-shape = SubResource("BoxShape3D_lqmfm")
+shape = SubResource("BoxShape3D_kbaeg")
 
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="level/walls/block/StaticBody3D"]
 extents = Vector3(2.5, 1, 1)
@@ -243,7 +243,7 @@ extents = Vector3(2.5, 1, 1)
 [node name="block3" type="MeshInstance3D" parent="level/walls"]
 transform = Transform3D(-1.11388, 2.17308, -4.79075, 0.127916, 10.3276, 1.07181, 3.02279, 0.363728, -1.81071, -2.93092, 10.3078, 0.477769)
 layers = 2
-mesh = SubResource("BoxMesh_0dlnu")
+mesh = SubResource("BoxMesh_oewap")
 skeleton = NodePath("../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="level/walls/block3"]
@@ -252,7 +252,7 @@ collision_mask = 2147483677
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="level/walls/block3/StaticBody3D"]
 transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0)
-shape = SubResource("BoxShape3D_lqmfm")
+shape = SubResource("BoxShape3D_kbaeg")
 
 [node name="GPUParticlesCollisionBox3D2" type="GPUParticlesCollisionBox3D" parent="level/walls/block3/StaticBody3D"]
 transform = Transform3D(0.538, 0, 0, 0, 0.349, 0, 0, 0, 1, 0, 0, 0)
@@ -261,7 +261,7 @@ extents = Vector3(4.65109, 2.86561, 1)
 [node name="block28" type="MeshInstance3D" parent="level/walls"]
 transform = Transform3D(-3.19103, 0.703202, -0.660465, 0.127916, 10.3276, 1.07181, 0.441966, 2.08808, -5.07875, 8.09155, -0.518143, -11.1553)
 layers = 2
-mesh = SubResource("BoxMesh_0dlnu")
+mesh = SubResource("BoxMesh_oewap")
 skeleton = NodePath("../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="level/walls/block28"]
@@ -270,7 +270,7 @@ collision_mask = 2147483677
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="level/walls/block28/StaticBody3D"]
 transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0)
-shape = SubResource("BoxShape3D_lqmfm")
+shape = SubResource("BoxShape3D_kbaeg")
 
 [node name="GPUParticlesCollisionBox3D2" type="GPUParticlesCollisionBox3D" parent="level/walls/block28/StaticBody3D"]
 transform = Transform3D(0.538, 0, 0, 0, 0.349, 0, 0, 0, 1, 0, 0, 0)
@@ -279,7 +279,7 @@ extents = Vector3(4.65109, 2.86561, 1)
 [node name="block4" type="MeshInstance3D" parent="level/walls"]
 transform = Transform3D(-0.407941, -1.51193, -2.69865, 0.0468473, 10.4035, -0.485556, 1.10705, -0.997383, -0.973884, 19.5605, -0.63594, 22.1528)
 layers = 2
-mesh = SubResource("BoxMesh_0dlnu")
+mesh = SubResource("BoxMesh_oewap")
 skeleton = NodePath("../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="level/walls/block4"]
@@ -288,7 +288,7 @@ collision_mask = 2147483677
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="level/walls/block4/StaticBody3D"]
 transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0)
-shape = SubResource("BoxShape3D_lqmfm")
+shape = SubResource("BoxShape3D_kbaeg")
 
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="level/walls/block4/StaticBody3D"]
 extents = Vector3(2.49252, 1, 1)
@@ -296,7 +296,7 @@ extents = Vector3(2.49252, 1, 1)
 [node name="block5" type="MeshInstance3D" parent="level/walls"]
 transform = Transform3D(-1.83453, 0.700639, 0.822926, 0.0738726, 10.4035, -0.872197, -0.309414, -1.67027, -5.08741, 22.8375, -5.41331, 16.4593)
 layers = 2
-mesh = SubResource("BoxMesh_0dlnu")
+mesh = SubResource("BoxMesh_oewap")
 skeleton = NodePath("../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="level/walls/block5"]
@@ -305,12 +305,12 @@ collision_mask = 2147483677
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="level/walls/block5/StaticBody3D"]
 transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0)
-shape = SubResource("BoxShape3D_lqmfm")
+shape = SubResource("BoxShape3D_kbaeg")
 
 [node name="block6" type="MeshInstance3D" parent="level/walls"]
 transform = Transform3D(0.800873, -1.57541, -2.09362, 0.0468473, 10.4035, -0.485556, 0.866364, 0.893761, 1.96161, 34.2678, -0.63594, -0.879379)
 layers = 2
-mesh = SubResource("BoxMesh_0dlnu")
+mesh = SubResource("BoxMesh_oewap")
 skeleton = NodePath("../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="level/walls/block6"]
@@ -319,12 +319,12 @@ collision_mask = 2147483677
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="level/walls/block6/StaticBody3D"]
 transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0)
-shape = SubResource("BoxShape3D_lqmfm")
+shape = SubResource("BoxShape3D_kbaeg")
 
 [node name="block7" type="MeshInstance3D" parent="level/walls"]
 transform = Transform3D(-1.1091, -1.16964, -4.1582, 0.0738726, 10.4035, -0.872197, 1.4937, -1.38299, -3.04439, 30.6846, -5.41331, -6.38526)
 layers = 2
-mesh = SubResource("BoxMesh_0dlnu")
+mesh = SubResource("BoxMesh_oewap")
 skeleton = NodePath("../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="level/walls/block7"]
@@ -333,14 +333,14 @@ collision_mask = 2147483677
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="level/walls/block7/StaticBody3D"]
 transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0)
-shape = SubResource("BoxShape3D_lqmfm")
+shape = SubResource("BoxShape3D_kbaeg")
 
 [node name="block8" type="MeshInstance3D" parent="level/walls"]
 transform = Transform3D(-0.768528, -0.223345, 1.09851, 0.0403456, 2.08566, 0.348103, -0.664673, 0.384841, -1.24903, 38.304, 1.02138, 8.90516)
 layers = 2
-mesh = SubResource("BoxMesh_0dlnu")
+mesh = SubResource("BoxMesh_oewap")
 skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("ShaderMaterial_0ed5o")
+surface_material_override/0 = SubResource("ShaderMaterial_h2sxr")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="level/walls/block8"]
 collision_layer = 2
@@ -348,12 +348,12 @@ collision_mask = 2147483677
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="level/walls/block8/StaticBody3D"]
 transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0)
-shape = SubResource("BoxShape3D_lqmfm")
+shape = SubResource("BoxShape3D_kbaeg")
 
 [node name="block9" type="MeshInstance3D" parent="level/walls"]
 transform = Transform3D(0.557075, -0.402473, 1.49226, 0.0376619, 2.08565, 0.388213, -0.767666, -0.189741, 1.10194, 40.6225, 1.02138, 15.1051)
 layers = 2
-mesh = SubResource("BoxMesh_0dlnu")
+mesh = SubResource("BoxMesh_oewap")
 skeleton = NodePath("../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="level/walls/block9"]
@@ -362,12 +362,12 @@ collision_mask = 2147483677
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="level/walls/block9/StaticBody3D"]
 transform = Transform3D(1, 2.98023e-08, -1.19209e-07, -7.45058e-09, 1, 1.49012e-08, 7.45058e-08, 1.49012e-08, 1, 0, 0, 0)
-shape = SubResource("BoxShape3D_lqmfm")
+shape = SubResource("BoxShape3D_kbaeg")
 
 [node name="block10" type="MeshInstance3D" parent="level/walls"]
 transform = Transform3D(-0.0553757, -1.03085, 2.78507, 0.0616346, 4.95448, 0.583069, -1.55124, 0.233652, -0.0762536, 40.9858, 6.00964, 22.4931)
 layers = 2
-mesh = SubResource("BoxMesh_0dlnu")
+mesh = SubResource("BoxMesh_oewap")
 skeleton = NodePath("../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="level/walls/block10"]
@@ -376,12 +376,12 @@ collision_mask = 2147483677
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="level/walls/block10/StaticBody3D"]
 transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0)
-shape = SubResource("BoxShape3D_lqmfm")
+shape = SubResource("BoxShape3D_kbaeg")
 
 [node name="block11" type="MeshInstance3D" parent="level/walls"]
 transform = Transform3D(-0.0207917, 0.875836, 1.55687, 0.0231416, 5.12717, -0.263727, -0.582434, 0.17245, -0.0660555, 24.311, -0.276716, 15.8681)
 layers = 2
-mesh = SubResource("BoxMesh_0dlnu")
+mesh = SubResource("BoxMesh_oewap")
 skeleton = NodePath("../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="level/walls/block11"]
@@ -390,12 +390,12 @@ collision_mask = 2147483677
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="level/walls/block11/StaticBody3D"]
 transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0)
-shape = SubResource("BoxShape3D_lqmfm")
+shape = SubResource("BoxShape3D_kbaeg")
 
 [node name="block12" type="MeshInstance3D" parent="level/walls"]
 transform = Transform3D(0.888501, -0.00753781, 0.495627, 0.0361645, 5.12717, -0.370519, -0.200225, 0.892618, 2.13243, 23.8087, -3.02096, 19.6081)
 layers = 2
-mesh = SubResource("BoxMesh_0dlnu")
+mesh = SubResource("BoxMesh_oewap")
 skeleton = NodePath("../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="level/walls/block12"]
@@ -404,7 +404,7 @@ collision_mask = 2147483677
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="level/walls/block12/StaticBody3D"]
 transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0)
-shape = SubResource("BoxShape3D_lqmfm")
+shape = SubResource("BoxShape3D_kbaeg")
 
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="level/walls/block12/StaticBody3D"]
 extents = Vector3(2.47091, 1, 1)
@@ -412,7 +412,7 @@ extents = Vector3(2.47091, 1, 1)
 [node name="block13" type="MeshInstance3D" parent="level/walls"]
 transform = Transform3D(-0.422243, 0.551532, 0.45548, 0.0184957, 5.12717, -0.185241, -0.196684, -0.701886, -0.995247, 21.5076, -0.276716, 31.3133)
 layers = 2
-mesh = SubResource("BoxMesh_0dlnu")
+mesh = SubResource("BoxMesh_oewap")
 skeleton = NodePath("../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="level/walls/block13"]
@@ -421,7 +421,7 @@ collision_mask = 2147483677
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="level/walls/block13/StaticBody3D"]
 transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0)
-shape = SubResource("BoxShape3D_lqmfm")
+shape = SubResource("BoxShape3D_kbaeg")
 
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="level/walls/block13/StaticBody3D"]
 extents = Vector3(2.49664, 1, 1)
@@ -429,7 +429,7 @@ extents = Vector3(2.49664, 1, 1)
 [node name="block14" type="MeshInstance3D" parent="level/walls"]
 transform = Transform3D(0.19458, 0.791759, 2.26685, 0.031234, 5.12717, -0.395286, -0.762167, 0.412249, 0.562523, 24.6111, -3.02096, 33.4599)
 layers = 2
-mesh = SubResource("BoxMesh_0dlnu")
+mesh = SubResource("BoxMesh_oewap")
 skeleton = NodePath("../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="level/walls/block14"]
@@ -438,7 +438,7 @@ collision_mask = 2147483677
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="level/walls/block14/StaticBody3D"]
 transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0)
-shape = SubResource("BoxShape3D_lqmfm")
+shape = SubResource("BoxShape3D_kbaeg")
 
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="level/walls/block14/StaticBody3D"]
 extents = Vector3(2.49418, 1, 1)
@@ -446,9 +446,9 @@ extents = Vector3(2.49418, 1, 1)
 [node name="block15" type="MeshInstance3D" parent="level/walls"]
 transform = Transform3D(-0.0381595, -0.201773, 0.537422, 0.0141787, 0.988259, 0.11302, -0.355038, 0.0611533, -0.0532487, 37.4334, 1.95626, 21.8304)
 layers = 2
-mesh = SubResource("BoxMesh_0dlnu")
+mesh = SubResource("BoxMesh_oewap")
 skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("ShaderMaterial_0ed5o")
+surface_material_override/0 = SubResource("ShaderMaterial_h2sxr")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="level/walls/block15"]
 collision_layer = 2
@@ -456,12 +456,12 @@ collision_mask = 2147483677
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="level/walls/block15/StaticBody3D"]
 transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0)
-shape = SubResource("BoxShape3D_lqmfm")
+shape = SubResource("BoxShape3D_kbaeg")
 
 [node name="block16" type="MeshInstance3D" parent="level/walls"]
 transform = Transform3D(0.304715, -0.0781237, 0.123383, 0.0123267, 0.988259, 0.141073, -0.0593556, -0.195828, 0.66271, 35.9901, 1.95626, 25.3136)
 layers = 2
-mesh = SubResource("BoxMesh_0dlnu")
+mesh = SubResource("BoxMesh_oewap")
 skeleton = NodePath("../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="level/walls/block16"]
@@ -470,12 +470,12 @@ collision_mask = 2147483677
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="level/walls/block16/StaticBody3D"]
 transform = Transform3D(1, 2.98023e-08, -1.19209e-07, -7.45058e-09, 1, 1.49012e-08, 7.45058e-08, 1.49012e-08, 1, 0, 0, 0)
-shape = SubResource("BoxShape3D_lqmfm")
+shape = SubResource("BoxShape3D_kbaeg")
 
 [node name="block17" type="MeshInstance3D" parent="level/walls"]
 transform = Transform3D(0.484365, -0.432695, 1.12538, 0.0293359, 2.34761, 0.314178, -0.557876, -0.25223, 0.993614, 33.2709, 1.47388, 28.5319)
 layers = 2
-mesh = SubResource("BoxMesh_0dlnu")
+mesh = SubResource("BoxMesh_oewap")
 skeleton = NodePath("../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="level/walls/block17"]
@@ -484,7 +484,7 @@ collision_mask = 2147483677
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="level/walls/block17/StaticBody3D"]
 transform = Transform3D(1, 0, -1.19209e-07, -1.86265e-09, 1, -1.49012e-08, 2.98023e-08, 2.23517e-08, 1, 0, 0, 0)
-shape = SubResource("BoxShape3D_lqmfm")
+shape = SubResource("BoxShape3D_kbaeg")
 
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="level/walls/block17/StaticBody3D"]
 extents = Vector3(2.49872, 1, 1)
@@ -492,7 +492,7 @@ extents = Vector3(2.49872, 1, 1)
 [node name="block18" type="MeshInstance3D" parent="level/walls"]
 transform = Transform3D(0.186553, 0.254652, 0.636678, 0.0112987, 2.49736, -0.141876, -0.214866, 0.35242, 0.545324, 28.8997, 1.21686, 19.2937)
 layers = 2
-mesh = SubResource("BoxMesh_0dlnu")
+mesh = SubResource("BoxMesh_oewap")
 skeleton = NodePath("../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="level/walls/block18"]
@@ -501,12 +501,12 @@ collision_mask = 2147483677
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="level/walls/block18/StaticBody3D"]
 transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0)
-shape = SubResource("BoxShape3D_lqmfm")
+shape = SubResource("BoxShape3D_kbaeg")
 
 [node name="block19" type="MeshInstance3D" parent="level/walls"]
 transform = Transform3D(0.380377, -0.299259, -0.456844, 0.0174952, 2.49736, -0.154985, 0.222368, 0.315422, 0.793661, 27.2374, -0.346261, 20.6563)
 layers = 2
-mesh = SubResource("BoxMesh_0dlnu")
+mesh = SubResource("BoxMesh_oewap")
 skeleton = NodePath("../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="level/walls/block19"]
@@ -515,7 +515,7 @@ collision_mask = 2147483677
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="level/walls/block19/StaticBody3D"]
 transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0)
-shape = SubResource("BoxShape3D_lqmfm")
+shape = SubResource("BoxShape3D_kbaeg")
 
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="level/walls/block19/StaticBody3D"]
 extents = Vector3(2.50134, 1, 1)
@@ -523,7 +523,7 @@ extents = Vector3(2.50134, 1, 1)
 [node name="block20" type="MeshInstance3D" parent="level/walls"]
 transform = Transform3D(-0.0677345, 0.429644, 0.378964, 0.00717544, 2.49736, -0.0693709, -0.167535, -0.0667445, -0.156186, 21.731, 1.21686, 24.6376)
 layers = 2
-mesh = SubResource("BoxMesh_0dlnu")
+mesh = SubResource("BoxMesh_oewap")
 skeleton = NodePath("../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="level/walls/block20"]
@@ -532,7 +532,7 @@ collision_mask = 2147483677
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="level/walls/block20/StaticBody3D"]
 transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0)
-shape = SubResource("BoxShape3D_lqmfm")
+shape = SubResource("BoxShape3D_kbaeg")
 
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="level/walls/block20/StaticBody3D"]
 extents = Vector3(2.48804, 1, 1)
@@ -540,7 +540,7 @@ extents = Vector3(2.48804, 1, 1)
 [node name="block21" type="MeshInstance3D" parent="level/walls"]
 transform = Transform3D(0.275644, 0.145032, 0.569436, 0.0130018, 2.49736, -0.176695, -0.176746, 0.409895, 0.875065, 22.1896, -0.346261, 26.7375)
 layers = 2
-mesh = SubResource("BoxMesh_0dlnu")
+mesh = SubResource("BoxMesh_oewap")
 skeleton = NodePath("../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="level/walls/block21"]
@@ -549,7 +549,7 @@ collision_mask = 2147483677
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="level/walls/block21/StaticBody3D"]
 transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0)
-shape = SubResource("BoxShape3D_lqmfm")
+shape = SubResource("BoxShape3D_kbaeg")
 
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="level/walls/block21/StaticBody3D"]
 extents = Vector3(2.47718, 1, 1)
@@ -557,7 +557,7 @@ extents = Vector3(2.47718, 1, 1)
 [node name="block22" type="MeshInstance3D" parent="level/walls"]
 transform = Transform3D(-0.718458, -0.0240483, 0.362033, 0.0293359, 2.34761, 0.314178, -0.172202, 0.500266, -1.45695, 5.4206, 1.47388, -0.952318)
 layers = 2
-mesh = SubResource("BoxMesh_0dlnu")
+mesh = SubResource("BoxMesh_oewap")
 skeleton = NodePath("../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="level/walls/block22"]
@@ -566,7 +566,7 @@ collision_mask = 2147483677
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="level/walls/block22/StaticBody3D"]
 transform = Transform3D(1, 0, -1.19209e-07, -1.86265e-09, 1, -1.49012e-08, 2.98023e-08, 2.23517e-08, 1, 0, 0, 0)
-shape = SubResource("BoxShape3D_lqmfm")
+shape = SubResource("BoxShape3D_kbaeg")
 
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="level/walls/block22/StaticBody3D"]
 extents = Vector3(2.49053, 1, 1)
@@ -574,7 +574,7 @@ extents = Vector3(2.49053, 1, 1)
 [node name="block27" type="MeshInstance3D" parent="level/walls"]
 transform = Transform3D(-1.34111, -0.0265581, 0.717276, -0.0473411, 2.63639, -0.30082, -0.322617, -0.276465, -2.93755, -6.3553, -0.599545, 14.6725)
 layers = 2
-mesh = SubResource("BoxMesh_0dlnu")
+mesh = SubResource("BoxMesh_oewap")
 skeleton = NodePath("../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="level/walls/block27"]
@@ -583,7 +583,7 @@ collision_mask = 2147483677
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="level/walls/block27/StaticBody3D"]
 transform = Transform3D(1, 0, -1.19209e-07, -1.86265e-09, 1, -1.49012e-08, 2.98023e-08, 2.23517e-08, 1, 0, 0, 0)
-shape = SubResource("BoxShape3D_lqmfm")
+shape = SubResource("BoxShape3D_kbaeg")
 
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="level/walls/block27/StaticBody3D"]
 extents = Vector3(2.46222, 1, 1)
@@ -591,7 +591,7 @@ extents = Vector3(2.46222, 1, 1)
 [node name="block23" type="MeshInstance3D" parent="level/walls"]
 transform = Transform3D(-0.276714, 0.195104, 0.189908, 0.0112987, 2.49736, -0.141876, -0.0663235, -0.388564, -0.8165, -0.757208, 1.21686, 7.18929)
 layers = 2
-mesh = SubResource("BoxMesh_0dlnu")
+mesh = SubResource("BoxMesh_oewap")
 skeleton = NodePath("../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="level/walls/block23"]
@@ -600,7 +600,7 @@ collision_mask = 2147483677
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="level/walls/block23/StaticBody3D"]
 transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0)
-shape = SubResource("BoxShape3D_lqmfm")
+shape = SubResource("BoxShape3D_kbaeg")
 
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="level/walls/block23/StaticBody3D"]
 extents = Vector3(2.4798, 1, 1)
@@ -608,7 +608,7 @@ extents = Vector3(2.4798, 1, 1)
 [node name="block24" type="MeshInstance3D" parent="level/walls"]
 transform = Transform3D(0.0217039, 0.417938, 0.914924, 0.0174952, 2.49736, -0.154985, -0.440072, 0.119896, 0.0389616, 1.21878, -0.346261, 8.03512)
 layers = 2
-mesh = SubResource("BoxMesh_0dlnu")
+mesh = SubResource("BoxMesh_oewap")
 skeleton = NodePath("../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="level/walls/block24"]
@@ -617,7 +617,7 @@ collision_mask = 2147483677
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="level/walls/block24/StaticBody3D"]
 transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0)
-shape = SubResource("BoxShape3D_lqmfm")
+shape = SubResource("BoxShape3D_kbaeg")
 
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="level/walls/block24/StaticBody3D"]
 extents = Vector3(2.55205, 1, 1)
@@ -625,7 +625,7 @@ extents = Vector3(2.55205, 1, 1)
 [node name="block25" type="MeshInstance3D" parent="level/walls"]
 transform = Transform3D(-0.11736, -0.257511, -0.313465, 0.00717543, 2.49736, -0.0693708, 0.137414, -0.350338, -0.264097, 7.29215, 1.21686, 11.0823)
 layers = 2
-mesh = SubResource("BoxMesh_0dlnu")
+mesh = SubResource("BoxMesh_oewap")
 skeleton = NodePath("../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="level/walls/block25"]
@@ -634,7 +634,7 @@ collision_mask = 2147483677
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="level/walls/block25/StaticBody3D"]
 transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0)
-shape = SubResource("BoxShape3D_lqmfm")
+shape = SubResource("BoxShape3D_kbaeg")
 
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="level/walls/block25/StaticBody3D"]
 extents = Vector3(2.42203, 1, 1)
@@ -642,7 +642,7 @@ extents = Vector3(2.42203, 1, 1)
 [node name="block26" type="MeshInstance3D" parent="level/walls"]
 transform = Transform3D(-0.284016, 0.296685, 0.513463, 0.0130018, 2.49736, -0.176695, -0.162951, -0.317846, -0.909039, 8.94335, -0.346261, 9.7063)
 layers = 2
-mesh = SubResource("BoxMesh_0dlnu")
+mesh = SubResource("BoxMesh_oewap")
 skeleton = NodePath("../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="level/walls/block26"]
@@ -651,7 +651,7 @@ collision_mask = 2147483677
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="level/walls/block26/StaticBody3D"]
 transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0)
-shape = SubResource("BoxShape3D_lqmfm")
+shape = SubResource("BoxShape3D_kbaeg")
 
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="level/walls/block26/StaticBody3D"]
 extents = Vector3(2.49166, 1, 1)
@@ -732,7 +732,7 @@ transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="level"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.6838, 0.774319, 30.5356)
-mesh = SubResource("SphereMesh_f74k3")
+mesh = SubResource("SphereMesh_eae1n")
 
 [node name="world_decals" type="Node3D" parent="level"]
 
@@ -773,7 +773,7 @@ spot_angle = 50.7802
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="SpotLight3D5"]
 transform = Transform3D(1.3467, 0, 0, 0, -2.65427e-08, 1.3467, 0, -0.612617, -5.86733e-08, 0, 0.00122452, 0.21735)
-mesh = SubResource("CylinderMesh_vcmi1")
+mesh = SubResource("CylinderMesh_bg5ba")
 
 [node name="SpotLight3D7" type="SpotLight3D" parent="."]
 transform = Transform3D(0.838366, -0.428512, -0.336927, 0, -0.618093, 0.786105, -0.545107, -0.659044, -0.518188, -12.7492, 10.0844, 65.0401)
@@ -853,14 +853,14 @@ transform = Transform3D(0.113659, 0, 0.88075, 0, 0.24, 0, -0.21138, 0, 0.473581,
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D"]
 transform = Transform3D(4.16667, 0, 0, 0, 4.16667, 0, 0, 0, 4.16843, 0, 0, 0)
-mesh = SubResource("BoxMesh_w6rdx")
+mesh = SubResource("BoxMesh_gm4p1")
 skeleton = NodePath("../SpotLight3D6")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Node3D"]
 transform = Transform3D(1.66928, 0, 0, 0, 1.78453, 0, 0, 0, 1.11418, 1.81513, 0, 0)
-mesh = SubResource("BoxMesh_w6rdx")
+mesh = SubResource("BoxMesh_gm4p1")
 skeleton = NodePath("../SpotLight3D6")
-surface_material_override/0 = SubResource("StandardMaterial3D_yyvlc")
+surface_material_override/0 = SubResource("StandardMaterial3D_pcsvn")
 
 [node name="SpotLight3D6" type="SpotLight3D" parent="Node3D"]
 transform = Transform3D(2.47564, -0.0184805, -3.35099, 3.35188, 0.0136493, 2.47499, -1.62994e-07, -0.999736, 0.0957351, 3.2567, 2.53324, 0)
@@ -871,13 +871,13 @@ light_size = 3.0
 shadow_enabled = true
 spot_range = 10.0212
 spot_angle = 72.3195
-script = SubResource("GDScript_677uj")
+script = SubResource("GDScript_yufar")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("11_3r7r1")
 
 [node name="Node2D" type="Node2D" parent="."]
-script = SubResource("GDScript_265vd")
+script = SubResource("GDScript_uoj0r")
 
 [node name="fps_label" type="Label" parent="Node2D"]
 offset_left = 14.0
@@ -892,12 +892,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9102, 3.574, 38.276)
 [node name="FogVolume" type="FogVolume" parent="."]
 transform = Transform3D(24.107, 0, 0, 0, 14.7178, 0, 0, 0, 17.4156, -1.40467, 0, -3.20233)
 shape = 0
-material = SubResource("FogMaterial_ws2ut")
+material = SubResource("FogMaterial_w1bjm")
 
 [node name="enemy_spawner" type="MeshInstance3D" parent="."]
 transform = Transform3D(2, 0, 0, 0, -8.74228e-08, 2, 0, -2, -8.74228e-08, 4.15134, 0.821007, 75.9444)
-mesh = SubResource("QuadMesh_ug847")
-surface_material_override/0 = SubResource("StandardMaterial3D_d6ae4")
+mesh = SubResource("QuadMesh_6u57j")
+surface_material_override/0 = SubResource("StandardMaterial3D_quqiw")
 script = ExtResource("9_tt0tx")
 enemy_archetype = ExtResource("7_ylblb")
 
@@ -923,13 +923,13 @@ transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.9136, -0.747873, 57.6533)
 extents = Vector3(10.8768, 9.22829, 11.9075)
 shape = 0
-material = SubResource("FogMaterial_2p5c8")
+material = SubResource("FogMaterial_hf03k")
 
 [node name="FogVolume3" type="FogVolume" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.296, -0.747873, 72.8882)
 extents = Vector3(10.8768, 9.22829, 11.9075)
 shape = 0
-material = SubResource("FogMaterial_2p5c8")
+material = SubResource("FogMaterial_hf03k")
 
 [node name="bollard-02-piece-01_01-01" parent="." instance=ExtResource("12_ts62x")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.4833, 0.5, 86.4938)

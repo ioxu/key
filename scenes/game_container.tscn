@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://dfja1ypquymuq"]
+[gd_scene load_steps=30 format=3 uid="uid://dfja1ypquymuq"]
 
 [ext_resource type="PackedScene" uid="uid://c0vn2jqnejado" path="res://data/props/bollard-02-piece-03/bollard_02_piece_03.tscn" id="1_17l12"]
 [ext_resource type="PackedScene" uid="uid://b330s652jv5y8" path="res://data/props/bollard-02-piece-02/bollard_02_piece_02.tscn" id="2_3tqab"]
@@ -107,12 +107,41 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ds7l5"]
 shader = SubResource("Shader_l4g13")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ge21"]
+bg_color = Color(0.0784314, 0.321569, 0.537255, 0.266667)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="GDScript" id="GDScript_au1ow"]
+script/source = "extends Label
+
+
+func _process(delta):
+	self.text = str(Engine.get_frames_per_second())
+"
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q6520"]
 bg_color = Color(1, 1, 1, 0.117647)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_56vvm"]
+bg_color = Color(0.917647, 0.419608, 0.454902, 0.478431)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gquur"]
+bg_color = Color(0.709804, 0.219608, 0.278431, 0.67451)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [node name="game_container" type="Node2D"]
 script = SubResource("GDScript_bgtdb")
@@ -287,6 +316,54 @@ layout_mode = 2
 texture = ExtResource("7_byq4e")
 expand_mode = 2
 
+[node name="ui_debug" type="Node" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="ui_debug"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ui_debug/MarginContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="ui_debug/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui_debug/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ui_debug/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="ui_debug/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="fps_container" type="PanelContainer" parent="ui_debug/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_6ge21")
+
+[node name="MarginContainer" type="MarginContainer" parent="ui_debug/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/fps_container"]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="fps_label" type="Label" parent="ui_debug/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/fps_container/MarginContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_tp6qh")
+theme_override_font_sizes/font_size = 12
+text = "fps:"
+script = SubResource("GDScript_au1ow")
+
 [node name="ui_debug_menu" type="Node" parent="." node_paths=PackedStringArray("main_subviewport")]
 script = ExtResource("10_od7cn")
 main_subviewport = NodePath("../SubViewportContainer/SubViewport")
@@ -398,10 +475,19 @@ popup/item_1/id = 1
 layout_mode = 2
 
 [node name="Control" type="Control" parent="ui_debug_menu/MarginContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(100, 0)
+custom_minimum_size = Vector2(45, 0)
 layout_mode = 2
 
-[node name="Button" type="Button" parent="ui_debug_menu/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="quit_button" type="Button" parent="ui_debug_menu/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(45, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_tp6qh")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_56vvm")
+theme_override_styles/hover = SubResource("StyleBoxFlat_gquur")
+text = "quit"
+
+[node name="debug_button" type="Button" parent="ui_debug_menu/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("6_tp6qh")
 theme_override_font_sizes/font_size = 12
@@ -410,3 +496,4 @@ text = "debug"
 [node name="ui_menu" type="Node" parent="."]
 
 [connection signal="item_selected" from="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer/debug_draw_parm/debug_draw_options" to="ui_debug_menu" method="_on_debug_draw_options_item_selected"]
+[connection signal="pressed" from="ui_debug_menu/MarginContainer/VBoxContainer/HBoxContainer/quit_button" to="ui_debug_menu" method="_on_quit_button_pressed"]

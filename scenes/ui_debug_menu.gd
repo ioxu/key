@@ -2,6 +2,8 @@ extends Node
 
 @export var main_subviewport : SubViewport
 
+var is_active := false
+
 var debug_draw_options : OptionButton
 const DEBUG_DRAW_ENUM_STRINGS = [
 	"Disabled",
@@ -34,6 +36,9 @@ const DEBUG_DRAW_ENUM_STRINGS = [
 
 
 func _ready():
+	# set self INVISIBLE
+	self.get_child(0).set_visible(false)
+	
 	debug_draw_options = self.find_child("debug_draw_options")
 	debug_draw_options.clear()
 	for i in DEBUG_DRAW_ENUM_STRINGS:
@@ -44,6 +49,15 @@ func _process(delta):
 	pass
 
 
+func _unhandled_input(event):
+	if event.is_action_pressed("ui_cancel") and Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
+		self.get_child(0).set_visible(true)
+		self.is_active = true
+	elif event.is_action_pressed("ui_cancel") and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+		self.get_child(0).set_visible(false)
+		self.is_active = false
+
+
 func _on_debug_draw_options_item_selected(index):
 	main_subviewport.set_debug_draw( index )
 
@@ -52,4 +66,5 @@ func pprint(thing) -> void:
 	print("[ui_debug_mnenu] %s"%str(thing))
 
 
-	
+func _on_quit_button_pressed():
+	get_tree().quit()
