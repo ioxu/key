@@ -166,6 +166,7 @@ msaa_2d = 3
 msaa_3d = 3
 use_taa = true
 use_debanding = true
+mesh_lod_threshold = 78.1
 audio_listener_enable_3d = true
 positional_shadow_atlas_size = 4096
 size = Vector2i(1024, 576)

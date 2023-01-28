@@ -1,5 +1,7 @@
 extends Node
 
+var gtime := 0.0
+
 @export var main_subviewport : SubViewport
 
 var is_active := false
@@ -46,7 +48,11 @@ func _ready():
 
 
 func _process(delta):
-	pass
+	gtime += delta
+	var lod_f = (sin(gtime* 1.0) + 1.0) / 2.0
+	lod_f *= 80.0
+	pprint("lod_f %s"%lod_f)
+	main_subviewport.mesh_lod_threshold = lod_f
 
 
 func _unhandled_input(event):
