@@ -3,8 +3,8 @@
 [node name="options_menu_bg_2d" type="Node2D"]
 
 [node name="ColorRect" type="ColorRect" parent="."]
-margin_right = 512.0
-margin_bottom = 512.0
+offset_right = 512.0
+offset_bottom = 512.0
 color = Color( 0, 0, 0, 0 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -12,4 +12,4 @@ __meta__ = {
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 invert_border = 0.1
-polygon = PoolVector2Array( 80, 0, 416, 0, 416, 408, 288, 408, 248, 512, 208, 408, 80, 408 )
+polygon = PackedVector2Array( 80, 0, 416, 0, 416, 408, 288, 408, 248, 512, 208, 408, 80, 408 )

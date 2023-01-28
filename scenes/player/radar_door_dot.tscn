@@ -1,22 +1,18 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://lnutwicrpdkv"]
 
-[ext_resource path="res://data/textures/circle_01.png" type="Texture" id=1]
+[ext_resource type="Texture2D" uid="uid://bfq83nyvc2kax" path="res://data/textures/circle_01.png" id="1"]
 
-[sub_resource type="QuadMesh" id=1]
+[sub_resource type="QuadMesh" id="QuadMesh_a650t"]
 
-[sub_resource type="SpatialMaterial" id=2]
-flags_transparent = true
-flags_no_depth_test = true
-params_cull_mode = 2
-albedo_color = Color( 0.145098, 0.611765, 0.894118, 0.219608 )
-albedo_texture = ExtResource( 1 )
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3qbtm"]
+transparency = 1
+albedo_color = Color(0, 0.54902, 0.482353, 1)
+albedo_texture = ExtResource("1")
 emission_enabled = true
-emission = Color( 0.211765, 0.819608, 0.835294, 1 )
-emission_energy = 3.0
-emission_operator = 0
-emission_on_uv2 = false
+emission = Color(0, 0.54902, 0.376471, 1)
+emission_energy_multiplier = 3.0
 
-[node name="radar_dot" type="MeshInstance"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
-mesh = SubResource( 1 )
-material/0 = SubResource( 2 )
+[node name="radar_dot" type="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("QuadMesh_a650t")
+surface_material_override/0 = SubResource("StandardMaterial3D_3qbtm")

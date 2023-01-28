@@ -6,7 +6,7 @@ var focus_owner = null
 var last_focus_owner = null
 var _current_menu = null
 var _previous_menu = null
-onready var ANCHOR = $top_left_anchor
+@onready var ANCHOR = $top_left_anchor
 
 
 signal close_options_menu
@@ -27,23 +27,23 @@ func _ready():
 		for c in Util.get_all_children(m.get_node("ScrollContainer")):
 			if c is Label:
 				labels.append(c)
-				c.connect( "focus_exited", self, "_on_control_focus_exited" )
-				c.connect( "focus_entered", self, "_on_control_focus_entered" )
+				c.connect("focus_exited",Callable(self,"_on_control_focus_exited"))
+				c.connect("focus_entered",Callable(self,"_on_control_focus_entered"))
 	
 		# positions and sizes
 		m.position = ANCHOR.position
 		var sc = m.get_node("ScrollContainer")
-		sc.rect_size = Vector2(sc.rect_size.x, 295)
+		sc.size = Vector2(sc.size.x, 295)
 
 		# theme the vertical scroll bar
-		sc.get_child(1).set_theme(vs_theme)
+		#sc.get_child(1).set_theme(vs_theme)
 
 	# default menu
 	$OPTIONS_menu.show()
 	_current_menu = $OPTIONS_menu
 	focus()
 
-	connect("toggle_SSAO", Game, "set_SSAO")
+	#connect("toggle_SSAO",Callable(Game,"set_SSAO"))
 
 
 func focus(index:int=0) -> void:
@@ -61,19 +61,21 @@ func _on_control_focus_exited():
 
 
 func _on_control_focus_entered():
-	focus_owner = $OPTIONS_menu/ScrollContainer.get_focus_owner()
+	focus_owner = $OPTIONS_menu/ScrollContainer.get_viewport().gui_get_focus_owner()
 	var cc = focus_owner.get("custom_colors/font_color")
 	focus_owner.set("custom_colors/font_color", Color(cc.r, cc.g, cc.b, label_opac_focus ))
 
 
 func _input(event):
-		if event.is_action_pressed("ui_back"):
-			# switch back to previous, or close
-			prints("OPTIONS: BACK")
-			if _current_menu.get_name().begins_with("OPTIONS"):
-				emit_signal("close_options_menu")
-			else:
-				switch_menu(_previous_menu)
+	if event.is_action_pressed("ui_accept"):
+		pprint("event: %s"%event)
+	if event.is_action_pressed("ui_back"):
+		# switch back to previous, or close
+		prints("OPTIONS: BACK")
+		if _current_menu.get_name().begins_with("OPTIONS"):
+			emit_signal("close_options_menu")
+		else:
+			switch_menu(_previous_menu)
 
 
 func switch_menu( menu_root:Node2D ) -> void:
@@ -107,3 +109,7 @@ func _on_graphics_SSAO_toggled(button_pressed):
 	# presently connected to game.sd autoload
 	# TODO: change this (make a central configuration autoload)
 	emit_signal("toggle_SSAO", button_pressed)
+
+
+func pprint(thing) -> void:
+	print("[options_menu_2d] %s"%str(thing))

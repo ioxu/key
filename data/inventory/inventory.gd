@@ -1,9 +1,9 @@
 extends Resource
 class_name Inventory
 
-export var inventory_name := "inventory"
-export var n_slots : int = -1
-export var _weapon_items = Array() setget set_weapon_items, get_weapon_items
+@export var inventory_name := "inventory"
+@export var n_slots : int = -1
+@export var _weapon_items = Array() : get = get_weapon_items, set = set_weapon_items
 
 # currencies 
 var n_orbs := 0 

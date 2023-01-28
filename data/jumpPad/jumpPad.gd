@@ -1,7 +1,7 @@
-extends Area
+extends Area3D
 
-export var jump_force := Vector3(0.0, 4000.0, 0.0)
-export var multiply_velocity := true
+@export var jump_force := Vector3(0.0, 4000.0, 0.0)
+@export var multiply_velocity := true
 
 
 var _entered_bodies = []

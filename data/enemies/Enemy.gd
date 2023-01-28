@@ -1,15 +1,15 @@
-extends KinematicBody
+extends CharacterBody3D
 
-export var initial_health : float = 100.0#1000.0
+@export var initial_health : float = 100.0#1000.0
 var health : float
-export(bool) var active = true setget toggle_active
-export(float) var movement_speed = 7.5
-export(float) var rush_speed = 200.0
-export(float) var strafe_speed = 700.0
-export(float) var acceleration = 3.0
-export(float) var deaceleration = 5.0
+@export var active: bool = true : set = toggle_active
+@export var movement_speed: float = 7.5
+@export var rush_speed: float = 200.0
+@export var strafe_speed: float = 700.0
+@export var acceleration: float = 3.0
+@export var deaceleration: float = 5.0
 
-var target : Spatial = null
+var target : Node3D = null
 var target_last_known_position = null
 var can_see_target = false
 var direction := Vector3.ZERO
@@ -17,7 +17,7 @@ var initial_movement_speed = movement_speed
 var last_direction := Vector3.ZERO
 var current_vertical_speed := Vector3.ZERO
 var movement := Vector3.ZERO
-var max_turn_rate := deg2rad(450.0)
+var max_turn_rate := deg_to_rad(450.0)
 var speed := Vector3.ZERO
 var strafe_direction = 1.0 # 1.0 == right, -1.0 == left
 var is_airborne : = false
@@ -26,22 +26,22 @@ var jump_acceleration := 3.0
 var age := 0.0
 var age_offset_rng = RandomNumberGenerator.new()
 var age_offset := 0.0
-var firing_noise_rng = OpenSimplexNoise.new()
+var firing_noise_rng : FastNoiseLite = FastNoiseLite.new()#OpenSimplexNoise.new()
 var accelerate = acceleration
 
-onready var weapon = find_node("weapon_mount").get_child(0)
+@onready var weapon = find_child("weapon_mount").get_child(0)
 var attack_moves = ["rush", "evade", "strafe", "hold"]
 var attack_move = "rush"
-onready var attack_move_timer = Timer.new()
+@onready var attack_move_timer = Timer.new()
 var attack_move_rng = RandomNumberGenerator.new()
 
-onready var original_alert_icon_modulate = $alert_icon.get_modulate()
+@onready var original_alert_icon_modulate = $alert_icon.get_modulate()
 
 #const DO_TRAVEL_PATH = true
 #var travel_path = null
 #const travel_path_script = preload("res://data/scripts/travel_path_line.gd")
 
-var noise = OpenSimplexNoise.new()
+var noise : FastNoiseLite = FastNoiseLite.new()#OpenSimplexNoise.new()
 var offset = 0.0
 
 var damage_rng = RandomNumberGenerator.new()
@@ -52,13 +52,13 @@ const enemy_corpse_scene = preload("res://data/enemies/EnemyCorpse.tscn")
 const orb_pickup_scene = preload("res://data/pickups/orb_pickup.tscn")
 
 
-onready var hurt_meter = $MeshInstance/hurt_meter
-onready var fsm = $statemachine
+@onready var hurt_meter = $MeshInstance3D/hurt_meter
+@onready var fsm = $statemachine
 
 signal notify_allies
-onready var ally_notification_recieve_timer = Timer.new()
+@onready var ally_notification_recieve_timer = Timer.new()
 var ally_notification_cooldown = 0.1#0.5
-onready var repeat_attack_notification_timer = Timer.new()
+@onready var repeat_attack_notification_timer = Timer.new()
 var repeat_attack_notification_frequency = 0.3
 enum ally_notification {
 	ENEMY_SPOTTED,
@@ -72,15 +72,15 @@ func _ready():
 	age_offset = age_offset_rng.randf_range(0.0, 100.0)
 	damage_rng.randomize()
 	noise.seed = randi()
-	noise.octaves = 4
-	noise.period = 35.0
+	noise.fractal_octaves = 4
+	noise.frequency = 0.01#period = 35.0
 	offset = damage_rng.randf() * 100
 
 	health = initial_health
 
 	attack_move_rng.randomize()
 	add_child(attack_move_timer)
-	attack_move_timer.connect("timeout",self,"_on_attack_move_timer_timeout") 
+	attack_move_timer.connect("timeout",Callable(self,"_on_attack_move_timer_timeout")) 
 	attack_move_timer.set_one_shot(true)
 
 	add_child(ally_notification_recieve_timer)
@@ -88,17 +88,17 @@ func _ready():
 
 	add_child(repeat_attack_notification_timer)
 	repeat_attack_notification_timer.set_wait_time( repeat_attack_notification_frequency )
-	repeat_attack_notification_timer.connect("timeout", self, "_repeat_attack_notification_timeout")
+	repeat_attack_notification_timer.connect("timeout",Callable(self,"_repeat_attack_notification_timeout"))
 
 	weapon.visible = false
 	
 	firing_noise_rng.seed = randi()
-	firing_noise_rng.octaves = 2
-	firing_noise_rng.period = 0.5
-	firing_noise_rng.persistence = 0.8
+	firing_noise_rng.fractal_octaves = 2
+	firing_noise_rng.frequency = 0.5
+	firing_noise_rng.fractal_gain = 0.8
 
 #	if DO_TRAVEL_PATH and active:
-#		travel_path = ImmediateGeometry.new()
+#		travel_path = ImmediateMesh.new()
 #		travel_path.set_script(travel_path_script)
 #		travel_path.track_object_path = self.get_path()
 #		travel_path.position_offset = Vector3(0.0, -0.5, 0.0)
@@ -110,11 +110,11 @@ func _ready():
 	# wait a bit
 	set_physics_process(false)
 	set_physics_process_internal(false)
-	yield(get_tree().create_timer(0.35), "timeout")
-	$CollisionShape.disabled = false
+	await get_tree().create_timer(0.35).timeout
+	$CollisionShape3D.disabled = false
 	set_physics_process(true)
 	set_physics_process_internal(true)
-	$hurtbox.connect("bullet_hit", self, "bullet_hit")
+	$hurtbox.connect("bullet_hit",Callable(self,"bullet_hit"))
 	self.toggle_active(self.active)
 
 
@@ -124,6 +124,10 @@ func bullet_hit(bullet, collision_info):
 	hurt_meter.set_factor( 1.0 - health/initial_health )
 
 	_apply_bullet_knockback(bullet)
+
+	$AudioStreamPlayer3D.set_volume_db( -8.0 )
+	$AudioStreamPlayer3D.pitch_scale = randf_range(0.65, 1.0)
+	$AudioStreamPlayer3D.play()
 
 	if fsm.state in ["idle", "search"]:
 		set_new_poi_target(bullet.starting_position)
@@ -141,20 +145,31 @@ func bullet_hit(bullet, collision_info):
 			target = null
 
 		# corpse
-		var corpse = enemy_corpse_scene.instance()
+		var corpse = enemy_corpse_scene.instantiate()
 		corpse.transform = self.transform
 		get_node("/root/").add_child(corpse)
-		var impulse = 5.0 * (Vector3(0.0, 60.0, 0.0) + bullet.transform.basis.z * 35.0) #25.0
-		var impulse_location = transform.basis.z * -.28 + Vector3(0.0, -0.55, 0.0)
-		corpse.apply_impulse ( impulse_location, impulse)
+		var impulse =(Vector3(0.0, 60.0, 0.0) + bullet.transform.basis.z * 35.0) * 0.2 #* 5.0 #25.0
+		#var impulse_location = transform.basis.z * -.28 + Vector3(0.0, -0.55, 0.0)
+		var impulse_location = transform.basis.z * -1.0 + Vector3(0.0, -1.0, 0.0)
+		impulse_location *= 3.0
+		#var impulse_location  = global_position + Vector3(0.0, -0.55, 0.0) + ( global_transform.basis.z * -3.5)
+		corpse.apply_impulse( impulse, Vector3.ZERO )#impulse_location )#impulse_location, impulse)
+
+
+		# torque impules is applied in a single step
+		# in the corpse's _integrate_forces
+#		var t_impulse = global_transform.basis.x * 250
+#		pprint("t_impulse: %s"%t_impulse)
+#		corpse.apply_torque_impulse( t_impulse )
+
 
 		# drops
 		for _i in range(1+randi()%12):
 			
-			var orb = orb_pickup_scene.instance()
-			orb.transform.origin = self.transform.origin + Vector3(0.0, 0.45, 0.0)
+			var orb = orb_pickup_scene.instantiate()
+			orb.transform.origin = self.transform.origin + Vector3(0.0, 0.55, 0.0)
 			get_tree().get_root().add_child( orb )
-			var oimp = Vector3(0.0, 250, 0.0)
+			var oimp = Vector3(0.0, 250, 0.0) * 0.01#0.1
 			orb.apply_central_impulse(oimp)
 
 
@@ -164,17 +179,22 @@ func bullet_hit(bullet, collision_info):
 		$vision_raycast.queue_free()
 		repeat_attack_notification_timer.queue_free()
 		# free weapon
-		if $MeshInstance/weapon_mount.get_child_count() >0:
-			$MeshInstance/weapon_mount.get_child(0).queue_free()
+		if $MeshInstance3D/weapon_mount.get_child_count() >0:
+			$MeshInstance3D/weapon_mount.get_child(0).queue_free()
 		queue_free()
 
 
 func _apply_bullet_knockback(bullet):
-	direction = Vector3(bullet.global_transform.basis.z).rotated(Vector3.UP, rand_range(-PI*0.3, PI*0.3))
+	direction = Vector3(bullet.global_transform.basis.z).rotated(Vector3.UP, randf_range(-PI*0.3, PI*0.3))
 	direction = direction.normalized()
 	movement_speed = bullet.projectile_knockback
 	rotate_y( [-1,1][randi()%2] * PI*0.25 )
 	current_vertical_speed.y = 9.5#7.0
+
+
+func apply_impulse(impulse : Vector3 = Vector3.ZERO) -> void:
+	movement_speed = impulse.length()
+	direction = impulse
 
 
 # ------------------------------------------------------------------------------
@@ -227,7 +247,7 @@ func _attack(delta) -> void:
 			if is_instance_valid(target) and (target as PointOfInterest):
 				target.queue_free()
 				target = null
-			var poi = point_of_interest_scene.instance()
+			var poi = point_of_interest_scene.instantiate()
 			get_node("/root/").add_child(poi)
 			poi.transform.origin = target_last_known_position * Vector3(1.0, 0.0, 1.0)
 			self.target = poi
@@ -339,15 +359,20 @@ func move_to_ideal_distance_to_target(delta) -> void:
 func flock_with_neighbours(delta) -> void:
 	var list = get_signal_connection_list("notify_allies")
 #	signal connection list
-#	  {binds:[], flags:0, method:_on_ally_notification, signal:notify_allies, source:[KinematicBody:1894], target:[KinematicBody:1502]}
-#	  {binds:[], flags:0, method:_on_ally_notification, signal:notify_allies, source:[KinematicBody:1894], target:[KinematicBody:1796]}
+#	pprint("flock_with_neighbours: %s"%str(list))
+#	godot3:
+#		{binds:[], flags:0, method:_on_ally_notification, signal:notify_allies, source:[CharacterBody3D:1894], target:[CharacterBody3D:1502]}
+#	godot4:
+#		{ "signal": CharacterBody3D(Enemy.gd)::[signal]notify_allies, "callable": CharacterBody3D(Enemy.gd)::_on_ally_notification, "flags": 0 }
+	
 	var forcev = Vector3.ZERO
 	var min_distance = 4.5
 	
 	if list.size() > 0:
 		var o = global_transform.origin
 		for i in range(list.size()):
-			var to = list[i].target.global_transform.origin
+			#var to = list[i].target.global_transform.origin
+			var to = list[i].callable.get_object().global_transform.origin
 			var distance = (o-to).length()
 			var dpow = clamp(1-(distance/min_distance), 0.0, 1.0)
 			forcev += (to - o) * pow(dpow, 2.0) * 1.0
@@ -360,13 +385,19 @@ func flock_with_neighbours(delta) -> void:
 
 func activate_weapon(delta) -> void:
 	if within_aim_tolerance(weapon.aim_tolerance):
-		weapon.activated = true
+		if weapon.activated != true:
+			pprint("activate_weapon")
+			weapon.activated = true
 	else:
-		weapon.activated = false
+		#pprint("de-activate_weapon (out of aim_tolerance)")
+		#weapon.activated = false
+		deactivate_wepon()
 
 
 func deactivate_wepon() -> void:
-	weapon.activated = false
+	if weapon.activated == true:
+		pprint("deactivate_weapon")
+		weapon.activated = false
 
 
 func hold_to_target(delta) -> void:
@@ -375,21 +406,21 @@ func hold_to_target(delta) -> void:
 
 
 func rush_toward_target(delta) -> void:
-	if is_instance_valid(target) and target:
+	if is_instance_valid(target) and target and target.is_inside_tree():
 		direction = global_transform.origin - target.global_transform.origin
 		direction = direction.normalized() 
 		movement_speed = -1.0 * delta * rush_speed
 
 
 func search_toward_target(delta) -> void:
-	if is_instance_valid(target) and target:
+	if is_instance_valid(target) and target and target.is_inside_tree():
 		direction = global_transform.origin - target.global_transform.origin
 		direction = direction.normalized() 
 		movement_speed = -1.0 * delta * (rush_speed * 2.0)
 
 
 func evade_target(delta) -> void:
-	if is_instance_valid(target) and target:	
+	if is_instance_valid(target) and target and target.is_inside_tree():	
 		direction = global_transform.origin - target.global_transform.origin
 		direction = direction.normalized() 
 		movement_speed = 1.0 * delta * rush_speed * 0.65
@@ -402,7 +433,7 @@ func strafe_target(delta) -> void:
 
 
 func rotate_toward_target(delta) -> void:
-	if is_instance_valid(target) and target:
+	if is_instance_valid(target) and target and target.is_inside_tree():
 		var to = target.global_transform.origin
 		var look = Vector3(to.x, global_transform.origin.y , to.z)
 		var T=global_transform.looking_at(look, Vector3(0,1,0))
@@ -412,7 +443,7 @@ func rotate_toward_target(delta) -> void:
 
 
 func within_aim_tolerance( tolerance ) -> bool:
-	if is_instance_valid(target) and target:
+	if is_instance_valid(target) and target and target.is_inside_tree():
 		var dir = -1.0 * global_transform.basis.z
 		var dir_to_player = ((target.global_transform.origin - global_transform.origin) *
 			Vector3(1.0, 0.0, 1.0)).normalized()
@@ -431,12 +462,14 @@ func _physics_process(delta) -> void:
 	if direction.dot(speed) > 0.0:
 		accelerate = acceleration
 	direction = Vector3.ZERO
-	speed = speed.linear_interpolate(max_speed, delta * accelerate)
+	speed = speed.lerp(max_speed, delta * accelerate)
 	movement = speed
 
 	current_vertical_speed.y += gravity * delta * jump_acceleration
 	movement += current_vertical_speed
-	move_and_slide(movement, Vector3.UP)
+	set_velocity(movement)
+	set_up_direction(Vector3.UP)
+	move_and_slide()
 	if is_on_floor():
 		current_vertical_speed.y = 0.0
 		is_airborne = false
@@ -445,9 +478,9 @@ func _physics_process(delta) -> void:
 func toggle_active(new_value) -> void:
 	if new_value:
 		self.visible = true
-		$CollisionShape.disabled = false
-		$hurtbox/CollisionShape.disabled = false
-		$vision_area/CollisionPolygon.disabled = false
+		$CollisionShape3D.disabled = false
+		$hurtbox/CollisionShape3D.disabled = false
+		$vision_area/CollisionPolygon3D.disabled = false
 		$sensable_area.monitoring = true
 		$sensing_area.monitorable = true
 		set_process(true)
@@ -457,9 +490,9 @@ func toggle_active(new_value) -> void:
 		#$vision_raycast.start()
 	else:
 		self.visible = false
-		$CollisionShape.disabled = true
-		$hurtbox/CollisionShape.disabled = true
-		$vision_area/CollisionPolygon.disabled = true
+		$CollisionShape3D.disabled = true
+		$hurtbox/CollisionShape3D.disabled = true
+		$vision_area/CollisionPolygon3D.disabled = true
 		$sensable_area.monitoring = false
 		$sensing_area.monitorable = false
 		set_process(false)
@@ -471,14 +504,18 @@ func toggle_active(new_value) -> void:
 
 
 func _on_vision_area_body_entered(body) -> void:
+	#pprint("_on_vision_area_body_entered %s"%body )
 	if body.is_in_group("Player") and body.targetable:
+		#pprint("  -> in group 'Player' and .targetable")
 		if is_instance_valid(target) and (target as PointOfInterest):
+			#pprint("  -> is_instance_valid(target) and (target as PointOfInterest)")
 			target.queue_free()
 			target=null
 		target = body
+		#pprint("  -> .target: %s"%self.target)
 		$vision_raycast.target = body
 		$vision_raycast.start()
-		#yield(get_tree().create_timer(.05), "timeout")
+		#await get_tree().create_timer(.05).timeout
 		if $vision_raycast.can_see_target:
 			$statemachine.set_state("attack")
 
@@ -499,6 +536,7 @@ func _on_vision_area_body_exited(body) -> void:
 			fsm.set_state("idle")
 		$vision_raycast.target = null
 		$vision_raycast.stop()
+		deactivate_wepon()
 
 
 func clear_poi_target() -> void:
@@ -510,7 +548,7 @@ func clear_poi_target() -> void:
 
 func set_new_poi_target(position: Vector3) -> void:
 		clear_poi_target()
-		var poi = point_of_interest_scene.instance()
+		var poi = point_of_interest_scene.instantiate()
 		get_node("/root/").call_deferred("add_child", poi)
 		#poi.transform.origin = position * Vector3(1.0, 0.0, 1.0)
 		poi.transform.origin = position
@@ -558,3 +596,7 @@ func _on_VisibilityNotifier_camera_exited(camera) -> void:
 	#print(self.get_path(), " exited camera")
 	pass
  
+
+func pprint(thing) -> void:
+	print("[enemy] %s"%str(thing))
+

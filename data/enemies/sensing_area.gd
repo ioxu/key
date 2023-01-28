@@ -1,6 +1,6 @@
-extends Area
+extends Area3D
 
-export(NodePath) var parent_npc
+@export_node_path var parent_npc #: NodePath
 
 
 func _ready():

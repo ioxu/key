@@ -1,31 +1,56 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=3 uid="uid://b24rrveruwwj"]
 
-[ext_resource path="res://data/weapons/pulse_shard/pulse_shard_bullet_impact_fx.gd" type="Script" id=1]
-[ext_resource path="res://data/weapons/pulse_shard/pulse-shard-bullet-impact-fx.obj" type="ArrayMesh" id=2]
-[ext_resource path="res://data/weapons/pulse_shard/pulse_shard_bullet_impact_fx.material" type="Material" id=3]
-[ext_resource path="res://data/effects/sparks.tscn" type="PackedScene" id=4]
+[ext_resource type="Script" path="res://data/weapons/pulse_shard/pulse_shard_bullet_impact_fx.gd" id="1"]
+[ext_resource type="ArrayMesh" uid="uid://7jqb406bjbov" path="res://data/weapons/pulse_shard/pulse-shard-bullet-impact-fx.obj" id="2"]
+[ext_resource type="Material" uid="uid://cqb7c5ujd23c" path="res://data/weapons/pulse_shard/pulse_shard_bullet_impact_fx.material" id="3"]
+[ext_resource type="PackedScene" uid="uid://dsds5o7dhy8kf" path="res://data/effects/sparks.tscn" id="4"]
+[ext_resource type="Texture2D" uid="uid://csqhw6dkdjk1m" path="res://data/textures/square_gradient_64px_01.png" id="5_2t16s"]
+[ext_resource type="AudioStream" uid="uid://cldkkktpat5yt" path="res://data/weapons/pulse_shard/Bullet Impact Dirt 2 - QuickSounds.com.mp3" id="6_atd5g"]
 
-[node name="pulse_shard_bullet_impact" type="Spatial"]
-script = ExtResource( 1 )
+[sub_resource type="BoxMesh" id="BoxMesh_ea6r3"]
+
+[node name="pulse_shard_bullet_impact" type="Node3D"]
+script = ExtResource("1")
 
 [node name="free_timer" type="Timer" parent="."]
+wait_time = 1.5
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 1.35, 0, 0, 0, 1.35, 0, 0, 0, 1, 0, 0, 0 )
-material_override = ExtResource( 3 )
-mesh = ExtResource( 2 )
-material/0 = null
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.35, 0, 0, 0, 1.35, 0, 0, 0, 1, 0, 0, 0)
+material_override = ExtResource("3")
+mesh = ExtResource("2")
 
-[node name="sparks" parent="." instance=ExtResource( 4 )]
+[node name="sparks" parent="." instance=ExtResource("4")]
 
-[node name="OmniLight" type="OmniLight" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.234682 )
-light_color = Color( 0.490196, 0.792157, 0.976471, 1 )
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.234682)
+visible = false
+light_color = Color(0.490196, 0.792157, 0.976471, 1)
 light_energy = 2.2
 light_indirect_energy = 2.0
 light_specular = 1.0
 shadow_enabled = true
 omni_range = 8.5
 omni_attenuation = 1.41421
+
+[node name="Decal" type="Decal" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1.60115e-07, 3.663, 0, -3.663, -1.60115e-07, 0, 0, 0)
+rotation_order = 0
+extents = Vector3(0.0307698, 0.483704, 0.126321)
+texture_emission = ExtResource("5_2t16s")
+emission_energy = 50.0
+modulate = Color(0.411765, 0.6, 0.968627, 1)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Decal"]
+transform = Transform3D(3.70373, 0, 0, 0, 0.552556, 0, 0, 0, 2.47625, 0, 0, 0)
+visible = false
+mesh = SubResource("BoxMesh_ea6r3")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("6_atd5g")
+volume_db = 4.0
+max_db = 0.0
+max_polyphony = 10
+bus = &"impacts"
 
 [connection signal="timeout" from="free_timer" to="." method="_on_free_timer_timeout"]

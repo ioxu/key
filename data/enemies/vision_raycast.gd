@@ -1,8 +1,8 @@
-extends RayCast
+extends RayCast3D
 
 var target = null
 
-onready var timer = $routine_check
+@onready var timer = $routine_check
 
 var sight_line = null
 const sight_line_script = preload("res://data/scripts/sight_line.gd")
@@ -14,14 +14,15 @@ var to := Vector3.ZERO
 var can_see_target = false
 
 var is_hidden_at_start = false # so if the node is hidden at the start (by the gui)
-							   # never become visible
+								# never become visible
 
 func _ready():
 	exclude_parent = true
 
-	sight_line = ImmediateGeometry.new()
+	sight_line = MeshInstance3D.new()#ImmediateMesh.new()
 	sight_line.set_script(sight_line_script)
-	get_node("/root/").add_child(sight_line)
+	#get_node("/root/").add_child(sight_line)
+	get_tree().get_root().add_child(sight_line)
 
 	if !running:
 		stop()
@@ -29,13 +30,17 @@ func _ready():
 	if !visible:
 		is_hidden_at_start = true
 
+
 func _is_target_visible():
 	if target and target.targetable:
 		from = get_owner().global_transform.origin
 		to = target.global_transform.origin
 		to = Vector3(to.x, from.y, to.z)
-		cast_to = to_local(to).normalized() * 15.0
+		#pprint("to: %s"%to)
+		#cast_to = to_local(to).normalized() * 15.0
+		target_position = to_local(to).normalized() * 15.0
 		if is_colliding():
+			#pprint(" -> colliding")
 			var collider = get_collider()
 			if collider and collider.is_in_group("Player"):
 				$sight_indicator.transform.origin = to_local(get_collision_point())
@@ -69,4 +74,7 @@ func _on_routine_check_timeout():
 	_is_target_visible()
 	if !running:
 		stop()
-	
+
+
+func pprint(thing) -> void:
+	print("[vision_raycast] %s"%str(thing))

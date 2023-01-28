@@ -1,0 +1,412 @@
+[gd_scene load_steps=26 format=3 uid="uid://dfja1ypquymuq"]
+
+[ext_resource type="PackedScene" uid="uid://c0vn2jqnejado" path="res://data/props/bollard-02-piece-03/bollard_02_piece_03.tscn" id="1_17l12"]
+[ext_resource type="PackedScene" uid="uid://b330s652jv5y8" path="res://data/props/bollard-02-piece-02/bollard_02_piece_02.tscn" id="2_3tqab"]
+[ext_resource type="PackedScene" uid="uid://bdham7gyjv55u" path="res://data/props/bollard-02-piece-01/bollard_02_piece_01.tscn" id="3_s5cn5"]
+[ext_resource type="PackedScene" uid="uid://cf7ledivriici" path="res://data/props/bollard-02/bollard_02_01_02.tscn" id="4_qkj8k"]
+[ext_resource type="PackedScene" uid="uid://60huk5jyn8eh" path="res://scenes/player/player.tscn" id="5_3yb2w"]
+[ext_resource type="Shader" path="res://data/shaders/ViewportDisplay_shaders/invert.gdshader" id="5_7wl8l"]
+[ext_resource type="Texture2D" uid="uid://2tspxfxes4sh" path="res://data/textures/key-title_paint_01-02.png" id="5_eogxw"]
+[ext_resource type="FontFile" uid="uid://dtb3xbqwk4167" path="res://data/fonts/RobotoCondensed-Regular.ttf" id="6_tp6qh"]
+[ext_resource type="Texture2D" uid="uid://i4wkypqrg2n7" path="res://thumbnail.png" id="7_byq4e"]
+[ext_resource type="Texture2D" uid="uid://q50te0v1ajna" path="res://data/icons/settings.png" id="10_ac0lg"]
+[ext_resource type="Script" path="res://scenes/ui_debug_menu.gd" id="10_od7cn"]
+
+[sub_resource type="GDScript" id="GDScript_bgtdb"]
+script/source = "extends Node2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_egx2i"]
+energy_multiplier = 5.45
+
+[sub_resource type="Sky" id="Sky_pwgq1"]
+sky_material = SubResource("PhysicalSkyMaterial_egx2i")
+
+[sub_resource type="Environment" id="Environment_li0v6"]
+background_mode = 2
+sky = SubResource("Sky_pwgq1")
+ssao_enabled = true
+ssao_radius = 4.79
+ssao_intensity = 3.36
+ssao_power = 2.61165
+ssao_horizon = 0.04
+ssao_sharpness = 1.0
+ssil_enabled = true
+ssil_intensity = 1.5
+sdfgi_enabled = true
+sdfgi_use_occlusion = true
+sdfgi_bounce_feedback = 1.2
+sdfgi_cascades = 6
+sdfgi_min_cell_size = 0.02
+sdfgi_energy = 1.5
+glow_enabled = true
+glow_levels/2 = 1.0
+glow_blend_mode = 0
+glow_hdr_threshold = 0.52
+glow_hdr_scale = 1.45
+
+[sub_resource type="GDScript" id="GDScript_ydr72"]
+script/source = "extends Node3D
+
+var gtime := 0.0
+
+func _ready():
+	pass 
+
+
+func _process(delta):
+	gtime += delta
+	
+	rotate_y(delta* 0.1)
+"
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_umk0r"]
+top_radius = 2.5
+bottom_radius = 2.5
+height = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cy6ar"]
+albedo_color = Color(0.133333, 0.133333, 0.133333, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kouxu"]
+size = Vector3(500, 500, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x2aue"]
+shader = ExtResource("5_7wl8l")
+shader_parameter/do_invert = false
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ll1li"]
+viewport_path = NodePath("SubViewportContainer/SubViewport")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cjn2m"]
+bg_color = Color(0, 0, 0, 0.247059)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="Shader" id="Shader_l4g13"]
+code = "shader_type canvas_item;
+
+void fragment() {
+	COLOR.rgb = vec4(1.0, 1.0, 1.0, 1.0).rgb;
+	COLOR.a = texture(TEXTURE, UV).r;
+
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ds7l5"]
+shader = SubResource("Shader_l4g13")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q6520"]
+bg_color = Color(1, 1, 1, 0.117647)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="game_container" type="Node2D"]
+script = SubResource("GDScript_bgtdb")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+editor_description = "1024x576
+600x338
+320x180"
+custom_minimum_size = Vector2(100, 100)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1024.0
+offset_bottom = 576.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+msaa_2d = 3
+msaa_3d = 3
+use_taa = true
+use_debanding = true
+audio_listener_enable_3d = true
+positional_shadow_atlas_size = 4096
+size = Vector2i(1024, 576)
+size_2d_override = Vector2i(1024, 576)
+render_target_update_mode = 4
+
+[node name="level_hook" type="Node3D" parent="SubViewportContainer/SubViewport"]
+
+[node name="Node3D" type="Node3D" parent="SubViewportContainer/SubViewport/level_hook"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport/level_hook/Node3D"]
+environment = SubResource("Environment_li0v6")
+
+[node name="rotating_env" type="Node3D" parent="SubViewportContainer/SubViewport/level_hook/Node3D"]
+script = SubResource("GDScript_ydr72")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport/level_hook/Node3D/rotating_env"]
+transform = Transform3D(-0.460887, -0.494126, 0.737172, 0.197946, 0.752491, 0.628152, -0.865101, 0.435428, -0.249003, 1.93108, 4.50669, -1.09173)
+light_energy = 2.0
+light_indirect_energy = 3.0
+light_angular_distance = 6.59
+shadow_enabled = true
+shadow_bias = 0.497
+shadow_blur = 0.397
+
+[node name="DefaultLevel" type="Node3D" parent="SubViewportContainer/SubViewport/level_hook/Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel"]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, -1.5, 0)
+layers = 2
+mesh = SubResource("CylinderMesh_umk0r")
+surface_material_override/0 = SubResource("StandardMaterial3D_cy6ar")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel/MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37113e-08, 1, 0, -1, -4.37113e-08, 0, 0.25, 0)
+collision_layer = 2
+collision_mask = 5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel/MeshInstance3D/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 7.10543e-15, 0, -7.10543e-15, 1, 0, 0, -0.5)
+shape = SubResource("BoxShape3D_kouxu")
+
+[node name="bollard-02-piece-03" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("1_17l12")]
+transform = Transform3D(0.973798, 0, 0.227416, 0, 1, 0, -0.227416, 0, 0.973798, -0.736968, 0, 2.22794)
+
+[node name="bollard-02-piece-02_01-01" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("2_3tqab")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.60284, 0, -0.18494)
+
+[node name="bollard-02-piece-01_01-01" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("3_s5cn5")]
+transform = Transform3D(-0.583427, 0, -0.812164, 0, 1, 0, 0.812164, 0, -0.583427, 1.10953, 4.76837e-07, -3.25536)
+
+[node name="bollard-02_01-02" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("4_qkj8k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.78135, 0, -1.2367)
+
+[node name="bollard-02_01-03" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("4_qkj8k")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.26764, -1.43051e-06, -4.36109)
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel"]
+transform = Transform3D(0.921006, -0.27063, 0.280192, 0.0432961, 0.785932, 0.616795, -0.387135, -0.55594, 0.735566, 2.28127, 5.78604, 5.50217)
+fov = 47.6
+
+[node name="Decal2" type="Decal" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel"]
+transform = Transform3D(-0.553275, 0, -0.832998, 0, 1, 0, 0.832998, 0, -0.553275, 2.94812, 4.76837e-07, -2.48822)
+extents = Vector3(20, 1, 20)
+texture_albedo = ExtResource("5_eogxw")
+emission_energy = 0.0
+modulate = Color(0.533333, 0.533333, 0.533333, 0.101961)
+cull_mask = 1048574
+
+[node name="Decal3" type="Decal" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel"]
+transform = Transform3D(-0.812765, 0, 0.582591, 0, 1, 0, -0.582591, 0, -0.812765, -0.244315, 4.76837e-07, -8.36442)
+extents = Vector3(20, 1, 20)
+texture_albedo = ExtResource("5_eogxw")
+emission_energy = 0.0
+modulate = Color(0.533333, 0.533333, 0.533333, 0.101961)
+cull_mask = 1048574
+
+[node name="Decal" type="Decal" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel"]
+transform = Transform3D(-0.0383528, 0, 0.999264, 0, 1, 0, -0.999264, 0, -0.0383528, -0.279335, 4.76837e-07, 8.94596)
+extents = Vector3(6, 1, 6)
+texture_albedo = ExtResource("5_eogxw")
+emission_energy = 0.0
+modulate = Color(0.533333, 0.533333, 0.533333, 1)
+cull_mask = 1048574
+
+[node name="player" parent="SubViewportContainer/SubViewport/level_hook/Node3D" instance=ExtResource("5_3yb2w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.265419, 0, 0.259204)
+
+[node name="ViewportDisplay" type="Node" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="ViewportDisplay"]
+material = SubResource("ShaderMaterial_x2aue")
+custom_minimum_size = Vector2(100, 100)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("ViewportTexture_ll1li")
+expand_mode = 3
+stretch_mode = 6
+
+[node name="ui_persistant" type="Node" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="ui_persistant"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui_persistant/MarginContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="ui_persistant/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ui_persistant/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="hint_panel" type="PanelContainer" parent="ui_persistant/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_cjn2m")
+
+[node name="MarginContainer" type="MarginContainer" parent="ui_persistant/MarginContainer/VBoxContainer/HBoxContainer/hint_panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_right = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ui_persistant/MarginContainer/VBoxContainer/HBoxContainer/hint_panel/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ui_persistant/MarginContainer/VBoxContainer/HBoxContainer/hint_panel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_tp6qh")
+theme_override_font_sizes/font_size = 12
+text = "key"
+
+[node name="TextureRect" type="TextureRect" parent="ui_persistant/MarginContainer/VBoxContainer/HBoxContainer/hint_panel/MarginContainer/HBoxContainer"]
+texture_filter = 3
+material = SubResource("ShaderMaterial_ds7l5")
+layout_mode = 2
+texture = ExtResource("7_byq4e")
+expand_mode = 2
+
+[node name="ui_debug_menu" type="Node" parent="." node_paths=PackedStringArray("main_subviewport")]
+script = ExtResource("10_od7cn")
+main_subviewport = NodePath("../SubViewportContainer/SubViewport")
+
+[node name="MarginContainer" type="MarginContainer" parent="ui_debug_menu"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui_debug_menu/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+texture_filter = 4
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("10_ac0lg")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Control" type="Control" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_tp6qh")
+theme_override_font_sizes/font_size = 15
+text = "graphics"
+
+[node name="PanelContainer" type="PanelContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_q6520")
+
+[node name="MarginContainer2" type="MarginContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_tp6qh")
+theme_override_font_sizes/font_size = 8
+text = "viewport rendering"
+
+[node name="debug_draw_parm" type="HBoxContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="debug_draw_label" type="Label" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer/debug_draw_parm"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_tp6qh")
+theme_override_font_sizes/font_size = 10
+text = "debug draw"
+
+[node name="debug_draw_options" type="OptionButton" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer/debug_draw_parm"]
+layout_mode = 2
+theme_override_constants/modulate_arrow = 20
+theme_override_fonts/font = ExtResource("6_tp6qh")
+theme_override_font_sizes/font_size = 10
+item_count = 2
+selected = 0
+popup/item_0/text = "Normal"
+popup/item_0/id = 0
+popup/item_1/text = "Unshaded"
+popup/item_1/id = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="ui_debug_menu/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="ui_debug_menu/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_tp6qh")
+theme_override_font_sizes/font_size = 12
+text = "debug"
+
+[node name="ui_menu" type="Node" parent="."]
+
+[connection signal="item_selected" from="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer/debug_draw_parm/debug_draw_options" to="ui_debug_menu" method="_on_debug_draw_options_item_selected"]

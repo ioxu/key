@@ -1,4 +1,4 @@
-extends Spatial
+extends Node3D
 
 # interacts with weapon inventory slots res://data/dui/weapon_inv_slot.tscn
 

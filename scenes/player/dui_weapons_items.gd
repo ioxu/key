@@ -1,13 +1,14 @@
-extends Spatial
+extends Node3D
 # script for the dui_root weapons_items parent
 
-export var hilight_direction_tolerance := 0.02				# closeness to 1.0 (direction dot weapon_inv_slot.basis.z)
-export var item_spacing := 25.0 setget set_item_spacing		# degrees around y that items are spaced 
+@export var hilight_direction_tolerance := 0.02				# closeness to 1.0 (direction dot weapon_inv_slot.basis.z)
+#@export var item_spacing := 25.0 setget set_item_spacing		# degrees around y that items are spaced 
+@export var item_spacing : float = 25.0 : set = set_item_spacing
 
-export(NodePath) var equip_slots_path
-onready var equip_slots = get_node(equip_slots_path)
+@export_node_path var equip_slots_path
+@onready var equip_slots = get_node(equip_slots_path)
 
-export(int) var visible_list_max_items_visible := 6
+@export var visible_list_max_items_visible: int = 6
 var visible_list_offset := 0
 var visible_list_offset_tween := 0.0
 
@@ -25,7 +26,7 @@ var weapon_inv_slot = preload("res://data/dui/weapon_inv_slot.tscn")
 
 
 func _ready():
-	# remove default weapon slot
+	# remove_at default weapon slot
 	$slots/weapon_inv_slot.queue_free()
 	
 	$selector.visible = false
@@ -114,7 +115,7 @@ func weapon_inventory_changed( inventory ) -> void:
 	if inventory.n_weapons > n_weapon_slots:
 		var slots_to_add = inventory.n_weapons - n_weapon_slots
 		for _i in range(slots_to_add):
-			var wis = weapon_inv_slot.instance()
+			var wis = weapon_inv_slot.instantiate()
 			$slots.add_child(wis)
 			wis.invoke()
 
@@ -141,16 +142,17 @@ func shift_left() -> void:
 		return
 
 	visible_list_offset +=1
-	$slots_shift_tween.remove_all()
-	$slots_shift_tween.interpolate_property( self,
-		"visible_list_offset_tween",
-		visible_list_offset_tween,
-		visible_list_offset,
-		0.2,
-		Tween.TRANS_BACK,
-		Tween.EASE_OUT,
-		0.0)
-	$slots_shift_tween.start()
+	visible_list_offset_tween +=1 # remove Tween
+#	$slots_shift_tween.remove_all()
+#	$slots_shift_tween.interpolate_property( self,
+#		"visible_list_offset_tween",
+#		visible_list_offset_tween,
+#		visible_list_offset,
+#		0.2,
+#		Tween.TRANS_BACK,
+#		Tween.EASE_OUT,
+#		0.0)
+#	$slots_shift_tween.start()
 	prints("inventory_items shift_left <-- (%s, %s, n %s)"%[visible_list_offset, right_limit, ns])
 	_arrange_items()
 
@@ -165,16 +167,17 @@ func shift_right() -> void:
 		return
 		
 	visible_list_offset -=1
-	$slots_shift_tween.remove_all()
-	$slots_shift_tween.interpolate_property( self,
-		"visible_list_offset_tween",
-		visible_list_offset_tween,
-		visible_list_offset,
-		0.2,
-		Tween.TRANS_BACK,
-		Tween.EASE_OUT,
-		0.0)
-	$slots_shift_tween.start()
+	visible_list_offset_tween -=1 # remove Tween
+#	$slots_shift_tween.remove_all()
+#	$slots_shift_tween.interpolate_property( self,
+#		"visible_list_offset_tween",
+#		visible_list_offset_tween,
+#		visible_list_offset,
+#		0.2,
+#		Tween.TRANS_BACK,
+#		Tween.EASE_OUT,
+#		0.0)
+#	$slots_shift_tween.start()
 	prints("inventory_items shift_right --> (%s, %s, n %s)"%[visible_list_offset, left_limit, ns])
 	_arrange_items()
 
@@ -208,8 +211,8 @@ func _arrange_items( spacing : float = item_spacing) -> void:
 		prints( "%12s %s"%[shift_str ,pr_suffix ] )
 
 	# set scrollbar shader
-	$scrollbar.material_override.set_shader_param("ext2", 1.0 - scrollbar_min_ext)
-	$scrollbar.material_override.set_shader_param("ext1", 1.0 - scrollbar_max_ext)
+	$scrollbar.material_override.set_shader_parameter("ext2", 1.0 - scrollbar_min_ext)
+	$scrollbar.material_override.set_shader_parameter("ext1", 1.0 - scrollbar_max_ext)
 
 
 func _process(delta):
@@ -218,7 +221,8 @@ func _process(delta):
 		# hopefully this only runs when needed
 		var ws = $slots.get_children()
 		for i in range(get_n_slots()):
-			ws[i].set_rotation_degrees(Vector3(0.0, (i + -0.5 + visible_list_offset_tween) * item_spacing , 0.0))
+			#ws[i].set_rotation_degrees(Vector3(0.0, (i + -0.5 + visible_list_offset_tween) * item_spacing , 0.0))
+			ws[i].set_rotation(Vector3(0.0, deg_to_rad((i + -0.5 + visible_list_offset_tween) * item_spacing) , 0.0))
 
 
 func get_n_slots() -> int:

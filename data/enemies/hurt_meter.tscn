@@ -10,7 +10,7 @@ height = 0.2
 radial_segments = 32
 rings = 1
 
-[node name="hurt_meter" type="MeshInstance"]
+[node name="hurt_meter" type="MeshInstance3D"]
 mesh = SubResource( 1 )
 material/0 = null
 script = ExtResource( 1 )

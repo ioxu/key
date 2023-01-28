@@ -1,6 +1,9 @@
 extends Node
 
 var player_scene = preload("res://scenes/player/player.tscn")
+
+var level_scene = preload("res://scenes/level_00.tscn")
+
 var player = null
 var current_level = null
 
@@ -18,14 +21,22 @@ func _ready():
 
 
 func start() -> void:
-	prints("game.gd", "start()", "res://scenes/level.tscn")
-	get_tree().change_scene("res://scenes/level.tscn")
-	get_tree().set_input_as_handled()
+	#prints("[game.gd]", "start()", level_scene.get_path() )#"res://scenes/level.tscn")
+	prints("[game.gd]", "start()", "res://scenes/level_00.tscn")
+	#var level_instance = level_scene.instantiate()
+	#print( "[game.gd] level_instance %s"%level_instance )
+	var err = get_tree().change_scene_to_file("res://scenes/level_00.tscn")
+	print("[game.gd] change_scene_to_file error: %s"%err)
+	get_viewport().set_input_as_handled()#get_tree().set_input_as_handled()
 	passthrough_door = "start"
-	
+
 	# instantiate player
-	player = player_scene.instance()
-	player.connect("die", self, "_on_player_die")
+	player = player_scene.instantiate()
+	player.connect("has_died",Callable(self,"_on_player_die"))
+#	var err = get_tree().get_root().add_child( level_instance )  #.change_scene_to_file("res://scenes/level.tscn")
+#	print("[game.gd] change_scene_to_file error: %s"%err)
+
+	#get_viewport().set_debug_draw( Viewport.DEBUG_DRAW_SSIL )
 
 
 func _on_player_die(object):
@@ -41,14 +52,14 @@ func enter_door(door_name, connected_scene, connected_door) -> void:
 	# unparent player
 	#get_tree().get_current_scene().remove_child(player)
 	player.get_parent().remove_child(player)
-	get_tree().change_scene(connected_scene)
+	get_tree().change_scene_to_file(connected_scene)
 	passthrough_door = connected_door
 
 
 func level_ready(level):
 	# once level is ready
 	# find passthrough_door and enter level through it
-	prints("game.gd level_ready", level.level_name, "enter through door", "'"+passthrough_door+"'" )
+	prints("[game.gd][level_ready]", level.level_name, "enter through door", "'%s'"%passthrough_door )
 	current_level = level
 
 	# reparent player
@@ -68,7 +79,7 @@ func exit_door(door) -> void:
 	# place player in front, and shove player outta the door
 	player.global_transform.origin = door_object.global_transform.origin  +\
 		( door_object.global_transform.basis.z * 1.5)
-	yield(get_tree().create_timer(1.0), "timeout")
+	await get_tree().create_timer(1.0).timeout
 	player.visible = true
 	player.set_active(true)
 	player.add_additional_force(door_object.global_transform.basis.z.normalized() * 800.0)

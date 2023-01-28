@@ -2,6 +2,8 @@ extends Label
 
 
 func _ready():
+	print("#############################")
+	print("fps_label ready")
 	pass # Replace with function body.
 
 

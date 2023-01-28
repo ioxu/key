@@ -1,19 +1,19 @@
-extends Spatial
+extends Node3D
 class_name Weapon
 # weapons can activate
 # weapons dictate damage
 # weapons have modifiers
 
-export var weapon_name := "undefined"
+@export var weapon_name := "undefined"
 
-export var modifiers = []
-export var base_damage = 100.0
-export var activated : bool = false setget set_activated, get_activated
-export var calculate_global_transform_velocity : bool = false
+@export var modifiers = []
+@export var base_damage = 100.0
+@export var activated : bool = false : get = get_activated, set = set_activated
+@export var calculate_global_transform_velocity : bool = false
 #export var track_global_transform : bool = false
 
 
-export var aim_tolerance := 0.05 # based on: 1.0 - (dot product of direction from attacker to target)
+@export var aim_tolerance := 0.05 # based checked: 1.0 - (dot product of direction from attacker to target)
 
 var global_velocity := Vector3.ZERO
 
@@ -31,7 +31,11 @@ func get_activated() -> bool:
 	return activated
 	
 
-func _process(delta):
+func _process(_delta):
 	global_velocity =  global_transform.origin - _position
 	_position = global_transform.origin
 	#prints("global_velocity", global_velocity)
+
+func pprint(thing) -> void:
+	print("[weapon] %s"%str(thing))
+

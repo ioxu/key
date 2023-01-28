@@ -1,9 +1,9 @@
-extends MeshInstance
+extends MeshInstance3D
 
 var start_position: Vector3
 var end_position: Vector3
 
-export var speed := 8.0
+@export var speed := 8.0
 
 var gtime = 0.0
 

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cldkkktpat5yt"
+path="res://.godot/imported/Bullet Impact Dirt 2 - QuickSounds.com.mp3-bf4514240efb1dc2ee630306ae4404ac.mp3str"
+
+[deps]
+
+source_file="res://data/weapons/pulse_shard/Bullet Impact Dirt 2 - QuickSounds.com.mp3"
+dest_files=["res://.godot/imported/Bullet Impact Dirt 2 - QuickSounds.com.mp3-bf4514240efb1dc2ee630306ae4404ac.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

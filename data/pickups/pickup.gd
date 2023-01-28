@@ -1,13 +1,13 @@
-extends Spatial
+extends Node3D
 
-export var pickup_type := "Undefined"
-export var magnet := true
-export var magnet_radius := 7.5
+@export var pickup_type := "Undefined"
+@export var magnet := true
+@export var magnet_radius := 7.5
 
 var magnet_to = null
 var magnet_time = 0.0
 
-onready var rb = $RigidBody
+@onready var rb = $RigidBody3D
 
 var rng = RandomNumberGenerator.new()
 
@@ -41,7 +41,7 @@ func _on_magnet_area_body_entered(body):
 
 
 func apply_central_impulse(impulse: Vector3 = Vector3(0.0, 1.0, 0.0)) -> void:
-	$RigidBody.apply_central_impulse( impulse )
+	$RigidBody3D.apply_central_impulse( impulse )
 	
 	
 	

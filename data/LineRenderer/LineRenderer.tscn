@@ -1,7 +1,16 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://crn3rb5x7ocj5"]
 
-[ext_resource path="res://data/LineRenderer/LineRenderer.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://data/LineRenderer/LineRenderer.gd" id="1"]
 
-[node name="LineRenderer" type="ImmediateGeometry"]
-script = ExtResource( 1 )
-points = [ Vector3( 0, 0, 0 ), Vector3( 0, 4, 0 ) ]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a418p"]
+transparency = 1
+shading_mode = 0
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_fcjuw"]
+
+[node name="LineRenderer" type="MeshInstance3D"]
+material_override = SubResource("StandardMaterial3D_a418p")
+mesh = SubResource("ImmediateMesh_fcjuw")
+script = ExtResource("1")
+points = [Vector3(0, 0, 0), Vector3(0, 5, 0)]
+startThickness = 1.0

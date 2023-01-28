@@ -1,52 +1,79 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=12 format=3 uid="uid://d12erfwy5m8dc"]
 
-[ext_resource path="res://data/weapons/pulse_shard/pulse_shard_casing.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://data/weapons/pulse_shard/pulse_shard_casing.gd" id="1"]
+[ext_resource type="AudioStream" uid="uid://dtahqle3nfwcf" path="res://data/weapons/pulse_shard/Bullet Shell 45 Dropping On Cement 3 - QuickSounds.com.mp3" id="2_1dye2"]
+[ext_resource type="AudioStream" uid="uid://c5n1jppew3jrs" path="res://data/weapons/pulse_shard/Bullet Shell 38 Dropping On Cement 3 - QuickSounds.com.mp3" id="5_6ltxg"]
+[ext_resource type="AudioStream" uid="uid://cwaihvqa4jjn" path="res://data/weapons/pulse_shard/Bullet Shell 44 Dropping On Cement 1 - QuickSounds.com.mp3" id="5_bjlxp"]
+[ext_resource type="AudioStream" uid="uid://b7to6tbtvt48m" path="res://data/weapons/pulse_shard/Bullet Shell 44 Dropping On Cement 3 - QuickSounds.com.mp3" id="5_m3u1s"]
+[ext_resource type="AudioStream" uid="uid://b16hfwe71sm6q" path="res://data/weapons/pulse_shard/Bullet Shell 38 Dropping On Cement 1 - QuickSounds.com.mp3" id="6_qy7yy"]
 
-[sub_resource type="PhysicsMaterial" id=1]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_745qs"]
 friction = 0.72
 bounce = 0.65
 
-[sub_resource type="CapsuleShape" id=2]
-radius = 0.073101
-height = 0.247751
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_aatap"]
+radius = 0.048402
+height = 0.346182
 
-[sub_resource type="SpatialMaterial" id=3]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8k0du"]
 resource_local_to_scene = true
-flags_transparent = true
-albedo_color = Color( 0.156863, 0.0235294, 0.231373, 1 )
+transparency = 1
+shading_mode = 2
+albedo_color = Color(0.34902, 0.360784, 0.996078, 1)
 metallic = 0.59
 roughness = 0.28
 emission_enabled = true
-emission = Color( 0.129412, 0.52549, 0.988235, 1 )
-emission_energy = 20.0
-emission_operator = 0
-emission_on_uv2 = false
+emission = Color(0.188235, 0.415686, 0.992157, 1)
+emission_energy_multiplier = 2.0
 
-[sub_resource type="CubeMesh" id=4]
+[sub_resource type="BoxMesh" id="BoxMesh_5nqnp"]
 resource_local_to_scene = true
-material = SubResource( 3 )
-size = Vector3( 0.061, 0.061, 0.3 )
+material = SubResource("StandardMaterial3D_8k0du")
+size = Vector3(0.061, 0.061, 0.3)
 
-[node name="pulse_shard_casing" type="RigidBody"]
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_fb6nw"]
+streams_count = 5
+stream_0/stream = ExtResource("2_1dye2")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("5_bjlxp")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("5_m3u1s")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("5_6ltxg")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("6_qy7yy")
+stream_4/weight = 1.0
+
+[node name="pulse_shard_casing" type="RigidBody3D"]
 process_priority = 1000
-input_ray_pickable = false
 collision_layer = 2048
 collision_mask = 2311
-mass = 10.0
-physics_material_override = SubResource( 1 )
+input_ray_pickable = false
+mass = 0.05
+physics_material_override = SubResource("PhysicsMaterial_745qs")
 gravity_scale = 5.0
-script = ExtResource( 1 )
+max_contacts_reported = 1
+contact_monitor = true
+angular_damp = 2.0
+script = ExtResource("1")
 
-[node name="CollisionShape" type="CollisionShape" parent="."]
-shape = SubResource( 2 )
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_aatap")
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
-mesh = SubResource( 4 )
-material/0 = null
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_5nqnp")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
 autostart = true
 
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = SubResource("AudioStreamRandomizer_fb6nw")
+pitch_scale = 0.9
+max_polyphony = 10
+bus = &"shells"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

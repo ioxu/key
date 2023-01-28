@@ -1,0 +1,55 @@
+[gd_scene load_steps=11 format=3 uid="uid://bjga1ie2v677e"]
+
+[ext_resource type="ArrayMesh" uid="uid://6nvk07sncqgf" path="res://data/props/bollard-01/bollard-01_01-01.obj" id="1_8fhes"]
+[ext_resource type="Texture2D" uid="uid://bihtvfqrobac8" path="res://data/props/bollard-01/bollard-01_01-01_Material.001_BaseColor.png" id="2_rgt0s"]
+[ext_resource type="Texture2D" uid="uid://cqjjyosg0alig" path="res://data/props/bollard-01/bollard-01_01-01_Material.001_Metallic.png" id="3_iagvn"]
+[ext_resource type="Texture2D" uid="uid://c2vqh3y2n4cy5" path="res://data/props/bollard-01/bollard-01_01-01_Material.001_Normal.png" id="4_dwkhs"]
+[ext_resource type="Texture2D" uid="uid://bkj3s3x5kge24" path="res://data/props/bollard-01/bollard-01_01-01_Material.001_Roughness.png" id="5_4npd1"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_na7tm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l0h16"]
+albedo_texture = ExtResource("2_rgt0s")
+metallic = 1.0
+metallic_texture = ExtResource("3_iagvn")
+roughness_texture = ExtResource("5_4npd1")
+normal_enabled = true
+normal_texture = ExtResource("4_dwkhs")
+heightmap_scale = 1.332
+heightmap_deep_parallax = true
+heightmap_min_layers = 8
+heightmap_max_layers = 32
+heightmap_texture = SubResource("CompressedTexture2D_na7tm")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f44pp"]
+albedo_texture = ExtResource("2_rgt0s")
+metallic = 1.0
+metallic_texture = ExtResource("3_iagvn")
+roughness_texture = ExtResource("5_4npd1")
+normal_enabled = true
+normal_texture = ExtResource("4_dwkhs")
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_mg31l"]
+height = 3.08805
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_aqm0x"]
+size = Vector3(0.654319, 2.20366, 0.29872)
+
+[node name="bollard-01" type="Node3D"]
+
+[node name="Bollard-0101-01" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_8fhes")
+surface_material_override/0 = SubResource("StandardMaterial3D_l0h16")
+surface_material_override/1 = SubResource("StandardMaterial3D_f44pp")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 2
+collision_mask = 29
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.47133, 0)
+shape = SubResource("CylinderShape3D_mg31l")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15048, 0.725972)
+shape = SubResource("BoxShape3D_aqm0x")

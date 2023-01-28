@@ -1,19 +1,21 @@
 [remap]
 
 importer="wavefront_obj"
+importer_version=1
 type="Mesh"
-path="res://.import/pulse-shard-bullet-impact-fx.obj-5fd05a8db8eeaeeffae05fcd853c0b56.mesh"
+uid="uid://7jqb406bjbov"
+path="res://.godot/imported/pulse-shard-bullet-impact-fx.obj-5fd05a8db8eeaeeffae05fcd853c0b56.mesh"
 
 [deps]
 
-files=[ "res://.import/pulse-shard-bullet-impact-fx.obj-5fd05a8db8eeaeeffae05fcd853c0b56.mesh" ]
+files=["res://.godot/imported/pulse-shard-bullet-impact-fx.obj-5fd05a8db8eeaeeffae05fcd853c0b56.mesh"]
 
 source_file="res://data/weapons/pulse_shard/pulse-shard-bullet-impact-fx.obj"
-dest_files=[ "res://.import/pulse-shard-bullet-impact-fx.obj-5fd05a8db8eeaeeffae05fcd853c0b56.mesh", "res://.import/pulse-shard-bullet-impact-fx.obj-5fd05a8db8eeaeeffae05fcd853c0b56.mesh" ]
+dest_files=["res://.godot/imported/pulse-shard-bullet-impact-fx.obj-5fd05a8db8eeaeeffae05fcd853c0b56.mesh", "res://.godot/imported/pulse-shard-bullet-impact-fx.obj-5fd05a8db8eeaeeffae05fcd853c0b56.mesh"]
 
 [params]
 
 generate_tangents=true
-scale_mesh=Vector3( 1, 1, 1 )
-offset_mesh=Vector3( 0, 0, 0 )
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
 optimize_mesh=true

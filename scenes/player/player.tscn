@@ -1,113 +1,154 @@
-[gd_scene load_steps=66 format=2]
+[gd_scene load_steps=82 format=3 uid="uid://60huk5jyn8eh"]
 
-[ext_resource path="res://scenes/player/Controller.gd" type="Script" id=1]
-[ext_resource path="res://data/dui/weapon_inv_slot.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scenes/player/motion_blur.gd" type="Script" id=3]
-[ext_resource path="res://scenes/player/motion_blur_material.tres" type="Material" id=4]
-[ext_resource path="res://scenes/player/player.gd" type="Script" id=5]
-[ext_resource path="res://data/enemies/hurt_meter_shadermaterial.tres" type="Material" id=6]
-[ext_resource path="res://data/enemies/hurt_meter.tscn" type="PackedScene" id=7]
-[ext_resource path="res://data/textures/debug/symbols_16px_xbones.png" type="Texture" id=8]
-[ext_resource path="res://data/scripts/travel_path_line.gd" type="Script" id=9]
-[ext_resource path="res://data/LineRenderer/LineRenderer.tscn" type="PackedScene" id=10]
-[ext_resource path="res://scenes/player/player_material.tres" type="Material" id=11]
-[ext_resource path="res://data/scripts/three_joint_leg.gd" type="Script" id=12]
-[ext_resource path="res://scenes/player/player_leg_material.tres" type="Material" id=13]
-[ext_resource path="res://data/dui/dui_root.gd" type="Script" id=14]
-[ext_resource path="res://scenes/player/radar_dots.gd" type="Script" id=15]
-[ext_resource path="res://scenes/player/dui_weapons_items.gd" type="Script" id=16]
-[ext_resource path="res://data/textures/cross_pips_diag.png" type="Texture" id=17]
-[ext_resource path="res://data/procmesh/arcplane.gd" type="Script" id=18]
-[ext_resource path="res://scenes/player/inventory_front_2d.tscn" type="PackedScene" id=19]
-[ext_resource path="res://scenes/player/radar_dot.tscn" type="PackedScene" id=20]
-[ext_resource path="res://data/textures/square_01.png" type="Texture" id=21]
-[ext_resource path="res://data/objects/screen-90.obj" type="ArrayMesh" id=22]
-[ext_resource path="res://scenes/player/options_menu_2d.tscn" type="PackedScene" id=23]
-[ext_resource path="res://scenes/player/options_menu_bg_2d.tscn" type="PackedScene" id=24]
-[ext_resource path="res://scenes/player/selector.gd" type="Script" id=25]
-[ext_resource path="res://scenes/player/weapon_equip_slot.gd" type="Script" id=26]
-[ext_resource path="res://scenes/player/WeaponController.gd" type="Script" id=27]
+[ext_resource type="Script" path="res://scenes/player/Controller.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://bfu2k02apbkwt" path="res://data/dui/weapon_inv_slot.tscn" id="2"]
+[ext_resource type="Script" path="res://scenes/player/motion_blur.gd" id="3"]
+[ext_resource type="Script" path="res://scenes/player/player.gd" id="5"]
+[ext_resource type="Material" path="res://data/enemies/hurt_meter_shadermaterial.tres" id="6"]
+[ext_resource type="PackedScene" path="res://data/enemies/hurt_meter.tscn" id="7"]
+[ext_resource type="Texture2D" uid="uid://yjksrl75m0tr" path="res://data/textures/debug/symbols_16px_xbones.png" id="8"]
+[ext_resource type="Script" path="res://data/scripts/travel_path_line.gd" id="9"]
+[ext_resource type="PackedScene" uid="uid://crn3rb5x7ocj5" path="res://data/LineRenderer/LineRenderer.tscn" id="10"]
+[ext_resource type="Material" path="res://scenes/player/player_material.tres" id="11"]
+[ext_resource type="Texture2D" uid="uid://c7u3e0083xdqm" path="res://data/textures/cross_pips_diag.png" id="11_7o67c"]
+[ext_resource type="Script" path="res://data/scripts/three_joint_leg.gd" id="12"]
+[ext_resource type="Material" path="res://scenes/player/player_leg_material.tres" id="13"]
+[ext_resource type="Script" path="res://data/dui/dui_root.gd" id="14"]
+[ext_resource type="Script" path="res://scenes/player/radar_dots.gd" id="15"]
+[ext_resource type="Script" path="res://scenes/player/dui_weapons_items.gd" id="16"]
+[ext_resource type="Script" path="res://data/procmesh/arcplane.gd" id="18"]
+[ext_resource type="PackedScene" path="res://scenes/player/inventory_front_2d.tscn" id="19"]
+[ext_resource type="PackedScene" uid="uid://dsiungjs1hs3w" path="res://scenes/player/radar_dot.tscn" id="20"]
+[ext_resource type="Texture2D" uid="uid://cgq0u6ykuf56a" path="res://data/textures/square_01.png" id="21"]
+[ext_resource type="ArrayMesh" uid="uid://2i3kffye3q70" path="res://data/objects/screen-90.obj" id="22"]
+[ext_resource type="PackedScene" uid="uid://dbsoduj283ats" path="res://scenes/player/options_menu_2d.tscn" id="23"]
+[ext_resource type="PackedScene" path="res://scenes/player/options_menu_bg_2d.tscn" id="24"]
+[ext_resource type="Script" path="res://scenes/player/selector.gd" id="25"]
+[ext_resource type="Script" path="res://scenes/player/weapon_equip_slot.gd" id="26"]
+[ext_resource type="Script" path="res://scenes/player/WeaponController.gd" id="27"]
 
-[sub_resource type="Animation" id=1]
-resource_name = "recoil_time_animation"
-length = 4.0
+[sub_resource type="GDScript" id="GDScript_wpqoc"]
+script/source = "extends Label3D
+
+@export_node_path(Camera3D) var camera_node_path
+var camera : Camera3D
+
+func _ready():
+	camera = get_node(camera_node_path)
+	if !visible:
+		self.set_process(false) 
+
+
+func _process(delta):
+	var pos = $\"..\".global_position
+	text = \"<%0.1f, %0.1f>\"%[pos.x, pos.z]
+	look_at( camera.global_position  )
+	scale = Vector3(-1.0, 1.0, 1.0)
+"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ychoj"]
+emission_enabled = true
+emission = Color(0.768627, 0.168627, 0.6, 1)
+emission_energy_multiplier = 6.38
+
+[sub_resource type="SphereMesh" id="SphereMesh_heuby"]
+material = SubResource("StandardMaterial3D_ychoj")
+radius = 0.025
+height = 0.05
+
+[sub_resource type="Animation" id="Animation_d70f6"]
+length = 0.001
 tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath(".:recoil_time")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"points": PoolRealArray( 0, -0.249979, -44.8015, 0.01, 1.79221, 0.445491, -0.11, 0.137258, 0.14, -0.174692, 0, -2.46, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.4, 4 )
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
 }
 
-[sub_resource type="CapsuleShape" id=2]
+[sub_resource type="Animation" id="Animation_bivh2"]
+resource_name = "recoil_time_animation"
+length = 4.0
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:recoil_time")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0.445, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.4, 4)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rbuuo"]
+_data = {
+"RESET": SubResource("Animation_d70f6"),
+"recoil_time_animation": SubResource("Animation_bivh2")
+}
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fibp2"]
 radius = 0.253386
 height = 1.74436
 
-[sub_resource type="CapsuleMesh" id=3]
-material = ExtResource( 11 )
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_oi14p"]
 radius = 0.25
-mid_height = 0.9
-radial_segments = 24
-rings = 5
+height = 1.35
+radial_segments = 12
+rings = 2
 
-[sub_resource type="CubeMesh" id=4]
-size = Vector3( 0.064, 0.364, 0.998 )
+[sub_resource type="BoxMesh" id="BoxMesh_pkjbn"]
+size = Vector3(0.064, 0.364, 0.998)
 
-[sub_resource type="SpatialMaterial" id=5]
-albedo_color = Color( 0.619608, 0.592157, 0.592157, 1 )
-
-[sub_resource type="CylinderMesh" id=6]
+[sub_resource type="CylinderMesh" id="CylinderMesh_ivl4h"]
 resource_local_to_scene = true
-material = ExtResource( 6 )
+material = ExtResource("6")
 height = 0.2
 radial_segments = 32
 rings = 1
 
-[sub_resource type="QuadMesh" id=28]
-
-[sub_resource type="SpatialMaterial" id=29]
-flags_transparent = true
-flags_no_depth_test = true
-params_cull_mode = 2
-albedo_color = Color( 1, 1, 1, 0.658824 )
-albedo_texture = ExtResource( 17 )
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_fp4mx"]
+transparency = 1
+cull_mode = 2
+albedo_color = Color(1, 1, 1, 0.32549)
+albedo_texture = ExtResource("11_7o67c")
 emission_enabled = true
-emission = Color( 0.101961, 1, 0.137255, 1 )
-emission_energy = 12.0
-emission_operator = 0
-emission_on_uv2 = false
+emission = Color(0.0627451, 0.909804, 0.0784314, 1)
+emission_energy_multiplier = 12.0
 
-[sub_resource type="SpatialMaterial" id=38]
-flags_transparent = true
-flags_no_depth_test = true
-params_cull_mode = 2
-albedo_color = Color( 0.356863, 0.913725, 0.2, 0.431373 )
+[sub_resource type="QuadMesh" id="QuadMesh_y465d"]
+material = SubResource("ORMMaterial3D_fp4mx")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a5cqb"]
+transparency = 1
+albedo_color = Color(0, 0.517647, 0.0196078, 0.411765)
 emission_enabled = true
-emission = Color( 0.435294, 0.917647, 0.278431, 1 )
-emission_energy = 1.0
-emission_operator = 0
-emission_on_uv2 = false
+emission = Color(0.0666667, 0.733333, 0.282353, 1)
+emission_energy_multiplier = 2.0
 
-[sub_resource type="Shader" id=36]
-code = "// NOTE: Shader automatically converted from Godot Engine 3.4.stable's SpatialMaterial.
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_tvj42"]
+
+[sub_resource type="Shader" id="Shader_wooje"]
+code = "// NOTE: Shader automatically converted from Godot Engine 3.4.stable's StandardMaterial3D.
 
 shader_type spatial;
-render_mode blend_mix,depth_draw_opaque,cull_disabled,diffuse_burley,specular_schlick_ggx,depth_test_disable;
+render_mode blend_mix,depth_draw_opaque,cull_disabled,diffuse_burley,specular_schlick_ggx,unshaded;//depth_test_disable;
 
 uniform float ext1 : hint_range(0,1) = 0.25;
 uniform float ext2 : hint_range(0,1) = 0.75;
 
-uniform vec4 albedo : hint_color;
-uniform sampler2D texture_albedo : hint_albedo;
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color;
 uniform float specular;
 uniform float metallic;
 uniform float roughness : hint_range(0,1);
 uniform float point_size : hint_range(0,128);
-uniform sampler2D texture_emission : hint_black_albedo;
-uniform vec4 emission : hint_color;
+uniform sampler2D texture_emission : hint_default_black;
+uniform vec4 emission : source_color;
 uniform float emission_energy;
 uniform vec3 uv1_scale;
 uniform vec3 uv1_offset;
@@ -141,382 +182,398 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id=37]
-shader = SubResource( 36 )
-shader_param/ext1 = 0.512
-shader_param/ext2 = 0.87
-shader_param/albedo = Color( 0.968627, 0.929412, 0.262745, 0.282353 )
-shader_param/specular = 0.5
-shader_param/metallic = 0.0
-shader_param/roughness = 1.0
-shader_param/point_size = 1.0
-shader_param/emission = Color( 0.960784, 1, 0.345098, 1 )
-shader_param/emission_energy = 1.0
-shader_param/uv1_scale = Vector3( 1, 1, 1 )
-shader_param/uv1_offset = Vector3( 0, 0, 0 )
-shader_param/uv2_scale = Vector3( 1, 1, 1 )
-shader_param/uv2_offset = Vector3( 0, 0, 0 )
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nud2n"]
+render_priority = 0
+shader = SubResource("Shader_wooje")
+shader_parameter/ext1 = 0.39
+shader_parameter/ext2 = 0.87
+shader_parameter/albedo = Color(1, 0.807843, 0.278431, 0.439216)
+shader_parameter/specular = null
+shader_parameter/metallic = null
+shader_parameter/roughness = null
+shader_parameter/point_size = null
+shader_parameter/emission = Color(0.839216, 0.627451, 0.329412, 1)
+shader_parameter/emission_energy = 1.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = null
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = null
 
-[sub_resource type="ArrayMesh" id=35]
-surfaces/0 = {
-"aabb": AABB( 0.691568, -0.104448, -2.20502, 1.63072, 0.208905, 4.42813 ),
-"array_data": PoolByteArray( 156, 10, 49, 63, 179, 232, 213, 61, 80, 71, 14, 64, 81, 29, 109, 4, 0, 0, 0, 60, 127, 188, 134, 63, 179, 232, 213, 61, 165, 231, 4, 64, 170, 41, 34, 4, 68, 44, 0, 60, 160, 45, 177, 63, 179, 232, 213, 61, 22, 158, 239, 63, 184, 52, 250, 3, 68, 48, 0, 60, 98, 168, 214, 63, 179, 232, 213, 61, 209, 182, 206, 63, 51, 63, 239, 3, 102, 50, 0, 60, 9, 32, 246, 63, 179, 232, 213, 61, 104, 5, 168, 63, 176, 73, 0, 4, 68, 52, 0, 60, 124, 89, 7, 64, 179, 232, 213, 61, 141, 62, 121, 63, 199, 84, 47, 4, 85, 53, 0, 60, 125, 216, 15, 64, 179, 232, 213, 61, 52, 119, 27, 63, 54, 97, 132, 4, 102, 54, 0, 60, 29, 80, 20, 64, 179, 232, 213, 61, 165, 84, 101, 62, 27, 112, 13, 5, 119, 55, 0, 60, 85, 160, 20, 64, 179, 232, 213, 61, 212, 159, 41, 190, 214, 122, 85, 13, 68, 56, 0, 60, 230, 198, 16, 64, 179, 232, 213, 61, 6, 245, 12, 191, 105, 123, 189, 28, 204, 56, 0, 60, 104, 223, 8, 64, 179, 232, 213, 61, 108, 143, 107, 191, 197, 123, 117, 41, 85, 57, 0, 60, 18, 69, 250, 63, 179, 232, 213, 61, 108, 200, 161, 191, 249, 123, 178, 52, 221, 57, 0, 60, 226, 200, 219, 63, 179, 232, 213, 61, 38, 65, 201, 191, 14, 124, 60, 63, 102, 58, 0, 60, 214, 36, 183, 63, 179, 232, 213, 61, 223, 22, 235, 191, 8, 124, 174, 73, 238, 58, 0, 60, 164, 95, 141, 63, 179, 232, 213, 61, 128, 43, 3, 192, 228, 123, 156, 84, 119, 59, 0, 60, 149, 73, 63, 63, 179, 232, 213, 61, 18, 31, 13, 192, 159, 123, 181, 96, 0, 60, 0, 60, 156, 10, 49, 63, 179, 232, 213, 189, 80, 71, 14, 64, 81, 29, 147, 251, 0, 0, 0, 0, 127, 188, 134, 63, 179, 232, 213, 189, 165, 231, 4, 64, 170, 41, 222, 251, 68, 44, 0, 0, 160, 45, 177, 63, 179, 232, 213, 189, 22, 158, 239, 63, 184, 52, 6, 252, 68, 48, 0, 0, 98, 168, 214, 63, 179, 232, 213, 189, 209, 182, 206, 63, 51, 63, 17, 252, 102, 50, 0, 0, 9, 32, 246, 63, 179, 232, 213, 189, 104, 5, 168, 63, 176, 73, 0, 252, 68, 52, 0, 0, 124, 89, 7, 64, 179, 232, 213, 189, 141, 62, 121, 63, 199, 84, 209, 251, 85, 53, 0, 0, 125, 216, 15, 64, 179, 232, 213, 189, 52, 119, 27, 63, 54, 97, 124, 251, 102, 54, 0, 0, 29, 80, 20, 64, 179, 232, 213, 189, 165, 84, 101, 62, 27, 112, 243, 250, 119, 55, 0, 0, 85, 160, 20, 64, 179, 232, 213, 189, 212, 159, 41, 190, 214, 122, 171, 242, 68, 56, 0, 0, 230, 198, 16, 64, 179, 232, 213, 189, 6, 245, 12, 191, 105, 123, 67, 227, 204, 56, 0, 0, 104, 223, 8, 64, 179, 232, 213, 189, 108, 143, 107, 191, 197, 123, 139, 214, 85, 57, 0, 0, 18, 69, 250, 63, 179, 232, 213, 189, 108, 200, 161, 191, 249, 123, 78, 203, 221, 57, 0, 0, 226, 200, 219, 63, 179, 232, 213, 189, 38, 65, 201, 191, 14, 124, 196, 192, 102, 58, 0, 0, 214, 36, 183, 63, 179, 232, 213, 189, 223, 22, 235, 191, 8, 124, 82, 182, 238, 58, 0, 0, 164, 95, 141, 63, 179, 232, 213, 189, 128, 43, 3, 192, 228, 123, 100, 171, 119, 59, 0, 0, 149, 73, 63, 63, 179, 232, 213, 189, 18, 31, 13, 192, 159, 123, 75, 159, 0, 60, 0, 0 ),
-"array_index_data": PoolByteArray( 0, 0, 1, 0, 16, 0, 1, 0, 17, 0, 16, 0, 1, 0, 2, 0, 17, 0, 2, 0, 18, 0, 17, 0, 2, 0, 3, 0, 18, 0, 3, 0, 19, 0, 18, 0, 3, 0, 4, 0, 19, 0, 4, 0, 20, 0, 19, 0, 4, 0, 5, 0, 20, 0, 5, 0, 21, 0, 20, 0, 5, 0, 6, 0, 21, 0, 6, 0, 22, 0, 21, 0, 6, 0, 7, 0, 22, 0, 7, 0, 23, 0, 22, 0, 7, 0, 8, 0, 23, 0, 8, 0, 24, 0, 23, 0, 8, 0, 9, 0, 24, 0, 9, 0, 25, 0, 24, 0, 9, 0, 10, 0, 25, 0, 10, 0, 26, 0, 25, 0, 10, 0, 11, 0, 26, 0, 11, 0, 27, 0, 26, 0, 11, 0, 12, 0, 27, 0, 12, 0, 28, 0, 27, 0, 12, 0, 13, 0, 28, 0, 13, 0, 29, 0, 28, 0, 13, 0, 14, 0, 29, 0, 14, 0, 30, 0, 29, 0, 14, 0, 15, 0, 30, 0, 15, 0, 31, 0, 30, 0 ),
-"blend_shape_data": [  ],
-"format": 2194707,
+[sub_resource type="ArrayMesh" id="ArrayMesh_8ow5k"]
+_surfaces = [{
+"aabb": AABB(0.691568, -0.104448, -2.20502, 1.63072, 0.208905, 4.42813),
+"attribute_data": PackedByteArray(0, 0, 0, 0, 0, 0, 128, 63, 137, 136, 136, 61, 0, 0, 128, 63, 137, 136, 8, 62, 0, 0, 128, 63, 205, 204, 76, 62, 0, 0, 128, 63, 137, 136, 136, 62, 0, 0, 128, 63, 171, 170, 170, 62, 0, 0, 128, 63, 205, 204, 204, 62, 0, 0, 128, 63, 239, 238, 238, 62, 0, 0, 128, 63, 137, 136, 8, 63, 0, 0, 128, 63, 154, 153, 25, 63, 0, 0, 128, 63, 171, 170, 42, 63, 0, 0, 128, 63, 188, 187, 59, 63, 0, 0, 128, 63, 205, 204, 76, 63, 0, 0, 128, 63, 222, 221, 93, 63, 0, 0, 128, 63, 239, 238, 110, 63, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 0, 0, 137, 136, 136, 61, 0, 0, 0, 0, 137, 136, 8, 62, 0, 0, 0, 0, 205, 204, 76, 62, 0, 0, 0, 0, 137, 136, 136, 62, 0, 0, 0, 0, 171, 170, 170, 62, 0, 0, 0, 0, 205, 204, 204, 62, 0, 0, 0, 0, 239, 238, 238, 62, 0, 0, 0, 0, 137, 136, 8, 63, 0, 0, 0, 0, 154, 153, 25, 63, 0, 0, 0, 0, 171, 170, 42, 63, 0, 0, 0, 0, 188, 187, 59, 63, 0, 0, 0, 0, 205, 204, 76, 63, 0, 0, 0, 0, 222, 221, 93, 63, 0, 0, 0, 0, 239, 238, 110, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0),
+"format": 4115,
 "index_count": 90,
-"primitive": 4,
-"skeleton_aabb": [  ],
-"vertex_count": 32
-}
+"index_data": PackedByteArray(0, 0, 1, 0, 16, 0, 1, 0, 17, 0, 16, 0, 1, 0, 2, 0, 17, 0, 2, 0, 18, 0, 17, 0, 2, 0, 3, 0, 18, 0, 3, 0, 19, 0, 18, 0, 3, 0, 4, 0, 19, 0, 4, 0, 20, 0, 19, 0, 4, 0, 5, 0, 20, 0, 5, 0, 21, 0, 20, 0, 5, 0, 6, 0, 21, 0, 6, 0, 22, 0, 21, 0, 6, 0, 7, 0, 22, 0, 7, 0, 23, 0, 22, 0, 7, 0, 8, 0, 23, 0, 8, 0, 24, 0, 23, 0, 8, 0, 9, 0, 24, 0, 9, 0, 25, 0, 24, 0, 9, 0, 10, 0, 25, 0, 10, 0, 26, 0, 25, 0, 10, 0, 11, 0, 26, 0, 11, 0, 27, 0, 26, 0, 11, 0, 12, 0, 27, 0, 12, 0, 28, 0, 27, 0, 12, 0, 13, 0, 28, 0, 13, 0, 29, 0, 28, 0, 13, 0, 14, 0, 29, 0, 14, 0, 30, 0, 29, 0, 14, 0, 15, 0, 30, 0, 15, 0, 31, 0, 30, 0),
+"primitive": 3,
+"vertex_count": 32,
+"vertex_data": PackedByteArray(156, 10, 49, 63, 179, 232, 213, 61, 80, 71, 14, 64, 81, 157, 109, 132, 127, 188, 134, 63, 179, 232, 213, 61, 165, 231, 4, 64, 169, 169, 33, 132, 160, 45, 177, 63, 179, 232, 213, 61, 22, 158, 239, 63, 183, 180, 249, 131, 98, 168, 214, 63, 179, 232, 213, 61, 209, 182, 206, 63, 50, 191, 239, 131, 9, 32, 246, 63, 179, 232, 213, 61, 104, 5, 168, 63, 176, 201, 0, 132, 124, 89, 7, 64, 179, 232, 213, 61, 141, 62, 121, 63, 199, 212, 47, 132, 125, 216, 15, 64, 179, 232, 213, 61, 52, 119, 27, 63, 54, 225, 132, 132, 29, 80, 20, 64, 179, 232, 213, 61, 165, 84, 101, 62, 27, 240, 13, 133, 85, 160, 20, 64, 179, 232, 213, 61, 212, 159, 41, 190, 214, 250, 85, 141, 230, 198, 16, 64, 179, 232, 213, 61, 6, 245, 12, 191, 105, 251, 189, 156, 104, 223, 8, 64, 179, 232, 213, 61, 108, 143, 107, 191, 197, 251, 117, 169, 18, 69, 250, 63, 179, 232, 213, 61, 108, 200, 161, 191, 249, 251, 178, 180, 226, 200, 219, 63, 179, 232, 213, 61, 38, 65, 201, 191, 14, 252, 60, 191, 214, 36, 183, 63, 179, 232, 213, 61, 223, 22, 235, 191, 7, 252, 174, 201, 164, 95, 141, 63, 179, 232, 213, 61, 128, 43, 3, 192, 228, 251, 156, 212, 149, 73, 63, 63, 179, 232, 213, 61, 18, 31, 13, 192, 159, 251, 180, 224, 156, 10, 49, 63, 179, 232, 213, 189, 80, 71, 14, 64, 81, 157, 145, 123, 127, 188, 134, 63, 179, 232, 213, 189, 165, 231, 4, 64, 169, 169, 221, 123, 160, 45, 177, 63, 179, 232, 213, 189, 22, 158, 239, 63, 183, 180, 5, 124, 98, 168, 214, 63, 179, 232, 213, 189, 209, 182, 206, 63, 50, 191, 15, 124, 9, 32, 246, 63, 179, 232, 213, 189, 104, 5, 168, 63, 176, 201, 254, 123, 124, 89, 7, 64, 179, 232, 213, 189, 141, 62, 121, 63, 199, 212, 207, 123, 125, 216, 15, 64, 179, 232, 213, 189, 52, 119, 27, 63, 54, 225, 122, 123, 29, 80, 20, 64, 179, 232, 213, 189, 165, 84, 101, 62, 27, 240, 241, 122, 85, 160, 20, 64, 179, 232, 213, 189, 212, 159, 41, 190, 214, 250, 169, 114, 230, 198, 16, 64, 179, 232, 213, 189, 6, 245, 12, 191, 105, 251, 65, 99, 104, 223, 8, 64, 179, 232, 213, 189, 108, 143, 107, 191, 197, 251, 137, 86, 18, 69, 250, 63, 179, 232, 213, 189, 108, 200, 161, 191, 249, 251, 76, 75, 226, 200, 219, 63, 179, 232, 213, 189, 38, 65, 201, 191, 14, 252, 194, 64, 214, 36, 183, 63, 179, 232, 213, 189, 223, 22, 235, 191, 7, 252, 80, 54, 164, 95, 141, 63, 179, 232, 213, 189, 128, 43, 3, 192, 228, 251, 98, 43, 149, 73, 63, 63, 179, 232, 213, 189, 18, 31, 13, 192, 159, 251, 74, 31)
+}]
 
-[sub_resource type="ViewportTexture" id=26]
-viewport_path = NodePath("MeshInstance/dui_root/viewports/inventory/inventory_2d_viewport")
+[sub_resource type="ViewportTexture" id="ViewportTexture_mnxol"]
+viewport_path = NodePath("MeshInstance3D/dui_root/viewports/inventory/inventory_2d_viewport")
 
-[sub_resource type="ViewportTexture" id=27]
-viewport_path = NodePath("MeshInstance/dui_root/viewports/inventory/inventory_2d_viewport")
+[sub_resource type="ViewportTexture" id="ViewportTexture_fqhcc"]
+viewport_path = NodePath("MeshInstance3D/dui_root/viewports/inventory/inventory_2d_viewport")
 
-[sub_resource type="SpatialMaterial" id=25]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e8ga1"]
 resource_local_to_scene = true
-flags_transparent = true
-flags_no_depth_test = true
-params_cull_mode = 2
-albedo_texture = SubResource( 26 )
+transparency = 1
+cull_mode = 2
+no_depth_test = true
+albedo_texture = SubResource("ViewportTexture_mnxol")
 emission_enabled = true
-emission = Color( 0, 0, 0, 1 )
-emission_energy = 3.0
-emission_operator = 0
-emission_on_uv2 = false
-emission_texture = SubResource( 27 )
+emission_energy_multiplier = 3.0
+emission_texture = SubResource("ViewportTexture_fqhcc")
 
-[sub_resource type="CylinderShape" id=10]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ue1v6"]
 height = 100.0
 radius = 200.0
 
-[sub_resource type="SpatialMaterial" id=11]
-flags_transparent = true
-flags_no_depth_test = true
-albedo_color = Color( 0.137255, 0.862745, 0.156863, 0.0313726 )
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vbhye"]
+transparency = 1
+albedo_color = Color(0.878431, 0.643137, 0, 0.105882)
 emission_enabled = true
-emission = Color( 0.8, 0.8, 0.145098, 1 )
-emission_energy = 3.0
-emission_operator = 0
-emission_on_uv2 = false
+emission = Color(0.878431, 0.643137, 0, 1)
 
-[sub_resource type="SpatialMaterial" id=12]
-flags_transparent = true
-flags_no_depth_test = true
-albedo_color = Color( 0.219608, 0.835294, 0.129412, 0.117647 )
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_t3ptj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j4vrx"]
+transparency = 1
+albedo_color = Color(0.878431, 0.643137, 0, 0.270588)
 emission_enabled = true
-emission = Color( 0.788235, 0.772549, 0.0941176, 1 )
-emission_energy = 3.0
-emission_operator = 0
-emission_on_uv2 = false
+emission = Color(0.878431, 0.643137, 0, 1)
 
-[sub_resource type="ViewportTexture" id=13]
-viewport_path = NodePath("MeshInstance/dui_root/viewports/options/options_viewport")
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_0jhyp"]
 
-[sub_resource type="ViewportTexture" id=14]
-viewport_path = NodePath("MeshInstance/dui_root/viewports/options/options_viewport")
+[sub_resource type="ViewportTexture" id="ViewportTexture_ugduq"]
+viewport_path = NodePath("MeshInstance3D/dui_root/viewports/options/options_viewport")
 
-[sub_resource type="ViewportTexture" id=15]
-flags = 5
-viewport_path = NodePath("MeshInstance/dui_root/viewports/options/options_bg_viewport")
+[sub_resource type="ViewportTexture" id="ViewportTexture_p473l"]
+viewport_path = NodePath("MeshInstance3D/dui_root/viewports/options/options_viewport")
 
-[sub_resource type="SpatialMaterial" id=16]
+[sub_resource type="ViewportTexture" id="ViewportTexture_ssl4f"]
+viewport_path = NodePath("MeshInstance3D/dui_root/viewports/options/options_bg_viewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2ivi6"]
 resource_local_to_scene = true
-flags_transparent = true
-flags_no_depth_test = true
-flags_do_not_receive_shadows = true
-albedo_color = Color( 0.972549, 0.972549, 0.972549, 1 )
-albedo_texture = SubResource( 13 )
+transparency = 1
+no_depth_test = true
+albedo_color = Color(0.972549, 0.972549, 0.972549, 1)
+albedo_texture = SubResource("ViewportTexture_ugduq")
 roughness = 0.4
-roughness_texture = SubResource( 15 )
+roughness_texture = SubResource("ViewportTexture_ssl4f")
 emission_enabled = true
-emission = Color( 0, 0, 0, 1 )
-emission_energy = 1.0
-emission_operator = 0
-emission_on_uv2 = false
-emission_texture = SubResource( 14 )
+emission_texture = SubResource("ViewportTexture_p473l")
 refraction_enabled = true
 refraction_scale = 0.07
-refraction_texture = SubResource( 15 )
+refraction_texture = SubResource("ViewportTexture_ssl4f")
 refraction_texture_channel = 3
+disable_receive_shadows = true
 
-[sub_resource type="SpatialMaterial" id=39]
-flags_transparent = true
-flags_no_depth_test = true
-params_cull_mode = 2
-params_depth_draw_mode = 1
-albedo_color = Color( 0.258824, 0.937255, 0.243137, 0.0823529 )
-albedo_texture = ExtResource( 21 )
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s305v"]
+transparency = 1
+cull_mode = 2
+no_depth_test = true
+albedo_color = Color(0.258824, 0.937255, 0.243137, 0.0823529)
+albedo_texture = ExtResource("21")
 emission_enabled = true
-emission = Color( 0.529412, 0.913725, 0.227451, 1 )
-emission_energy = 1.5
-emission_operator = 0
-emission_on_uv2 = false
+emission = Color(0.529412, 0.913725, 0.227451, 1)
+emission_energy_multiplier = 1.5
 
-[sub_resource type="ArrayMesh" id=30]
-lightmap_size_hint = Vector2( 78, 46 )
-surfaces/0 = {
-"aabb": AABB( -0.637714, -0.466891, 3.34301, 1.27543, 0.933791, 0.0602818 ),
-"array_data": PoolByteArray( 55, 65, 35, 191, 77, 12, 239, 62, 237, 243, 85, 64, 166, 237, 111, 13, 0, 0, 0, 0, 133, 251, 163, 190, 77, 12, 239, 62, 30, 216, 88, 64, 47, 246, 80, 14, 0, 52, 0, 0, 0, 0, 0, 0, 77, 12, 239, 62, 149, 207, 89, 64, 0, 0, 112, 15, 0, 56, 0, 0, 133, 251, 163, 62, 77, 12, 239, 62, 30, 216, 88, 64, 209, 9, 80, 14, 0, 58, 0, 0, 55, 65, 35, 63, 77, 12, 239, 62, 237, 243, 85, 64, 90, 18, 111, 13, 0, 60, 0, 0, 55, 65, 35, 191, 77, 12, 239, 190, 237, 243, 85, 64, 166, 237, 145, 242, 0, 0, 0, 60, 133, 251, 163, 190, 77, 12, 239, 190, 30, 216, 88, 64, 47, 246, 176, 241, 0, 52, 0, 60, 0, 0, 0, 0, 77, 12, 239, 190, 149, 207, 89, 64, 0, 0, 144, 240, 0, 56, 0, 60, 133, 251, 163, 62, 77, 12, 239, 190, 30, 216, 88, 64, 209, 9, 176, 241, 0, 58, 0, 60, 55, 65, 35, 63, 77, 12, 239, 190, 237, 243, 85, 64, 90, 18, 145, 242, 0, 60, 0, 60 ),
-"array_index_data": PoolByteArray( 0, 0, 1, 0, 5, 0, 1, 0, 6, 0, 5, 0, 1, 0, 2, 0, 6, 0, 2, 0, 7, 0, 6, 0, 2, 0, 3, 0, 7, 0, 3, 0, 8, 0, 7, 0, 3, 0, 4, 0, 8, 0, 4, 0, 9, 0, 8, 0 ),
-"blend_shape_data": [  ],
-"format": 2194707,
+[sub_resource type="ArrayMesh" id="ArrayMesh_jyas3"]
+lightmap_size_hint = Vector2i(78, 46)
+_surfaces = [{
+"aabb": AABB(-0.637714, -0.466891, 3.34301, 1.27543, 0.933791, 0.0602818),
+"attribute_data": PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 62, 0, 0, 0, 0, 0, 0, 0, 63, 0, 0, 0, 0, 0, 0, 64, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 62, 0, 0, 128, 63, 0, 0, 0, 63, 0, 0, 128, 63, 0, 0, 64, 63, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 63),
+"format": 4115,
 "index_count": 24,
-"primitive": 4,
-"skeleton_aabb": [  ],
-"vertex_count": 10
-}
+"index_data": PackedByteArray(0, 0, 1, 0, 5, 0, 1, 0, 6, 0, 5, 0, 1, 0, 2, 0, 6, 0, 2, 0, 7, 0, 6, 0, 2, 0, 3, 0, 7, 0, 3, 0, 8, 0, 7, 0, 3, 0, 4, 0, 8, 0, 4, 0, 9, 0, 8, 0),
+"primitive": 3,
+"vertex_count": 10,
+"vertex_data": PackedByteArray(55, 65, 35, 191, 77, 12, 239, 62, 237, 243, 85, 64, 165, 109, 111, 141, 133, 251, 163, 190, 77, 12, 239, 62, 30, 216, 88, 64, 46, 118, 79, 142, 0, 0, 0, 0, 77, 12, 239, 62, 149, 207, 89, 64, 255, 127, 112, 143, 133, 251, 163, 62, 77, 12, 239, 62, 30, 216, 88, 64, 208, 137, 79, 142, 55, 65, 35, 63, 77, 12, 239, 62, 237, 243, 85, 64, 89, 146, 111, 141, 55, 65, 35, 191, 77, 12, 239, 190, 237, 243, 85, 64, 165, 109, 143, 114, 133, 251, 163, 190, 77, 12, 239, 190, 30, 216, 88, 64, 46, 118, 175, 113, 0, 0, 0, 0, 77, 12, 239, 190, 149, 207, 89, 64, 255, 127, 142, 112, 133, 251, 163, 62, 77, 12, 239, 190, 30, 216, 88, 64, 208, 137, 175, 113, 55, 65, 35, 63, 77, 12, 239, 190, 237, 243, 85, 64, 89, 146, 143, 114)
+}]
 
-[sub_resource type="PlaneMesh" id=42]
-size = Vector2( 0.2, 0.2 )
+[sub_resource type="PlaneMesh" id="PlaneMesh_v1bty"]
+size = Vector2(0.2, 0.2)
 
-[sub_resource type="SpatialMaterial" id=43]
-flags_transparent = true
-flags_no_depth_test = true
-albedo_color = Color( 0.270588, 0.929412, 0.294118, 0.470588 )
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g7fym"]
+transparency = 1
+albedo_color = Color(0.196078, 0.85098, 0.34902, 0.454902)
 emission_enabled = true
-emission = Color( 0.337255, 0.803922, 0.227451, 1 )
-emission_energy = 3.0
-emission_operator = 0
-emission_on_uv2 = false
+emission = Color(0.407843, 0.67451, 0.34902, 1)
+emission_energy_multiplier = 3.0
 
-[sub_resource type="SpatialMaterial" id=40]
-flags_transparent = true
-flags_no_depth_test = true
-params_cull_mode = 2
-params_depth_draw_mode = 1
-albedo_color = Color( 0.258824, 0.937255, 0.243137, 0.0823529 )
-albedo_texture = ExtResource( 21 )
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g51mj"]
+transparency = 1
+cull_mode = 2
+no_depth_test = true
+albedo_color = Color(0.258824, 0.937255, 0.243137, 0.0823529)
+albedo_texture = ExtResource("21")
 emission_enabled = true
-emission = Color( 0.529412, 0.913725, 0.227451, 1 )
-emission_energy = 1.5
-emission_operator = 0
-emission_on_uv2 = false
+emission = Color(0.529412, 0.913725, 0.227451, 1)
+emission_energy_multiplier = 1.5
 
-[sub_resource type="ArrayMesh" id=32]
-surfaces/0 = {
-"aabb": AABB( -0.637714, -0.466891, 3.34301, 1.27543, 0.933791, 0.0602818 ),
-"array_data": PoolByteArray( 55, 65, 35, 191, 77, 12, 239, 62, 237, 243, 85, 64, 166, 237, 111, 13, 0, 0, 0, 0, 133, 251, 163, 190, 77, 12, 239, 62, 30, 216, 88, 64, 47, 246, 80, 14, 0, 52, 0, 0, 0, 0, 0, 0, 77, 12, 239, 62, 149, 207, 89, 64, 0, 0, 112, 15, 0, 56, 0, 0, 133, 251, 163, 62, 77, 12, 239, 62, 30, 216, 88, 64, 209, 9, 80, 14, 0, 58, 0, 0, 55, 65, 35, 63, 77, 12, 239, 62, 237, 243, 85, 64, 90, 18, 111, 13, 0, 60, 0, 0, 55, 65, 35, 191, 77, 12, 239, 190, 237, 243, 85, 64, 166, 237, 145, 242, 0, 0, 0, 60, 133, 251, 163, 190, 77, 12, 239, 190, 30, 216, 88, 64, 47, 246, 176, 241, 0, 52, 0, 60, 0, 0, 0, 0, 77, 12, 239, 190, 149, 207, 89, 64, 0, 0, 144, 240, 0, 56, 0, 60, 133, 251, 163, 62, 77, 12, 239, 190, 30, 216, 88, 64, 209, 9, 176, 241, 0, 58, 0, 60, 55, 65, 35, 63, 77, 12, 239, 190, 237, 243, 85, 64, 90, 18, 145, 242, 0, 60, 0, 60 ),
-"array_index_data": PoolByteArray( 0, 0, 1, 0, 5, 0, 1, 0, 6, 0, 5, 0, 1, 0, 2, 0, 6, 0, 2, 0, 7, 0, 6, 0, 2, 0, 3, 0, 7, 0, 3, 0, 8, 0, 7, 0, 3, 0, 4, 0, 8, 0, 4, 0, 9, 0, 8, 0 ),
-"blend_shape_data": [  ],
-"format": 2194707,
+[sub_resource type="ArrayMesh" id="ArrayMesh_55k8a"]
+_surfaces = [{
+"aabb": AABB(-0.637714, -0.466891, 3.34301, 1.27543, 0.933791, 0.0602818),
+"attribute_data": PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 62, 0, 0, 0, 0, 0, 0, 0, 63, 0, 0, 0, 0, 0, 0, 64, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 62, 0, 0, 128, 63, 0, 0, 0, 63, 0, 0, 128, 63, 0, 0, 64, 63, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 63),
+"format": 4115,
 "index_count": 24,
-"primitive": 4,
-"skeleton_aabb": [  ],
-"vertex_count": 10
-}
+"index_data": PackedByteArray(0, 0, 1, 0, 5, 0, 1, 0, 6, 0, 5, 0, 1, 0, 2, 0, 6, 0, 2, 0, 7, 0, 6, 0, 2, 0, 3, 0, 7, 0, 3, 0, 8, 0, 7, 0, 3, 0, 4, 0, 8, 0, 4, 0, 9, 0, 8, 0),
+"primitive": 3,
+"vertex_count": 10,
+"vertex_data": PackedByteArray(55, 65, 35, 191, 77, 12, 239, 62, 237, 243, 85, 64, 165, 109, 111, 141, 133, 251, 163, 190, 77, 12, 239, 62, 30, 216, 88, 64, 46, 118, 79, 142, 0, 0, 0, 0, 77, 12, 239, 62, 149, 207, 89, 64, 255, 127, 112, 143, 133, 251, 163, 62, 77, 12, 239, 62, 30, 216, 88, 64, 208, 137, 79, 142, 55, 65, 35, 63, 77, 12, 239, 62, 237, 243, 85, 64, 89, 146, 111, 141, 55, 65, 35, 191, 77, 12, 239, 190, 237, 243, 85, 64, 165, 109, 143, 114, 133, 251, 163, 190, 77, 12, 239, 190, 30, 216, 88, 64, 46, 118, 175, 113, 0, 0, 0, 0, 77, 12, 239, 190, 149, 207, 89, 64, 255, 127, 142, 112, 133, 251, 163, 62, 77, 12, 239, 190, 30, 216, 88, 64, 208, 137, 175, 113, 55, 65, 35, 63, 77, 12, 239, 190, 237, 243, 85, 64, 89, 146, 143, 114)
+}]
 
-[sub_resource type="SpatialMaterial" id=41]
-flags_transparent = true
-flags_no_depth_test = true
-params_cull_mode = 2
-params_depth_draw_mode = 1
-albedo_color = Color( 0.258824, 0.937255, 0.243137, 0.0823529 )
-albedo_texture = ExtResource( 21 )
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kgb85"]
+transparency = 1
+albedo_color = Color(0.196078, 0.85098, 0.34902, 0.454902)
 emission_enabled = true
-emission = Color( 0.529412, 0.913725, 0.227451, 1 )
-emission_energy = 1.5
-emission_operator = 0
-emission_on_uv2 = false
+emission = Color(0.407843, 0.67451, 0.34902, 1)
+emission_energy_multiplier = 3.0
 
-[sub_resource type="ArrayMesh" id=33]
-surfaces/0 = {
-"aabb": AABB( -0.637714, -0.466891, 3.34301, 1.27543, 0.933791, 0.0602818 ),
-"array_data": PoolByteArray( 55, 65, 35, 191, 77, 12, 239, 62, 237, 243, 85, 64, 166, 237, 111, 13, 0, 0, 0, 0, 133, 251, 163, 190, 77, 12, 239, 62, 30, 216, 88, 64, 47, 246, 80, 14, 0, 52, 0, 0, 0, 0, 0, 0, 77, 12, 239, 62, 149, 207, 89, 64, 0, 0, 112, 15, 0, 56, 0, 0, 133, 251, 163, 62, 77, 12, 239, 62, 30, 216, 88, 64, 209, 9, 80, 14, 0, 58, 0, 0, 55, 65, 35, 63, 77, 12, 239, 62, 237, 243, 85, 64, 90, 18, 111, 13, 0, 60, 0, 0, 55, 65, 35, 191, 77, 12, 239, 190, 237, 243, 85, 64, 166, 237, 145, 242, 0, 0, 0, 60, 133, 251, 163, 190, 77, 12, 239, 190, 30, 216, 88, 64, 47, 246, 176, 241, 0, 52, 0, 60, 0, 0, 0, 0, 77, 12, 239, 190, 149, 207, 89, 64, 0, 0, 144, 240, 0, 56, 0, 60, 133, 251, 163, 62, 77, 12, 239, 190, 30, 216, 88, 64, 209, 9, 176, 241, 0, 58, 0, 60, 55, 65, 35, 63, 77, 12, 239, 190, 237, 243, 85, 64, 90, 18, 145, 242, 0, 60, 0, 60 ),
-"array_index_data": PoolByteArray( 0, 0, 1, 0, 5, 0, 1, 0, 6, 0, 5, 0, 1, 0, 2, 0, 6, 0, 2, 0, 7, 0, 6, 0, 2, 0, 3, 0, 7, 0, 3, 0, 8, 0, 7, 0, 3, 0, 4, 0, 8, 0, 4, 0, 9, 0, 8, 0 ),
-"blend_shape_data": [  ],
-"format": 2194707,
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_441js"]
+transparency = 1
+cull_mode = 2
+no_depth_test = true
+albedo_color = Color(0.258824, 0.937255, 0.243137, 0.0823529)
+albedo_texture = ExtResource("21")
+emission_enabled = true
+emission = Color(0.529412, 0.913725, 0.227451, 1)
+emission_energy_multiplier = 1.5
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_u6ey0"]
+_surfaces = [{
+"aabb": AABB(-0.637714, -0.466891, 3.34301, 1.27543, 0.933791, 0.0602818),
+"attribute_data": PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 62, 0, 0, 0, 0, 0, 0, 0, 63, 0, 0, 0, 0, 0, 0, 64, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 62, 0, 0, 128, 63, 0, 0, 0, 63, 0, 0, 128, 63, 0, 0, 64, 63, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 63),
+"format": 4115,
 "index_count": 24,
-"primitive": 4,
-"skeleton_aabb": [  ],
-"vertex_count": 10
-}
+"index_data": PackedByteArray(0, 0, 1, 0, 5, 0, 1, 0, 6, 0, 5, 0, 1, 0, 2, 0, 6, 0, 2, 0, 7, 0, 6, 0, 2, 0, 3, 0, 7, 0, 3, 0, 8, 0, 7, 0, 3, 0, 4, 0, 8, 0, 4, 0, 9, 0, 8, 0),
+"primitive": 3,
+"vertex_count": 10,
+"vertex_data": PackedByteArray(55, 65, 35, 191, 77, 12, 239, 62, 237, 243, 85, 64, 165, 109, 111, 141, 133, 251, 163, 190, 77, 12, 239, 62, 30, 216, 88, 64, 46, 118, 79, 142, 0, 0, 0, 0, 77, 12, 239, 62, 149, 207, 89, 64, 255, 127, 112, 143, 133, 251, 163, 62, 77, 12, 239, 62, 30, 216, 88, 64, 208, 137, 79, 142, 55, 65, 35, 63, 77, 12, 239, 62, 237, 243, 85, 64, 89, 146, 111, 141, 55, 65, 35, 191, 77, 12, 239, 190, 237, 243, 85, 64, 165, 109, 143, 114, 133, 251, 163, 190, 77, 12, 239, 190, 30, 216, 88, 64, 46, 118, 175, 113, 0, 0, 0, 0, 77, 12, 239, 190, 149, 207, 89, 64, 255, 127, 142, 112, 133, 251, 163, 62, 77, 12, 239, 190, 30, 216, 88, 64, 208, 137, 175, 113, 55, 65, 35, 63, 77, 12, 239, 190, 237, 243, 85, 64, 89, 146, 143, 114)
+}]
 
-[sub_resource type="SpatialMaterial" id=17]
-flags_transparent = true
-flags_no_depth_test = true
-albedo_color = Color( 1, 1, 1, 0.0352941 )
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cbb3q"]
+transparency = 1
+albedo_color = Color(0.196078, 0.85098, 0.34902, 0.454902)
 emission_enabled = true
-emission = Color( 0.317647, 0.85098, 0.921569, 1 )
-emission_energy = 7.68
-emission_operator = 0
-emission_on_uv2 = false
-uv1_scale = Vector3( 6.305, 1, 1 )
+emission = Color(0.407843, 0.67451, 0.34902, 1)
+emission_energy_multiplier = 3.0
 
-[sub_resource type="SpatialMaterial" id=18]
-flags_transparent = true
-flags_no_depth_test = true
-albedo_color = Color( 1, 1, 1, 0.443137 )
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1nmus"]
+transparency = 1
+shading_mode = 2
+albedo_color = Color(0.0862745, 0.560784, 0.603922, 0.470588)
 emission_enabled = true
-emission = Color( 0.447059, 0.52549, 0.937255, 1 )
-emission_energy = 3.0
-emission_operator = 0
-emission_on_uv2 = false
+emission = Color(0.101961, 0.52549, 0.576471, 1)
+emission_energy_multiplier = 2.0
 
-[sub_resource type="SpatialMaterial" id=19]
-flags_transparent = true
-flags_no_depth_test = true
-albedo_color = Color( 0.776471, 0.239216, 0.239216, 0.513726 )
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_h6xkm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_226e6"]
+transparency = 1
+shading_mode = 2
+albedo_color = Color(0, 0.576471, 0.909804, 0.501961)
 emission_enabled = true
-emission = Color( 0.717647, 0.152941, 0.152941, 1 )
-emission_energy = 3.0
-emission_operator = 0
-emission_on_uv2 = false
+emission = Color(0, 0.419608, 0.878431, 1)
+emission_energy_multiplier = 2.0
 
-[sub_resource type="SpatialMaterial" id=20]
-flags_transparent = true
-flags_no_depth_test = true
-albedo_color = Color( 1, 1, 1, 0.443137 )
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_5mcxn"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_enqjy"]
+transparency = 1
+shading_mode = 2
+albedo_color = Color(0.819608, 0.188235, 0.164706, 0.294118)
 emission_enabled = true
-emission = Color( 0.905882, 0.101961, 0.101961, 1 )
-emission_energy = 3.0
-emission_operator = 0
-emission_on_uv2 = false
+emission = Color(0.729412, 0.0117647, 0.203922, 1)
+emission_energy_multiplier = 3.0
 
-[sub_resource type="SpatialMaterial" id=21]
-flags_transparent = true
-flags_no_depth_test = true
-albedo_color = Color( 0.101961, 0.109804, 0.180392, 0.729412 )
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_kqdct"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8m5vl"]
+albedo_color = Color(0.796078, 0.0784314, 0.231373, 1)
 emission_enabled = true
-emission = Color( 0.0470588, 0.0980392, 0.12549, 1 )
-emission_energy = 5.0
-emission_operator = 0
-emission_on_uv2 = false
+emission = Color(0.890196, 0.129412, 0.27451, 1)
+emission_energy_multiplier = 2.0
 
-[sub_resource type="QuadMesh" id=22]
-size = Vector2( 2, 2 )
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_4sbl4"]
 
-[sub_resource type="CylinderMesh" id=23]
-material = ExtResource( 11 )
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3qwu3"]
+transparency = 2
+alpha_scissor_threshold = 0.047
+alpha_antialiasing_mode = 0
+cull_mode = 2
+albedo_texture = ExtResource("11_7o67c")
+emission_enabled = true
+emission = Color(0.870588, 0.219608, 0.560784, 1)
+emission_energy_multiplier = 10.0
+emission_texture = ExtResource("11_7o67c")
+
+[sub_resource type="QuadMesh" id="QuadMesh_etir3"]
+material = SubResource("StandardMaterial3D_3qwu3")
+size = Vector2(0.2, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6rppg"]
+transparency = 1
+shading_mode = 0
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_xojnb"]
+
+[sub_resource type="GDScript" id="GDScript_wrt45"]
+script/source = "extends Node3D
+
+@onready var cam : Camera3D = $camera_base/camera_tilt/camera_boom/Camera3D
+@export_node_path var character
+
+func _ready():
+	character = get_node(character)
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	#pprint(\"cam y pos %0.4f\"%cam.global_position.y )
+	#pprint(\"character y pos %0.4f\"%character.global_position.y )
+	pass
+
+
+func pprint(thing) -> void:
+	print(\"[camera_root] %s\"%str(thing))
+"
+
+[sub_resource type="QuadMesh" id="QuadMesh_hltci"]
+size = Vector2(2, 2)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_vghl3"]
+material = ExtResource("11")
 top_radius = 0.2
 bottom_radius = 0.2
 height = 0.077
 
-[sub_resource type="CubeMesh" id=24]
+[sub_resource type="BoxMesh" id="BoxMesh_xf7lx"]
+size = Vector3(2, 2, 2)
 
-[node name="player" type="KinematicBody" groups=["Player"]]
+[node name="player" type="CharacterBody3D" groups=["Player"]]
 collision_layer = 2147483649
 collision_mask = 2070
-script = ExtResource( 5 )
+script = ExtResource("5")
+
+[node name="position_label" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1, 0, 0, 0, -1, 0, 3.94954, 0)
+visible = false
+modulate = Color(0.301961, 0.854902, 0.0980392, 0.843137)
+outline_modulate = Color(0, 0, 0, 0)
+text = "location"
+font_size = 100
+script = SubResource("GDScript_wpqoc")
+camera_node_path = NodePath("../camera_root/camera_base/camera_tilt/camera_boom/Camera3D")
+
+[node name="AudioListener3D" type="AudioListener3D" parent="."]
+current = true
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_heuby")
 
 [node name="recoil_animplayer" type="AnimationPlayer" parent="."]
-anims/recoil_time_animation = SubResource( 1 )
-
-[node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 1.11631, -2.79607e-07 )
-shape = SubResource( 2 )
-
-[node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 1.54973, -3.5022e-07 )
-mesh = SubResource( 3 )
-
-[node name="MeshInstance" type="MeshInstance" parent="MeshInstance"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.261, 0.194 )
-mesh = SubResource( 4 )
-material/0 = SubResource( 5 )
-
-[node name="weapon_mount" type="Spatial" parent="MeshInstance"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, -0.44367, 0.628556 )
-
-[node name="hurt_meter" parent="MeshInstance" instance=ExtResource( 7 )]
-transform = Transform( 0.5, 0, 0, 0, -3.27835e-08, 0.5, 0, -0.75, -2.18557e-08, 0, -2.84217e-14, 0.858 )
-mesh = SubResource( 6 )
-
-[node name="dui_root" type="Spatial" parent="MeshInstance"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.69631e-07, -1.04118 )
-script = ExtResource( 14 )
-__meta__ = {
-"_editor_description_": "diegetic UI root
-- gets hidden on _ready"
+libraries = {
+"": SubResource("AnimationLibrary_rbuuo")
 }
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.878, 0)
+shape = SubResource("CapsuleShape3D_fibp2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.54973, -3.5022e-07)
+
+[node name="body_mesh_capsule" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_oi14p")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.261, 0.194)
+mesh = SubResource("BoxMesh_pkjbn")
+
+[node name="weapon_mount" type="Node3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, -0.44367, 0.628556)
+
+[node name="hurt_meter" parent="MeshInstance3D" instance=ExtResource("7")]
+transform = Transform3D(0.5, 0, 0, 0, -3.27835e-08, 0.5, 0, -0.75, -2.18557e-08, 0, -2.84217e-14, 0.858)
+mesh = SubResource("CylinderMesh_ivl4h")
+
+[node name="dui_root" type="Node3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.69631e-07, -1.04118)
+script = ExtResource("14")
 weapon_mount = NodePath("../weapon_mount")
 
-[node name="viewports" type="Node" parent="MeshInstance/dui_root"]
+[node name="viewports" type="Node" parent="MeshInstance3D/dui_root"]
 
-[node name="options" type="Node" parent="MeshInstance/dui_root/viewports"]
+[node name="options" type="Node" parent="MeshInstance3D/dui_root/viewports"]
 
-[node name="options_viewport" type="Viewport" parent="MeshInstance/dui_root/viewports/options"]
-size = Vector2( 512, 512 )
+[node name="options_viewport" type="SubViewport" parent="MeshInstance3D/dui_root/viewports/options"]
+disable_3d = true
 transparent_bg = true
 handle_input_locally = false
-msaa = 2
-disable_3d = true
-usage = 0
-render_target_v_flip = true
 gui_snap_controls_to_pixels = false
 
-[node name="options_menu_2d" parent="MeshInstance/dui_root/viewports/options/options_viewport" instance=ExtResource( 23 )]
+[node name="options_menu_2d" parent="MeshInstance3D/dui_root/viewports/options/options_viewport" instance=ExtResource("23")]
 
-[node name="options_bg_viewport" type="Viewport" parent="MeshInstance/dui_root/viewports/options"]
-size = Vector2( 512, 512 )
-transparent_bg = true
-msaa = 1
-hdr = false
+[node name="options_bg_viewport" type="SubViewport" parent="MeshInstance3D/dui_root/viewports/options"]
 disable_3d = true
-usage = 0
-render_target_v_flip = true
+transparent_bg = true
 gui_disable_input = true
 gui_snap_controls_to_pixels = false
-__meta__ = {
-"_editor_description_": "this viewport is simply for an alpha for the options viewport texture"
-}
 
-[node name="Node2D" parent="MeshInstance/dui_root/viewports/options/options_bg_viewport" instance=ExtResource( 24 )]
+[node name="Node2D" parent="MeshInstance3D/dui_root/viewports/options/options_bg_viewport" instance=ExtResource("24")]
 
-[node name="inventory" type="Node" parent="MeshInstance/dui_root/viewports"]
+[node name="inventory" type="Node" parent="MeshInstance3D/dui_root/viewports"]
 
-[node name="inventory_2d_viewport" type="Viewport" parent="MeshInstance/dui_root/viewports/inventory"]
-size = Vector2( 512, 512 )
+[node name="inventory_2d_viewport" type="SubViewport" parent="MeshInstance3D/dui_root/viewports/inventory"]
 transparent_bg = true
-render_target_v_flip = true
 
-[node name="inventory_2d" parent="MeshInstance/dui_root/viewports/inventory/inventory_2d_viewport" instance=ExtResource( 19 )]
+[node name="inventory_2d" parent="MeshInstance3D/dui_root/viewports/inventory/inventory_2d_viewport" instance=ExtResource("19")]
 
-[node name="static_stack" type="Spatial" parent="MeshInstance/dui_root"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0 )
+[node name="static_stack" type="Node3D" parent="MeshInstance3D/dui_root"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
 
-[node name="inventory_items" type="Spatial" parent="MeshInstance/dui_root/static_stack"]
-transform = Transform( -0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 0, 0, 0 )
+[node name="inventory_items" type="Node3D" parent="MeshInstance3D/dui_root/static_stack"]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 0, 0, 0)
 
-[node name="weapons_items" type="Spatial" parent="MeshInstance/dui_root/static_stack/inventory_items"]
-script = ExtResource( 16 )
+[node name="weapons_items" type="Node3D" parent="MeshInstance3D/dui_root/static_stack/inventory_items"]
+script = ExtResource("16")
 equip_slots_path = NodePath("../../equip_slots")
 
-[node name="slots" type="Spatial" parent="MeshInstance/dui_root/static_stack/inventory_items/weapons_items"]
+[node name="slots" type="Node3D" parent="MeshInstance3D/dui_root/static_stack/inventory_items/weapons_items"]
 
-[node name="weapon_inv_slot" parent="MeshInstance/dui_root/static_stack/inventory_items/weapons_items/slots" instance=ExtResource( 2 )]
+[node name="weapon_inv_slot" parent="MeshInstance3D/dui_root/static_stack/inventory_items/weapons_items/slots" instance=ExtResource("2")]
 
-[node name="selector" type="Spatial" parent="MeshInstance/dui_root/static_stack/inventory_items/weapons_items"]
-script = ExtResource( 25 )
+[node name="selector" type="Node3D" parent="MeshInstance3D/dui_root/static_stack/inventory_items/weapons_items"]
+script = ExtResource("25")
 
-[node name="selector_icon" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/weapons_items/selector"]
-transform = Transform( -1.40034, -7.10543e-15, -2.38419e-07, 7.10543e-14, 1.40034, -6.39488e-14, 2.38419e-07, 7.10543e-15, -1.40034, -3.36427e-08, 0, 1 )
-mesh = SubResource( 28 )
-material/0 = SubResource( 29 )
+[node name="selector_icon" type="MeshInstance3D" parent="MeshInstance3D/dui_root/static_stack/inventory_items/weapons_items/selector"]
+transform = Transform3D(-1.40034, -7.10543e-15, -2.38419e-07, 7.10543e-14, 1.40034, -6.39488e-14, 2.38419e-07, 7.10543e-15, -1.40034, -3.36427e-08, 0, 1)
+mesh = SubResource("QuadMesh_y465d")
 
-[node name="LineRenderer" parent="MeshInstance/dui_root/static_stack/inventory_items/weapons_items/selector/selector_icon" instance=ExtResource( 10 )]
-material_override = SubResource( 38 )
-points = [ Vector3( 0, 0, 0 ), Vector3( 0, 0, -1.284 ) ]
-startThickness = 0.025
-endThickness = 0.025
-cornerSmooth = 3
-capSmooth = 3
+[node name="LineRenderer" parent="MeshInstance3D/dui_root/static_stack/inventory_items/weapons_items/selector/selector_icon" instance=ExtResource("10")]
+material_override = SubResource("StandardMaterial3D_a5cqb")
+mesh = SubResource("ImmediateMesh_tvj42")
+points = [Vector3(0, 0, 0), Vector3(0, 0, -1.584)]
+startThickness = 0.2
+endThickness = 0.2
 globalCoords = false
 
-[node name="selector_icon_2" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/weapons_items/selector/selector_icon"]
-transform = Transform( 1, -7.10543e-15, 0, 0, 1, 0, 0, 7.10543e-15, 1, 0, -1.19209e-07, -1.59247 )
-mesh = SubResource( 28 )
+[node name="selector_icon_2" type="MeshInstance3D" parent="MeshInstance3D/dui_root/static_stack/inventory_items/weapons_items/selector/selector_icon"]
+transform = Transform3D(1, -7.10543e-15, 0, 0, 1, 0, 0, 7.10543e-15, 1, 0, -1.19209e-07, -1.59247)
+mesh = SubResource("QuadMesh_y465d")
 skeleton = NodePath("../..")
-material/0 = SubResource( 29 )
 
-[node name="scrollbar" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items/weapons_items"]
-transform = Transform( -8.9407e-08, 0, -1, 0, 1, 0, 1, 0, -8.9407e-08, 4.26326e-14, -0.717915, -4.26326e-14 )
-material_override = SubResource( 37 )
-mesh = SubResource( 35 )
-script = ExtResource( 18 )
+[node name="scrollbar" type="MeshInstance3D" parent="MeshInstance3D/dui_root/static_stack/inventory_items/weapons_items"]
+transform = Transform3D(-8.9407e-08, 0, -1, 0, 1, 0, 1, 0, -8.9407e-08, 4.26326e-14, -0.717915, -4.26326e-14)
+material_override = SubResource("ShaderMaterial_nud2n")
+mesh = SubResource("ArrayMesh_8ow5k")
+script = ExtResource("18")
 rings = 1
 radial_segments = 16
 height = 0.338
@@ -526,68 +583,66 @@ zenith_max = 0.6
 arc_length = 0.4
 arc_offset = 0.048
 
-[node name="slots_shift_tween" type="Tween" parent="MeshInstance/dui_root/static_stack/inventory_items/weapons_items"]
+[node name="slots_shift_tween" type="Node" parent="MeshInstance3D/dui_root/static_stack/inventory_items/weapons_items"]
 
-[node name="screen" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/inventory_items"]
-transform = Transform( 1.13301, 1.63701e-07, -0.0951222, -1.71421e-07, 1.082, 1.43701e-08, -0.0951222, -2.04414e-11, -1.13301, 3.71472e-07, 2.45529, -4.63132e-11 )
-material_override = SubResource( 25 )
-mesh = ExtResource( 22 )
+[node name="screen" type="MeshInstance3D" parent="MeshInstance3D/dui_root/static_stack/inventory_items"]
+transform = Transform3D(1.13301, 1.63701e-07, -0.0951222, -1.71421e-07, 1.082, 1.43701e-08, -0.0951222, -2.04414e-11, -1.13301, 3.71472e-07, 2.45529, -4.63132e-11)
+material_override = SubResource("StandardMaterial3D_e8ga1")
+mesh = ExtResource("22")
 skeleton = NodePath("../../options")
 
-[node name="radar_dots" type="Spatial" parent="MeshInstance/dui_root/static_stack"]
-script = ExtResource( 15 )
+[node name="radar_dots" type="Node3D" parent="MeshInstance3D/dui_root/static_stack"]
+script = ExtResource("15")
 
-[node name="Area" type="Area" parent="MeshInstance/dui_root/static_stack/radar_dots"]
+[node name="Area3D" type="Area3D" parent="MeshInstance3D/dui_root/static_stack/radar_dots"]
+collision_mask = 1029
 
-[node name="CollisionShape" type="CollisionShape" parent="MeshInstance/dui_root/static_stack/radar_dots/Area"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.24177, -1.48031e-07 )
-shape = SubResource( 10 )
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/dui_root/static_stack/radar_dots/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.24177, -1.48031e-07)
+shape = SubResource("CylinderShape3D_ue1v6")
 
-[node name="radar_dot" parent="MeshInstance/dui_root/static_stack/radar_dots" instance=ExtResource( 20 )]
-transform = Transform( 0.2, 0, 0, 0, -8.74228e-09, 0.2, 0, -0.2, -8.74228e-09, 0, -2.38419e-07, 1.88822 )
+[node name="radar_dot" parent="MeshInstance3D/dui_root/static_stack/radar_dots" instance=ExtResource("20")]
+transform = Transform3D(0.2, 0, 0, 0, -8.74228e-09, 0.2, 0, -0.2, -8.74228e-09, 0, -2.38419e-07, 1.88822)
 
-[node name="magazine" type="Spatial" parent="MeshInstance/dui_root/static_stack"]
+[node name="magazine" type="Node3D" parent="MeshInstance3D/dui_root/static_stack"]
 
-[node name="full_arc" parent="MeshInstance/dui_root/static_stack/magazine" instance=ExtResource( 10 )]
-material_override = SubResource( 11 )
+[node name="full_arc" parent="MeshInstance3D/dui_root/static_stack/magazine" instance=ExtResource("10")]
+material_override = SubResource("StandardMaterial3D_vbhye")
+mesh = SubResource("ImmediateMesh_t3ptj")
 startThickness = 0.075
 endThickness = 0.075
-cornerSmooth = 3
-capSmooth = 3
 drawCaps = false
 globalCoords = false
 
-[node name="count" parent="MeshInstance/dui_root/static_stack/magazine" instance=ExtResource( 10 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0 )
-material_override = SubResource( 12 )
+[node name="count" parent="MeshInstance3D/dui_root/static_stack/magazine" instance=ExtResource("10")]
+transform = Transform3D(0.999716, 0, 0, 0, 0.999716, 0, 0, 0, 0.999716, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_j4vrx")
+mesh = SubResource("ImmediateMesh_0jhyp")
 startThickness = 0.075
 endThickness = 0.075
-cornerSmooth = 2
-capSmooth = 3
-drawCaps = false
 globalCoords = false
 
-[node name="options" type="Spatial" parent="MeshInstance/dui_root/static_stack"]
+[node name="options" type="Node3D" parent="MeshInstance3D/dui_root/static_stack"]
 
-[node name="screen" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/options"]
-transform = Transform( -1.31568, -2.16204e-07, 1.31568, -2.80951e-07, 2.02495, 0, 1.31568, 2.16204e-07, 1.31568, 0, 0, 0 )
+[node name="screen" type="MeshInstance3D" parent="MeshInstance3D/dui_root/static_stack/options"]
+transform = Transform3D(-1.31568, -2.16204e-07, 1.31568, -2.80951e-07, 2.02495, 0, 1.31568, 2.16204e-07, 1.31568, 0, 0, 0)
 visible = false
-material_override = SubResource( 16 )
-mesh = ExtResource( 22 )
+material_override = SubResource("StandardMaterial3D_2ivi6")
+mesh = ExtResource("22")
 
-[node name="equip_slots" type="Spatial" parent="MeshInstance/dui_root/static_stack"]
-transform = Transform( -0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 0, 0, 0 )
+[node name="equip_slots" type="Node3D" parent="MeshInstance3D/dui_root/static_stack"]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 0, 0, 0)
 
-[node name="slot1" type="Spatial" parent="MeshInstance/dui_root/static_stack/equip_slots"]
-transform = Transform( 0.906308, 0, 0.422618, 0, 1, 0, -0.422618, 0, 0.906308, 0, 0, 0 )
-script = ExtResource( 26 )
+[node name="slot1" type="Node3D" parent="MeshInstance3D/dui_root/static_stack/equip_slots"]
+transform = Transform3D(0.906308, 0, 0.422618, 0, 1, 0, -0.422618, 0, 0.906308, 0, 0, 0)
+script = ExtResource("26")
 
-[node name="bg" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/equip_slots/slot1"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.50791e-07, 0, -1.50791e-07 )
-material_override = SubResource( 39 )
-mesh = SubResource( 30 )
+[node name="panel" type="MeshInstance3D" parent="MeshInstance3D/dui_root/static_stack/equip_slots/slot1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.50791e-07, 0, -1.50791e-07)
+material_override = SubResource("StandardMaterial3D_s305v")
+mesh = SubResource("ArrayMesh_jyas3")
 skeleton = NodePath("../..")
-script = ExtResource( 18 )
+script = ExtResource("18")
 rings = 1
 radial_segments = 5
 height = 2.0
@@ -598,20 +653,20 @@ arc_length = 0.06
 arc_offset = -0.03
 flip_v = true
 
-[node name="equip_indicator" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/equip_slots/slot1/bg"]
-transform = Transform( 6.27722, 2.68221e-07, 0, -5.68434e-14, -4.37114e-08, 1, 1.43051e-06, -1, -4.37114e-08, 1.86676e-07, 0.808459, 3.308 )
-mesh = SubResource( 42 )
-material/0 = SubResource( 43 )
+[node name="equip_indicator" type="MeshInstance3D" parent="MeshInstance3D/dui_root/static_stack/equip_slots/slot1/panel"]
+transform = Transform3D(6.27722, 2.68221e-07, 0, -5.68434e-14, -4.37114e-08, 1, 1.43051e-06, -1, -4.37114e-08, 1.86676e-07, 0.808459, 3.308)
+mesh = SubResource("PlaneMesh_v1bty")
+surface_material_override/0 = SubResource("StandardMaterial3D_g7fym")
 
-[node name="slot2" type="Spatial" parent="MeshInstance/dui_root/static_stack/equip_slots"]
-script = ExtResource( 26 )
+[node name="slot2" type="Node3D" parent="MeshInstance3D/dui_root/static_stack/equip_slots"]
+script = ExtResource("26")
 
-[node name="bg" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/equip_slots/slot2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.50791e-07, 0, -1.50791e-07 )
-material_override = SubResource( 40 )
-mesh = SubResource( 32 )
+[node name="panel" type="MeshInstance3D" parent="MeshInstance3D/dui_root/static_stack/equip_slots/slot2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.50791e-07, 0, -1.50791e-07)
+material_override = SubResource("StandardMaterial3D_g51mj")
+mesh = SubResource("ArrayMesh_55k8a")
 skeleton = NodePath("../..")
-script = ExtResource( 18 )
+script = ExtResource("18")
 rings = 1
 radial_segments = 5
 height = 2.0
@@ -622,22 +677,22 @@ arc_length = 0.06
 arc_offset = -0.03
 flip_v = true
 
-[node name="equip_indicator" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/equip_slots/slot2/bg"]
-transform = Transform( 6.27722, 0, -7.10543e-15, 1.13687e-13, -4.37114e-08, 1, 0, -1, -4.37114e-08, 5.39848e-08, 0.808459, 3.3 )
-mesh = SubResource( 42 )
-skeleton = NodePath("../../../slot1/bg")
-material/0 = SubResource( 43 )
+[node name="equip_indicator" type="MeshInstance3D" parent="MeshInstance3D/dui_root/static_stack/equip_slots/slot2/panel"]
+transform = Transform3D(6.27722, 0, -7.10543e-15, 1.13687e-13, -4.37114e-08, 1, 0, -1, -4.37114e-08, 5.39848e-08, 0.808459, 3.3)
+mesh = SubResource("PlaneMesh_v1bty")
+skeleton = NodePath("../../../slot1/panel")
+surface_material_override/0 = SubResource("StandardMaterial3D_kgb85")
 
-[node name="slot3" type="Spatial" parent="MeshInstance/dui_root/static_stack/equip_slots"]
-transform = Transform( 0.906308, 0, -0.422618, 0, 1, 0, 0.422618, 0, 0.906308, 0, 0, 0 )
-script = ExtResource( 26 )
+[node name="slot3" type="Node3D" parent="MeshInstance3D/dui_root/static_stack/equip_slots"]
+transform = Transform3D(0.906308, 0, -0.422618, 0, 1, 0, 0.422618, 0, 0.906308, 0, 0, 0)
+script = ExtResource("26")
 
-[node name="bg" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/equip_slots/slot3"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0039e-07, 0, -7.2936e-08 )
-material_override = SubResource( 41 )
-mesh = SubResource( 33 )
+[node name="panel" type="MeshInstance3D" parent="MeshInstance3D/dui_root/static_stack/equip_slots/slot3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0039e-07, 0, -7.2936e-08)
+material_override = SubResource("StandardMaterial3D_441js")
+mesh = SubResource("ArrayMesh_u6ey0")
 skeleton = NodePath("../..")
-script = ExtResource( 18 )
+script = ExtResource("18")
 rings = 1
 radial_segments = 5
 height = 2.0
@@ -648,143 +703,143 @@ arc_length = 0.06
 arc_offset = -0.03
 flip_v = true
 
-[node name="equip_indicator" type="MeshInstance" parent="MeshInstance/dui_root/static_stack/equip_slots/slot3/bg"]
-transform = Transform( 6.27722, 0, 0, 1.13687e-13, -4.37114e-08, 1, 2.38419e-07, -1, -4.37114e-08, 7.17419e-08, 0.808459, 3.3 )
-mesh = SubResource( 42 )
-skeleton = NodePath("../../../slot1/bg")
-material/0 = SubResource( 43 )
+[node name="equip_indicator" type="MeshInstance3D" parent="MeshInstance3D/dui_root/static_stack/equip_slots/slot3/panel"]
+transform = Transform3D(6.27722, 0, 0, 1.13687e-13, -4.37114e-08, 1, 2.38419e-07, -1, -4.37114e-08, 7.17419e-08, 0.808459, 3.3)
+mesh = SubResource("PlaneMesh_v1bty")
+skeleton = NodePath("../../../slot1/panel")
+surface_material_override/0 = SubResource("StandardMaterial3D_cbb3q")
 
-[node name="inventory_ring" parent="MeshInstance/dui_root" instance=ExtResource( 10 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0 )
-material_override = SubResource( 17 )
-points = [ Vector3( 0, 0, 2.25 ), Vector3( 0.439, 0, 2.207 ), Vector3( 0.861, 0, 2.079 ), Vector3( 1.25, 0, 1.87 ), Vector3( 1.591, 0, 1.591 ), Vector3( 1.871, 0, 1.25 ), Vector3( 2.079, 0, 0.861 ), Vector3( 2.207, 0, 0.439 ), Vector3( 2.25, 0, 0 ), Vector3( 2.207, 0, -0.439 ), Vector3( 2.079, 0, -0.861 ), Vector3( 1.871, 0, -1.25 ), Vector3( 1.591, 0, -1.591 ), Vector3( 1.25, 0, -1.871 ), Vector3( 0.861, 0, -2.079 ), Vector3( 0.439, 0, -2.207 ), Vector3( 0, 0, -2.25 ), Vector3( -0.439, 0, -2.207 ), Vector3( -0.861, 0, -2.079 ), Vector3( -1.25, 0, -1.871 ), Vector3( -1.591, 0, -1.591 ), Vector3( -1.871, 0, -1.25 ), Vector3( -2.079, 0, -0.861 ), Vector3( -2.207, 0, -0.439 ), Vector3( -2.25, 0, 0 ), Vector3( -2.207, 0, 0.439 ), Vector3( -2.079, 0, 0.861 ), Vector3( -1.871, 0, 1.25 ), Vector3( -1.591, 0, 1.591 ), Vector3( -1.25, 0, 1.871 ), Vector3( -0.861, 0, 2.079 ), Vector3( -0.439, 0, 2.207 ), Vector3( 0, 0, 2.25 ) ]
+[node name="inventory_ring" parent="MeshInstance3D/dui_root" instance=ExtResource("10")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
+material_override = SubResource("StandardMaterial3D_1nmus")
+mesh = SubResource("ImmediateMesh_h6xkm")
+points = [Vector3(0, 0, 0), Vector3(0, 0.01, 0)]
 startThickness = 0.02
 endThickness = 0.02
-cornerSmooth = 2
-capSmooth = 2
 drawCaps = false
 globalCoords = false
-scaleTexture = false
 
-[node name="LineRenderer" parent="MeshInstance/dui_root/inventory_ring" instance=ExtResource( 10 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.38419e-07, 1.54801 )
-material_override = SubResource( 18 )
-points = [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 0.5 ) ]
+[node name="LineRenderer" parent="MeshInstance3D/dui_root/inventory_ring" instance=ExtResource("10")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.548)
+material_override = SubResource("StandardMaterial3D_226e6")
+mesh = SubResource("ImmediateMesh_5mcxn")
+points = [Vector3(0, 0, 0), Vector3(0, 0, 0.5)]
 startThickness = 0.05
 endThickness = 0.05
 globalCoords = false
 
-[node name="weapons_ring" parent="MeshInstance/dui_root" instance=ExtResource( 10 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0 )
-material_override = SubResource( 19 )
-points = [ Vector3( 0, 0, 2.25 ), Vector3( 0.439, 0, 2.207 ), Vector3( 0.861, 0, 2.079 ), Vector3( 1.25, 0, 1.87 ), Vector3( 1.591, 0, 1.591 ), Vector3( 1.871, 0, 1.25 ), Vector3( 2.079, 0, 0.861 ), Vector3( 2.207, 0, 0.439 ), Vector3( 2.25, 0, 0 ), Vector3( 2.207, 0, -0.439 ), Vector3( 2.079, 0, -0.861 ), Vector3( 1.871, 0, -1.25 ), Vector3( 1.591, 0, -1.591 ), Vector3( 1.25, 0, -1.871 ), Vector3( 0.861, 0, -2.079 ), Vector3( 0.439, 0, -2.207 ), Vector3( 0, 0, -2.25 ), Vector3( -0.439, 0, -2.207 ), Vector3( -0.861, 0, -2.079 ), Vector3( -1.25, 0, -1.871 ), Vector3( -1.591, 0, -1.591 ), Vector3( -1.871, 0, -1.25 ), Vector3( -2.079, 0, -0.861 ), Vector3( -2.207, 0, -0.439 ), Vector3( -2.25, 0, 0 ), Vector3( -2.207, 0, 0.439 ), Vector3( -2.079, 0, 0.861 ), Vector3( -1.871, 0, 1.25 ), Vector3( -1.591, 0, 1.591 ), Vector3( -1.25, 0, 1.871 ), Vector3( -0.861, 0, 2.079 ), Vector3( -0.439, 0, 2.207 ), Vector3( 0, 0, 2.25 ) ]
-startThickness = 0.02
-endThickness = 0.02
-cornerSmooth = 2
-capSmooth = 2
+[node name="weapons_ring" parent="MeshInstance3D/dui_root" instance=ExtResource("10")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
+material_override = SubResource("StandardMaterial3D_enqjy")
+mesh = SubResource("ImmediateMesh_kqdct")
+points = [Vector3(0, 0, 0), Vector3(0, 0.1, 0)]
+startThickness = 0.05
+endThickness = 0.05
 drawCaps = false
 globalCoords = false
-scaleTexture = false
 
-[node name="LineRenderer" parent="MeshInstance/dui_root/weapons_ring" instance=ExtResource( 10 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.38419e-07, 2.27603 )
-material_override = SubResource( 20 )
-points = [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 0.222 ) ]
+[node name="LineRenderer" parent="MeshInstance3D/dui_root/weapons_ring" instance=ExtResource("10")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.276)
+material_override = SubResource("StandardMaterial3D_8m5vl")
+mesh = SubResource("ImmediateMesh_4sbl4")
+points = [Vector3(0, 0, 0), Vector3(0, 0, 0.222)]
 startThickness = 0.03
 endThickness = 0.0
 globalCoords = false
 
-[node name="options_ring" parent="MeshInstance/dui_root" instance=ExtResource( 10 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.225, 0 )
-material_override = SubResource( 21 )
-points = [ Vector3( 0, 0, 2.25 ), Vector3( 0.439, 0, 2.207 ), Vector3( 0.861, 0, 2.079 ), Vector3( 1.25, 0, 1.87 ), Vector3( 1.591, 0, 1.591 ), Vector3( 1.871, 0, 1.25 ), Vector3( 2.079, 0, 0.861 ), Vector3( 2.207, 0, 0.439 ), Vector3( 2.25, 0, 0 ), Vector3( 2.207, 0, -0.439 ), Vector3( 2.079, 0, -0.861 ), Vector3( 1.871, 0, -1.25 ), Vector3( 1.591, 0, -1.591 ), Vector3( 1.25, 0, -1.871 ), Vector3( 0.861, 0, -2.079 ), Vector3( 0.439, 0, -2.207 ), Vector3( 0, 0, -2.25 ), Vector3( -0.439, 0, -2.207 ), Vector3( -0.861, 0, -2.079 ), Vector3( -1.25, 0, -1.871 ), Vector3( -1.591, 0, -1.591 ), Vector3( -1.871, 0, -1.25 ), Vector3( -2.079, 0, -0.861 ), Vector3( -2.207, 0, -0.439 ), Vector3( -2.25, 0, 0 ), Vector3( -2.207, 0, 0.439 ), Vector3( -2.079, 0, 0.861 ), Vector3( -1.871, 0, 1.25 ), Vector3( -1.591, 0, 1.591 ), Vector3( -1.25, 0, 1.871 ), Vector3( -0.861, 0, 2.079 ), Vector3( -0.439, 0, 2.207 ), Vector3( 0, 0, 2.25 ) ]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D/dui_root/weapons_ring/LineRenderer"]
+transform = Transform3D(2.33863, 0, 0, 0, 1.39384, 0, 0, 0, 1, 0, 0.417111, 0)
+mesh = SubResource("QuadMesh_etir3")
+
+[node name="options_ring" parent="MeshInstance3D/dui_root" instance=ExtResource("10")]
+material_override = SubResource("StandardMaterial3D_6rppg")
+mesh = SubResource("ImmediateMesh_xojnb")
+points = [Vector3(0, 0, 0), Vector3(0, 0.1, 0)]
 startThickness = 0.08
 endThickness = 0.08
-cornerSmooth = 2
-capSmooth = 2
 drawCaps = false
 globalCoords = false
-scaleTexture = false
 
-[node name="invoke_tween" type="Tween" parent="MeshInstance/dui_root"]
+[node name="invoke_tween" type="Node" parent="MeshInstance3D/dui_root"]
 
 [node name="Controller" type="Node" parent="."]
-script = ExtResource( 1 )
+script = ExtResource("1")
 PlayerPath = NodePath("..")
-CameraPath = NodePath("../camera_root/camera_base/camera_tilt/camera_boom/Camera")
+CameraPath = NodePath("../camera_root/camera_base/camera_tilt/camera_boom/Camera3D")
 CameraRootPath = NodePath("../camera_root")
-MeshInstancePath = NodePath("../MeshInstance")
-DUI_Root = NodePath("../MeshInstance/dui_root")
+MeshInstancePath = NodePath("../MeshInstance3D")
+DUI_Root = NodePath("../MeshInstance3D/dui_root")
 min_zoom = 80.0
 
 [node name="WeaponController" type="Node" parent="."]
-script = ExtResource( 27 )
+script = ExtResource("27")
 PlayerPath = NodePath("..")
-WeaponMountPath = NodePath("../MeshInstance/weapon_mount")
-DUI_Root = NodePath("../MeshInstance/dui_root")
-EquipSlots = NodePath("../MeshInstance/dui_root/static_stack/equip_slots")
+WeaponMountPath = NodePath("../MeshInstance3D/weapon_mount")
+DUI_Root = NodePath("../MeshInstance3D/dui_root")
+EquipSlots = NodePath("../MeshInstance3D/dui_root/static_stack/equip_slots")
 
-[node name="RayCast" type="RayCast" parent="."]
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.004, 0)
 collision_mask = 2
 
-[node name="camera_root" type="Spatial" parent="."]
+[node name="camera_root" type="Node3D" parent="."]
+script = SubResource("GDScript_wrt45")
+character = NodePath("..")
 
-[node name="camera_base" type="Spatial" parent="camera_root"]
-transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0 )
-__meta__ = {
-"_editor_description_": "for y rotation of camera rig"
-}
+[node name="camera_base" type="Node3D" parent="camera_root"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)
 
-[node name="camera_tilt" type="Spatial" parent="camera_root/camera_base"]
-transform = Transform( 1, 0, 0, 0, 0.512433, 0.858728, 0, -0.858728, 0.512433, 0, 0, 0 )
+[node name="camera_tilt" type="Node3D" parent="camera_root/camera_base"]
+transform = Transform3D(1, 0, 0, 0, 0.512433, 0.858728, 0, -0.858728, 0.512433, 0, 0, 0)
 
-[node name="camera_boom" type="Spatial" parent="camera_root/camera_base/camera_tilt"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 30 )
+[node name="camera_boom" type="Node3D" parent="camera_root/camera_base/camera_tilt"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 30)
 
-[node name="Camera" type="Camera" parent="camera_root/camera_base/camera_tilt/camera_boom"]
+[node name="Camera3D" type="Camera3D" parent="camera_root/camera_base/camera_tilt/camera_boom"]
 current = true
 fov = 42.0
 far = 300.0
 
-[node name="motion_blur" type="MeshInstance" parent="camera_root/camera_base/camera_tilt/camera_boom/Camera"]
-transform = Transform( 1, 0, 0, 0, 1, 1.49012e-07, 0, 0, 1, 0, 0, -1.05979 )
+[node name="motion_blur" type="MeshInstance3D" parent="camera_root/camera_base/camera_tilt/camera_boom/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 1.49012e-07, 0, 0, 1, 0, 0, -1.05979)
 visible = false
-mesh = SubResource( 22 )
-material/0 = ExtResource( 4 )
-script = ExtResource( 3 )
+mesh = SubResource("QuadMesh_hltci")
+script = ExtResource("3")
 
-[node name="icons" type="Spatial" parent="."]
+[node name="AudioListener3D" type="AudioListener3D" parent="camera_root/camera_base/camera_tilt/camera_boom/Camera3D"]
+current = true
+
+[node name="icons" type="Node3D" parent="."]
 
 [node name="death_icon" type="Sprite3D" parent="icons"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.50934, 0 )
-opacity = 0.9
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.50934, 0)
 pixel_size = 0.03
 billboard = 1
-texture = ExtResource( 8 )
+texture = ExtResource("8")
 
-[node name="waist" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.796748, 0 )
+[node name="waist" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.796748, 0)
 
-[node name="waist_position" type="Position3D" parent="waist"]
+[node name="waist_position" type="Marker3D" parent="waist"]
 
-[node name="hip_1_position" type="Position3D" parent="waist"]
-transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0.110324, -0.0499119, -0.110315 )
+[node name="hip_1_position" type="Marker3D" parent="waist"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0.110324, -0.0499119, -0.110315)
 
-[node name="hip_2_position" type="Position3D" parent="waist"]
-transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0.110311, -0.05, 0.110315 )
+[node name="hip_2_position" type="Marker3D" parent="waist"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0.110311, -0.05, 0.110315)
 
-[node name="hip_3_position" type="Position3D" parent="waist"]
-transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -0.110306, -0.05, 0.110315 )
+[node name="hip_3_position" type="Marker3D" parent="waist"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -0.110306, -0.05, 0.110315)
 
-[node name="hip_4_position" type="Position3D" parent="waist"]
-transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -0.110306, -0.05, -0.110302 )
+[node name="hip_4_position" type="Marker3D" parent="waist"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -0.110306, -0.05, -0.110302)
 
-[node name="waist_geo" type="MeshInstance" parent="waist"]
-mesh = SubResource( 23 )
+[node name="waist_geo" type="MeshInstance3D" parent="waist"]
+mesh = SubResource("CylinderMesh_vghl3")
 
-[node name="leg_1" type="Spatial" parent="."]
-transform = Transform( 0.706988, 0, 0.707003, 0, 0.99999, 0, -0.707004, 0, 0.706987, 0.110324, 0.746836, -0.110315 )
-script = ExtResource( 12 )
+[node name="leg_1" type="Node3D" parent="."]
+transform = Transform3D(0.706988, 0, 0.707003, 0, 0.99999, 0, -0.707004, 0, 0.706987, 0.110324, 0.746836, -0.110315)
+script = ExtResource("12")
 hip_node_path = NodePath("../waist/hip_1_position")
 toe_node_path = NodePath("../toe_1_position")
 length_hip = 0.292
@@ -793,46 +848,46 @@ length_shin = 0.98
 bone_depth = 0.15
 a_m = 1.5
 
-[node name="hip_joint" type="Spatial" parent="leg_1"]
-transform = Transform( 0.657677, 0.7533, 0, -0.7533, 0.657677, 0, 0, 0, 1, 0, 0, 0 )
+[node name="hip_joint" type="Node3D" parent="leg_1"]
+transform = Transform3D(0.657677, 0.7533, 0, -0.7533, 0.657677, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="Position3D" type="Position3D" parent="leg_1/hip_joint"]
-transform = Transform( 1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0 )
+[node name="Marker3D" type="Marker3D" parent="leg_1/hip_joint"]
+transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0)
 visible = false
 
-[node name="polygon" type="CSGPolygon" parent="leg_1/hip_joint"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.075 )
-material_override = ExtResource( 13 )
-polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.292, 0 )
+[node name="polygon" type="CSGPolygon3D" parent="leg_1/hip_joint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.075)
+material_override = ExtResource("13")
+polygon = PackedVector2Array(0, 0.08, 0, -0.08, 0.292, 0)
 depth = 0.15
 
-[node name="thigh_joint" type="Spatial" parent="leg_1/hip_joint"]
-transform = Transform( -0.494853, -0.868977, 0, 0.868977, -0.494853, 0, 0, 0, 1, 0.292, 0, 0 )
+[node name="thigh_joint" type="Node3D" parent="leg_1/hip_joint"]
+transform = Transform3D(-0.494853, -0.868977, 0, 0.868977, -0.494853, 0, 0, 0, 1, 0.292, 0, 0)
 
-[node name="polygon" type="CSGPolygon" parent="leg_1/hip_joint/thigh_joint"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.075 )
-material_override = ExtResource( 13 )
-polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.456, 0 )
+[node name="polygon" type="CSGPolygon3D" parent="leg_1/hip_joint/thigh_joint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.075)
+material_override = ExtResource("13")
+polygon = PackedVector2Array(0, 0.08, 0, -0.08, 0.456, 0)
 depth = 0.15
 
-[node name="shin_joint" type="Spatial" parent="leg_1/hip_joint/thigh_joint"]
-transform = Transform( -0.852382, 0.52292, 0, -0.52292, -0.852382, 0, 0, 0, 1, 0.456, 0, 0 )
+[node name="shin_joint" type="Node3D" parent="leg_1/hip_joint/thigh_joint"]
+transform = Transform3D(-0.852382, 0.52292, 0, -0.52292, -0.852382, 0, 0, 0, 1, 0.456, 0, 0)
 
-[node name="polygon" type="CSGPolygon" parent="leg_1/hip_joint/thigh_joint/shin_joint"]
-transform = Transform( 1, 1.49012e-08, 0, -1.49012e-08, 1, 1.49012e-08, 0, 1.49012e-08, 1, 0, 1.19209e-07, 0.075 )
-material_override = ExtResource( 13 )
-polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.98, 0 )
+[node name="polygon" type="CSGPolygon3D" parent="leg_1/hip_joint/thigh_joint/shin_joint"]
+transform = Transform3D(1, 1.49012e-08, 0, -1.49012e-08, 1, 1.49012e-08, 0, 1.49012e-08, 1, 0, 1.19209e-07, 0.075)
+material_override = ExtResource("13")
+polygon = PackedVector2Array(0, 0.08, 0, -0.08, 0.98, 0)
 depth = 0.15
 
-[node name="toe_joint" type="Spatial" parent="leg_1/hip_joint/thigh_joint/shin_joint"]
+[node name="toe_joint" type="Node3D" parent="leg_1/hip_joint/thigh_joint/shin_joint"]
 
-[node name="MeshInstance" type="MeshInstance" parent="leg_1/hip_joint/thigh_joint/shin_joint"]
-transform = Transform( 0.381, -1.90664e-09, 5.16261e-09, 1.11759e-08, 0.065, 0, -1.49012e-08, 7.45701e-17, 0.132, 0.253681, 0.108, 5.96046e-08 )
-mesh = SubResource( 24 )
+[node name="MeshInstance3D" type="MeshInstance3D" parent="leg_1/hip_joint/thigh_joint/shin_joint"]
+transform = Transform3D(0.381, -1.90664e-09, 5.16261e-09, 1.11759e-08, 0.065, 0, -1.49012e-08, 7.45701e-17, 0.132, 0.253681, 0.108, 5.96046e-08)
+mesh = SubResource("BoxMesh_xf7lx")
 
-[node name="leg_2" type="Spatial" parent="."]
-transform = Transform( 0.706997, 0, -0.70699, 0, 1, 0, 0.70699, 0, 0.706997, 0.110311, 0.746748, 0.110315 )
-script = ExtResource( 12 )
+[node name="leg_2" type="Node3D" parent="."]
+transform = Transform3D(0.706997, 0, -0.70699, 0, 1, 0, 0.70699, 0, 0.706997, 0.110311, 0.746748, 0.110315)
+script = ExtResource("12")
 hip_node_path = NodePath("../waist/hip_2_position")
 toe_node_path = NodePath("../toe_2_position")
 length_hip = 0.292
@@ -842,46 +897,46 @@ bone_depth = 0.15
 a_off = 0.56
 a_m = -1.5
 
-[node name="hip_joint" type="Spatial" parent="leg_2"]
-transform = Transform( 0.657797, 0.753195, 0, -0.753195, 0.657797, 0, 0, 0, 1, 0, 0, 0 )
+[node name="hip_joint" type="Node3D" parent="leg_2"]
+transform = Transform3D(0.657797, 0.753195, 0, -0.753195, 0.657797, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="Position3D" type="Position3D" parent="leg_2/hip_joint"]
-transform = Transform( 1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0 )
+[node name="Marker3D" type="Marker3D" parent="leg_2/hip_joint"]
+transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0)
 visible = false
 
-[node name="polygon" type="CSGPolygon" parent="leg_2/hip_joint"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.075 )
-material_override = ExtResource( 13 )
-polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.292, 0 )
+[node name="polygon" type="CSGPolygon3D" parent="leg_2/hip_joint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.075)
+material_override = ExtResource("13")
+polygon = PackedVector2Array(0, 0.08, 0, -0.08, 0.292, 0)
 depth = 0.15
 
-[node name="thigh_joint" type="Spatial" parent="leg_2/hip_joint"]
-transform = Transform( -0.494938, -0.868928, 0, 0.868928, -0.494938, 0, 0, 0, 1, 0.292, 0, 0 )
+[node name="thigh_joint" type="Node3D" parent="leg_2/hip_joint"]
+transform = Transform3D(-0.494938, -0.868928, 0, 0.868928, -0.494938, 0, 0, 0, 1, 0.292, 0, 0)
 
-[node name="polygon" type="CSGPolygon" parent="leg_2/hip_joint/thigh_joint"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.075 )
-material_override = ExtResource( 13 )
-polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.456, 0 )
+[node name="polygon" type="CSGPolygon3D" parent="leg_2/hip_joint/thigh_joint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.075)
+material_override = ExtResource("13")
+polygon = PackedVector2Array(0, 0.08, 0, -0.08, 0.456, 0)
 depth = 0.15
 
-[node name="shin_joint" type="Spatial" parent="leg_2/hip_joint/thigh_joint"]
-transform = Transform( -0.85247, 0.522776, 0, -0.522776, -0.85247, 0, 0, 0, 1, 0.456, 0, 0 )
+[node name="shin_joint" type="Node3D" parent="leg_2/hip_joint/thigh_joint"]
+transform = Transform3D(-0.85247, 0.522776, 0, -0.522776, -0.85247, 0, 0, 0, 1, 0.456, 0, 0)
 
-[node name="polygon" type="CSGPolygon" parent="leg_2/hip_joint/thigh_joint/shin_joint"]
-transform = Transform( 1, 0, 6.98492e-10, 0, 1, 1.53668e-08, 0, 1.49012e-08, 1, -2.98023e-07, 2.38419e-07, 0.075 )
-material_override = ExtResource( 13 )
-polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.98, 0 )
+[node name="polygon" type="CSGPolygon3D" parent="leg_2/hip_joint/thigh_joint/shin_joint"]
+transform = Transform3D(1, 0, 6.98492e-10, 0, 1, 1.53668e-08, 0, 1.49012e-08, 1, -2.98023e-07, 2.38419e-07, 0.075)
+material_override = ExtResource("13")
+polygon = PackedVector2Array(0, 0.08, 0, -0.08, 0.98, 0)
 depth = 0.15
 
-[node name="toe_joint" type="Spatial" parent="leg_2/hip_joint/thigh_joint/shin_joint"]
+[node name="toe_joint" type="Node3D" parent="leg_2/hip_joint/thigh_joint/shin_joint"]
 
-[node name="MeshInstance2" type="MeshInstance" parent="leg_2/hip_joint/thigh_joint/shin_joint"]
-transform = Transform( 0.380996, 0, 0, 0, 0.065, 0, 0, 0, 0.132, 0.254, 0.108, 0 )
-mesh = SubResource( 24 )
+[node name="MeshInstance2" type="MeshInstance3D" parent="leg_2/hip_joint/thigh_joint/shin_joint"]
+transform = Transform3D(0.380996, 0, 0, 0, 0.065, 0, 0, 0, 0.132, 0.254, 0.108, 0)
+mesh = SubResource("BoxMesh_xf7lx")
 
-[node name="leg_3" type="Spatial" parent="."]
-transform = Transform( -0.707003, 0, -0.706986, 0, 1, 0, 0.706986, 0, -0.707003, -0.110306, 0.746748, 0.110315 )
-script = ExtResource( 12 )
+[node name="leg_3" type="Node3D" parent="."]
+transform = Transform3D(-0.707003, 0, -0.706986, 0, 1, 0, 0.706986, 0, -0.707003, -0.110306, 0.746748, 0.110315)
+script = ExtResource("12")
 hip_node_path = NodePath("../waist/hip_3_position")
 toe_node_path = NodePath("../toe_3_position")
 length_hip = 0.292
@@ -891,46 +946,46 @@ bone_depth = 0.15
 a_off = 0.23
 a_m = 1.5
 
-[node name="hip_joint" type="Spatial" parent="leg_3"]
-transform = Transform( 0.657797, 0.753195, 0, -0.753195, 0.657797, 0, 0, 0, 1, 0, 0, 0 )
+[node name="hip_joint" type="Node3D" parent="leg_3"]
+transform = Transform3D(0.657797, 0.753195, 0, -0.753195, 0.657797, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="Position3D" type="Position3D" parent="leg_3/hip_joint"]
-transform = Transform( 1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0 )
+[node name="Marker3D" type="Marker3D" parent="leg_3/hip_joint"]
+transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0)
 visible = false
 
-[node name="polygon" type="CSGPolygon" parent="leg_3/hip_joint"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.075 )
-material_override = ExtResource( 13 )
-polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.292, 0 )
+[node name="polygon" type="CSGPolygon3D" parent="leg_3/hip_joint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.075)
+material_override = ExtResource("13")
+polygon = PackedVector2Array(0, 0.08, 0, -0.08, 0.292, 0)
 depth = 0.15
 
-[node name="thigh_joint" type="Spatial" parent="leg_3/hip_joint"]
-transform = Transform( -0.494936, -0.86893, 0, 0.86893, -0.494936, 0, 0, 0, 1, 0.292, 0, 0 )
+[node name="thigh_joint" type="Node3D" parent="leg_3/hip_joint"]
+transform = Transform3D(-0.494936, -0.86893, 0, 0.86893, -0.494936, 0, 0, 0, 1, 0.292, 0, 0)
 
-[node name="polygon" type="CSGPolygon" parent="leg_3/hip_joint/thigh_joint"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.075 )
-material_override = ExtResource( 13 )
-polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.456, 0 )
+[node name="polygon" type="CSGPolygon3D" parent="leg_3/hip_joint/thigh_joint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.075)
+material_override = ExtResource("13")
+polygon = PackedVector2Array(0, 0.08, 0, -0.08, 0.456, 0)
 depth = 0.15
 
-[node name="shin_joint" type="Spatial" parent="leg_3/hip_joint/thigh_joint"]
-transform = Transform( -0.852467, 0.52278, 0, -0.52278, -0.852467, 0, 0, 0, 1, 0.456, 0, 0 )
+[node name="shin_joint" type="Node3D" parent="leg_3/hip_joint/thigh_joint"]
+transform = Transform3D(-0.852467, 0.52278, 0, -0.52278, -0.852467, 0, 0, 0, 1, 0.456, 0, 0)
 
-[node name="polygon" type="CSGPolygon" parent="leg_3/hip_joint/thigh_joint/shin_joint"]
-transform = Transform( 1, 1.49012e-08, 0, -1.49012e-08, 1, 1.49012e-08, 0, 1.49012e-08, 1, 0, 1.19209e-07, 0.075 )
-material_override = ExtResource( 13 )
-polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.98, 0 )
+[node name="polygon" type="CSGPolygon3D" parent="leg_3/hip_joint/thigh_joint/shin_joint"]
+transform = Transform3D(1, 1.49012e-08, 0, -1.49012e-08, 1, 1.49012e-08, 0, 1.49012e-08, 1, 0, 1.19209e-07, 0.075)
+material_override = ExtResource("13")
+polygon = PackedVector2Array(0, 0.08, 0, -0.08, 0.98, 0)
 depth = 0.15
 
-[node name="toe_joint" type="Spatial" parent="leg_3/hip_joint/thigh_joint/shin_joint"]
+[node name="toe_joint" type="Node3D" parent="leg_3/hip_joint/thigh_joint/shin_joint"]
 
-[node name="MeshInstance2" type="MeshInstance" parent="leg_3/hip_joint/thigh_joint/shin_joint"]
-transform = Transform( 0.380996, -3.17607e-24, -3.87199e-09, 0, 0.065, -2.19882e-16, 1.11759e-08, 1.08275e-16, 0.132, 0.254, 0.108, -2.98023e-08 )
-mesh = SubResource( 24 )
+[node name="MeshInstance2" type="MeshInstance3D" parent="leg_3/hip_joint/thigh_joint/shin_joint"]
+transform = Transform3D(0.380996, -3.17607e-24, -3.87199e-09, 0, 0.065, -2.19882e-16, 1.11759e-08, 1.08275e-16, 0.132, 0.254, 0.108, -2.98023e-08)
+mesh = SubResource("BoxMesh_xf7lx")
 
-[node name="leg_4" type="Spatial" parent="."]
-transform = Transform( -0.706974, 0, 0.706981, 0, 1, 0, -0.706981, 0, -0.706974, -0.110306, 0.746748, -0.110302 )
-script = ExtResource( 12 )
+[node name="leg_4" type="Node3D" parent="."]
+transform = Transform3D(-0.706974, 0, 0.706981, 0, 1, 0, -0.706981, 0, -0.706974, -0.110306, 0.746748, -0.110302)
+script = ExtResource("12")
 hip_node_path = NodePath("../waist/hip_4_position")
 toe_node_path = NodePath("../toe_4_position")
 length_hip = 0.292
@@ -940,91 +995,85 @@ bone_depth = 0.15
 a_off = -0.65
 a_m = -1.5
 
-[node name="hip_joint" type="Spatial" parent="leg_4"]
-transform = Transform( 0.657797, 0.753195, 0, -0.753195, 0.657797, 0, 0, 0, 1, 0, 0, 0 )
+[node name="hip_joint" type="Node3D" parent="leg_4"]
+transform = Transform3D(0.657797, 0.753195, 0, -0.753195, 0.657797, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="Position3D" type="Position3D" parent="leg_4/hip_joint"]
-transform = Transform( 1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0 )
+[node name="Marker3D" type="Marker3D" parent="leg_4/hip_joint"]
+transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0)
 visible = false
 
-[node name="polygon" type="CSGPolygon" parent="leg_4/hip_joint"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.075 )
-material_override = ExtResource( 13 )
-polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.292, 0 )
+[node name="polygon" type="CSGPolygon3D" parent="leg_4/hip_joint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.075)
+material_override = ExtResource("13")
+polygon = PackedVector2Array(0, 0.08, 0, -0.08, 0.292, 0)
 depth = 0.15
 
-[node name="thigh_joint" type="Spatial" parent="leg_4/hip_joint"]
-transform = Transform( -0.494929, -0.868934, 0, 0.868934, -0.494929, 0, 0, 0, 1, 0.292, 0, 0 )
+[node name="thigh_joint" type="Node3D" parent="leg_4/hip_joint"]
+transform = Transform3D(-0.494929, -0.868934, 0, 0.868934, -0.494929, 0, 0, 0, 1, 0.292, 0, 0)
 
-[node name="polygon" type="CSGPolygon" parent="leg_4/hip_joint/thigh_joint"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.075 )
-material_override = ExtResource( 13 )
-polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.456, 0 )
+[node name="polygon" type="CSGPolygon3D" parent="leg_4/hip_joint/thigh_joint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.075)
+material_override = ExtResource("13")
+polygon = PackedVector2Array(0, 0.08, 0, -0.08, 0.456, 0)
 depth = 0.15
 
-[node name="shin_joint" type="Spatial" parent="leg_4/hip_joint/thigh_joint"]
-transform = Transform( -0.85246, 0.522792, 0, -0.522792, -0.85246, 0, 0, 0, 1, 0.456, 0, 0 )
+[node name="shin_joint" type="Node3D" parent="leg_4/hip_joint/thigh_joint"]
+transform = Transform3D(-0.85246, 0.522792, 0, -0.522792, -0.85246, 0, 0, 0, 1, 0.456, 0, 0)
 
-[node name="polygon" type="CSGPolygon" parent="leg_4/hip_joint/thigh_joint/shin_joint"]
-transform = Transform( 1, 1.49012e-08, 0, -1.49012e-08, 1, 1.49012e-08, 0, 1.49012e-08, 1, 0, 1.19209e-07, 0.075 )
-material_override = ExtResource( 13 )
-polygon = PoolVector2Array( 0, 0.08, 0, -0.08, 0.98, 0 )
+[node name="polygon" type="CSGPolygon3D" parent="leg_4/hip_joint/thigh_joint/shin_joint"]
+transform = Transform3D(1, 1.49012e-08, 0, -1.49012e-08, 1, 1.49012e-08, 0, 1.49012e-08, 1, 0, 1.19209e-07, 0.075)
+material_override = ExtResource("13")
+polygon = PackedVector2Array(0, 0.08, 0, -0.08, 0.98, 0)
 depth = 0.15
 
-[node name="toe_joint" type="Spatial" parent="leg_4/hip_joint/thigh_joint/shin_joint"]
+[node name="toe_joint" type="Node3D" parent="leg_4/hip_joint/thigh_joint/shin_joint"]
 
-[node name="MeshInstance2" type="MeshInstance" parent="leg_4/hip_joint/thigh_joint/shin_joint"]
-transform = Transform( 0.380996, -3.17607e-24, -3.87199e-09, 0, 0.065, -2.19882e-16, 1.11759e-08, 1.08275e-16, 0.132, 0.254, 0.108, -2.98023e-08 )
-mesh = SubResource( 24 )
+[node name="MeshInstance2" type="MeshInstance3D" parent="leg_4/hip_joint/thigh_joint/shin_joint"]
+transform = Transform3D(0.380996, -3.17607e-24, -3.87199e-09, 0, 0.065, -2.19882e-16, 1.11759e-08, 1.08275e-16, 0.132, 0.254, 0.108, -2.98023e-08)
+mesh = SubResource("BoxMesh_xf7lx")
 
-[node name="toe_1_position" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.999997, 0, 0, 0, 1, 0.5, 0, -0.5 )
+[node name="toe_1_position" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.999997, 0, 0, 0, 1, 0.5, 0, -0.5)
 
-[node name="TravelPath" type="ImmediateGeometry" parent="toe_1_position"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0702516, 0 )
-script = ExtResource( 9 )
+[node name="TravelPath" type="Node3D" parent="toe_1_position"]
+script = ExtResource("9")
 distance_threshold = 0.2
 max_points = 1000
-trail_colour = Color( 0.133333, 0.94902, 0.968627, 0.521569 )
+trail_colour = Color(0.133333, 0.94902, 0.968627, 0.521569)
 emission_multiplier = 0.65
 
-[node name="toe_2_position" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0.5 )
+[node name="toe_2_position" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0.5)
 
-[node name="TravelPath" type="ImmediateGeometry" parent="toe_2_position"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0702516, 0 )
-script = ExtResource( 9 )
+[node name="TravelPath" type="Node3D" parent="toe_2_position"]
+script = ExtResource("9")
 distance_threshold = 0.2
 max_points = 1000
-trail_colour = Color( 0.133333, 0.94902, 0.968627, 0.521569 )
+trail_colour = Color(0.133333, 0.94902, 0.968627, 0.521569)
 emission_multiplier = 0.5
 
-[node name="toe_3_position" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0.5 )
+[node name="toe_3_position" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0.5)
 
-[node name="TravelPath" type="ImmediateGeometry" parent="toe_3_position"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0702516, 0 )
-script = ExtResource( 9 )
+[node name="TravelPath" type="Node3D" parent="toe_3_position"]
+script = ExtResource("9")
 distance_threshold = 0.2
 max_points = 1000
-trail_colour = Color( 0.133333, 0.94902, 0.968627, 0.521569 )
+trail_colour = Color(0.133333, 0.94902, 0.968627, 0.521569)
 emission_multiplier = 0.5
 
-[node name="toe_4_position" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -0.5 )
+[node name="toe_4_position" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -0.5)
 
-[node name="TravelPath" type="ImmediateGeometry" parent="toe_4_position"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0702516, 0 )
-script = ExtResource( 9 )
+[node name="TravelPath" type="Node3D" parent="toe_4_position"]
+script = ExtResource("9")
 distance_threshold = 0.2
 max_points = 1000
-trail_colour = Color( 0.133333, 0.94902, 0.968627, 0.521569 )
+trail_colour = Color(0.133333, 0.94902, 0.968627, 0.521569)
 emission_multiplier = 0.5
 
-[connection signal="close_options_menu" from="MeshInstance/dui_root/viewports/options/options_viewport/options_menu_2d" to="MeshInstance/dui_root" method="_on_options_menu_2d_close_options_menu"]
-[connection signal="tween_completed" from="MeshInstance/dui_root/static_stack/inventory_items/weapons_items/slots_shift_tween" to="MeshInstance/dui_root/static_stack/inventory_items/weapons_items" method="_on_slots_shift_tween_tween_completed"]
-[connection signal="area_entered" from="MeshInstance/dui_root/static_stack/radar_dots/Area" to="MeshInstance/dui_root/static_stack/radar_dots" method="_on_Area_area_entered"]
-[connection signal="area_exited" from="MeshInstance/dui_root/static_stack/radar_dots/Area" to="MeshInstance/dui_root/static_stack/radar_dots" method="_on_Area_area_exited"]
-[connection signal="body_entered" from="MeshInstance/dui_root/static_stack/radar_dots/Area" to="MeshInstance/dui_root/static_stack/radar_dots" method="_on_Area_body_entered"]
-[connection signal="body_exited" from="MeshInstance/dui_root/static_stack/radar_dots/Area" to="MeshInstance/dui_root/static_stack/radar_dots" method="_on_Area_body_exited"]
-[connection signal="tween_completed" from="MeshInstance/dui_root/invoke_tween" to="MeshInstance/dui_root" method="_on_invoke_tween_tween_completed"]
+[connection signal="close_options_menu" from="MeshInstance3D/dui_root/viewports/options/options_viewport/options_menu_2d" to="MeshInstance3D/dui_root" method="_on_options_menu_2d_close_options_menu"]
+[connection signal="area_entered" from="MeshInstance3D/dui_root/static_stack/radar_dots/Area3D" to="MeshInstance3D/dui_root/static_stack/radar_dots" method="_on_Area_area_entered"]
+[connection signal="area_exited" from="MeshInstance3D/dui_root/static_stack/radar_dots/Area3D" to="MeshInstance3D/dui_root/static_stack/radar_dots" method="_on_Area_area_exited"]
+[connection signal="body_entered" from="MeshInstance3D/dui_root/static_stack/radar_dots/Area3D" to="MeshInstance3D/dui_root/static_stack/radar_dots" method="_on_Area_body_entered"]
+[connection signal="body_exited" from="MeshInstance3D/dui_root/static_stack/radar_dots/Area3D" to="MeshInstance3D/dui_root/static_stack/radar_dots" method="_on_Area_body_exited"]

@@ -1,0 +1,61 @@
+[gd_resource type="AudioBusLayout" load_steps=7 format=3 uid="uid://dtjt1blegtfqp"]
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_0pw43"]
+resource_name = "Reverb"
+room_size = 1.0
+damping = 0.26
+hipass = 1.0
+dry = 0.73
+wet = 0.09
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_u405o"]
+resource_name = "Reverb"
+
+[sub_resource type="AudioEffectPitchShift" id="AudioEffectPitchShift_8nium"]
+resource_name = "PitchShift"
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_ydaoj"]
+resource_name = "Reverb"
+
+[sub_resource type="AudioEffectPhaser" id="AudioEffectPhaser_cqvh1"]
+resource_name = "Phaser"
+rate_hz = 4.691
+feedback = 0.3
+depth = 0.1
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_ycr8a"]
+resource_name = "Reverb"
+damping = 0.3
+wet = 0.14
+
+[resource]
+bus/0/effect/0/effect = SubResource("AudioEffectReverb_0pw43")
+bus/0/effect/0/enabled = true
+bus/1/name = &"shells"
+bus/1/solo = false
+bus/1/mute = false
+bus/1/bypass_fx = false
+bus/1/volume_db = 0.0
+bus/1/send = &"Master"
+bus/1/effect/0/effect = SubResource("AudioEffectReverb_u405o")
+bus/1/effect/0/enabled = true
+bus/1/effect/1/effect = SubResource("AudioEffectPitchShift_8nium")
+bus/1/effect/1/enabled = true
+bus/2/name = &"bullets"
+bus/2/solo = false
+bus/2/mute = false
+bus/2/bypass_fx = false
+bus/2/volume_db = 0.0
+bus/2/send = &"Master"
+bus/2/effect/0/effect = SubResource("AudioEffectReverb_ydaoj")
+bus/2/effect/0/enabled = true
+bus/2/effect/1/effect = SubResource("AudioEffectPhaser_cqvh1")
+bus/2/effect/1/enabled = true
+bus/3/name = &"impacts"
+bus/3/solo = false
+bus/3/mute = false
+bus/3/bypass_fx = false
+bus/3/volume_db = 0.0
+bus/3/send = &"Master"
+bus/3/effect/0/effect = SubResource("AudioEffectReverb_ycr8a")
+bus/3/effect/0/enabled = true

@@ -1,9 +1,6 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://dqf03ab8xtwhv"]
 
-[ext_resource path="res://data/weapons/weapon.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://data/weapons/weapon.gd" id="1"]
 
-[node name="weapon" type="Spatial"]
-script = ExtResource( 1 )
-__meta__ = {
-"_editor_description_": "base weapon class"
-}
+[node name="weapon" type="Node3D"]
+script = ExtResource("1")

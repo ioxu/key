@@ -1,50 +1,41 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=3 uid="uid://1jmks2p8nd0b"]
 
-[ext_resource path="res://data/doors/door.gd" type="Script" id=1]
-[ext_resource path="res://data/doors/door.material" type="Material" id=2]
-[ext_resource path="res://addons/SIsilicon.3d.text/label_3d.gd" type="Script" id=3]
-[ext_resource path="res://data/fonts/Roboto-Regular_DynamicFont.tres" type="DynamicFont" id=4]
+[ext_resource type="Script" path="res://data/doors/door.gd" id="1"]
+[ext_resource type="Material" path="res://data/doors/door.material" id="2"]
 
-[sub_resource type="BoxShape" id=1]
-extents = Vector3( 1, 1.984, 0.24459 )
+[sub_resource type="BoxShape3D" id="1"]
+size = Vector3(2, 3.968, 0.48918)
 
-[sub_resource type="CubeMesh" id=2]
-size = Vector3( 2, 4, 0.5 )
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_07prm"]
+emission_enabled = true
+emission = Color(0.0666667, 0.384314, 0.627451, 1)
 
-[node name="door" type="Area" groups=["Doors"]]
+[sub_resource type="BoxMesh" id="2"]
+material = SubResource("StandardMaterial3D_07prm")
+size = Vector3(2, 4, 0.5)
+
+[node name="door" type="Area3D" groups=["Doors"]]
 collision_layer = 1024
 collision_mask = 2147483649
-script = ExtResource( 1 )
+script = ExtResource("1")
 
-[node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.00171, 0 )
-shape = SubResource( 1 )
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.00171, 0)
+shape = SubResource("1")
 
-[node name="MeshInstance" type="MeshInstance" parent="CollisionShape"]
-mesh = SubResource( 2 )
-material/0 = ExtResource( 2 )
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+mesh = SubResource("2")
 
-[node name="CSGPolygon" type="CSGPolygon" parent="CollisionShape"]
-transform = Transform( 0.326618, 0, 0, 0, -1.23651e-08, -1, 0, 0.28288, -4.37114e-08, 0, -1.99689, 0.780416 )
-polygon = PoolVector2Array( -1, 0, -0.05, 1, 0.05, 1, 1, 0 )
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="CollisionShape3D"]
+transform = Transform3D(0.326618, 0, 0, 0, -1.23651e-08, -1, 0, 0.28288, -4.37114e-08, 0, -1.99689, 0.780416)
+polygon = PackedVector2Array(-1, 0, -0.05, 1, 0.05, 1, 1, 0)
 depth = 0.1
-material = ExtResource( 2 )
+material = ExtResource("2")
 
-[node name="Label3D" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.05, 1.99785 )
-script = ExtResource( 3 )
-text = "door"
-text_size = 1.0
-font = ExtResource( 4 )
-align = 3
-billboard = false
-color = Color( 0.6, 0.6, 0.6, 1 )
-metallic = 0.0
-roughness = 0.5
-emission_color = Color( 0.372549, 0.717647, 0.764706, 1 )
-emission_strength = 2.0
-extrude = 0.0
-min_steps = 32
-max_steps = 256
+[node name="Label3D" type="Label3D" parent="."]
+editor_description = "was a Label3d"
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.05, 1.99785)
+text = "DOOR TEXT"
+font_size = 150
 
 [connection signal="body_entered" from="." to="." method="_on_door_body_entered"]

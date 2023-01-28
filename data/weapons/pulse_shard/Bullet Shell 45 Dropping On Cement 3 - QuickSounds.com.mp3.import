@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dtahqle3nfwcf"
+path="res://.godot/imported/Bullet Shell 45 Dropping On Cement 3 - QuickSounds.com.mp3-922dd1a8e43c4bc1f16c1eea385b6293.mp3str"
+
+[deps]
+
+source_file="res://data/weapons/pulse_shard/Bullet Shell 45 Dropping On Cement 3 - QuickSounds.com.mp3"
+dest_files=["res://.godot/imported/Bullet Shell 45 Dropping On Cement 3 - QuickSounds.com.mp3-922dd1a8e43c4bc1f16c1eea385b6293.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

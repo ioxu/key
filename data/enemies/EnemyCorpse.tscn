@@ -1,47 +1,71 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=3 uid="uid://bgc8wxwu2373e"]
 
-[ext_resource path="res://data/enemies/Enemy_material.tres" type="Material" id=1]
+[ext_resource type="Material" uid="uid://na06nqr8mxks" path="res://data/enemies/Enemy_material.tres" id="1"]
+[ext_resource type="AudioStream" uid="uid://8g7u4nbxk4jy" path="res://data/enemies/sounds/ahh_hazy_01.mp3" id="2_guca5"]
 
-[sub_resource type="PhysicsMaterial" id=1]
-friction = 10.0
+[sub_resource type="GDScript" id="GDScript_s67pq"]
+script/source = "extends RigidBody3D
 
-[sub_resource type="CapsuleShape" id=2]
-radius = 0.27779
+var once := true
 
-[sub_resource type="BoxShape" id=3]
-margin = 0.001
-extents = Vector3( 0.114, 0.314396, 0.147963 )
 
-[sub_resource type="CapsuleMesh" id=4]
-material = ExtResource( 1 )
+func _ready():
+	$AudioStreamPlayer3D.set_volume_db( 1.25 )
+	$AudioStreamPlayer3D.pitch_scale = randf_range(1.0, 1.6)
+	$AudioStreamPlayer3D.play()
+
+
+func _process(delta):
+	pass
+
+
+func _integrate_forces(state):
+	if once:
+		apply_torque_impulse( global_transform.basis.x * 100.0 )
+		once = false
+
+"
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wyue6"]
+radius = 0.283
+height = 1.5
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_w232b"]
+material = ExtResource("1")
 radius = 0.273
+height = 1.5
 radial_segments = 32
 rings = 4
 
-[sub_resource type="CubeMesh" id=5]
-size = Vector3( 0.228, 0.456, 0.633 )
+[sub_resource type="BoxMesh" id="BoxMesh_hmlf4"]
+size = Vector3(0.228, 0.456, 0.633)
 
-[node name="EnemyCorpse" type="RigidBody"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_3jglq"]
+size = Vector3(0.241, 0.647, 0.467)
+
+[node name="EnemyCorpse" type="RigidBody3D"]
 collision_layer = 256
 collision_mask = 263
 mass = 20.0
-physics_material_override = SubResource( 1 )
 gravity_scale = 3.0
+script = SubResource("GDScript_s67pq")
 
-[node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( -1, 3.25841e-07, 5.30863e-14, 0, -1.62921e-07, 1, 3.25841e-07, 1, 1.62921e-07, 0, 0, 0 )
-shape = SubResource( 2 )
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_wyue6")
 
-[node name="CollisionShape2" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 8.64886e-21, 0, 1, 0, 8.64886e-21, 0, 1, 0, 0.331626, -0.33 )
-shape = SubResource( 3 )
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_w232b")
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 0, 0 )
-mesh = SubResource( 4 )
-material/0 = null
+[node name="MeshInstance3" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 3.25841e-07, 5.30863e-14, 0, -1.62921e-07, 1, 3.25841e-07, 1, 1.62921e-07, 0, 0.33, -0.251)
+mesh = SubResource("BoxMesh_hmlf4")
+surface_material_override/0 = ExtResource("1")
 
-[node name="MeshInstance3" type="MeshInstance" parent="."]
-transform = Transform( -1, 3.25841e-07, 5.30863e-14, 0, -1.62921e-07, 1, 3.25841e-07, 1, 1.62921e-07, 0, 0.33, -0.251 )
-mesh = SubResource( 5 )
-material/0 = ExtResource( 1 )
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.33, -0.251)
+shape = SubResource("BoxShape3D_3jglq")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_guca5")
+volume_db = 2.0
+pitch_scale = 1.6

@@ -1,534 +1,356 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=6 format=3 uid="uid://dbsoduj283ats"]
 
-[ext_resource path="res://scenes/player/options_menu_vscrollbar_theme.tres" type="Theme" id=1]
-[ext_resource path="res://scenes/player/options_menu_2d.gd" type="Script" id=2]
-[ext_resource path="res://data/fonts/Roboto-Regular.ttf" type="DynamicFontData" id=3]
+[ext_resource type="Theme" uid="uid://db5w46cx2teha" path="res://scenes/player/options_menu_vscrollbar_theme.tres" id="1"]
+[ext_resource type="Script" path="res://scenes/player/options_menu_2d.gd" id="2"]
+[ext_resource type="FontFile" uid="uid://dxcyfdyavs0ld" path="res://data/fonts/Roboto-Regular.ttf" id="3"]
 
-[sub_resource type="DynamicFont" id=1]
-size = 62
-use_filter = true
-font_data = ExtResource( 3 )
+[sub_resource type="StyleBoxEmpty" id="4"]
 
-[sub_resource type="DynamicFont" id=2]
-size = 42
-use_filter = true
-font_data = ExtResource( 3 )
-
-[sub_resource type="StyleBoxEmpty" id=9]
-
-[sub_resource type="StyleBoxEmpty" id=4]
-
-[sub_resource type="Theme" id=5]
-Button/styles/focus = SubResource( 4 )
-
-[sub_resource type="StyleBoxEmpty" id=6]
-
-[sub_resource type="StyleBoxEmpty" id=7]
-
-[sub_resource type="StyleBoxFlat" id=8]
-content_margin_top = 5.0
-bg_color = Color( 1, 1, 1, 0.117647 )
-
-[sub_resource type="StyleBoxFlat" id=3]
-bg_color = Color( 0.721569, 0.403922, 0.403922, 1 )
+[sub_resource type="Theme" id="5"]
+Button/styles/focus = SubResource("4")
 
 [node name="options_menu_2d" type="Node2D"]
-script = ExtResource( 2 )
-__meta__ = {
-"_edit_horizontal_guides_": [ 512.0 ],
-"_edit_vertical_guides_": [ 512.0 ]
-}
+script = ExtResource("2")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
-color = Color( 0.0117647, 0.0431373, 0.0705882, 0.796078 )
+color = Color(0.0117647, 0.0431373, 0.0705882, 0.796078)
 invert_border = 0.1
-polygon = PoolVector2Array( 80, 0, 416, 0, 416, 408, 288, 408, 248, 512, 208, 408, 80, 408 )
+polygon = PackedVector2Array(80, 0, 416, 0, 416, 408, 288, 408, 248, 512, 208, 408, 80, 408)
 
 [node name="ColorRect" type="ColorRect" parent="."]
-margin_right = 512.0
-margin_bottom = 512.0
-color = Color( 0.12549, 0.827451, 0.698039, 0 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+offset_right = 512.0
+offset_bottom = 512.0
+color = Color(0.12549, 0.827451, 0.698039, 0)
 
 [node name="top_left_anchor" type="Node2D" parent="."]
-position = Vector2( 96, 8 )
+position = Vector2(96, 8)
 
 [node name="OPTIONS_menu" type="Node2D" parent="." groups=["options_menu_group"]]
-self_modulate = Color( 1, 1, 1, 0.415686 )
-position = Vector2( 96, 8 )
+self_modulate = Color(1, 1, 1, 0.415686)
+position = Vector2(96, 8)
 
 [node name="OPTIONS_title" type="Label" parent="OPTIONS_menu"]
-margin_right = 304.0
-margin_bottom = 85.0
-custom_fonts/font = SubResource( 1 )
+offset_right = 304.0
+offset_bottom = 85.0
+theme_override_fonts/font = ExtResource("3")
+theme_override_font_sizes/font_size = 62
 text = "OPTIONS"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ScrollContainer" type="ScrollContainer" parent="OPTIONS_menu"]
-margin_top = 89.0
-margin_right = 304.0
-margin_bottom = 680.0
+offset_top = 89.0
+offset_right = 304.0
+offset_bottom = 680.0
 size_flags_vertical = 3
-theme = ExtResource( 1 )
+theme = ExtResource("1")
 follow_focus = true
-scroll_horizontal_enabled = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="OPTIONS_menu/ScrollContainer"]
-margin_right = 260.0
-margin_bottom = 406.0
+offset_right = 98.0
+offset_bottom = 229.0
 focus_mode = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="graphics" type="ToolButton" parent="OPTIONS_menu/ScrollContainer/VBoxContainer"]
-margin_right = 260.0
-margin_bottom = 58.0
-focus_neighbour_bottom = NodePath("../debug")
-custom_colors/font_color = Color( 1, 1, 1, 0.117647 )
-custom_colors/font_color_pressed = Color( 0.8, 0.615686, 0.329412, 1 )
-custom_fonts/font = SubResource( 2 )
-custom_styles/focus = SubResource( 9 )
+[node name="graphics" type="Button" parent="OPTIONS_menu/ScrollContainer/VBoxContainer"]
+offset_right = 98.0
+offset_bottom = 31.0
+focus_neighbor_bottom = NodePath("../debug")
 text = "graphics"
-align = 0
 
-[node name="debug" type="ToolButton" parent="OPTIONS_menu/ScrollContainer/VBoxContainer"]
-margin_top = 62.0
-margin_right = 260.0
-margin_bottom = 120.0
-focus_neighbour_top = NodePath("../graphics")
-focus_neighbour_bottom = NodePath("../quit")
-theme = SubResource( 5 )
-custom_colors/font_color = Color( 1, 1, 1, 0.117647 )
-custom_colors/font_color_pressed = Color( 0.8, 0.615686, 0.329412, 1 )
-custom_fonts/font = SubResource( 2 )
-custom_styles/focus = SubResource( 6 )
+[node name="debug" type="Button" parent="OPTIONS_menu/ScrollContainer/VBoxContainer"]
+offset_top = 35.0
+offset_right = 98.0
+offset_bottom = 66.0
+focus_neighbor_top = NodePath("../graphics")
+focus_neighbor_bottom = NodePath("../quit")
+theme = SubResource("5")
 text = "debug"
-align = 0
 
-[node name="quit" type="ToolButton" parent="OPTIONS_menu/ScrollContainer/VBoxContainer"]
-margin_top = 124.0
-margin_right = 260.0
-margin_bottom = 182.0
-focus_neighbour_top = NodePath("../debug")
-focus_neighbour_bottom = NodePath("../HBoxContainer/drama")
-custom_colors/font_color = Color( 1, 0.439216, 0.439216, 0.156863 )
-custom_colors/font_color_pressed = Color( 0.8, 0.615686, 0.329412, 1 )
-custom_fonts/font = SubResource( 2 )
-custom_styles/focus = SubResource( 7 )
+[node name="quit" type="Button" parent="OPTIONS_menu/ScrollContainer/VBoxContainer"]
+offset_top = 70.0
+offset_right = 98.0
+offset_bottom = 101.0
+focus_neighbor_top = NodePath("../debug")
+focus_neighbor_bottom = NodePath("../HBoxContainer/drama")
 text = "quit game"
-align = 0
 
 [node name="HSeparator3" type="HSeparator" parent="OPTIONS_menu/ScrollContainer/VBoxContainer"]
-margin_top = 186.0
-margin_right = 260.0
-margin_bottom = 190.0
-custom_styles/separator = SubResource( 8 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+offset_top = 105.0
+offset_right = 98.0
+offset_bottom = 109.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="OPTIONS_menu/ScrollContainer/VBoxContainer"]
-margin_top = 194.0
-margin_right = 260.0
-margin_bottom = 244.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+offset_top = 113.0
+offset_right = 98.0
+offset_bottom = 139.0
 
 [node name="drama" type="Label" parent="OPTIONS_menu/ScrollContainer/VBoxContainer/HBoxContainer"]
-margin_right = 121.0
-margin_bottom = 50.0
-focus_neighbour_left = NodePath("../HSlider")
-focus_neighbour_top = NodePath("../../quit")
-focus_neighbour_bottom = NodePath("../../HBoxContainer2/dreamer")
+offset_right = 51.0
+offset_bottom = 26.0
+focus_neighbor_left = NodePath("../HSlider")
+focus_neighbor_top = NodePath("../../quit")
+focus_neighbor_bottom = NodePath("../../HBoxContainer2/dreamer")
 focus_mode = 2
-custom_colors/font_color = Color( 1, 1, 1, 0.117647 )
-custom_fonts/font = SubResource( 2 )
 text = "drama"
 
 [node name="HSlider" type="HSlider" parent="OPTIONS_menu/ScrollContainer/VBoxContainer/HBoxContainer"]
-margin_left = 125.0
-margin_right = 260.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 100, 50 )
-focus_neighbour_top = NodePath("../../quit")
-focus_neighbour_bottom = NodePath("../../HBoxContainer2/dreamer")
+offset_left = 55.0
+offset_right = 98.0
+offset_bottom = 16.0
 size_flags_horizontal = 3
-custom_styles/grabber_area = SubResource( 3 )
+focus_neighbor_top = NodePath("../../quit")
+focus_neighbor_bottom = NodePath("../../HBoxContainer2/dreamer")
 step = 10.0
 value = 50.0
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="OPTIONS_menu/ScrollContainer/VBoxContainer"]
-margin_top = 248.0
-margin_right = 260.0
-margin_bottom = 298.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+offset_top = 143.0
+offset_right = 98.0
+offset_bottom = 169.0
 
 [node name="dreamer" type="Label" parent="OPTIONS_menu/ScrollContainer/VBoxContainer/HBoxContainer2"]
-margin_right = 156.0
-margin_bottom = 50.0
-focus_neighbour_left = NodePath("../HSlider")
-focus_neighbour_top = NodePath("../../HBoxContainer/drama")
-focus_neighbour_bottom = NodePath("../../HBoxContainer3/dreamy")
+offset_right = 67.0
+offset_bottom = 26.0
+focus_neighbor_left = NodePath("../HSlider")
+focus_neighbor_top = NodePath("../../HBoxContainer/drama")
+focus_neighbor_bottom = NodePath("../../HBoxContainer3/dreamy")
 focus_mode = 2
-custom_colors/font_color = Color( 1, 1, 1, 0.117647 )
-custom_fonts/font = SubResource( 2 )
 text = "dreamer"
 
 [node name="HSlider" type="HSlider" parent="OPTIONS_menu/ScrollContainer/VBoxContainer/HBoxContainer2"]
-margin_left = 160.0
-margin_right = 260.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 100, 50 )
-focus_neighbour_top = NodePath("../../HBoxContainer/drama")
-focus_neighbour_bottom = NodePath("../../HBoxContainer3/dreamy")
+offset_left = 71.0
+offset_right = 98.0
+offset_bottom = 16.0
 size_flags_horizontal = 3
-custom_styles/grabber_area = SubResource( 3 )
+focus_neighbor_top = NodePath("../../HBoxContainer/drama")
+focus_neighbor_bottom = NodePath("../../HBoxContainer3/dreamy")
 step = 10.0
 value = 50.0
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="OPTIONS_menu/ScrollContainer/VBoxContainer"]
-margin_top = 302.0
-margin_right = 260.0
-margin_bottom = 352.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+offset_top = 173.0
+offset_right = 98.0
+offset_bottom = 199.0
 
 [node name="dreamy" type="Label" parent="OPTIONS_menu/ScrollContainer/VBoxContainer/HBoxContainer3"]
-margin_right = 140.0
-margin_bottom = 50.0
-focus_neighbour_left = NodePath("../HSlider")
-focus_neighbour_top = NodePath("../../HBoxContainer2/dreamer")
-focus_neighbour_bottom = NodePath("../../HBoxContainer4/dreamboat")
+offset_right = 60.0
+offset_bottom = 26.0
+focus_neighbor_left = NodePath("../HSlider")
+focus_neighbor_top = NodePath("../../HBoxContainer2/dreamer")
+focus_neighbor_bottom = NodePath("../../HBoxContainer4/dreamboat")
 focus_mode = 2
-custom_colors/font_color = Color( 1, 1, 1, 0.117647 )
-custom_fonts/font = SubResource( 2 )
 text = "dreamy"
 
 [node name="HSlider" type="HSlider" parent="OPTIONS_menu/ScrollContainer/VBoxContainer/HBoxContainer3"]
-margin_left = 144.0
-margin_right = 260.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 100, 50 )
-focus_neighbour_top = NodePath("../../HBoxContainer2/dreamer")
-focus_neighbour_bottom = NodePath("../../HBoxContainer4/dreamboat")
+offset_left = 64.0
+offset_right = 98.0
+offset_bottom = 16.0
 size_flags_horizontal = 3
-custom_styles/grabber_area = SubResource( 3 )
+focus_neighbor_top = NodePath("../../HBoxContainer2/dreamer")
+focus_neighbor_bottom = NodePath("../../HBoxContainer4/dreamboat")
 step = 10.0
 value = 50.0
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="OPTIONS_menu/ScrollContainer/VBoxContainer"]
-margin_top = 356.0
-margin_right = 260.0
-margin_bottom = 406.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+offset_top = 203.0
+offset_right = 98.0
+offset_bottom = 229.0
 
 [node name="dreamboat" type="Label" parent="OPTIONS_menu/ScrollContainer/VBoxContainer/HBoxContainer4"]
-margin_right = 205.0
-margin_bottom = 50.0
-focus_neighbour_left = NodePath("../HSlider")
-focus_neighbour_top = NodePath("../../HBoxContainer3/dreamy")
+offset_right = 86.0
+offset_bottom = 26.0
+focus_neighbor_left = NodePath("../HSlider")
+focus_neighbor_top = NodePath("../../HBoxContainer3/dreamy")
 focus_mode = 2
-custom_colors/font_color = Color( 1, 1, 1, 0.117647 )
-custom_fonts/font = SubResource( 2 )
 text = "dreamboat"
 
 [node name="HSlider" type="HSlider" parent="OPTIONS_menu/ScrollContainer/VBoxContainer/HBoxContainer4"]
-margin_left = 209.0
-margin_right = 260.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 50, 50 )
-focus_neighbour_top = NodePath("../../HBoxContainer3/dreamy")
+offset_left = 90.0
+offset_right = 98.0
+offset_bottom = 16.0
 size_flags_horizontal = 3
-custom_styles/grabber_area = SubResource( 3 )
+focus_neighbor_top = NodePath("../../HBoxContainer3/dreamy")
 step = 10.0
 value = 50.0
 
 [node name="DEBUG_menu" type="Node2D" parent="." groups=["options_menu_group"]]
-self_modulate = Color( 1, 1, 1, 0.415686 )
-position = Vector2( 776, 16 )
+self_modulate = Color(1, 1, 1, 0.415686)
+position = Vector2(776, 16)
 
 [node name="DEBUG_title" type="Label" parent="DEBUG_menu"]
-margin_right = 304.0
-margin_bottom = 85.0
-custom_fonts/font = SubResource( 1 )
+offset_right = 304.0
+offset_bottom = 85.0
+theme_override_fonts/font = ExtResource("3")
+theme_override_font_sizes/font_size = 62
 text = "DEBUG"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="previous_menu_title" type="Label" parent="DEBUG_menu/DEBUG_title"]
-margin_left = 4.72968
-margin_top = -4.45952
-margin_right = 63.7297
-margin_bottom = 9.54048
+offset_left = 4.72968
+offset_top = -4.45952
+offset_right = 63.7297
+offset_bottom = 9.54048
 text = "OPTIONS"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ScrollContainer" type="ScrollContainer" parent="DEBUG_menu"]
-margin_top = 89.0
-margin_right = 304.0
-margin_bottom = 628.0
+offset_top = 89.0
+offset_right = 304.0
+offset_bottom = 628.0
 size_flags_vertical = 3
-theme = ExtResource( 1 )
+theme = ExtResource("1")
 follow_focus = true
-scroll_horizontal_enabled = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="DEBUG_menu/ScrollContainer"]
-margin_right = 304.0
-margin_bottom = 446.0
-focus_mode = 2
+offset_right = 304.0
+offset_bottom = 257.0
 size_flags_horizontal = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
+focus_mode = 2
 
 [node name="showFPS" type="CheckButton" parent="DEBUG_menu/ScrollContainer/VBoxContainer"]
-margin_right = 304.0
-margin_bottom = 58.0
-custom_colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
-custom_colors/font_color = Color( 1, 1, 1, 0.117647 )
-custom_colors/font_color_hover = Color( 1, 1, 1, 0.588235 )
-custom_colors/font_color_pressed = Color( 0.262745, 0.933333, 0.223529, 0.392157 )
-custom_fonts/font = SubResource( 2 )
+offset_right = 304.0
+offset_bottom = 31.0
 text = "show fps"
 
 [node name="graphA" type="CheckButton" parent="DEBUG_menu/ScrollContainer/VBoxContainer"]
-margin_top = 62.0
-margin_right = 304.0
-margin_bottom = 120.0
-custom_colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
-custom_colors/font_color = Color( 1, 1, 1, 0.117647 )
-custom_colors/font_color_hover = Color( 1, 1, 1, 0.588235 )
-custom_colors/font_color_pressed = Color( 0.262745, 0.933333, 0.223529, 0.392157 )
-custom_fonts/font = SubResource( 2 )
+offset_top = 35.0
+offset_right = 304.0
+offset_bottom = 66.0
 text = "graph a"
 
 [node name="graphB" type="CheckButton" parent="DEBUG_menu/ScrollContainer/VBoxContainer"]
-margin_top = 124.0
-margin_right = 304.0
-margin_bottom = 182.0
-custom_colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
-custom_colors/font_color = Color( 1, 1, 1, 0.117647 )
-custom_colors/font_color_hover = Color( 1, 1, 1, 0.588235 )
-custom_colors/font_color_pressed = Color( 0.262745, 0.933333, 0.223529, 0.392157 )
-custom_fonts/font = SubResource( 2 )
+offset_top = 70.0
+offset_right = 304.0
+offset_bottom = 101.0
 text = "graph b"
 
 [node name="HSeparator" type="HSeparator" parent="DEBUG_menu/ScrollContainer/VBoxContainer"]
-margin_top = 186.0
-margin_right = 304.0
-margin_bottom = 190.0
-custom_styles/separator = SubResource( 8 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+offset_top = 105.0
+offset_right = 304.0
+offset_bottom = 109.0
 
 [node name="rays" type="CheckButton" parent="DEBUG_menu/ScrollContainer/VBoxContainer"]
-margin_top = 194.0
-margin_right = 304.0
-margin_bottom = 252.0
-custom_colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
-custom_colors/font_color = Color( 1, 1, 1, 0.117647 )
-custom_colors/font_color_hover = Color( 1, 1, 1, 0.588235 )
-custom_colors/font_color_pressed = Color( 0.262745, 0.933333, 0.223529, 0.392157 )
-custom_fonts/font = SubResource( 2 )
+offset_top = 113.0
+offset_right = 304.0
+offset_bottom = 144.0
 text = "rays"
 
 [node name="visionCones" type="CheckButton" parent="DEBUG_menu/ScrollContainer/VBoxContainer"]
-margin_top = 256.0
-margin_right = 304.0
-margin_bottom = 314.0
-custom_colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
-custom_colors/font_color = Color( 1, 1, 1, 0.117647 )
-custom_colors/font_color_hover = Color( 1, 1, 1, 0.588235 )
-custom_colors/font_color_pressed = Color( 0.262745, 0.933333, 0.223529, 0.392157 )
-custom_fonts/font = SubResource( 2 )
+offset_top = 148.0
+offset_right = 304.0
+offset_bottom = 179.0
 text = "cones"
 
 [node name="indicators" type="CheckButton" parent="DEBUG_menu/ScrollContainer/VBoxContainer"]
-margin_top = 318.0
-margin_right = 304.0
-margin_bottom = 376.0
-custom_colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
-custom_colors/font_color = Color( 1, 1, 1, 0.117647 )
-custom_colors/font_color_hover = Color( 1, 1, 1, 0.588235 )
-custom_colors/font_color_pressed = Color( 0.262745, 0.933333, 0.223529, 0.392157 )
-custom_fonts/font = SubResource( 2 )
+offset_top = 183.0
+offset_right = 304.0
+offset_bottom = 214.0
 text = "indicator"
 
 [node name="HSeparator2" type="HSeparator" parent="DEBUG_menu/ScrollContainer/VBoxContainer"]
-margin_top = 380.0
-margin_right = 304.0
-margin_bottom = 384.0
-custom_styles/separator = SubResource( 8 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+offset_top = 218.0
+offset_right = 304.0
+offset_bottom = 222.0
 
 [node name="logToFile" type="CheckButton" parent="DEBUG_menu/ScrollContainer/VBoxContainer"]
-margin_top = 388.0
-margin_right = 304.0
-margin_bottom = 446.0
-custom_colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
-custom_colors/font_color = Color( 1, 1, 1, 0.117647 )
-custom_colors/font_color_hover = Color( 1, 1, 1, 0.588235 )
-custom_colors/font_color_pressed = Color( 0.262745, 0.933333, 0.223529, 0.392157 )
-custom_fonts/font = SubResource( 2 )
+offset_top = 226.0
+offset_right = 304.0
+offset_bottom = 257.0
 text = "log to file"
 
 [node name="GRAPHICS_menu" type="Node2D" parent="." groups=["options_menu_group"]]
-self_modulate = Color( 1, 1, 1, 0.415686 )
-position = Vector2( 1090.98, 16 )
+self_modulate = Color(1, 1, 1, 0.415686)
+position = Vector2(1090.98, 16)
 
 [node name="GRAPHICS_title" type="Label" parent="GRAPHICS_menu"]
-margin_right = 304.0
-margin_bottom = 85.0
-custom_fonts/font = SubResource( 1 )
+offset_right = 304.0
+offset_bottom = 85.0
+theme_override_fonts/font = ExtResource("3")
+theme_override_font_sizes/font_size = 62
 text = "GRAPHICS"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="previous_menu_title" type="Label" parent="GRAPHICS_menu/GRAPHICS_title"]
-margin_left = 4.72968
-margin_top = -4.45952
-margin_right = 63.7297
-margin_bottom = 9.54048
+offset_left = 4.72968
+offset_top = -4.45952
+offset_right = 63.7297
+offset_bottom = 9.54048
 text = "OPTIONS"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ScrollContainer" type="ScrollContainer" parent="GRAPHICS_menu"]
-margin_top = 89.0
-margin_right = 304.0
-margin_bottom = 628.0
+offset_top = 89.0
+offset_right = 304.0
+offset_bottom = 628.0
 size_flags_vertical = 3
-theme = ExtResource( 1 )
+theme = ExtResource("1")
 follow_focus = true
-scroll_horizontal_enabled = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="GRAPHICS_menu/ScrollContainer"]
-margin_right = 304.0
-margin_bottom = 58.0
-focus_mode = 2
+offset_right = 304.0
+offset_bottom = 31.0
 size_flags_horizontal = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
+focus_mode = 2
 
 [node name="SSAO" type="CheckButton" parent="GRAPHICS_menu/ScrollContainer/VBoxContainer"]
-margin_right = 304.0
-margin_bottom = 58.0
-custom_colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
-custom_colors/font_color = Color( 1, 1, 1, 0.117647 )
-custom_colors/font_color_hover = Color( 1, 1, 1, 0.588235 )
-custom_colors/font_color_pressed = Color( 0.262745, 0.933333, 0.223529, 0.392157 )
-custom_fonts/font = SubResource( 2 )
+offset_right = 304.0
+offset_bottom = 31.0
 text = "SSAO"
 
 [node name="GAME_menu" type="Node2D" parent="." groups=["options_menu_group"]]
-self_modulate = Color( 1, 1, 1, 0.415686 )
-position = Vector2( 440, 16 )
+self_modulate = Color(1, 1, 1, 0.415686)
+position = Vector2(440, 16)
 
 [node name="GAME_title" type="Label" parent="GAME_menu"]
-margin_right = 304.0
-margin_bottom = 85.0
-custom_fonts/font = SubResource( 1 )
+offset_right = 304.0
+offset_bottom = 85.0
+theme_override_fonts/font = ExtResource("3")
+theme_override_font_sizes/font_size = 62
 text = "GAME"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="previous_menu_title2" type="Label" parent="GAME_menu/GAME_title"]
-margin_left = 7.37555
-margin_top = -4.45952
-margin_right = 66.3755
-margin_bottom = 9.54048
+offset_left = 7.37555
+offset_top = -4.45952
+offset_right = 66.3755
+offset_bottom = 9.54048
 text = "OPTIONS"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ScrollContainer" type="ScrollContainer" parent="GAME_menu"]
-margin_top = 89.0
-margin_right = 304.0
-margin_bottom = 680.0
+offset_top = 89.0
+offset_right = 304.0
+offset_bottom = 680.0
 size_flags_vertical = 3
-theme = ExtResource( 1 )
+theme = ExtResource("1")
 follow_focus = true
-scroll_horizontal_enabled = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="GAME_menu/ScrollContainer"]
-margin_right = 316.0
-margin_bottom = 212.0
+offset_right = 135.0
+offset_bottom = 116.0
 focus_mode = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="retart checkpoint" type="Label" parent="GAME_menu/ScrollContainer/VBoxContainer"]
-margin_right = 316.0
-margin_bottom = 50.0
-focus_neighbour_top = NodePath("../../../../OPTIONS_menu/ScrollContainer/VBoxContainer/HBoxContainer4/dreamboat")
+offset_right = 135.0
+offset_bottom = 26.0
+focus_neighbor_top = NodePath("../../../../OPTIONS_menu/ScrollContainer/VBoxContainer/HBoxContainer4/dreamboat")
 focus_mode = 2
-custom_colors/font_color = Color( 1, 1, 1, 0.117647 )
-custom_fonts/font = SubResource( 2 )
 text = "retart checkpoint"
 
 [node name="save" type="Label" parent="GAME_menu/ScrollContainer/VBoxContainer"]
-margin_top = 54.0
-margin_right = 316.0
-margin_bottom = 104.0
-focus_neighbour_top = NodePath("../../../../OPTIONS_menu/ScrollContainer/VBoxContainer/HBoxContainer4/dreamboat")
+offset_top = 30.0
+offset_right = 135.0
+offset_bottom = 56.0
+focus_neighbor_top = NodePath("../../../../OPTIONS_menu/ScrollContainer/VBoxContainer/HBoxContainer4/dreamboat")
 focus_mode = 2
-custom_colors/font_color = Color( 1, 1, 1, 0.117647 )
-custom_fonts/font = SubResource( 2 )
 text = "save"
 
 [node name="load" type="Label" parent="GAME_menu/ScrollContainer/VBoxContainer"]
-margin_top = 108.0
-margin_right = 316.0
-margin_bottom = 158.0
-focus_neighbour_top = NodePath("../../../../OPTIONS_menu/ScrollContainer/VBoxContainer/HBoxContainer4/dreamboat")
+offset_top = 60.0
+offset_right = 135.0
+offset_bottom = 86.0
+focus_neighbor_top = NodePath("../../../../OPTIONS_menu/ScrollContainer/VBoxContainer/HBoxContainer4/dreamboat")
 focus_mode = 2
-custom_colors/font_color = Color( 1, 1, 1, 0.117647 )
-custom_fonts/font = SubResource( 2 )
 text = "save"
 
 [node name="quit to start" type="Label" parent="GAME_menu/ScrollContainer/VBoxContainer"]
-margin_top = 162.0
-margin_right = 316.0
-margin_bottom = 212.0
-focus_neighbour_top = NodePath("../../../../OPTIONS_menu/ScrollContainer/VBoxContainer/HBoxContainer4/dreamboat")
+offset_top = 90.0
+offset_right = 135.0
+offset_bottom = 116.0
+focus_neighbor_top = NodePath("../../../../OPTIONS_menu/ScrollContainer/VBoxContainer/HBoxContainer4/dreamboat")
 focus_mode = 2
-custom_colors/font_color = Color( 1, 1, 1, 0.117647 )
-custom_fonts/font = SubResource( 2 )
 text = "quit to start"
 
 [connection signal="button_up" from="OPTIONS_menu/ScrollContainer/VBoxContainer/graphics" to="." method="_on_options_graphics_button_up"]

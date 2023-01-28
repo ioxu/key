@@ -1,12 +1,13 @@
-[gd_resource type="SpatialMaterial" format=2]
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://27we7k1s5y25"]
+
+[ext_resource type="Texture2D" uid="uid://cgq0u6ykuf56a" path="res://data/textures/square_01.png" id="1_c5a2v"]
 
 [resource]
-flags_transparent = true
-flags_no_depth_test = true
-params_cull_mode = 2
-albedo_color = Color( 0.317647, 0.737255, 0.921569, 0.0509804 )
+transparency = 1
+cull_mode = 2
+no_depth_test = true
+albedo_color = Color(0.317647, 0.737255, 0.921569, 0.0509804)
+albedo_texture = ExtResource("1_c5a2v")
 emission_enabled = true
-emission = Color( 0.364706, 0.835294, 0.945098, 1 )
-emission_energy = 3.0
-emission_operator = 0
-emission_on_uv2 = false
+emission = Color(0.364706, 0.835294, 0.945098, 1)
+emission_energy_multiplier = 3.0

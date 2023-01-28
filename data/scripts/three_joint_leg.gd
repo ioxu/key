@@ -1,46 +1,50 @@
-tool
-extends Spatial
+@tool
+extends Node3D
 
-export (NodePath) var hip_node_path 
-export (NodePath) var toe_node_path
+#@export (NodePath) var hip_node_path
+#@export (NodePath) var toe_node_path
 
-onready var hip_node = get_node(hip_node_path)
-onready var toe_node = get_node(toe_node_path)
+@export_node_path var hip_node_path
+@export_node_path var toe_node_path
 
-export(float, -3.141593, 3.141593) var roll := 0.0 
+@onready var hip_node = get_node(hip_node_path)
+@onready var toe_node = get_node(toe_node_path)
 
-export var length_hip := 0.5 setget set_length_hip
-export var length_thigh := 0.5 setget set_length_thigh
-export var length_shin := 1.25 setget set_length_shin
+@export var roll := 0.0  # (float, -3.141593, 3.141593)
 
-export var bone_width = 0.08 setget set_bone_width
-export var bone_depth = 0.02 setget set_bone_depth
+@export var length_hip := 0.5 : set = set_length_hip
+@export var length_thigh := 0.5 : set = set_length_thigh
+@export var length_shin := 1.25 : set = set_length_shin
 
-export var flipped = true
+@export var bone_width = 0.08 : set = set_bone_width
+@export var bone_depth = 0.02 : set = set_bone_depth
 
-export var a_off = 0.345
-export var a_m = -2.45
+@export var flipped = true
+
+@export var a_off = 0.345
+@export var a_m = -2.45
 
 
 const MIN_DIST = 0.75 #0.25
 
 var global_time = 0.0
-onready var toe_initial_position = toe_node.transform.origin
+@onready var toe_initial_position = toe_node.transform.origin
 
-var noise1 = OpenSimplexNoise.new()
+#var noise1 = OpenSimplexNoise.new()
 
 
 
 func _ready():
-	#yield(get_tree().create_timer(.1), "timeout")
+	#await get_tree().create_timer(.1).timeout
 	_set_bone_polygons(bone_width)
 	_set_joint_positions()
-
+	#pass
+	
 	# Configure
-	noise1.seed = randi()
-	noise1.octaves = 4
-	noise1.period = 30.0
-	noise1.persistence = 0.8
+#	noise1.seed = randi()
+#	noise1.octaves = 4
+#	noise1.period = 30.0
+#	noise1.persistence = 0.8
 
 
 
@@ -118,42 +122,44 @@ func law_of_cos(a, b, c):
 #-------------
 func set_bone_width(new) -> void:
 	bone_width = new
-	if Engine.editor_hint:
-		_set_bone_polygons(new)
+#	if Engine.is_editor_hint:
+#		_set_bone_polygons(new)
 
 
 func set_bone_depth(new) -> void:
 	bone_depth = new
-	if Engine.editor_hint:
-		_set_bone_polygons(bone_width)
+#	if Engine.is_editor_hint:
+#		_set_bone_polygons(bone_width)
 	
 
 func set_length_hip(new) -> void:
 	length_hip = new
-	if Engine.editor_hint:
-		_set_bone_polygons(bone_width)
-		_set_joint_positions()
+#	if Engine.is_editor_hint:
+#		_set_bone_polygons(bone_width)
+#		_set_joint_positions()
 
 
 func set_length_thigh(new) -> void:
 	length_thigh = new
-	if Engine.editor_hint:
-		_set_bone_polygons(bone_width)
-		_set_joint_positions()
+#	if Engine.is_editor_hint:
+#		_set_bone_polygons(bone_width)
+#		_set_joint_positions()
 
 
 func set_length_shin(new) -> void:
 	length_shin = new
-	if Engine.editor_hint:
-		_set_bone_polygons(bone_width)
-		_set_joint_positions()
+#	if Engine.is_editor_hint:
+#		_set_bone_polygons(bone_width)
+#		_set_joint_positions()
 
 
-func _create_polygon(width: float = 1.0, length: float = 1.0) -> PoolVector2Array:
-	return  PoolVector2Array([Vector2(0.0, width), Vector2(0.0, -width), Vector2(length, 0.0)])
+func _create_polygon(width: float = 1.0, length: float = 1.0) -> PackedVector2Array:
+	return  PackedVector2Array([Vector2(0.0, width), Vector2(0.0, -width), Vector2(length, 0.0)])
 
 
 func _set_bone_polygons(new_width) -> void:
+	print("[three_joint_leg][_set_bone_polygons] hip_joint %s"%$hip_joint)
+	print("[three_joint_leg][_set_bone_polygons] polygon %s"%$hip_joint/polygon)
 	$hip_joint/polygon.polygon = _create_polygon(new_width, length_hip )
 	$hip_joint/polygon.depth = bone_depth
 	$hip_joint/polygon.transform.origin.z =  $hip_joint/polygon.depth / 2.0

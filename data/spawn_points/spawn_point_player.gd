@@ -1,6 +1,6 @@
-extends Spatial
+extends Node3D
 
-export (NodePath) var player
+@export (NodePath) var player
 
 
 func _ready():
@@ -16,10 +16,10 @@ func _ready():
 func transport_player_to_spawn_point():
 	print("begin recall to spawnpoint ..")
 	player.set_active( false )
-	#yield(get_tree().create_timer(1.0), "timeout")
+	#await get_tree().create_timer(1.0).timeout
 	$arrival_tween.interpolate_property(
 		player,
-		"translation",
+		"position",
 		player.global_transform.origin,
 		global_transform.origin,
 		$arrival_tween.playback_speed,
@@ -32,7 +32,7 @@ func transport_player_to_spawn_point():
 
 func _on_arrival_tween_tween_completed(object, key):
 	print(".. arrived at spawnpoint")
-	#$arrival_tween.stop(player, "translation")
+	#$arrival_tween.stop(player, "position")
 	$arrival_tween.remove_all()
 	player.respawn()
 	

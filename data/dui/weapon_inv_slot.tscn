@@ -1,61 +1,61 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=8 format=3 uid="uid://bfu2k02apbkwt"]
 
-[ext_resource path="res://scenes/player/emissive_blue_square_outline_material.tres" type="Material" id=2]
-[ext_resource path="res://scenes/player/emissive_blue_semiopaque_material.tres" type="Material" id=3]
-[ext_resource path="res://data/dui/weapon_inv_slot.gd" type="Script" id=4]
-[ext_resource path="res://data/textures/square_01.png" type="Texture" id=5]
+[ext_resource type="Texture2D" uid="uid://cgq0u6ykuf56a" path="res://data/textures/square_01.png" id="2_er5nd"]
+[ext_resource type="Script" path="res://data/dui/weapon_inv_slot.gd" id="4"]
 
-[sub_resource type="QuadMesh" id=7]
-material = ExtResource( 3 )
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5vbjd"]
 
-[sub_resource type="SpatialMaterial" id=9]
-resource_local_to_scene = true
-flags_transparent = true
-flags_no_depth_test = true
-params_cull_mode = 2
-albedo_color = Color( 0.345098, 0.67451, 0.937255, 0.137255 )
+[sub_resource type="QuadMesh" id="7"]
+material = SubResource("StandardMaterial3D_5vbjd")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yylii"]
+transparency = 1
+cull_mode = 2
+albedo_color = Color(0.537255, 0.239216, 0.788235, 0.160784)
 emission_enabled = true
-emission = Color( 0.917647, 0.431373, 0.886275, 1 )
-emission_energy = 3.0
-emission_operator = 0
-emission_on_uv2 = false
+emission = Color(0.705882, 0.278431, 0.8, 1)
+emission_energy_multiplier = 3.0
 
-[sub_resource type="SpatialMaterial" id=8]
-flags_transparent = true
-flags_no_depth_test = true
-params_cull_mode = 2
-albedo_color = Color( 0.901961, 0.52549, 0.156863, 0.117647 )
-albedo_texture = ExtResource( 5 )
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t8ey6"]
+transparency = 1
+cull_mode = 2
+albedo_color = Color(0.129412, 0.517647, 0.701961, 0.443137)
+albedo_texture = ExtResource("2_er5nd")
 emission_enabled = true
-emission = Color( 0.945098, 0.65098, 0.364706, 1 )
-emission_energy = 3.0
-emission_operator = 0
-emission_on_uv2 = false
+emission = Color(0.321569, 0.690196, 0.815686, 1)
+emission_energy_multiplier = 6.0
 
-[node name="weapon_inv_slot" type="Spatial"]
-script = ExtResource( 4 )
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vdh45"]
+transparency = 1
+cull_mode = 2
+albedo_color = Color(0.537255, 0.388235, 0.223529, 0.384314)
+albedo_texture = ExtResource("2_er5nd")
+emission_enabled = true
+emission = Color(0.819608, 0.513726, 0.25098, 1)
+emission_energy_multiplier = 3.0
 
-[node name="bg" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, -4.37687e-08, 0, 2.4 )
-mesh = SubResource( 7 )
-material/0 = SubResource( 9 )
+[node name="weapon_inv_slot" type="Node3D"]
+script = ExtResource("4")
 
-[node name="outline" type="MeshInstance" parent="bg"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.11 )
-mesh = SubResource( 7 )
-material/0 = ExtResource( 2 )
+[node name="panel" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, -4.37687e-08, 0, 2.4)
+mesh = SubResource("7")
+surface_material_override/0 = SubResource("StandardMaterial3D_yylii")
 
-[node name="selected" type="MeshInstance" parent="bg"]
-transform = Transform( 0.826048, 0.826048, 3.55271e-15, -0.826048, 0.826048, 0, -1.77636e-15, -1.77636e-15, 1.16821, 0, 0, -0.22 )
-mesh = SubResource( 7 )
-material/0 = SubResource( 8 )
+[node name="outline" type="MeshInstance3D" parent="panel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.11)
+mesh = SubResource("7")
+surface_material_override/0 = SubResource("StandardMaterial3D_t8ey6")
 
-[node name="selected2" type="MeshInstance" parent="bg/selected"]
-transform = Transform( 1, 4.44089e-16, 5.32907e-15, 4.44089e-16, 1, 5.32907e-15, 0, 0, 1, 0, 0, 0.153311 )
-mesh = SubResource( 7 )
+[node name="selected" type="MeshInstance3D" parent="panel"]
+transform = Transform3D(0.826048, 0.826048, 3.55271e-15, -0.826048, 0.826048, 0, -1.77636e-15, -1.77636e-15, 1.16821, 0, 0, -0.22)
+mesh = SubResource("7")
+surface_material_override/0 = SubResource("StandardMaterial3D_vdh45")
+
+[node name="selected2" type="MeshInstance3D" parent="panel/selected"]
+transform = Transform3D(1, 4.44089e-16, 5.32907e-15, 4.44089e-16, 1, 5.32907e-15, 0, 0, 1, 0, 0, 0.153311)
+mesh = SubResource("7")
 skeleton = NodePath("../..")
-material/0 = SubResource( 8 )
+surface_material_override/0 = SubResource("StandardMaterial3D_vdh45")
 
-[node name="visibility_tween" type="Tween" parent="."]
-
-[connection signal="tween_completed" from="visibility_tween" to="." method="_on_visibility_tween_tween_completed"]
+[node name="visibility_tween" type="Node" parent="."]

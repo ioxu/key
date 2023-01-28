@@ -1,0 +1,50 @@
+[gd_scene load_steps=10 format=3 uid="uid://bdham7gyjv55u"]
+
+[ext_resource type="PackedScene" uid="uid://c58p6awrfgoox" path="res://data/props/bollard-02-piece-01/bollard-02-piece-01_01-01.gltf" id="1_5f685"]
+[ext_resource type="Texture2D" uid="uid://bssfehue17aha" path="res://data/props/bollard-02-piece-01/bollard-02-piece-01_01-01_DefaultMaterial_BaseColor.png" id="2_ylsft"]
+[ext_resource type="Texture2D" uid="uid://e3qjbkcfixwd" path="res://data/props/bollard-02-piece-01/bollard-02-piece-01_01-01_DefaultMaterial_Metallic.png" id="3_m2lun"]
+[ext_resource type="Texture2D" uid="uid://fm73m3kxxakj" path="res://data/props/bollard-02-piece-01/bollard-02-piece-01_01-01_DefaultMaterial_Normal.png" id="4_54mpl"]
+[ext_resource type="Texture2D" uid="uid://d1hbewievtni6" path="res://data/props/bollard-02-piece-01/bollard-02-piece-01_01-01_DefaultMaterial_Roughness.png" id="5_8se1s"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_an3le"]
+albedo_texture = ExtResource("2_ylsft")
+metallic = 1.0
+metallic_texture = ExtResource("3_m2lun")
+roughness_texture = ExtResource("5_8se1s")
+normal_enabled = true
+normal_texture = ExtResource("4_54mpl")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ihlhy"]
+size = Vector3(1.27129, 3.07523, 1.11328)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_76x02"]
+height = 1.07312
+radius = 0.553709
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_88kvd"]
+size = Vector3(1, 1.09521, 1.09048)
+
+[node name="bollard-02-piece-01_01-01" instance=ExtResource("1_5f685")]
+
+[node name="bollard-02-piece-01" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_an3le")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="bollard-02-piece-01" index="0"]
+collision_layer = 2
+collision_mask = 29
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="bollard-02-piece-01/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 7.10543e-14, 0, 1, 0, -7.10543e-14, 0, 1, 0.618608, 1.45271, 0)
+shape = SubResource("BoxShape3D_ihlhy")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="bollard-02-piece-01/StaticBody3D" index="1"]
+transform = Transform3D(1, 0, 7.10543e-14, 0, 1, 0, -7.10543e-14, 0, 1, 0.618608, 1.45271, 0)
+shape = SubResource("BoxShape3D_ihlhy")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="bollard-02-piece-01/StaticBody3D" index="2"]
+transform = Transform3D(1, 0, 1.27898e-13, 0, 1, 0, -1.27898e-13, 0, 1, 2.28579, 0.542037, -5.70934e-07)
+shape = SubResource("CylinderShape3D_76x02")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="bollard-02-piece-01/StaticBody3D" index="3"]
+transform = Transform3D(1, 0, 1.27898e-13, 0, 1, 0, -1.27898e-13, 0, 1, 1.77321, 0.511813, 0)
+shape = SubResource("BoxShape3D_88kvd")

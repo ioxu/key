@@ -1,29 +1,18 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=3 uid="uid://bmdax631flx3l"]
 
-[ext_resource path="res://data/pickups/pickup.tscn" type="PackedScene" id=1]
-[ext_resource path="res://data/pickups/weapon_pickup.gd" type="Script" id=2]
-[ext_resource path="res://data/weapons/pulse_shard/pulse_shard.tscn" type="PackedScene" id=3]
+[ext_resource type="PackedScene" uid="uid://qhoabf6jdyrh" path="res://data/pickups/pickup.tscn" id="1"]
+[ext_resource type="Script" path="res://data/pickups/weapon_pickup.gd" id="2"]
+[ext_resource type="PackedScene" uid="uid://djmmqkgcmvnw0" path="res://data/weapons/pulse_shard/pulse_shard.tscn" id="3"]
 
-[sub_resource type="SphereShape" id=2]
+[sub_resource type="SphereShape3D" id="2"]
 resource_local_to_scene = true
 radius = 0.29
 
-[sub_resource type="SpatialMaterial" id=1]
-albedo_color = Color( 0.913725, 0.0901961, 0.0901961, 1 )
-emission_enabled = true
-emission = Color( 0.956863, 0.156863, 0.156863, 1 )
-emission_energy = 3.0
-emission_operator = 0
-emission_on_uv2 = false
-
-[node name="weapon_pickup" instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0381284, 0, 0.0265913 )
-script = ExtResource( 2 )
+[node name="weapon_pickup" instance=ExtResource("1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0381284, 0, 0.0265913)
+script = ExtResource("2")
+weapon_archetype = ExtResource("3")
 pickup_type = "Weapon"
-weapon_archetype = ExtResource( 3 )
 
-[node name="CollisionShape" parent="RigidBody" index="0"]
-shape = SubResource( 2 )
-
-[node name="MeshInstance" parent="RigidBody" index="1"]
-material/0 = SubResource( 1 )
+[node name="CollisionShape3D" parent="RigidBody3D" index="0"]
+shape = SubResource("2")

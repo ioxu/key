@@ -1,16 +1,16 @@
 extends Node
 
-export(NodePath) var PlayerPath
-onready var player : KinematicBody = get_node(PlayerPath)
-export(NodePath) var WeaponMountPath
-onready var weapon_mount : Spatial = get_node(WeaponMountPath)
-export(NodePath) var DUI_Root
-onready var dui_root : Spatial = get_node(DUI_Root)
-export(NodePath) var EquipSlots
-onready var equip_slots : Spatial = get_node(EquipSlots)
+@export var PlayerPath: NodePath
+@onready var player : CharacterBody3D = get_node(PlayerPath)
+@export var WeaponMountPath: NodePath
+@onready var weapon_mount : Node3D = get_node(WeaponMountPath)
+@export var DUI_Root: NodePath
+@onready var dui_root : Node3D = get_node(DUI_Root)
+@export var EquipSlots: NodePath
+@onready var equip_slots : Node3D = get_node(EquipSlots)
 
-onready var weapon = null #player.find_node("weapon_mount").get_child(0)
-onready var weapon_equip_slot = null # the weapon_equip_slot this weapon came from
+@onready var weapon = null #player.find_child("weapon_mount").get_child(0)
+@onready var weapon_equip_slot = null # the weapon_equip_slot this weapon came from
 
 
 # weapon switching and equipping
@@ -25,13 +25,13 @@ const WEAPON_SWITCH_MAX_TME := 0.45
 var weapon_equips_from_equip_slots = {}
 
 func _ready():
-	if player.find_node("weapon_mount").get_child_count() > 0:
-		weapon = player.find_node("weapon_mount").get_child(0)
+	if player.find_child("weapon_mount").get_child_count() > 0:
+		weapon = player.find_child("weapon_mount").get_child(0)
 	equip_slots.get_child(0).show_equip_indicator(true)
 	
 	# connect signals in equip_slots
 	for c in equip_slots.get_children():
-		c.connect("weapon_equip_slot_set", self, "_on_weapon_equip_slot_set")
+		c.connect("weapon_equip_slot_set",Callable(self,"_on_weapon_equip_slot_set"))
 
 
 func _process(dt):
@@ -80,14 +80,14 @@ func _process(dt):
 
 		# TEMP: FIRE ALL IN INVENTORY ##############################################################
 #		if Input.is_action_just_pressed("shoot"):
-#			for w in dui_root.find_node("slots").get_children():
+#			for w in dui_root.find_child("slots").get_children():
 #				w.slotted_weapon.eject_casings = false
 #
-#				yield(get_tree().create_timer( randf() * 0.002 ), "timeout")
+#				await get_tree().create_timer( randf() * 0.002 ).timeout
 #				w.slotted_weapon.activated = true
 #
 #		if Input.is_action_just_released("shoot"):
-#			for w in dui_root.find_node("slots").get_children():
+#			for w in dui_root.find_child("slots").get_children():
 #				w.slotted_weapon.activated = false
 		#\TEMP: FIRE ALL IN INVENTORY ##############################################################
 
@@ -163,7 +163,7 @@ func update_equipped_weapon() -> void:
 			# switched-to slot is empty, don't change weapon
 			pass
 
-	prints("update_equipped_weapon() self.weapon", self.weapon,"\n")
+	pprint("update_equipped_weapon() self.weapon %s done."%self.weapon)
 
 
 func set_weapon_from_equipped_slot() -> void:
@@ -171,7 +171,7 @@ func set_weapon_from_equipped_slot() -> void:
 	
 	self.weapon = get_equipped_slot().slotted_weapon
 	
-	# store which weapon camer from which equip slot
+	# store which weapon came from which equip slot
 	weapon_equips_from_equip_slots[weapon] = get_equipped_slot()
 #	print("\nhsistory of weapons from equip_slots")
 #	for key in weapon_equips_from_equip_slots.keys():
@@ -181,10 +181,10 @@ func set_weapon_from_equipped_slot() -> void:
 	# return currently mounted weapon to equip slot
 	if weapon_mount.get_child_count() > 0:
 		var mounted_weapon = weapon_mount.get_child(0)
-		prints( "mounted_weapon:", mounted_weapon )
+		pprint( "[set_weapon_from_equipped_slot] mounted_weapon: %s"%mounted_weapon )
 		if mounted_weapon:
 			var original_equip_slot = weapon_equips_from_equip_slots[mounted_weapon]
-			prints(" return ",mounted_weapon, "to", original_equip_slot)
+			pprint(" return %s to %s"%[mounted_weapon, original_equip_slot])
 			original_equip_slot.return_weapon()
 			mounted_weapon = null
 
@@ -195,12 +195,17 @@ func set_weapon_from_equipped_slot() -> void:
 	weapon.set_owner( weapon_mount )
 
 	# do weapon connections
-	if self.weapon.is_connected( "fire" , player, "_on_weapon_fire" ):
-		self.weapon.disconnect("fire" , player, "_on_weapon_fire" )
+	pprint("[set_weapon_from_equipped_slot] .. connenct signals")
+	if self.weapon.is_connected("fired",Callable(player,"_on_weapon_fire")):
+		self.weapon.disconnect("fired",Callable(player,"_on_weapon_fire"))
 	player.set_current_weapon( self.weapon )
-	var _res = weapon.connect("fire", player, "_on_weapon_fire")
+	var _res = weapon.connect("fired",Callable(player,"_on_weapon_fire"))
+	pprint("[set_weapon_from_equipped_slot] .. signals connect result: %s"%_res)
 
 
 func clear_weapon() -> void:
 	self.weapon = null
 
+
+func pprint(thing) -> void:
+	print("[WeaponController] %s"%str(thing))

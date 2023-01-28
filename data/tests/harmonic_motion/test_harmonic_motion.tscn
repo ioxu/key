@@ -1,26 +1,26 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://data/tests/harmonic_motion/test_harmonic_motion.gd" type="Script" id=1]
-[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://icon.png" type="Texture2D" id=2]
 [ext_resource path="res://data/tests/harmonic_motion/Line2D.gd" type="Script" id=3]
 
 [sub_resource type="CanvasItemMaterial" id=1]
 blend_mode = 1
 
 [sub_resource type="Gradient" id=2]
-offsets = PoolRealArray( 0, 0.798817, 1 )
-colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 0.12252, 1, 1, 1, 0.25098 )
+offsets = PackedFloat32Array( 0, 0.798817, 1 )
+colors = PackedColorArray( 1, 1, 1, 0, 1, 1, 1, 0.12252, 1, 1, 1, 0.25098 )
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
 damping_ratio = 0.75
 angular_frequency = 8.0
 
-[node name="target_sprite" type="Sprite" parent="."]
+[node name="target_sprite" type="Sprite2D" parent="."]
 modulate = Color( 0.513726, 0.188235, 0.188235, 0.282353 )
 texture = ExtResource( 2 )
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2( 372.222, 136.759 )
 texture = ExtResource( 2 )
 

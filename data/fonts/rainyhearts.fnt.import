@@ -1,0 +1,16 @@
+[remap]
+
+importer="font_data_bmfont"
+type="FontFile"
+uid="uid://dgkr6resf6scy"
+path="res://.godot/imported/rainyhearts.fnt-2321aeaf695c0e2296cb25dc3e503af7.fontdata"
+
+[deps]
+
+source_file="res://data/fonts/rainyhearts.fnt"
+dest_files=["res://.godot/imported/rainyhearts.fnt-2321aeaf695c0e2296cb25dc3e503af7.fontdata"]
+
+[params]
+
+fallbacks=[]
+compress=true

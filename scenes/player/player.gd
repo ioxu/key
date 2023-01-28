@@ -1,25 +1,25 @@
-extends KinematicBody
+extends CharacterBody3D
 
-export var initial_health : float = 1000.0
-var health : float setget set_health
-export var targetable := true
-export var active := true setget set_active, get_active
+@export var initial_health : float = 1000.0
+var health : float : set = set_health
+@export var targetable := true
+@export var active := true : get = get_active, set = set_active
 
 var damage_rng = RandomNumberGenerator.new()
-onready var hurt_meter = $MeshInstance/hurt_meter
+@onready var hurt_meter = $MeshInstance3D/hurt_meter
 
 #export (NodePath) var spawn_point
 
-export var recoil_time := 0.0 # animated by recoil_animplayer
+@export var recoil_time := 0.0 # animated by recoil_animplayer
 var recoil_magnitude := 0.65 #0.65#0.35
 
-onready var body = $MeshInstance
-onready var body_initial_position = body.transform.origin
-onready var body_initial_basis = body.transform.basis
+@onready var body = $MeshInstance3D
+@onready var body_initial_position = body.transform.origin
+@onready var body_initial_basis = body.transform.basis
 
-onready var waist = $waist
-onready var waist_initial_position = waist.transform.origin
-onready var waist_initial_basis = waist.transform.basis
+@onready var waist = $waist
+@onready var waist_initial_position = waist.transform.origin
+@onready var waist_initial_basis = waist.transform.basis
 
 var current_weapon = null
 
@@ -32,9 +32,9 @@ var _stats = {
 	}
 
 
-signal die(object)
+signal has_died(object)
 
-onready var dui_root = get_node("MeshInstance/dui_root")
+@onready var dui_root = get_node("MeshInstance3D/dui_root")
 
 var inventory_resource = load("res://data/inventory/inventory.gd")
 var inventory = inventory_resource.new()
@@ -49,25 +49,25 @@ func _ready():
 
 	# connect to weapon
 	# TODO: replace with player function for switching weapon
-	if $MeshInstance/weapon_mount.get_child_count() > 0:
-		current_weapon = $MeshInstance/weapon_mount.get_child(0)
+	if $MeshInstance3D/weapon_mount.get_child_count() > 0:
+		current_weapon = $MeshInstance3D/weapon_mount.get_child(0)
 	
 	if current_weapon:
-		current_weapon.connect("fire", self, "_on_weapon_fire")
+		current_weapon.connect("fire",Callable(self,"_on_weapon_fire"))
 
 	# connect to inventory
-	inventory.connect("inventory_changed", dui_root, "_on_inventory_changed")
+	inventory.connect("inventory_changed",Callable(dui_root,"_on_inventory_changed"))
 
 	# deck the character with starting weapons in the inventory
-	yield(get_tree().create_timer(1.0), "timeout")
-	for _i in range(4):
-		var w = preload("res://data/weapons/pulse_shard/pulse_shard.tscn").instance()
+	await get_tree().create_timer(1.0).timeout
+	for _i in range(2):
+		var w = preload("res://data/weapons/pulse_shard/pulse_shard.tscn").instantiate()
 		#w.set_visible(false)
 		self.inventory.add_weapon_item( w, 1 )
 
 
-func _process(delta):
-	# recoil on waist
+func _process(_delta):
+	# recoil checked waist
 	var recoil_v = Vector3(0.0, 0.0, recoil_time * -1.0 * recoil_magnitude).rotated(Vector3.UP, waist.get_rotation().y )
 	waist.transform.origin = waist_initial_position + recoil_v
 	body.transform.origin = body_initial_position + recoil_v
@@ -94,7 +94,7 @@ func _process(delta):
 
 func set_active(new_value) -> void:
 	active = new_value
-	$CollisionShape.disabled = !new_value
+	$CollisionShape3D.disabled = !new_value
 	targetable = new_value
 	$Controller.set_physics_process(new_value)
 	$Controller.set_process(new_value)
@@ -116,27 +116,27 @@ func set_health(new_value) -> void:
 
 
 func die() -> void:
-	$MeshInstance/hurt_meter.visible = false
+	$MeshInstance3D/hurt_meter.visible = false
 	$icons/death_icon.visible = true
 	set_active(false)
-	yield(get_tree().create_timer(1.5), "timeout")
+	await get_tree().create_timer(1.5).timeout
 	visible = false
 	#spawn_point.transport_player_to_spawn_point()
-	emit_signal("die", self)
+	emit_signal("has_died", self)
 	_stats.died += 1
 
 
 func respawn() -> void:
 	set_health(initial_health)
 	set_active(true)
-	$MeshInstance/hurt_meter.visible = true
+	$MeshInstance3D/hurt_meter.visible = true
 	$icons/death_icon.visible = false
 	visible = true
 
 
 func _on_weapon_fire(weapon) -> void:
 	# recoily
-	$recoil_animplayer.stop()
+	$recoil_animplayer.stop()#.pause()#.stop()
 	$recoil_animplayer.play("recoil_time_animation", -1, 5.0)#3.5)#5.0) #7.5)
 	# force
 	$Controller.additional_force += -current_weapon.bullet_spawner.global_transform.basis.z.normalized() * weapon.fire_kickback
@@ -147,7 +147,7 @@ func stop_movement() -> void:
 	$Controller.movement = Vector3.ZERO
 
 
-func bullet_hit(bullet, collision_info) -> void:
+func bullet_hit(bullet, _collision_info) -> void:
 	if !get_active():
 		return
 
@@ -185,6 +185,9 @@ func pickup( pickup_object ):
 
 
 func set_current_weapon( weapon ) -> void:
+	pprint("set_current_weapon() %s"%weapon)
 	self.current_weapon = weapon
 
 
+func pprint(thing) -> void:
+	print("[player] %s"%str(thing))

@@ -2,16 +2,17 @@ extends Node2D
 
 func _ready():
 	var root = get_node("/root")
-	root.connect("size_changed",self,"resize")
+	root.connect("size_changed",Callable(self,"resize"))
 	resize()
 
 
 func resize():
-	var window_size = OS.get_window_size()
+	var window_size = DisplayServer.window_get_size()#OS.get_window_size()
 	$Control/splash_image.set_scale(Vector2( window_size.x/1920.0, window_size.y/1080.0) )
 
 
 func _input(event):
 	if event.is_action_pressed("ui_skip"):
+		print("splash ui_skip")
 		Game.start()
 
