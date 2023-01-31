@@ -4,6 +4,8 @@ var gtime := 0.0
 
 @export var main_subviewport : SubViewport
 
+@export var ui_debug_root : Node
+
 var is_active := false
 
 var debug_draw_options : OptionButton
@@ -51,7 +53,7 @@ func _process(delta):
 	gtime += delta
 	var lod_f = (sin(gtime* 1.0) + 1.0) / 2.0
 	lod_f *= 80.0
-	pprint("lod_f %s"%lod_f)
+#	pprint("lod_f %s"%lod_f)
 	main_subviewport.mesh_lod_threshold = lod_f
 
 
@@ -69,8 +71,21 @@ func _on_debug_draw_options_item_selected(index):
 
 
 func pprint(thing) -> void:
-	print("[ui_debug_mnenu] %s"%str(thing))
+	print("[ui_debug_menu] %s"%str(thing))
 
 
 func _on_quit_button_pressed():
 	get_tree().quit()
+
+
+func _on_fps_overlay_checkbox_toggled(button_pressed):
+	ui_debug_root.find_child("fps_display_container").set_visible( button_pressed )
+
+
+func _on_resolutions_overlay_checkbox_toggled(button_pressed):
+	ui_debug_root.find_child("resolutions_display_container").set_visible( button_pressed )
+
+
+func _on_rendering_server_info_overlay_checkbox_toggled(button_pressed):
+	ui_debug_root.find_child("renderingServer_info_display_container").set_visible( button_pressed )
+

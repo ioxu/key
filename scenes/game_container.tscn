@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://dfja1ypquymuq"]
+[gd_scene load_steps=35 format=3 uid="uid://dfja1ypquymuq"]
 
 [ext_resource type="PackedScene" uid="uid://c0vn2jqnejado" path="res://data/props/bollard-02-piece-03/bollard_02_piece_03.tscn" id="1_17l12"]
 [ext_resource type="PackedScene" uid="uid://b330s652jv5y8" path="res://data/props/bollard-02-piece-02/bollard_02_piece_02.tscn" id="2_3tqab"]
@@ -8,22 +8,28 @@
 [ext_resource type="Shader" path="res://data/shaders/ViewportDisplay_shaders/invert.gdshader" id="5_7wl8l"]
 [ext_resource type="Texture2D" uid="uid://2tspxfxes4sh" path="res://data/textures/key-title_paint_01-02.png" id="5_eogxw"]
 [ext_resource type="FontFile" uid="uid://dtb3xbqwk4167" path="res://data/fonts/RobotoCondensed-Regular.ttf" id="6_tp6qh"]
+[ext_resource type="Script" path="res://scenes/ViewportDisplay.gd" id="7_7rcxx"]
 [ext_resource type="Texture2D" uid="uid://i4wkypqrg2n7" path="res://thumbnail.png" id="7_byq4e"]
 [ext_resource type="Texture2D" uid="uid://q50te0v1ajna" path="res://data/icons/settings.png" id="10_ac0lg"]
 [ext_resource type="Script" path="res://scenes/ui_debug_menu.gd" id="10_od7cn"]
+[ext_resource type="Script" path="res://scenes/resolutions_display_panel.gd" id="11_udo4q"]
+[ext_resource type="Script" path="res://scenes/renderingServer_info_display_panel.gd" id="12_dllqf"]
+[ext_resource type="Texture2D" uid="uid://djwhb8rr17kkc" path="res://data/icons/pulse.png" id="14_1bpyw"]
 
 [sub_resource type="GDScript" id="GDScript_bgtdb"]
 script/source = "extends Node2D
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	pprint(\"SubViewport.RENDER_INFO_MAX %s\"%$SubViewportContainer/SubViewport.RENDER_INFO_MAX)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+
+
+func pprint(thing) -> void:
+	print(\"[game_container] %s\"%str(thing))
 "
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_egx2i"]
@@ -85,9 +91,6 @@ size = Vector3(500, 500, 1)
 shader = ExtResource("5_7wl8l")
 shader_parameter/do_invert = false
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_ll1li"]
-viewport_path = NodePath("SubViewportContainer/SubViewport")
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cjn2m"]
 bg_color = Color(0, 0, 0, 0.247059)
 corner_radius_top_left = 3
@@ -119,8 +122,24 @@ script/source = "extends Label
 
 
 func _process(delta):
-	self.text = str(Engine.get_frames_per_second())
+	self.text = \"fps %s\"%str(Engine.get_frames_per_second())
 "
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_21f6s"]
+bg_color = Color(0.989406, 0.495894, 0.544122, 0.333333)
+border_color = Color(0.945098, 0.462745, 0.670588, 0.505882)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jmqgn"]
+bg_color = Color(0.74902, 0.596078, 0.878431, 0.333333)
+border_color = Color(0.945098, 0.462745, 0.670588, 0.505882)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q6520"]
 bg_color = Color(1, 1, 1, 0.117647)
@@ -130,14 +149,14 @@ corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_56vvm"]
-bg_color = Color(0.917647, 0.419608, 0.454902, 0.478431)
+bg_color = Color(0.623529, 0.164706, 0.196078, 0.878431)
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gquur"]
-bg_color = Color(0.709804, 0.219608, 0.278431, 0.67451)
+bg_color = Color(0.882353, 0.231373, 0.392157, 0.878431)
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
@@ -166,7 +185,6 @@ msaa_2d = 3
 msaa_3d = 3
 use_taa = true
 use_debanding = true
-mesh_lod_threshold = 78.1
 audio_listener_enable_3d = true
 positional_shadow_atlas_size = 4096
 size = Vector2i(1024, 576)
@@ -256,6 +274,7 @@ cull_mask = 1048574
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.265419, 0, 0.259204)
 
 [node name="ViewportDisplay" type="Node" parent="."]
+script = ExtResource("7_7rcxx")
 
 [node name="TextureRect" type="TextureRect" parent="ViewportDisplay"]
 material = SubResource("ShaderMaterial_x2aue")
@@ -265,13 +284,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("ViewportTexture_ll1li")
 expand_mode = 3
 stretch_mode = 6
 
-[node name="ui_persistant" type="Node" parent="."]
+[node name="ui_persistent" type="Node" parent="."]
 
-[node name="MarginContainer" type="MarginContainer" parent="ui_persistant"]
+[node name="MarginContainer" type="MarginContainer" parent="ui_persistent"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -282,35 +300,35 @@ theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ui_persistant/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ui_persistent/MarginContainer"]
 layout_mode = 2
 
-[node name="Control" type="Control" parent="ui_persistant/MarginContainer/VBoxContainer"]
+[node name="Control" type="Control" parent="ui_persistent/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ui_persistant/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ui_persistent/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="hint_panel" type="PanelContainer" parent="ui_persistant/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="hint_panel" type="PanelContainer" parent="ui_persistent/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_cjn2m")
 
-[node name="MarginContainer" type="MarginContainer" parent="ui_persistant/MarginContainer/VBoxContainer/HBoxContainer/hint_panel"]
+[node name="MarginContainer" type="MarginContainer" parent="ui_persistent/MarginContainer/VBoxContainer/HBoxContainer/hint_panel"]
 layout_mode = 2
 theme_override_constants/margin_left = 2
 theme_override_constants/margin_right = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ui_persistant/MarginContainer/VBoxContainer/HBoxContainer/hint_panel/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ui_persistent/MarginContainer/VBoxContainer/HBoxContainer/hint_panel/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="ui_persistant/MarginContainer/VBoxContainer/HBoxContainer/hint_panel/MarginContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="ui_persistent/MarginContainer/VBoxContainer/HBoxContainer/hint_panel/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("6_tp6qh")
 theme_override_font_sizes/font_size = 12
 text = "key"
 
-[node name="TextureRect" type="TextureRect" parent="ui_persistant/MarginContainer/VBoxContainer/HBoxContainer/hint_panel/MarginContainer/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="ui_persistent/MarginContainer/VBoxContainer/HBoxContainer/hint_panel/MarginContainer/HBoxContainer"]
 texture_filter = 3
 material = SubResource("ShaderMaterial_ds7l5")
 layout_mode = 2
@@ -340,34 +358,153 @@ size_flags_horizontal = 3
 [node name="VBoxContainer" type="VBoxContainer" parent="ui_debug/MarginContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ui_debug/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="fps_display_container" type="HBoxContainer" parent="ui_debug/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Control" type="Control" parent="ui_debug/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Control" type="Control" parent="ui_debug/MarginContainer/HBoxContainer/VBoxContainer/fps_display_container"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="fps_container" type="PanelContainer" parent="ui_debug/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="fps_container" type="PanelContainer" parent="ui_debug/MarginContainer/HBoxContainer/VBoxContainer/fps_display_container"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_6ge21")
 
-[node name="MarginContainer" type="MarginContainer" parent="ui_debug/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/fps_container"]
+[node name="MarginContainer" type="MarginContainer" parent="ui_debug/MarginContainer/HBoxContainer/VBoxContainer/fps_display_container/fps_container"]
 layout_mode = 2
 theme_override_constants/margin_left = 3
 theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 
-[node name="fps_label" type="Label" parent="ui_debug/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/fps_container/MarginContainer"]
+[node name="fps_label" type="Label" parent="ui_debug/MarginContainer/HBoxContainer/VBoxContainer/fps_display_container/fps_container/MarginContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("6_tp6qh")
 theme_override_font_sizes/font_size = 12
 text = "fps:"
 script = SubResource("GDScript_au1ow")
 
-[node name="ui_debug_menu" type="Node" parent="." node_paths=PackedStringArray("main_subviewport")]
+[node name="resolutions_display_container" type="HBoxContainer" parent="ui_debug/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="ui_debug/MarginContainer/HBoxContainer/VBoxContainer/resolutions_display_container"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="resolutions_display_panel" type="PanelContainer" parent="ui_debug/MarginContainer/HBoxContainer/VBoxContainer/resolutions_display_container" node_paths=PackedStringArray("main_viewport", "viewport_display_rect")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_21f6s")
+script = ExtResource("11_udo4q")
+main_viewport = NodePath("../../../../../../SubViewportContainer/SubViewport")
+viewport_display_rect = NodePath("../../../../../../ViewportDisplay/TextureRect")
+
+[node name="MarginContainer" type="MarginContainer" parent="ui_debug/MarginContainer/HBoxContainer/VBoxContainer/resolutions_display_container/resolutions_display_panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = -1
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = -2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui_debug/MarginContainer/HBoxContainer/VBoxContainer/resolutions_display_container/resolutions_display_panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = -4
+
+[node name="viewport_resolution" type="Label" parent="ui_debug/MarginContainer/HBoxContainer/VBoxContainer/resolutions_display_container/resolutions_display_panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.454902)
+theme_override_fonts/font = ExtResource("6_tp6qh")
+theme_override_font_sizes/font_size = 12
+text = "viewport resoltuion"
+horizontal_alignment = 2
+
+[node name="window_resolution" type="Label" parent="ui_debug/MarginContainer/HBoxContainer/VBoxContainer/resolutions_display_container/resolutions_display_panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.454902)
+theme_override_fonts/font = ExtResource("6_tp6qh")
+theme_override_font_sizes/font_size = 12
+text = "window resolution"
+horizontal_alignment = 2
+
+[node name="renderingServer_info_display_container" type="HBoxContainer" parent="ui_debug/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="ui_debug/MarginContainer/HBoxContainer/VBoxContainer/renderingServer_info_display_container"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="renderingServer_info_display_panel" type="PanelContainer" parent="ui_debug/MarginContainer/HBoxContainer/VBoxContainer/renderingServer_info_display_container"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_jmqgn")
+script = ExtResource("12_dllqf")
+
+[node name="MarginContainer" type="MarginContainer" parent="ui_debug/MarginContainer/HBoxContainer/VBoxContainer/renderingServer_info_display_container/renderingServer_info_display_panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = -1
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = -2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui_debug/MarginContainer/HBoxContainer/VBoxContainer/renderingServer_info_display_container/renderingServer_info_display_panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = -4
+
+[node name="total_objects_in_frame" type="Label" parent="ui_debug/MarginContainer/HBoxContainer/VBoxContainer/renderingServer_info_display_container/renderingServer_info_display_panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.454902)
+theme_override_fonts/font = ExtResource("6_tp6qh")
+theme_override_font_sizes/font_size = 12
+text = "total objects in frame"
+horizontal_alignment = 2
+
+[node name="total_primitives_in_frame" type="Label" parent="ui_debug/MarginContainer/HBoxContainer/VBoxContainer/renderingServer_info_display_container/renderingServer_info_display_panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.454902)
+theme_override_fonts/font = ExtResource("6_tp6qh")
+theme_override_font_sizes/font_size = 12
+text = "total primitives in frame"
+horizontal_alignment = 2
+
+[node name="total_draw_calls_in_frame" type="Label" parent="ui_debug/MarginContainer/HBoxContainer/VBoxContainer/renderingServer_info_display_container/renderingServer_info_display_panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.454902)
+theme_override_fonts/font = ExtResource("6_tp6qh")
+theme_override_font_sizes/font_size = 12
+text = "total draw calls in frame"
+horizontal_alignment = 2
+
+[node name="texture_mem_used" type="Label" parent="ui_debug/MarginContainer/HBoxContainer/VBoxContainer/renderingServer_info_display_container/renderingServer_info_display_panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.454902)
+theme_override_fonts/font = ExtResource("6_tp6qh")
+theme_override_font_sizes/font_size = 12
+text = "texture mem used"
+horizontal_alignment = 2
+
+[node name="buffer_mem_used" type="Label" parent="ui_debug/MarginContainer/HBoxContainer/VBoxContainer/renderingServer_info_display_container/renderingServer_info_display_panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.454902)
+theme_override_fonts/font = ExtResource("6_tp6qh")
+theme_override_font_sizes/font_size = 12
+text = "buffer mem used"
+horizontal_alignment = 2
+
+[node name="video_mem_used" type="Label" parent="ui_debug/MarginContainer/HBoxContainer/VBoxContainer/renderingServer_info_display_container/renderingServer_info_display_panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.454902)
+theme_override_fonts/font = ExtResource("6_tp6qh")
+theme_override_font_sizes/font_size = 12
+text = "video mem used"
+horizontal_alignment = 2
+
+[node name="update_timer" type="Timer" parent="ui_debug/MarginContainer/HBoxContainer/VBoxContainer/renderingServer_info_display_container/renderingServer_info_display_panel"]
+wait_time = 0.5
+autostart = true
+
+[node name="ui_debug_menu" type="Node" parent="." node_paths=PackedStringArray("main_subviewport", "ui_debug_root")]
 script = ExtResource("10_od7cn")
 main_subviewport = NodePath("../SubViewportContainer/SubViewport")
+ui_debug_root = NodePath("../ui_debug")
 
 [node name="MarginContainer" type="MarginContainer" parent="ui_debug_menu"]
 anchors_preset = 15
@@ -407,13 +544,19 @@ theme_override_constants/margin_bottom = 3
 [node name="VBoxContainer" type="VBoxContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="graphics_settings_container" type="MarginContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/graphics_settings_container"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/graphics_settings_container/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/graphics_settings_container/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/graphics_settings_container/VBoxContainer/MarginContainer/HBoxContainer"]
 texture_filter = 4
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
@@ -421,46 +564,46 @@ texture = ExtResource("10_ac0lg")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Control" type="Control" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+[node name="Control" type="Control" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/graphics_settings_container/VBoxContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/graphics_settings_container/VBoxContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("6_tp6qh")
 theme_override_font_sizes/font_size = 15
 text = "graphics"
 
-[node name="PanelContainer" type="PanelContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/graphics_settings_container/VBoxContainer"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_q6520")
 
-[node name="MarginContainer2" type="MarginContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/graphics_settings_container/VBoxContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 2
 theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/graphics_settings_container/VBoxContainer/PanelContainer/MarginContainer2"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer"]
+[node name="Label" type="Label" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/graphics_settings_container/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("6_tp6qh")
 theme_override_font_sizes/font_size = 8
 text = "viewport rendering"
 
-[node name="debug_draw_parm" type="HBoxContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer"]
+[node name="debug_draw_parm" type="HBoxContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/graphics_settings_container/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer"]
 layout_mode = 2
 
-[node name="debug_draw_label" type="Label" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer/debug_draw_parm"]
+[node name="debug_draw_label" type="Label" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/graphics_settings_container/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer/debug_draw_parm"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("6_tp6qh")
 theme_override_font_sizes/font_size = 10
 text = "debug draw"
 
-[node name="debug_draw_options" type="OptionButton" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer/debug_draw_parm"]
+[node name="debug_draw_options" type="OptionButton" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/graphics_settings_container/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer/debug_draw_parm"]
 layout_mode = 2
 theme_override_constants/modulate_arrow = 20
 theme_override_fonts/font = ExtResource("6_tp6qh")
@@ -471,6 +614,122 @@ popup/item_0/text = "Normal"
 popup/item_0/id = 0
 popup/item_1/text = "Unshaded"
 popup/item_1/id = 1
+
+[node name="debug_settings_container" type="MarginContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/MarginContainer/HBoxContainer"]
+texture_filter = 4
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("14_1bpyw")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Control" type="Control" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_tp6qh")
+theme_override_font_sizes/font_size = 15
+text = "debug"
+
+[node name="PanelContainer" type="PanelContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_q6520")
+
+[node name="MarginContainer2" type="MarginContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/PanelContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_tp6qh")
+theme_override_font_sizes/font_size = 8
+text = "overlays"
+
+[node name="fps_overlay_parm" type="MarginContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = -5
+theme_override_constants/margin_bottom = -5
+
+[node name="hbox" type="HBoxContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer/fps_overlay_parm"]
+layout_mode = 2
+
+[node name="fps_overlay_label" type="Label" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer/fps_overlay_parm/hbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("6_tp6qh")
+theme_override_font_sizes/font_size = 10
+text = "fps"
+
+[node name="fps_overlay_checkbox" type="CheckBox" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer/fps_overlay_parm/hbox"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_tp6qh")
+theme_override_font_sizes/font_size = 10
+button_pressed = true
+text = "on"
+
+[node name="resolutions_overlay_parm" type="MarginContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = -5
+theme_override_constants/margin_bottom = -5
+
+[node name="hbox" type="HBoxContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer/resolutions_overlay_parm"]
+layout_mode = 2
+
+[node name="resolutions_overlay_label" type="Label" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer/resolutions_overlay_parm/hbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("6_tp6qh")
+theme_override_font_sizes/font_size = 10
+text = "resolutions"
+
+[node name="resolutions_overlay_checkbox" type="CheckBox" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer/resolutions_overlay_parm/hbox"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_tp6qh")
+theme_override_font_sizes/font_size = 10
+button_pressed = true
+text = "on"
+
+[node name="renderingServer_info_overlay_parm" type="MarginContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = -5
+theme_override_constants/margin_bottom = -5
+
+[node name="hbox" type="HBoxContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer/renderingServer_info_overlay_parm"]
+layout_mode = 2
+
+[node name="renderingServer_info_overlay_label" type="Label" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer/renderingServer_info_overlay_parm/hbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("6_tp6qh")
+theme_override_font_sizes/font_size = 10
+text = "rendering info"
+
+[node name="renderingServer_info_overlay_checkbox" type="CheckBox" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer/renderingServer_info_overlay_parm/hbox"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_tp6qh")
+theme_override_font_sizes/font_size = 10
+button_pressed = true
+text = "on"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -496,5 +755,9 @@ text = "debug"
 
 [node name="ui_menu" type="Node" parent="."]
 
-[connection signal="item_selected" from="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer/debug_draw_parm/debug_draw_options" to="ui_debug_menu" method="_on_debug_draw_options_item_selected"]
+[connection signal="timeout" from="ui_debug/MarginContainer/HBoxContainer/VBoxContainer/renderingServer_info_display_container/renderingServer_info_display_panel/update_timer" to="ui_debug/MarginContainer/HBoxContainer/VBoxContainer/renderingServer_info_display_container/renderingServer_info_display_panel" method="_on_timer_timeout"]
+[connection signal="item_selected" from="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/graphics_settings_container/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer/debug_draw_parm/debug_draw_options" to="ui_debug_menu" method="_on_debug_draw_options_item_selected"]
+[connection signal="toggled" from="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer/fps_overlay_parm/hbox/fps_overlay_checkbox" to="ui_debug_menu" method="_on_fps_overlay_checkbox_toggled"]
+[connection signal="toggled" from="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer/resolutions_overlay_parm/hbox/resolutions_overlay_checkbox" to="ui_debug_menu" method="_on_resolutions_overlay_checkbox_toggled"]
+[connection signal="toggled" from="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer/renderingServer_info_overlay_parm/hbox/renderingServer_info_overlay_checkbox" to="ui_debug_menu" method="_on_rendering_server_info_overlay_checkbox_toggled"]
 [connection signal="pressed" from="ui_debug_menu/MarginContainer/VBoxContainer/HBoxContainer/quit_button" to="ui_debug_menu" method="_on_quit_button_pressed"]
