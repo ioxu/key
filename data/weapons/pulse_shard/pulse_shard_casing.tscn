@@ -7,15 +7,15 @@
 [ext_resource type="AudioStream" uid="uid://b7to6tbtvt48m" path="res://data/weapons/pulse_shard/Bullet Shell 44 Dropping On Cement 3 - QuickSounds.com.mp3" id="5_m3u1s"]
 [ext_resource type="AudioStream" uid="uid://b16hfwe71sm6q" path="res://data/weapons/pulse_shard/Bullet Shell 38 Dropping On Cement 1 - QuickSounds.com.mp3" id="6_qy7yy"]
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_h8dcf"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_rxnsq"]
 friction = 0.72
 bounce = 0.65
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5l1m1"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_17s16"]
 radius = 0.048402
 height = 0.346182
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tw7qp"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2c612"]
 resource_local_to_scene = true
 transparency = 1
 shading_mode = 2
@@ -26,12 +26,12 @@ emission_enabled = true
 emission = Color(0.188235, 0.415686, 0.992157, 1)
 emission_energy_multiplier = 2.0
 
-[sub_resource type="BoxMesh" id="BoxMesh_ys63a"]
+[sub_resource type="BoxMesh" id="BoxMesh_2602u"]
 resource_local_to_scene = true
-material = SubResource("StandardMaterial3D_tw7qp")
+material = SubResource("StandardMaterial3D_2c612")
 size = Vector3(0.061, 0.061, 0.3)
 
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_t8imi"]
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_rv756"]
 streams_count = 5
 stream_0/stream = ExtResource("2_1dye2")
 stream_0/weight = 1.0
@@ -50,7 +50,7 @@ collision_layer = 2048
 collision_mask = 2311
 input_ray_pickable = false
 mass = 0.05
-physics_material_override = SubResource("PhysicsMaterial_h8dcf")
+physics_material_override = SubResource("PhysicsMaterial_rxnsq")
 gravity_scale = 5.0
 max_contacts_reported = 1
 contact_monitor = true
@@ -59,10 +59,10 @@ script = ExtResource("1")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
-shape = SubResource("CapsuleShape3D_5l1m1")
+shape = SubResource("CapsuleShape3D_17s16")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("BoxMesh_ys63a")
+mesh = SubResource("BoxMesh_2602u")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 3.0
@@ -70,7 +70,7 @@ one_shot = true
 autostart = true
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
-stream = SubResource("AudioStreamRandomizer_t8imi")
+stream = SubResource("AudioStreamRandomizer_rv756")
 pitch_scale = 0.9
 max_polyphony = 10
 bus = &"shells"

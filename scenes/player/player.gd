@@ -60,10 +60,15 @@ func _ready():
 
 	# deck the character with starting weapons in the inventory
 	await get_tree().create_timer(1.0).timeout
+	var _ps = preload("res://data/weapons/pulse_shard/pulse_shard.tscn")
+	
 	for _i in range(2):
-		var w = preload("res://data/weapons/pulse_shard/pulse_shard.tscn").instantiate()
+		var w = _ps.instantiate()
 		#w.set_visible(false)
 		self.inventory.add_weapon_item( w, 1 )
+	
+	# and an equipped weapon
+	$WeaponController.slot_weapon( _ps.instantiate() )
 
 
 func _process(_delta):

@@ -1,11 +1,35 @@
-[gd_scene load_steps=4 format=3 uid="uid://bipu5jycbgcoi"]
+[gd_scene load_steps=6 format=3 uid="uid://bipu5jycbgcoi"]
 
 [ext_resource type="Texture2D" uid="uid://c1wcb1tmmar6w" path="res://data/textures/debug/resolution_debug.png" id="1"]
-[ext_resource type="Texture2D" uid="uid://c5gdvrlm0ih8i" path="res://data/textures/debug/splash-01.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://2tspxfxes4sh" path="res://data/textures/key-title_paint_01-02.png" id="2_omh2q"]
 [ext_resource type="Script" path="res://scenes/splash.gd" id="3"]
+[ext_resource type="Texture2D" uid="uid://bfq83nyvc2kax" path="res://data/textures/circle_01.png" id="4_umw2c"]
+
+[sub_resource type="GDScript" id="GDScript_qjehm"]
+script/source = "extends Node2D
+
+var gtime := 0.0
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	gtime += delta
+	
+	self.rotation = gtime * 0.2
+"
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("3")
+
+[node name="resolution_debug" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.415686)
+texture = ExtResource("1")
+offset = Vector2(960, 540)
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -17,21 +41,28 @@ offset_bottom = 40.0
 grow_horizontal = 2
 
 [node name="splash_image" type="Sprite2D" parent="Control"]
-texture = ExtResource("2")
 offset = Vector2(960, 540)
 
-[node name="Label" type="Label" parent="Control/splash_image"]
-offset_left = 1374.0
-offset_top = 732.0
-offset_right = 1483.0
-offset_bottom = 746.0
-scale = Vector2(2, 2)
-text = "press X to start .."
+[node name="TextureRect" type="TextureRect" parent="Control/splash_image"]
+clip_children = 2
+offset_left = 877.0
+offset_top = 148.0
+offset_right = 1389.0
+offset_bottom = 660.0
+scale = Vector2(1.4532, 1.4532)
+texture = ExtResource("2_omh2q")
 
-[node name="resolution_debug" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 1, 0.415686)
-texture = ExtResource("1")
-offset = Vector2(960, 540)
+[node name="Node2D" type="Node2D" parent="Control/splash_image/TextureRect"]
+position = Vector2(188.549, 263.556)
+script = SubResource("GDScript_qjehm")
+
+[node name="TextureRect" type="TextureRect" parent="Control/splash_image/TextureRect/Node2D"]
+modulate = Color(1, 1, 1, 0.705882)
+offset_left = -154.831
+offset_top = -344.756
+offset_right = 391.17
+offset_bottom = 167.244
+texture = ExtResource("4_umw2c")
 
 [node name="Label" type="Label" parent="."]
 visible = false
@@ -42,3 +73,27 @@ offset_right = 153.0
 offset_bottom = 179.0
 scale = Vector2(20, 20)
 text = "splash"
+
+[node name="menu_root" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 108.0
+offset_top = 108.0
+offset_right = 148.0
+offset_bottom = 148.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="menu_root"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="old_start_button" type="Button" parent="menu_root/VBoxContainer"]
+layout_mode = 2
+text = "old start"
+
+[node name="new_container_button" type="Button" parent="menu_root/VBoxContainer"]
+layout_mode = 2
+text = "new container"
+
+[connection signal="button_up" from="menu_root/VBoxContainer/old_start_button" to="." method="_on_old_start_button_button_up"]
+[connection signal="button_up" from="menu_root/VBoxContainer/new_container_button" to="." method="_on_new_container_button_button_up"]

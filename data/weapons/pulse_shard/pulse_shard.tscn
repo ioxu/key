@@ -5,11 +5,11 @@
 [ext_resource type="AudioStream" uid="uid://c1a014cc2eaum" path="res://data/weapons/pulse_shard/fire_sfx_01.mp3" id="4_ra2c0"]
 [ext_resource type="Material" path="res://data/weapons/pulse_shard/pulse_shard.material" id="5"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_7426o"]
+[sub_resource type="BoxMesh" id="BoxMesh_am8b6"]
 material = ExtResource("5")
 size = Vector3(0.064, 0.8, 0.064)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e0to8"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7d0oj"]
 resource_local_to_scene = true
 transparency = 1
 emission_enabled = true
@@ -17,12 +17,12 @@ emission = Color(0.572549, 0.827451, 0.92549, 1)
 emission_energy_multiplier = 15.0
 disable_receive_shadows = true
 
-[sub_resource type="BoxMesh" id="BoxMesh_lfmut"]
+[sub_resource type="BoxMesh" id="BoxMesh_dr80i"]
 resource_local_to_scene = true
-material = SubResource("StandardMaterial3D_e0to8")
+material = SubResource("StandardMaterial3D_7d0oj")
 size = Vector3(0.064, 0.8, 0.064)
 
-[sub_resource type="Animation" id="Animation_uh0m7"]
+[sub_resource type="Animation" id="Animation_qksa7"]
 length = 0.001
 tracks/0/type = "bezier"
 tracks/0/imported = false
@@ -92,7 +92,7 @@ tracks/5/keys = {
 "times": PackedFloat32Array(0)
 }
 
-[sub_resource type="Animation" id="Animation_5ss8f"]
+[sub_resource type="Animation" id="Animation_ejqkt"]
 resource_name = "muzzle_flash"
 loop_mode = 1
 step = 0.01
@@ -176,10 +176,10 @@ tracks/6/keys = {
 "values": [Vector3(0, -0.445, 0), Vector3(0, -0.445, 0.181)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_nr7pp"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lxocy"]
 _data = {
-"RESET": SubResource("Animation_uh0m7"),
-"muzzle_flash": SubResource("Animation_5ss8f")
+"RESET": SubResource("Animation_qksa7"),
+"muzzle_flash": SubResource("Animation_ejqkt")
 }
 
 [node name="pulse_shard" instance=ExtResource("1")]
@@ -207,12 +207,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.444842, 0.0947556)
 [node name="geometry" type="MeshInstance3D" parent="geometry_hook" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.444842, 0.046)
 cast_shadow = 0
-mesh = SubResource("BoxMesh_7426o")
+mesh = SubResource("BoxMesh_am8b6")
 
 [node name="muzzle_flash" type="MeshInstance3D" parent="geometry_hook" index="1"]
 transform = Transform3D(3.96211, 0, 0, 0, 1, 0, 0, 0, 6.36739, 0, -0.445, 0)
 cast_shadow = 0
-mesh = SubResource("BoxMesh_lfmut")
+mesh = SubResource("BoxMesh_dr80i")
 
 [node name="muzzle_flash_light" type="OmniLight3D" parent="geometry_hook" index="2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.356412, 0.222734)
@@ -229,7 +229,7 @@ omni_attenuation = 2.2
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
 playback_speed = 6.5
 libraries = {
-"": SubResource("AnimationLibrary_nr7pp")
+"": SubResource("AnimationLibrary_lxocy")
 }
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." index="4"]

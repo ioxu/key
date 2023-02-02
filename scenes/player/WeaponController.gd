@@ -92,6 +92,16 @@ func _process(dt):
 		#\TEMP: FIRE ALL IN INVENTORY ##############################################################
 
 
+func slot_weapon(weapon : Weapon = null, slot : int = 0) -> void:
+	"""
+	quickly puts a weapon into a slot (index)
+	and enables it.
+	Avoids having to put a weapon in inventory and then use the interactiveinventory switcher to enable a weapon
+	"""
+	pprint("slot_weapon %s"%weapon)
+	get_equipped_slot().set_weapon( weapon,  )
+
+
 func toggle_weapon( double_tap: bool = false) -> void:
 	get_equipped_slot().reset_weapon_transform()
 	if double_tap == true:

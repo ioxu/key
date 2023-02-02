@@ -42,7 +42,8 @@ func _process(delta):
 	var lenergy = clamp(Util.remap_unclamped( shader_time, 0.0, effect_time, 1.0, 0.0 ), 0.0, 1.0)
 	$OmniLight3D.light_energy =  lenergy * light_energy_initial * 3.0
 	var decal_energy = clamp(Util.remap_unclamped( shader_time, 0.0, decal_time, 1.0, 0.0 ), 0.0, 1.0)
-	$Decal.emission_energy= decal_energy * decal_emission_energy_initial * 1.5
+	decal_energy = Util.bias( decal_energy, 0.1 )
+	$Decal.emission_energy= decal_energy * decal_emission_energy_initial
 	
 	if shader_time >= effect_time:
 		$MeshInstance3D.visible = false

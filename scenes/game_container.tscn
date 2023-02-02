@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://dfja1ypquymuq"]
+[gd_scene load_steps=36 format=3 uid="uid://dfja1ypquymuq"]
 
 [ext_resource type="PackedScene" uid="uid://c0vn2jqnejado" path="res://data/props/bollard-02-piece-03/bollard_02_piece_03.tscn" id="1_17l12"]
 [ext_resource type="PackedScene" uid="uid://b330s652jv5y8" path="res://data/props/bollard-02-piece-02/bollard_02_piece_02.tscn" id="2_3tqab"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://60huk5jyn8eh" path="res://scenes/player/player.tscn" id="5_3yb2w"]
 [ext_resource type="Shader" path="res://data/shaders/ViewportDisplay_shaders/invert.gdshader" id="5_7wl8l"]
 [ext_resource type="Texture2D" uid="uid://2tspxfxes4sh" path="res://data/textures/key-title_paint_01-02.png" id="5_eogxw"]
+[ext_resource type="PackedScene" uid="uid://btx3qab5u10b5" path="res://data/props/amphitheatre-small-01/amphitheatre-small-01_01-01.tscn" id="6_tjex5"]
 [ext_resource type="FontFile" uid="uid://dtb3xbqwk4167" path="res://data/fonts/RobotoCondensed-Regular.ttf" id="6_tp6qh"]
 [ext_resource type="Script" path="res://scenes/ViewportDisplay.gd" id="7_7rcxx"]
 [ext_resource type="Texture2D" uid="uid://i4wkypqrg2n7" path="res://thumbnail.png" id="7_byq4e"]
@@ -21,7 +22,7 @@ script/source = "extends Node2D
 
 
 func _ready():
-	pprint(\"SubViewport.RENDER_INFO_MAX %s\"%$SubViewportContainer/SubViewport.RENDER_INFO_MAX)
+	pass
 
 
 func _process(delta):
@@ -30,6 +31,7 @@ func _process(delta):
 
 func pprint(thing) -> void:
 	print(\"[game_container] %s\"%str(thing))
+
 "
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_egx2i"]
@@ -121,7 +123,7 @@ corner_radius_bottom_left = 2
 script/source = "extends Label
 
 
-func _process(delta):
+func _process(_delta):
 	self.text = \"fps %s\"%str(Engine.get_frames_per_second())
 "
 
@@ -269,6 +271,8 @@ texture_albedo = ExtResource("5_eogxw")
 emission_energy = 0.0
 modulate = Color(0.533333, 0.533333, 0.533333, 1)
 cull_mask = 1048574
+
+[node name="amphitheatre-small-01_01-01" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("6_tjex5")]
 
 [node name="player" parent="SubViewportContainer/SubViewport/level_hook/Node3D" instance=ExtResource("5_3yb2w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.265419, 0, 0.259204)

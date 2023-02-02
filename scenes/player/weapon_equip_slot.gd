@@ -13,11 +13,19 @@ func _ready():
 	show_equip_indicator(false)
 
 
-func set_weapon(weapon, inv_slot) -> void:
+func set_weapon(weapon, inv_slot = null) -> void:
 	# setting a weapon for the slot for the first time
 	if self.slotted_weapon:
-		slotted_weapon_inv_slot.return_weapon()
-	weapon.get_parent().remove_child( weapon )
+		if slotted_weapon_inv_slot != null:
+			slotted_weapon_inv_slot.return_weapon()
+		else:
+			pprint("%s weapon has no inventory slot to return to, queue_free()ing"%self.slotted_weapon)
+
+	var _p = weapon.get_parent()
+	if _p != null:
+		_p.remove_child( weapon )
+	#weapon.get_parent().remove_child( weapon )
+	
 	$panel.add_child( weapon )
 	weapon.set_owner( $panel )
 	self.slotted_weapon = weapon
@@ -67,4 +75,5 @@ func show_equip_indicator( show: bool = false ) -> void:
 	$panel/equip_indicator.visible = show
 
 
-
+func pprint(thing) -> void:
+	print("[weapon_equip_slot] %s"%str(thing))

@@ -48,13 +48,17 @@ func _ready():
 	for i in DEBUG_DRAW_ENUM_STRINGS:
 		debug_draw_options.add_item(i)
 
+	# set defaults:
+	self.find_child("resolutions_overlay_checkbox").set_pressed(false)
+	self.find_child("renderingServer_info_overlay_checkbox").set_pressed(false)
+
 
 func _process(delta):
-	gtime += delta
-	var lod_f = (sin(gtime* 1.0) + 1.0) / 2.0
-	lod_f *= 80.0
-#	pprint("lod_f %s"%lod_f)
-	main_subviewport.mesh_lod_threshold = lod_f
+#	gtime += delta
+#	var lod_f = (sin(gtime* 1.0) + 1.0) / 2.0
+#	lod_f *= 80.0
+#	main_subviewport.mesh_lod_threshold = lod_f
+	pass
 
 
 func _unhandled_input(event):
