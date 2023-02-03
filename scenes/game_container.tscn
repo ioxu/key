@@ -1,6 +1,7 @@
 [gd_scene load_steps=36 format=3 uid="uid://dfja1ypquymuq"]
 
 [ext_resource type="PackedScene" uid="uid://c0vn2jqnejado" path="res://data/props/bollard-02-piece-03/bollard_02_piece_03.tscn" id="1_17l12"]
+[ext_resource type="Environment" uid="uid://bpjcaw3kf0iff" path="res://scenes/game_container_world_environment.tres" id="1_y11v7"]
 [ext_resource type="PackedScene" uid="uid://b330s652jv5y8" path="res://data/props/bollard-02-piece-02/bollard_02_piece_02.tscn" id="2_3tqab"]
 [ext_resource type="PackedScene" uid="uid://bdham7gyjv55u" path="res://data/props/bollard-02-piece-01/bollard_02_piece_01.tscn" id="3_s5cn5"]
 [ext_resource type="PackedScene" uid="uid://cf7ledivriici" path="res://data/props/bollard-02/bollard_02_01_02.tscn" id="4_qkj8k"]
@@ -16,53 +17,100 @@
 [ext_resource type="Script" path="res://scenes/resolutions_display_panel.gd" id="11_udo4q"]
 [ext_resource type="Script" path="res://scenes/renderingServer_info_display_panel.gd" id="12_dllqf"]
 [ext_resource type="Texture2D" uid="uid://djwhb8rr17kkc" path="res://data/icons/pulse.png" id="14_1bpyw"]
+[ext_resource type="PackedScene" uid="uid://bjga1ie2v677e" path="res://data/props/bollard-01/bollard-01.tscn" id="17_37avf"]
 
 [sub_resource type="GDScript" id="GDScript_bgtdb"]
 script/source = "extends Node2D
 
+var gtime := 0.0
+
+# store
+var _initial_player_camera_transform : Transform3D
+
+@onready var player_camera : Camera3D = $SubViewportContainer/SubViewport.find_child(\"Camera3D\")
+@onready var starting_camera : Camera3D =  $SubViewportContainer/SubViewport.find_child(\"starting_Camera3D\")
+
+# starting_camera noise
+var starting_cam_p_noise := FastNoiseLite.new()
+var starting_cam_o_noise := FastNoiseLite.new()
+
+var starting_camera_transform : Transform3D
 
 func _ready():
+	# 1st time running:
+	# do start menu setup and diorama stuff
+
+	# deactivate player
 	var player = $SubViewportContainer/SubViewport.find_child(\"player\")
 	pprint(\"setting player to not active (%s)\"%player.get_path())
 	player.active = false
 
+	# stash camera transform
+	#var camera = player.find_child(\"Camera3D\")
+	pprint(\"player camera %s\"%player_camera.get_path())
+	_initial_player_camera_transform = player_camera.transform
+	
+	starting_camera_transform = starting_camera.global_transform
+	# set camera to diorama camera
+	# starting_camera noise
+	starting_cam_p_noise.frequency = 0.25
+		
+	#set
+	player_camera.set_global_transform( starting_camera.global_transform )
+
+	# menu ui
+	$ui_starting_menu.find_child(\"Button\").grab_focus()
+
 
 func _process(delta):
-	pass
+	
+	gtime += delta
+	
+	# move target around with noise
+	# position
+	starting_cam_p_noise.set_seed(0)
+	starting_cam_p_noise.frequency = 0.1
+	var _x = starting_cam_p_noise.get_noise_3dv( starting_camera_transform.origin + Vector3(0, 0, gtime))
+	starting_cam_p_noise.set_seed(1)
+	starting_cam_p_noise.frequency = 0.25
+	var _y = starting_cam_p_noise.get_noise_3dv( starting_camera_transform.origin + Vector3(0, 0, gtime))
+	starting_cam_p_noise.set_seed(2)
+	starting_cam_p_noise.frequency = 0.1
+	var _z = starting_cam_p_noise.get_noise_3dv( starting_camera_transform.origin + Vector3(0, 0, gtime) ) 
+	starting_camera.transform.origin = starting_camera_transform.origin + Vector3(_x, _y, _z) * Vector3(0.2, 0.1, 0.2)
+
+	starting_cam_o_noise.set_seed(3)
+	starting_cam_o_noise.frequency = 0.1
+	_x = starting_cam_o_noise.get_noise_3dv( starting_camera_transform.origin + Vector3(0, 0, gtime))
+	starting_cam_o_noise.set_seed(4)
+	starting_cam_o_noise.frequency = 0.25
+	_y = starting_cam_o_noise.get_noise_3dv( starting_camera_transform.origin + Vector3(0, 0, gtime))
+	starting_cam_o_noise.set_seed(5)
+	starting_cam_o_noise.frequency = 0.1
+	_z = starting_cam_o_noise.get_noise_3dv( starting_camera_transform.origin + Vector3(0, 0, gtime) ) 
+	
+	starting_camera.transform = starting_camera.transform.rotated_local( Vector3.RIGHT, _x * .1 )
+	starting_camera.transform = starting_camera.transform.rotated_local( Vector3.UP, _y * .1 )
+	starting_camera.transform = starting_camera.transform.rotated_local( Vector3.FORWARD, _z * .3 )
+	
+	starting_camera.transform.basis = starting_camera.transform.interpolate_with( starting_camera_transform, 0.85 ).basis
+
+
+	player_camera.set_global_transform( starting_camera.global_transform )
 
 
 func pprint(thing) -> void:
 	print(\"[game_container] %s\"%str(thing))
 "
 
-[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_egx2i"]
-energy_multiplier = 5.45
-
-[sub_resource type="Sky" id="Sky_pwgq1"]
-sky_material = SubResource("PhysicalSkyMaterial_egx2i")
-
-[sub_resource type="Environment" id="Environment_li0v6"]
-background_mode = 2
-sky = SubResource("Sky_pwgq1")
-ssao_enabled = true
-ssao_radius = 4.79
-ssao_intensity = 3.36
-ssao_power = 2.61165
-ssao_horizon = 0.04
-ssao_sharpness = 1.0
-ssil_enabled = true
-ssil_intensity = 1.5
-sdfgi_enabled = true
-sdfgi_use_occlusion = true
-sdfgi_bounce_feedback = 1.2
-sdfgi_cascades = 6
-sdfgi_min_cell_size = 0.02
-sdfgi_energy = 1.5
-glow_enabled = true
-glow_levels/2 = 1.0
-glow_blend_mode = 0
-glow_hdr_threshold = 0.52
-glow_hdr_scale = 1.45
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_jxwvl"]
+auto_exposure_scale = 0.3
+auto_exposure_speed = 3.0
+dof_blur_far_enabled = true
+dof_blur_far_distance = 12.0
+dof_blur_near_enabled = true
+dof_blur_near_distance = 4.86
+dof_blur_amount = 0.16
 
 [sub_resource type="GDScript" id="GDScript_ydr72"]
 script/source = "extends Node3D
@@ -76,7 +124,7 @@ func _ready():
 func _process(delta):
 	gtime += delta
 	
-	rotate_y(delta* 0.1)
+	rotate_y(delta* -0.15)
 "
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_umk0r"]
@@ -85,7 +133,8 @@ bottom_radius = 2.5
 height = 0.5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cy6ar"]
-albedo_color = Color(0.133333, 0.133333, 0.133333, 1)
+albedo_color = Color(0.329412, 0.329412, 0.329412, 1)
+roughness = 0.38
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_kouxu"]
 size = Vector3(500, 500, 1)
@@ -200,7 +249,8 @@ render_target_update_mode = 4
 [node name="Node3D" type="Node3D" parent="SubViewportContainer/SubViewport/level_hook"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport/level_hook/Node3D"]
-environment = SubResource("Environment_li0v6")
+environment = ExtResource("1_y11v7")
+camera_attributes = SubResource("CameraAttributesPractical_jxwvl")
 
 [node name="rotating_env" type="Node3D" parent="SubViewportContainer/SubViewport/level_hook/Node3D"]
 script = SubResource("GDScript_ydr72")
@@ -209,10 +259,11 @@ script = SubResource("GDScript_ydr72")
 transform = Transform3D(-0.460887, -0.494126, 0.737172, 0.197946, 0.752491, 0.628152, -0.865101, 0.435428, -0.249003, 1.93108, 4.50669, -1.09173)
 light_energy = 2.0
 light_indirect_energy = 3.0
-light_angular_distance = 6.59
+light_angular_distance = 5.54
 shadow_enabled = true
 shadow_bias = 0.497
-shadow_blur = 0.397
+shadow_blur = 0.241
+directional_shadow_blend_splits = true
 
 [node name="DefaultLevel" type="Node3D" parent="SubViewportContainer/SubViewport/level_hook/Node3D"]
 
@@ -231,53 +282,45 @@ collision_mask = 5
 transform = Transform3D(1, 0, 0, 0, 1, 7.10543e-15, 0, -7.10543e-15, 1, 0, 0, -0.5)
 shape = SubResource("BoxShape3D_kouxu")
 
-[node name="bollard-02-piece-03" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("1_17l12")]
-transform = Transform3D(0.973798, 0, 0.227416, 0, 1, 0, -0.227416, 0, 0.973798, -0.736968, 0, 2.22794)
-
 [node name="bollard-02-piece-02_01-01" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("2_3tqab")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.60284, 0, -0.18494)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.2051, 0, 3.79338)
 
 [node name="bollard-02-piece-01_01-01" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("3_s5cn5")]
-transform = Transform3D(-0.583427, 0, -0.812164, 0, 1, 0, 0.812164, 0, -0.583427, 1.10953, 4.76837e-07, -3.25536)
+transform = Transform3D(-0.489108, 0, -0.872222, 0, 1, 0, 0.872222, 0, -0.489108, 1.57595, -1.7053e-13, -3.78864)
 
 [node name="bollard-02_01-02" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("4_qkj8k")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.78135, 0, -1.2367)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.20438, 0, -1.2367)
+
+[node name="bollard-02_01-05" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("4_qkj8k")]
+transform = Transform3D(1.30735, 0, 0, 0, 1.30735, 0, 0, 0, 1.30735, -3.73414, -3.17042, -1.64993)
+
+[node name="bollard-02-piece-02_01-02" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("2_3tqab")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.06591, 0, 4.19708)
+
+[node name="bollard-02_01-04" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("4_qkj8k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.94907, 0, -1.2367)
 
 [node name="bollard-02_01-03" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("4_qkj8k")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.26764, -1.43051e-06, -4.36109)
-
-[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel"]
-transform = Transform3D(0.921006, -0.27063, 0.280192, 0.0432961, 0.785932, 0.616795, -0.387135, -0.55594, 0.735566, 2.28127, 5.78604, 5.50217)
-fov = 47.6
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.225799, 0, -4.20842)
 
 [node name="Decal2" type="Decal" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel"]
-transform = Transform3D(-0.553275, 0, -0.832998, 0, 1, 0, 0.832998, 0, -0.553275, 2.94812, 4.76837e-07, -2.48822)
-extents = Vector3(20, 1, 20)
+transform = Transform3D(4.53864, 0, -5.02707, 0, 6.77279, 0, 5.02707, 0, 4.53864, -0.388541, 0.942528, 3.81735)
 texture_albedo = ExtResource("5_eogxw")
-emission_energy = 0.0
-modulate = Color(0.533333, 0.533333, 0.533333, 0.101961)
-cull_mask = 1048574
-
-[node name="Decal3" type="Decal" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel"]
-transform = Transform3D(-0.812765, 0, 0.582591, 0, 1, 0, -0.582591, 0, -0.812765, -0.244315, 4.76837e-07, -8.36442)
-extents = Vector3(20, 1, 20)
-texture_albedo = ExtResource("5_eogxw")
-emission_energy = 0.0
-modulate = Color(0.533333, 0.533333, 0.533333, 0.101961)
-cull_mask = 1048574
+modulate = Color(1, 1, 1, 0.423529)
 
 [node name="Decal" type="Decal" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel"]
-transform = Transform3D(-0.0383528, 0, 0.999264, 0, 1, 0, -0.999264, 0, -0.0383528, -0.279335, 4.76837e-07, 8.94596)
-extents = Vector3(6, 1, 6)
+transform = Transform3D(-5.4895, 0, -3.96687, 0, 6.77279, 0, 3.96687, 0, -5.4895, 1.90989, 0.942528, 6.38092)
 texture_albedo = ExtResource("5_eogxw")
-emission_energy = 0.0
-modulate = Color(0.533333, 0.533333, 0.533333, 1)
-cull_mask = 1048574
+modulate = Color(1, 1, 1, 0.321569)
 
 [node name="amphitheatre-small-01_01-01" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("6_tjex5")]
 
 [node name="player" parent="SubViewportContainer/SubViewport/level_hook/Node3D" instance=ExtResource("5_3yb2w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.265419, 0, 0.259204)
+
+[node name="starting_Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/level_hook/Node3D"]
+transform = Transform3D(0.556107, -0.486435, 0.673889, -3.1665e-08, 0.810829, 0.585283, -0.831111, -0.32548, 0.450908, 3.3174, 4.73605, 4.28963)
+fov = 37.8
 
 [node name="ViewportDisplay" type="Node" parent="."]
 script = ExtResource("7_7rcxx")
@@ -292,6 +335,62 @@ grow_horizontal = 2
 grow_vertical = 2
 expand_mode = 3
 stretch_mode = 6
+
+[node name="ui_starting_menu" type="Node" parent="."]
+
+[node name="Control" type="Control" parent="ui_starting_menu"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ui_starting_menu/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="ui_starting_menu/Control/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui_starting_menu/Control/HBoxContainer/CenterContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="ui_starting_menu/Control/HBoxContainer/CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 150)
+layout_mode = 2
+texture = ExtResource("5_eogxw")
+expand_mode = 1
+
+[node name="Button" type="Button" parent="ui_starting_menu/Control/HBoxContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "new game"
+
+[node name="Button3" type="Button" parent="ui_starting_menu/Control/HBoxContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "continue"
+
+[node name="Button2" type="Button" parent="ui_starting_menu/Control/HBoxContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "load game"
+
+[node name="Button4" type="Button" parent="ui_starting_menu/Control/HBoxContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "settings"
+
+[node name="Button5" type="Button" parent="ui_starting_menu/Control/HBoxContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "quit to desktop"
+
+[node name="Control" type="Control" parent="ui_starting_menu/Control/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="ui_persistent" type="Node" parent="."]
 
@@ -763,6 +862,12 @@ theme_override_font_sizes/font_size = 12
 text = "debug"
 
 [node name="ui_menu" type="Node" parent="."]
+
+[node name="bollard-01" parent="." instance=ExtResource("17_37avf")]
+transform = Transform3D(-0.97398, 0, -0.226634, 0, 1, 0, 0.226634, 0, -0.97398, -3.75704, 0.692316, 1.96293)
+
+[node name="bollard-02-piece-03" parent="." instance=ExtResource("1_17l12")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.383871, 2.38419e-07, 2.92469)
 
 [connection signal="timeout" from="ui_debug/MarginContainer/HBoxContainer/VBoxContainer/renderingServer_info_display_container/renderingServer_info_display_panel/update_timer" to="ui_debug/MarginContainer/HBoxContainer/VBoxContainer/renderingServer_info_display_container/renderingServer_info_display_panel" method="_on_timer_timeout"]
 [connection signal="item_selected" from="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/graphics_settings_container/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer/debug_draw_parm/debug_draw_options" to="ui_debug_menu" method="_on_debug_draw_options_item_selected"]

@@ -6,7 +6,7 @@ func _ready():
 	$TextureRect.texture = $"../SubViewportContainer/SubViewport".get_texture()
 
 
-func _process(delta):
+func _process(_delta):
 	pass
 
 

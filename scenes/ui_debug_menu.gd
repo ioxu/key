@@ -53,7 +53,7 @@ func _ready():
 	self.find_child("renderingServer_info_overlay_checkbox").set_pressed(false)
 
 
-func _process(delta):
+func _process(_delta):
 #	gtime += delta
 #	var lod_f = (sin(gtime* 1.0) + 1.0) / 2.0
 #	lod_f *= 80.0

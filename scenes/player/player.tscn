@@ -27,7 +27,7 @@
 [ext_resource type="Script" path="res://scenes/player/weapon_equip_slot.gd" id="26"]
 [ext_resource type="Script" path="res://scenes/player/WeaponController.gd" id="27"]
 
-[sub_resource type="GDScript" id="GDScript_satu5"]
+[sub_resource type="GDScript" id="GDScript_kv87u"]
 script/source = "extends Label3D
 
 @export_node_path(Camera3D) var camera_node_path
@@ -46,7 +46,7 @@ func _process(delta):
 	scale = Vector3(-1.0, 1.0, 1.0)
 "
 
-[sub_resource type="Animation" id="Animation_dxkd2"]
+[sub_resource type="Animation" id="Animation_2elox"]
 length = 0.001
 tracks/0/type = "bezier"
 tracks/0/imported = false
@@ -60,7 +60,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0)
 }
 
-[sub_resource type="Animation" id="Animation_avqaj"]
+[sub_resource type="Animation" id="Animation_icjlb"]
 resource_name = "recoil_time_animation"
 length = 4.0
 tracks/0/type = "bezier"
@@ -75,33 +75,33 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.4, 4)
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_gm8oq"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_grw7h"]
 _data = {
-"RESET": SubResource("Animation_dxkd2"),
-"recoil_time_animation": SubResource("Animation_avqaj")
+"RESET": SubResource("Animation_2elox"),
+"recoil_time_animation": SubResource("Animation_icjlb")
 }
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_knrsi"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pnpxq"]
 radius = 0.253386
 height = 1.74436
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_2xvc2"]
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_lfuo6"]
 radius = 0.25
 height = 1.35
 radial_segments = 12
 rings = 2
 
-[sub_resource type="BoxMesh" id="BoxMesh_qkqa2"]
+[sub_resource type="BoxMesh" id="BoxMesh_3iv3s"]
 size = Vector3(0.064, 0.364, 0.998)
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_mu5ym"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_m1t5t"]
 resource_local_to_scene = true
 material = ExtResource("6")
 height = 0.2
 radial_segments = 32
 rings = 1
 
-[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_1tiog"]
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_xtiox"]
 transparency = 1
 cull_mode = 2
 albedo_color = Color(1, 1, 1, 0.32549)
@@ -110,19 +110,19 @@ emission_enabled = true
 emission = Color(0.0627451, 0.909804, 0.0784314, 1)
 emission_energy_multiplier = 12.0
 
-[sub_resource type="QuadMesh" id="QuadMesh_kniw7"]
-material = SubResource("ORMMaterial3D_1tiog")
+[sub_resource type="QuadMesh" id="QuadMesh_fmo7v"]
+material = SubResource("ORMMaterial3D_xtiox")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_28k1s"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gt1kd"]
 transparency = 1
 albedo_color = Color(0, 0.517647, 0.0196078, 0.411765)
 emission_enabled = true
 emission = Color(0.0666667, 0.733333, 0.282353, 1)
 emission_energy_multiplier = 2.0
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_n2qo2"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_wbhti"]
 
-[sub_resource type="Shader" id="Shader_hygcu"]
+[sub_resource type="Shader" id="Shader_emdhg"]
 code = "// NOTE: Shader automatically converted from Godot Engine 3.4.stable's StandardMaterial3D.
 
 shader_type spatial;
@@ -172,9 +172,9 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fpakn"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tdo38"]
 render_priority = 0
-shader = SubResource("Shader_hygcu")
+shader = SubResource("Shader_emdhg")
 shader_parameter/ext1 = 0.39
 shader_parameter/ext2 = 0.87
 shader_parameter/albedo = Color(1, 0.807843, 0.278431, 0.439216)
@@ -189,7 +189,7 @@ shader_parameter/uv1_offset = null
 shader_parameter/uv2_scale = Vector3(1, 1, 1)
 shader_parameter/uv2_offset = null
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_v24li"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_dga7c"]
 _surfaces = [{
 "aabb": AABB(0.691568, -0.104448, -2.20502, 1.63072, 0.208905, 4.42813),
 "attribute_data": PackedByteArray(0, 0, 0, 0, 0, 0, 128, 63, 137, 136, 136, 61, 0, 0, 128, 63, 137, 136, 8, 62, 0, 0, 128, 63, 205, 204, 76, 62, 0, 0, 128, 63, 137, 136, 136, 62, 0, 0, 128, 63, 171, 170, 170, 62, 0, 0, 128, 63, 205, 204, 204, 62, 0, 0, 128, 63, 239, 238, 238, 62, 0, 0, 128, 63, 137, 136, 8, 63, 0, 0, 128, 63, 154, 153, 25, 63, 0, 0, 128, 63, 171, 170, 42, 63, 0, 0, 128, 63, 188, 187, 59, 63, 0, 0, 128, 63, 205, 204, 76, 63, 0, 0, 128, 63, 222, 221, 93, 63, 0, 0, 128, 63, 239, 238, 110, 63, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 0, 0, 137, 136, 136, 61, 0, 0, 0, 0, 137, 136, 8, 62, 0, 0, 0, 0, 205, 204, 76, 62, 0, 0, 0, 0, 137, 136, 136, 62, 0, 0, 0, 0, 171, 170, 170, 62, 0, 0, 0, 0, 205, 204, 204, 62, 0, 0, 0, 0, 239, 238, 238, 62, 0, 0, 0, 0, 137, 136, 8, 63, 0, 0, 0, 0, 154, 153, 25, 63, 0, 0, 0, 0, 171, 170, 42, 63, 0, 0, 0, 0, 188, 187, 59, 63, 0, 0, 0, 0, 205, 204, 76, 63, 0, 0, 0, 0, 222, 221, 93, 63, 0, 0, 0, 0, 239, 238, 110, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0),
@@ -201,68 +201,68 @@ _surfaces = [{
 "vertex_data": PackedByteArray(156, 10, 49, 63, 179, 232, 213, 61, 80, 71, 14, 64, 81, 157, 109, 132, 127, 188, 134, 63, 179, 232, 213, 61, 165, 231, 4, 64, 169, 169, 33, 132, 160, 45, 177, 63, 179, 232, 213, 61, 22, 158, 239, 63, 183, 180, 249, 131, 98, 168, 214, 63, 179, 232, 213, 61, 209, 182, 206, 63, 50, 191, 239, 131, 9, 32, 246, 63, 179, 232, 213, 61, 104, 5, 168, 63, 176, 201, 0, 132, 124, 89, 7, 64, 179, 232, 213, 61, 141, 62, 121, 63, 199, 212, 47, 132, 125, 216, 15, 64, 179, 232, 213, 61, 52, 119, 27, 63, 54, 225, 132, 132, 29, 80, 20, 64, 179, 232, 213, 61, 165, 84, 101, 62, 27, 240, 13, 133, 85, 160, 20, 64, 179, 232, 213, 61, 212, 159, 41, 190, 214, 250, 85, 141, 230, 198, 16, 64, 179, 232, 213, 61, 6, 245, 12, 191, 105, 251, 189, 156, 104, 223, 8, 64, 179, 232, 213, 61, 108, 143, 107, 191, 197, 251, 117, 169, 18, 69, 250, 63, 179, 232, 213, 61, 108, 200, 161, 191, 249, 251, 178, 180, 226, 200, 219, 63, 179, 232, 213, 61, 38, 65, 201, 191, 14, 252, 60, 191, 214, 36, 183, 63, 179, 232, 213, 61, 223, 22, 235, 191, 7, 252, 174, 201, 164, 95, 141, 63, 179, 232, 213, 61, 128, 43, 3, 192, 228, 251, 156, 212, 149, 73, 63, 63, 179, 232, 213, 61, 18, 31, 13, 192, 159, 251, 180, 224, 156, 10, 49, 63, 179, 232, 213, 189, 80, 71, 14, 64, 81, 157, 145, 123, 127, 188, 134, 63, 179, 232, 213, 189, 165, 231, 4, 64, 169, 169, 221, 123, 160, 45, 177, 63, 179, 232, 213, 189, 22, 158, 239, 63, 183, 180, 5, 124, 98, 168, 214, 63, 179, 232, 213, 189, 209, 182, 206, 63, 50, 191, 15, 124, 9, 32, 246, 63, 179, 232, 213, 189, 104, 5, 168, 63, 176, 201, 254, 123, 124, 89, 7, 64, 179, 232, 213, 189, 141, 62, 121, 63, 199, 212, 207, 123, 125, 216, 15, 64, 179, 232, 213, 189, 52, 119, 27, 63, 54, 225, 122, 123, 29, 80, 20, 64, 179, 232, 213, 189, 165, 84, 101, 62, 27, 240, 241, 122, 85, 160, 20, 64, 179, 232, 213, 189, 212, 159, 41, 190, 214, 250, 169, 114, 230, 198, 16, 64, 179, 232, 213, 189, 6, 245, 12, 191, 105, 251, 65, 99, 104, 223, 8, 64, 179, 232, 213, 189, 108, 143, 107, 191, 197, 251, 137, 86, 18, 69, 250, 63, 179, 232, 213, 189, 108, 200, 161, 191, 249, 251, 76, 75, 226, 200, 219, 63, 179, 232, 213, 189, 38, 65, 201, 191, 14, 252, 194, 64, 214, 36, 183, 63, 179, 232, 213, 189, 223, 22, 235, 191, 7, 252, 80, 54, 164, 95, 141, 63, 179, 232, 213, 189, 128, 43, 3, 192, 228, 251, 98, 43, 149, 73, 63, 63, 179, 232, 213, 189, 18, 31, 13, 192, 159, 251, 74, 31)
 }]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_u3ods"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_r6ssc"]
 viewport_path = NodePath("MeshInstance3D/dui_root/viewports/inventory/inventory_2d_viewport")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_0xkiy"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_bxti7"]
 viewport_path = NodePath("MeshInstance3D/dui_root/viewports/inventory/inventory_2d_viewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vq1yi"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pfw4f"]
 resource_local_to_scene = true
 transparency = 1
 cull_mode = 2
 no_depth_test = true
-albedo_texture = SubResource("ViewportTexture_u3ods")
+albedo_texture = SubResource("ViewportTexture_r6ssc")
 emission_enabled = true
 emission_energy_multiplier = 3.0
-emission_texture = SubResource("ViewportTexture_0xkiy")
+emission_texture = SubResource("ViewportTexture_bxti7")
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_xvlmj"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_v5pyx"]
 height = 100.0
 radius = 200.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cu4y2"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_55vhg"]
 transparency = 1
 albedo_color = Color(0.878431, 0.643137, 0, 0.105882)
 emission_enabled = true
 emission = Color(0.878431, 0.643137, 0, 1)
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_tlms0"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_d60qr"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cmyrj"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5b43g"]
 transparency = 1
 albedo_color = Color(0.878431, 0.643137, 0, 0.270588)
 emission_enabled = true
 emission = Color(0.878431, 0.643137, 0, 1)
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_q8v1c"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_yoygm"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_mahup"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_jpjfu"]
 viewport_path = NodePath("MeshInstance3D/dui_root/viewports/options/options_viewport")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_g30vx"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_w2mav"]
 viewport_path = NodePath("MeshInstance3D/dui_root/viewports/options/options_viewport")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_gktuh"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_85jau"]
 viewport_path = NodePath("MeshInstance3D/dui_root/viewports/options/options_bg_viewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fn7t0"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1nm02"]
 resource_local_to_scene = true
 transparency = 1
 no_depth_test = true
 albedo_color = Color(0.972549, 0.972549, 0.972549, 1)
-albedo_texture = SubResource("ViewportTexture_mahup")
+albedo_texture = SubResource("ViewportTexture_jpjfu")
 roughness = 0.4
-roughness_texture = SubResource("ViewportTexture_gktuh")
+roughness_texture = SubResource("ViewportTexture_85jau")
 emission_enabled = true
-emission_texture = SubResource("ViewportTexture_g30vx")
+emission_texture = SubResource("ViewportTexture_w2mav")
 refraction_enabled = true
 refraction_scale = 0.07
-refraction_texture = SubResource("ViewportTexture_gktuh")
+refraction_texture = SubResource("ViewportTexture_85jau")
 refraction_texture_channel = 3
 disable_receive_shadows = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vmw01"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w52xh"]
 transparency = 1
 cull_mode = 2
 no_depth_test = true
@@ -272,7 +272,7 @@ emission_enabled = true
 emission = Color(0.529412, 0.913725, 0.227451, 1)
 emission_energy_multiplier = 1.5
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_n7kg8"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_hjj7h"]
 lightmap_size_hint = Vector2i(78, 46)
 _surfaces = [{
 "aabb": AABB(-0.637714, -0.466891, 3.34301, 1.27543, 0.933791, 0.0602818),
@@ -285,17 +285,17 @@ _surfaces = [{
 "vertex_data": PackedByteArray(55, 65, 35, 191, 77, 12, 239, 62, 237, 243, 85, 64, 165, 109, 111, 141, 133, 251, 163, 190, 77, 12, 239, 62, 30, 216, 88, 64, 46, 118, 79, 142, 0, 0, 0, 0, 77, 12, 239, 62, 149, 207, 89, 64, 255, 127, 112, 143, 133, 251, 163, 62, 77, 12, 239, 62, 30, 216, 88, 64, 208, 137, 79, 142, 55, 65, 35, 63, 77, 12, 239, 62, 237, 243, 85, 64, 89, 146, 111, 141, 55, 65, 35, 191, 77, 12, 239, 190, 237, 243, 85, 64, 165, 109, 143, 114, 133, 251, 163, 190, 77, 12, 239, 190, 30, 216, 88, 64, 46, 118, 175, 113, 0, 0, 0, 0, 77, 12, 239, 190, 149, 207, 89, 64, 255, 127, 142, 112, 133, 251, 163, 62, 77, 12, 239, 190, 30, 216, 88, 64, 208, 137, 175, 113, 55, 65, 35, 63, 77, 12, 239, 190, 237, 243, 85, 64, 89, 146, 143, 114)
 }]
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_0n0s1"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_y2ose"]
 size = Vector2(0.2, 0.2)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mj62q"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qsp1g"]
 transparency = 1
 albedo_color = Color(0.196078, 0.85098, 0.34902, 0.454902)
 emission_enabled = true
 emission = Color(0.407843, 0.67451, 0.34902, 1)
 emission_energy_multiplier = 3.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ceiuh"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xd6wy"]
 transparency = 1
 cull_mode = 2
 no_depth_test = true
@@ -305,7 +305,7 @@ emission_enabled = true
 emission = Color(0.529412, 0.913725, 0.227451, 1)
 emission_energy_multiplier = 1.5
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_db53x"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_oebkx"]
 _surfaces = [{
 "aabb": AABB(-0.637714, -0.466891, 3.34301, 1.27543, 0.933791, 0.0602818),
 "attribute_data": PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 62, 0, 0, 0, 0, 0, 0, 0, 63, 0, 0, 0, 0, 0, 0, 64, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 62, 0, 0, 128, 63, 0, 0, 0, 63, 0, 0, 128, 63, 0, 0, 64, 63, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 63),
@@ -317,14 +317,14 @@ _surfaces = [{
 "vertex_data": PackedByteArray(55, 65, 35, 191, 77, 12, 239, 62, 237, 243, 85, 64, 165, 109, 111, 141, 133, 251, 163, 190, 77, 12, 239, 62, 30, 216, 88, 64, 46, 118, 79, 142, 0, 0, 0, 0, 77, 12, 239, 62, 149, 207, 89, 64, 255, 127, 112, 143, 133, 251, 163, 62, 77, 12, 239, 62, 30, 216, 88, 64, 208, 137, 79, 142, 55, 65, 35, 63, 77, 12, 239, 62, 237, 243, 85, 64, 89, 146, 111, 141, 55, 65, 35, 191, 77, 12, 239, 190, 237, 243, 85, 64, 165, 109, 143, 114, 133, 251, 163, 190, 77, 12, 239, 190, 30, 216, 88, 64, 46, 118, 175, 113, 0, 0, 0, 0, 77, 12, 239, 190, 149, 207, 89, 64, 255, 127, 142, 112, 133, 251, 163, 62, 77, 12, 239, 190, 30, 216, 88, 64, 208, 137, 175, 113, 55, 65, 35, 63, 77, 12, 239, 190, 237, 243, 85, 64, 89, 146, 143, 114)
 }]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s1eyi"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eu1ta"]
 transparency = 1
 albedo_color = Color(0.196078, 0.85098, 0.34902, 0.454902)
 emission_enabled = true
 emission = Color(0.407843, 0.67451, 0.34902, 1)
 emission_energy_multiplier = 3.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xwfet"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ko7v2"]
 transparency = 1
 cull_mode = 2
 no_depth_test = true
@@ -334,7 +334,7 @@ emission_enabled = true
 emission = Color(0.529412, 0.913725, 0.227451, 1)
 emission_energy_multiplier = 1.5
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_4b3tl"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_wfumj"]
 _surfaces = [{
 "aabb": AABB(-0.637714, -0.466891, 3.34301, 1.27543, 0.933791, 0.0602818),
 "attribute_data": PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 62, 0, 0, 0, 0, 0, 0, 0, 63, 0, 0, 0, 0, 0, 0, 64, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 62, 0, 0, 128, 63, 0, 0, 0, 63, 0, 0, 128, 63, 0, 0, 64, 63, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 63),
@@ -346,14 +346,14 @@ _surfaces = [{
 "vertex_data": PackedByteArray(55, 65, 35, 191, 77, 12, 239, 62, 237, 243, 85, 64, 165, 109, 111, 141, 133, 251, 163, 190, 77, 12, 239, 62, 30, 216, 88, 64, 46, 118, 79, 142, 0, 0, 0, 0, 77, 12, 239, 62, 149, 207, 89, 64, 255, 127, 112, 143, 133, 251, 163, 62, 77, 12, 239, 62, 30, 216, 88, 64, 208, 137, 79, 142, 55, 65, 35, 63, 77, 12, 239, 62, 237, 243, 85, 64, 89, 146, 111, 141, 55, 65, 35, 191, 77, 12, 239, 190, 237, 243, 85, 64, 165, 109, 143, 114, 133, 251, 163, 190, 77, 12, 239, 190, 30, 216, 88, 64, 46, 118, 175, 113, 0, 0, 0, 0, 77, 12, 239, 190, 149, 207, 89, 64, 255, 127, 142, 112, 133, 251, 163, 62, 77, 12, 239, 190, 30, 216, 88, 64, 208, 137, 175, 113, 55, 65, 35, 63, 77, 12, 239, 190, 237, 243, 85, 64, 89, 146, 143, 114)
 }]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oqvat"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hmenn"]
 transparency = 1
 albedo_color = Color(0.196078, 0.85098, 0.34902, 0.454902)
 emission_enabled = true
 emission = Color(0.407843, 0.67451, 0.34902, 1)
 emission_energy_multiplier = 3.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_baa7k"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v1xff"]
 transparency = 1
 shading_mode = 2
 albedo_color = Color(0.0862745, 0.560784, 0.603922, 0.470588)
@@ -361,9 +361,9 @@ emission_enabled = true
 emission = Color(0.101961, 0.52549, 0.576471, 1)
 emission_energy_multiplier = 2.0
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_5evbl"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_3psty"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1lk1v"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qil2j"]
 transparency = 1
 shading_mode = 2
 albedo_color = Color(0, 0.576471, 0.909804, 0.501961)
@@ -371,9 +371,9 @@ emission_enabled = true
 emission = Color(0, 0.419608, 0.878431, 1)
 emission_energy_multiplier = 2.0
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_bqgtf"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_g7aad"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_36j8h"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a71wd"]
 transparency = 1
 shading_mode = 2
 albedo_color = Color(0.819608, 0.188235, 0.164706, 0.294118)
@@ -381,17 +381,17 @@ emission_enabled = true
 emission = Color(0.729412, 0.0117647, 0.203922, 1)
 emission_energy_multiplier = 3.0
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_5vr4l"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_v2lfy"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bmeet"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8lkw3"]
 albedo_color = Color(0.796078, 0.0784314, 0.231373, 1)
 emission_enabled = true
 emission = Color(0.890196, 0.129412, 0.27451, 1)
 emission_energy_multiplier = 2.0
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_5fx1a"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_76hcl"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_igupq"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ku8ot"]
 transparency = 2
 alpha_scissor_threshold = 0.047
 alpha_antialiasing_mode = 0
@@ -402,17 +402,17 @@ emission = Color(0.870588, 0.219608, 0.560784, 1)
 emission_energy_multiplier = 10.0
 emission_texture = ExtResource("11_7o67c")
 
-[sub_resource type="QuadMesh" id="QuadMesh_x2css"]
-material = SubResource("StandardMaterial3D_igupq")
+[sub_resource type="QuadMesh" id="QuadMesh_5u8oi"]
+material = SubResource("StandardMaterial3D_ku8ot")
 size = Vector2(0.2, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j6pxj"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_svke6"]
 transparency = 1
 shading_mode = 0
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_7wnwc"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_8mhmy"]
 
-[sub_resource type="GDScript" id="GDScript_wa86f"]
+[sub_resource type="GDScript" id="GDScript_meuyw"]
 script/source = "extends Node3D
 
 @onready var cam : Camera3D = $camera_base/camera_tilt/camera_boom/Camera3D
@@ -433,25 +433,25 @@ func pprint(thing) -> void:
 	print(\"[camera_root] %s\"%str(thing))
 "
 
-[sub_resource type="QuadMesh" id="QuadMesh_gkyal"]
+[sub_resource type="QuadMesh" id="QuadMesh_u4irf"]
 size = Vector2(2, 2)
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_6wxbk"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_mrmcc"]
 material = ExtResource("11")
 top_radius = 0.2
 bottom_radius = 0.2
 height = 0.077
 
-[sub_resource type="BoxMesh" id="BoxMesh_hmajg"]
+[sub_resource type="BoxMesh" id="BoxMesh_2umyl"]
 size = Vector3(2, 2, 2)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dqnwy"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bo4tp"]
 emission_enabled = true
 emission = Color(0.768627, 0.168627, 0.6, 1)
 emission_energy_multiplier = 6.38
 
-[sub_resource type="SphereMesh" id="SphereMesh_ixdiu"]
-material = SubResource("StandardMaterial3D_dqnwy")
+[sub_resource type="SphereMesh" id="SphereMesh_qhx3r"]
+material = SubResource("StandardMaterial3D_bo4tp")
 radius = 0.05
 height = 0.1
 
@@ -467,7 +467,7 @@ modulate = Color(0.301961, 0.854902, 0.0980392, 0.843137)
 outline_modulate = Color(0, 0, 0, 0)
 text = "location"
 font_size = 100
-script = SubResource("GDScript_satu5")
+script = SubResource("GDScript_kv87u")
 camera_node_path = NodePath("../camera_root/camera_base/camera_tilt/camera_boom/Camera3D")
 
 [node name="AudioListener3D" type="AudioListener3D" parent="."]
@@ -475,30 +475,30 @@ current = true
 
 [node name="recoil_animplayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_gm8oq")
+"": SubResource("AnimationLibrary_grw7h")
 }
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.878, 0)
-shape = SubResource("CapsuleShape3D_knrsi")
+shape = SubResource("CapsuleShape3D_pnpxq")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.54973, -3.5022e-07)
 
 [node name="body_mesh_capsule" type="MeshInstance3D" parent="MeshInstance3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
-mesh = SubResource("CapsuleMesh_2xvc2")
+mesh = SubResource("CapsuleMesh_lfuo6")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.261, 0.194)
-mesh = SubResource("BoxMesh_qkqa2")
+mesh = SubResource("BoxMesh_3iv3s")
 
 [node name="weapon_mount" type="Node3D" parent="MeshInstance3D"]
 transform = Transform3D(1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, -0.44367, 0.628556)
 
 [node name="hurt_meter" parent="MeshInstance3D" instance=ExtResource("7")]
 transform = Transform3D(0.5, 0, 0, 0, -3.27835e-08, 0.5, 0, -0.75, -2.18557e-08, 0, -2.84217e-14, 0.858)
-mesh = SubResource("CylinderMesh_mu5ym")
+mesh = SubResource("CylinderMesh_m1t5t")
 
 [node name="dui_root" type="Node3D" parent="MeshInstance3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.69631e-07, -1.04118)
@@ -551,11 +551,11 @@ script = ExtResource("25")
 
 [node name="selector_icon" type="MeshInstance3D" parent="MeshInstance3D/dui_root/static_stack/inventory_items/weapons_items/selector"]
 transform = Transform3D(-1.40034, -7.10543e-15, -2.38419e-07, 7.10543e-14, 1.40034, -6.39488e-14, 2.38419e-07, 7.10543e-15, -1.40034, -3.36427e-08, 0, 1)
-mesh = SubResource("QuadMesh_kniw7")
+mesh = SubResource("QuadMesh_fmo7v")
 
 [node name="LineRenderer" parent="MeshInstance3D/dui_root/static_stack/inventory_items/weapons_items/selector/selector_icon" instance=ExtResource("10")]
-material_override = SubResource("StandardMaterial3D_28k1s")
-mesh = SubResource("ImmediateMesh_n2qo2")
+material_override = SubResource("StandardMaterial3D_gt1kd")
+mesh = SubResource("ImmediateMesh_wbhti")
 points = [Vector3(0, 0, 0), Vector3(0, 0, -1.584)]
 startThickness = 0.2
 endThickness = 0.2
@@ -563,13 +563,13 @@ globalCoords = false
 
 [node name="selector_icon_2" type="MeshInstance3D" parent="MeshInstance3D/dui_root/static_stack/inventory_items/weapons_items/selector/selector_icon"]
 transform = Transform3D(1, -7.10543e-15, 0, 0, 1, 0, 0, 7.10543e-15, 1, 0, -1.19209e-07, -1.59247)
-mesh = SubResource("QuadMesh_kniw7")
+mesh = SubResource("QuadMesh_fmo7v")
 skeleton = NodePath("../..")
 
 [node name="scrollbar" type="MeshInstance3D" parent="MeshInstance3D/dui_root/static_stack/inventory_items/weapons_items"]
 transform = Transform3D(-8.9407e-08, 0, -1, 0, 1, 0, 1, 0, -8.9407e-08, 4.26326e-14, -0.717915, -4.26326e-14)
-material_override = SubResource("ShaderMaterial_fpakn")
-mesh = SubResource("ArrayMesh_v24li")
+material_override = SubResource("ShaderMaterial_tdo38")
+mesh = SubResource("ArrayMesh_dga7c")
 script = ExtResource("18")
 rings = 1
 radial_segments = 16
@@ -584,7 +584,7 @@ arc_offset = 0.048
 
 [node name="screen" type="MeshInstance3D" parent="MeshInstance3D/dui_root/static_stack/inventory_items"]
 transform = Transform3D(1.13301, 1.63701e-07, -0.0951222, -1.71421e-07, 1.082, 1.43701e-08, -0.0951222, -2.04414e-11, -1.13301, 3.71472e-07, 2.45529, -4.63132e-11)
-material_override = SubResource("StandardMaterial3D_vq1yi")
+material_override = SubResource("StandardMaterial3D_pfw4f")
 mesh = ExtResource("22")
 skeleton = NodePath("../../options")
 
@@ -596,7 +596,7 @@ collision_mask = 1029
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/dui_root/static_stack/radar_dots/Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.24177, -1.48031e-07)
-shape = SubResource("CylinderShape3D_xvlmj")
+shape = SubResource("CylinderShape3D_v5pyx")
 
 [node name="radar_dot" parent="MeshInstance3D/dui_root/static_stack/radar_dots" instance=ExtResource("20")]
 transform = Transform3D(0.2, 0, 0, 0, -8.74228e-09, 0.2, 0, -0.2, -8.74228e-09, 0, -2.38419e-07, 1.88822)
@@ -604,8 +604,8 @@ transform = Transform3D(0.2, 0, 0, 0, -8.74228e-09, 0.2, 0, -0.2, -8.74228e-09, 
 [node name="magazine" type="Node3D" parent="MeshInstance3D/dui_root/static_stack"]
 
 [node name="full_arc" parent="MeshInstance3D/dui_root/static_stack/magazine" instance=ExtResource("10")]
-material_override = SubResource("StandardMaterial3D_cu4y2")
-mesh = SubResource("ImmediateMesh_tlms0")
+material_override = SubResource("StandardMaterial3D_55vhg")
+mesh = SubResource("ImmediateMesh_d60qr")
 startThickness = 0.075
 endThickness = 0.075
 drawCaps = false
@@ -613,8 +613,8 @@ globalCoords = false
 
 [node name="count" parent="MeshInstance3D/dui_root/static_stack/magazine" instance=ExtResource("10")]
 transform = Transform3D(0.999716, 0, 0, 0, 0.999716, 0, 0, 0, 0.999716, 0, 0, 0)
-material_override = SubResource("StandardMaterial3D_cmyrj")
-mesh = SubResource("ImmediateMesh_q8v1c")
+material_override = SubResource("StandardMaterial3D_5b43g")
+mesh = SubResource("ImmediateMesh_yoygm")
 startThickness = 0.075
 endThickness = 0.075
 globalCoords = false
@@ -624,7 +624,7 @@ globalCoords = false
 [node name="screen" type="MeshInstance3D" parent="MeshInstance3D/dui_root/static_stack/options"]
 transform = Transform3D(-1.31568, -2.16204e-07, 1.31568, -2.80951e-07, 2.02495, 0, 1.31568, 2.16204e-07, 1.31568, 0, 0, 0)
 visible = false
-material_override = SubResource("StandardMaterial3D_fn7t0")
+material_override = SubResource("StandardMaterial3D_1nm02")
 mesh = ExtResource("22")
 
 [node name="equip_slots" type="Node3D" parent="MeshInstance3D/dui_root/static_stack"]
@@ -636,8 +636,8 @@ script = ExtResource("26")
 
 [node name="panel" type="MeshInstance3D" parent="MeshInstance3D/dui_root/static_stack/equip_slots/slot1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.50791e-07, 0, -1.50791e-07)
-material_override = SubResource("StandardMaterial3D_vmw01")
-mesh = SubResource("ArrayMesh_n7kg8")
+material_override = SubResource("StandardMaterial3D_w52xh")
+mesh = SubResource("ArrayMesh_hjj7h")
 skeleton = NodePath("../..")
 script = ExtResource("18")
 rings = 1
@@ -652,16 +652,16 @@ flip_v = true
 
 [node name="equip_indicator" type="MeshInstance3D" parent="MeshInstance3D/dui_root/static_stack/equip_slots/slot1/panel"]
 transform = Transform3D(6.27722, 2.68221e-07, 0, -5.68434e-14, -4.37114e-08, 1, 1.43051e-06, -1, -4.37114e-08, 1.86676e-07, 0.808459, 3.308)
-mesh = SubResource("PlaneMesh_0n0s1")
-surface_material_override/0 = SubResource("StandardMaterial3D_mj62q")
+mesh = SubResource("PlaneMesh_y2ose")
+surface_material_override/0 = SubResource("StandardMaterial3D_qsp1g")
 
 [node name="slot2" type="Node3D" parent="MeshInstance3D/dui_root/static_stack/equip_slots"]
 script = ExtResource("26")
 
 [node name="panel" type="MeshInstance3D" parent="MeshInstance3D/dui_root/static_stack/equip_slots/slot2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.50791e-07, 0, -1.50791e-07)
-material_override = SubResource("StandardMaterial3D_ceiuh")
-mesh = SubResource("ArrayMesh_db53x")
+material_override = SubResource("StandardMaterial3D_xd6wy")
+mesh = SubResource("ArrayMesh_oebkx")
 skeleton = NodePath("../..")
 script = ExtResource("18")
 rings = 1
@@ -676,9 +676,9 @@ flip_v = true
 
 [node name="equip_indicator" type="MeshInstance3D" parent="MeshInstance3D/dui_root/static_stack/equip_slots/slot2/panel"]
 transform = Transform3D(6.27722, 0, -7.10543e-15, 1.13687e-13, -4.37114e-08, 1, 0, -1, -4.37114e-08, 5.39848e-08, 0.808459, 3.3)
-mesh = SubResource("PlaneMesh_0n0s1")
+mesh = SubResource("PlaneMesh_y2ose")
 skeleton = NodePath("../../../slot1/panel")
-surface_material_override/0 = SubResource("StandardMaterial3D_s1eyi")
+surface_material_override/0 = SubResource("StandardMaterial3D_eu1ta")
 
 [node name="slot3" type="Node3D" parent="MeshInstance3D/dui_root/static_stack/equip_slots"]
 transform = Transform3D(0.906308, 0, -0.422618, 0, 1, 0, 0.422618, 0, 0.906308, 0, 0, 0)
@@ -686,8 +686,8 @@ script = ExtResource("26")
 
 [node name="panel" type="MeshInstance3D" parent="MeshInstance3D/dui_root/static_stack/equip_slots/slot3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0039e-07, 0, -7.2936e-08)
-material_override = SubResource("StandardMaterial3D_xwfet")
-mesh = SubResource("ArrayMesh_4b3tl")
+material_override = SubResource("StandardMaterial3D_ko7v2")
+mesh = SubResource("ArrayMesh_wfumj")
 skeleton = NodePath("../..")
 script = ExtResource("18")
 rings = 1
@@ -702,14 +702,14 @@ flip_v = true
 
 [node name="equip_indicator" type="MeshInstance3D" parent="MeshInstance3D/dui_root/static_stack/equip_slots/slot3/panel"]
 transform = Transform3D(6.27722, 0, 0, 1.13687e-13, -4.37114e-08, 1, 2.38419e-07, -1, -4.37114e-08, 7.17419e-08, 0.808459, 3.3)
-mesh = SubResource("PlaneMesh_0n0s1")
+mesh = SubResource("PlaneMesh_y2ose")
 skeleton = NodePath("../../../slot1/panel")
-surface_material_override/0 = SubResource("StandardMaterial3D_oqvat")
+surface_material_override/0 = SubResource("StandardMaterial3D_hmenn")
 
 [node name="inventory_ring" parent="MeshInstance3D/dui_root" instance=ExtResource("10")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
-material_override = SubResource("StandardMaterial3D_baa7k")
-mesh = SubResource("ImmediateMesh_5evbl")
+material_override = SubResource("StandardMaterial3D_v1xff")
+mesh = SubResource("ImmediateMesh_3psty")
 points = [Vector3(0, 0, 0), Vector3(0, 0.01, 0)]
 startThickness = 0.02
 endThickness = 0.02
@@ -718,8 +718,8 @@ globalCoords = false
 
 [node name="LineRenderer" parent="MeshInstance3D/dui_root/inventory_ring" instance=ExtResource("10")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.548)
-material_override = SubResource("StandardMaterial3D_1lk1v")
-mesh = SubResource("ImmediateMesh_bqgtf")
+material_override = SubResource("StandardMaterial3D_qil2j")
+mesh = SubResource("ImmediateMesh_g7aad")
 points = [Vector3(0, 0, 0), Vector3(0, 0, 0.5)]
 startThickness = 0.05
 endThickness = 0.05
@@ -727,8 +727,8 @@ globalCoords = false
 
 [node name="weapons_ring" parent="MeshInstance3D/dui_root" instance=ExtResource("10")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
-material_override = SubResource("StandardMaterial3D_36j8h")
-mesh = SubResource("ImmediateMesh_5vr4l")
+material_override = SubResource("StandardMaterial3D_a71wd")
+mesh = SubResource("ImmediateMesh_v2lfy")
 points = [Vector3(0, 0, 0), Vector3(0, 0.1, 0)]
 startThickness = 0.05
 endThickness = 0.05
@@ -737,8 +737,8 @@ globalCoords = false
 
 [node name="LineRenderer" parent="MeshInstance3D/dui_root/weapons_ring" instance=ExtResource("10")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.276)
-material_override = SubResource("StandardMaterial3D_bmeet")
-mesh = SubResource("ImmediateMesh_5fx1a")
+material_override = SubResource("StandardMaterial3D_8lkw3")
+mesh = SubResource("ImmediateMesh_76hcl")
 points = [Vector3(0, 0, 0), Vector3(0, 0, 0.222)]
 startThickness = 0.03
 endThickness = 0.0
@@ -746,11 +746,11 @@ globalCoords = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D/dui_root/weapons_ring/LineRenderer"]
 transform = Transform3D(2.33863, 0, 0, 0, 1.39384, 0, 0, 0, 1, 0, 0.417111, 0)
-mesh = SubResource("QuadMesh_x2css")
+mesh = SubResource("QuadMesh_5u8oi")
 
 [node name="options_ring" parent="MeshInstance3D/dui_root" instance=ExtResource("10")]
-material_override = SubResource("StandardMaterial3D_j6pxj")
-mesh = SubResource("ImmediateMesh_7wnwc")
+material_override = SubResource("StandardMaterial3D_svke6")
+mesh = SubResource("ImmediateMesh_8mhmy")
 points = [Vector3(0, 0, 0), Vector3(0, 0.1, 0)]
 startThickness = 0.08
 endThickness = 0.08
@@ -780,7 +780,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.004, 0)
 collision_mask = 2
 
 [node name="camera_root" type="Node3D" parent="."]
-script = SubResource("GDScript_wa86f")
+script = SubResource("GDScript_meuyw")
 character = NodePath("..")
 
 [node name="camera_base" type="Node3D" parent="camera_root"]
@@ -794,13 +794,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 30)
 
 [node name="Camera3D" type="Camera3D" parent="camera_root/camera_base/camera_tilt/camera_boom"]
 current = true
-fov = 42.0
-far = 300.0
+fov = 37.8493
 
 [node name="motion_blur" type="MeshInstance3D" parent="camera_root/camera_base/camera_tilt/camera_boom/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 1.49012e-07, 0, 0, 1, 0, 0, -1.05979)
 visible = false
-mesh = SubResource("QuadMesh_gkyal")
+mesh = SubResource("QuadMesh_u4irf")
 script = ExtResource("3")
 
 [node name="AudioListener3D" type="AudioListener3D" parent="camera_root/camera_base/camera_tilt/camera_boom/Camera3D"]
@@ -832,7 +831,7 @@ transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -0.110306, -0.05, -0.110302)
 
 [node name="waist_geo" type="MeshInstance3D" parent="waist"]
-mesh = SubResource("CylinderMesh_6wxbk")
+mesh = SubResource("CylinderMesh_mrmcc")
 
 [node name="leg_1" type="Node3D" parent="."]
 transform = Transform3D(0.706988, 0, 0.707003, 0, 0.99999, 0, -0.707004, 0, 0.706987, 0.110324, 0.746836, -0.110315)
@@ -880,7 +879,7 @@ depth = 0.15
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="leg_1/hip_joint/thigh_joint/shin_joint"]
 transform = Transform3D(0.381, -1.90664e-09, 5.16261e-09, 1.11759e-08, 0.065, 0, -1.49012e-08, 7.45701e-17, 0.132, 0.253681, 0.108, 5.96046e-08)
-mesh = SubResource("BoxMesh_hmajg")
+mesh = SubResource("BoxMesh_2umyl")
 
 [node name="leg_2" type="Node3D" parent="."]
 transform = Transform3D(0.706997, 0, -0.70699, 0, 1, 0, 0.70699, 0, 0.706997, 0.110311, 0.746748, 0.110315)
@@ -929,7 +928,7 @@ depth = 0.15
 
 [node name="MeshInstance2" type="MeshInstance3D" parent="leg_2/hip_joint/thigh_joint/shin_joint"]
 transform = Transform3D(0.380996, 0, 0, 0, 0.065, 0, 0, 0, 0.132, 0.254, 0.108, 0)
-mesh = SubResource("BoxMesh_hmajg")
+mesh = SubResource("BoxMesh_2umyl")
 
 [node name="leg_3" type="Node3D" parent="."]
 transform = Transform3D(-0.707003, 0, -0.706986, 0, 1, 0, 0.706986, 0, -0.707003, -0.110306, 0.746748, 0.110315)
@@ -978,7 +977,7 @@ depth = 0.15
 
 [node name="MeshInstance2" type="MeshInstance3D" parent="leg_3/hip_joint/thigh_joint/shin_joint"]
 transform = Transform3D(0.380996, -3.17607e-24, -3.87199e-09, 0, 0.065, -2.19882e-16, 1.11759e-08, 1.08275e-16, 0.132, 0.254, 0.108, -2.98023e-08)
-mesh = SubResource("BoxMesh_hmajg")
+mesh = SubResource("BoxMesh_2umyl")
 
 [node name="leg_4" type="Node3D" parent="."]
 transform = Transform3D(-0.706974, 0, 0.706981, 0, 1, 0, -0.706981, 0, -0.706974, -0.110306, 0.746748, -0.110302)
@@ -1027,7 +1026,7 @@ depth = 0.15
 
 [node name="MeshInstance2" type="MeshInstance3D" parent="leg_4/hip_joint/thigh_joint/shin_joint"]
 transform = Transform3D(0.380996, -3.17607e-24, -3.87199e-09, 0, 0.065, -2.19882e-16, 1.11759e-08, 1.08275e-16, 0.132, 0.254, 0.108, -2.98023e-08)
-mesh = SubResource("BoxMesh_hmajg")
+mesh = SubResource("BoxMesh_2umyl")
 
 [node name="toe_1_position" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.999997, 0, 0, 0, 1, 0.5, 0, -0.5)
@@ -1071,7 +1070,7 @@ emission_multiplier = 0.5
 
 [node name="selection_dot" type="MeshInstance3D" parent="."]
 top_level = true
-mesh = SubResource("SphereMesh_ixdiu")
+mesh = SubResource("SphereMesh_qhx3r")
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

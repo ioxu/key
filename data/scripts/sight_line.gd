@@ -14,7 +14,7 @@ func _ready():
 	material_override = material
 	pass
 	
-func _process(delta):
+func _process(_delta):
 	if visible:
 		#pprint("from: %s"%from)
 		#pprint("to: %s"%to)

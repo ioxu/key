@@ -13,7 +13,7 @@ func resize():
 	$Control/splash_image.set_scale(Vector2( window_size.x/1920.0, window_size.y/1080.0) )
 
 
-func _input(event):
+func _input(_event):
 #	if event.is_action_pressed("ui_skip"):
 #		print("splash ui_skip")
 #		Game.start()
