@@ -22,7 +22,9 @@ script/source = "extends Node2D
 
 
 func _ready():
-	pass
+	var player = $SubViewportContainer/SubViewport.find_child(\"player\")
+	pprint(\"setting player to not active (%s)\"%player.get_path())
+	player.active = false
 
 
 func _process(delta):
@@ -31,7 +33,6 @@ func _process(delta):
 
 func pprint(thing) -> void:
 	print(\"[game_container] %s\"%str(thing))
-
 "
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_egx2i"]
@@ -188,6 +189,7 @@ msaa_3d = 3
 use_taa = true
 use_debanding = true
 audio_listener_enable_3d = true
+physics_object_picking = true
 positional_shadow_atlas_size = 4096
 size = Vector2i(1024, 576)
 size_2d_override = Vector2i(1024, 576)
@@ -310,6 +312,7 @@ layout_mode = 2
 [node name="Control" type="Control" parent="ui_persistent/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ui_persistent/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -358,6 +361,7 @@ layout_mode = 2
 [node name="Control" type="Control" parent="ui_debug/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ui_debug/MarginContainer/HBoxContainer"]
 layout_mode = 2
@@ -511,6 +515,7 @@ main_subviewport = NodePath("../SubViewportContainer/SubViewport")
 ui_debug_root = NodePath("../ui_debug")
 
 [node name="MarginContainer" type="MarginContainer" parent="ui_debug_menu"]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

@@ -12,6 +12,9 @@ extends Node
 @onready var weapon = null #player.find_child("weapon_mount").get_child(0)
 @onready var weapon_equip_slot = null # the weapon_equip_slot this weapon came from
 
+# activate processing or not
+@export var active := true
+
 
 # weapon switching and equipping
 var weapon_current_equip_slot : int = 0
@@ -37,59 +40,61 @@ func _ready():
 func _process(dt):
 	weapon_switch_time +=dt
 
-	# toggle active weapon
-	# times out and resets timers
-	if weapon_switch_engaged:
-		if weapon_switch_time > WEAPON_SWITCH_MAX_TME:
-			weapon_switch_engaged = false
-			weapon_switch_selected =  false
-		# if ovr double tap timer, register the single click
-		elif weapon_switch_time > WEAPON_SWITCH_DOUBLTAP_TME and not weapon_switch_selected:
-			prints("single TAP >", weapon_switch_time)
-			toggle_weapon()
-			weapon_switch_selected = true
-
-	if not dui_root.is_options_invoked:
+	if self.active:
 
 		# toggle active weapon
-		# double tap within time WEAPON_SWITCH_DOUBLTAP_TME
-		# no more tap until WEAPON_SWITCH_MAX_TME
-		if Input.is_action_just_pressed("toggle_weapons"):
-			if weapon:
-				weapon.activated = false
-			if not weapon_switch_engaged:
-				weapon_switch_time = 0.0
-				weapon_switch_engaged = true
-			elif weapon_switch_time < WEAPON_SWITCH_DOUBLTAP_TME:
-				prints("dbl TAP", weapon_switch_time)
-				weapon_switch_selected = true
-				toggle_weapon( true )
-			elif weapon_switch_time > WEAPON_SWITCH_DOUBLTAP_TME:
-				prints("miss TAP", weapon_switch_time)
-				weapon_switch_selected = true
+		# times out and resets timers
+		if weapon_switch_engaged:
+			if weapon_switch_time > WEAPON_SWITCH_MAX_TME:
+				weapon_switch_engaged = false
+				weapon_switch_selected =  false
+			# if ovr double tap timer, register the single click
+			elif weapon_switch_time > WEAPON_SWITCH_DOUBLTAP_TME and not weapon_switch_selected:
+				prints("single TAP >", weapon_switch_time)
 				toggle_weapon()
+				weapon_switch_selected = true
 
-		# shoot
-		if self.weapon and Input.is_action_just_pressed("shoot"):
-			#weapon.activated = true
-			weapon.set_activated(true)
+		if not dui_root.is_options_invoked:
 
-		if self.weapon and Input.is_action_just_released("shoot"):
-			#weapon.activated = false
-			weapon.set_activated(false)
+			# toggle active weapon
+			# double tap within time WEAPON_SWITCH_DOUBLTAP_TME
+			# no more tap until WEAPON_SWITCH_MAX_TME
+			if Input.is_action_just_pressed("toggle_weapons"):
+				if weapon:
+					weapon.activated = false
+				if not weapon_switch_engaged:
+					weapon_switch_time = 0.0
+					weapon_switch_engaged = true
+				elif weapon_switch_time < WEAPON_SWITCH_DOUBLTAP_TME:
+					prints("dbl TAP", weapon_switch_time)
+					weapon_switch_selected = true
+					toggle_weapon( true )
+				elif weapon_switch_time > WEAPON_SWITCH_DOUBLTAP_TME:
+					prints("miss TAP", weapon_switch_time)
+					weapon_switch_selected = true
+					toggle_weapon()
 
-		# TEMP: FIRE ALL IN INVENTORY ##############################################################
-#		if Input.is_action_just_pressed("shoot"):
-#			for w in dui_root.find_child("slots").get_children():
-#				w.slotted_weapon.eject_casings = false
-#
-#				await get_tree().create_timer( randf() * 0.002 ).timeout
-#				w.slotted_weapon.activated = true
-#
-#		if Input.is_action_just_released("shoot"):
-#			for w in dui_root.find_child("slots").get_children():
-#				w.slotted_weapon.activated = false
-		#\TEMP: FIRE ALL IN INVENTORY ##############################################################
+			# shoot
+			if self.weapon and Input.is_action_just_pressed("shoot"):
+				#weapon.activated = true
+				weapon.set_activated(true)
+
+			if self.weapon and Input.is_action_just_released("shoot"):
+				#weapon.activated = false
+				weapon.set_activated(false)
+
+			# TEMP: FIRE ALL IN INVENTORY ##############################################################
+	#		if Input.is_action_just_pressed("shoot"):
+	#			for w in dui_root.find_child("slots").get_children():
+	#				w.slotted_weapon.eject_casings = false
+	#
+	#				await get_tree().create_timer( randf() * 0.002 ).timeout
+	#				w.slotted_weapon.activated = true
+	#
+	#		if Input.is_action_just_released("shoot"):
+	#			for w in dui_root.find_child("slots").get_children():
+	#				w.slotted_weapon.activated = false
+			#\TEMP: FIRE ALL IN INVENTORY ##############################################################
 
 
 func slot_weapon(weapon : Weapon = null, slot : int = 0) -> void:

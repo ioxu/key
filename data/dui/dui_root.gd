@@ -1,5 +1,7 @@
 extends Node3D
 
+@export var active := true
+
 @export var inventory_ring_npoints := 32
 @export var inventory_ring_radius := 2.25
 
@@ -51,27 +53,29 @@ func _ready():
 func _process(dt):
 	_gtime += dt
 
-	if self.visible:
-		# TODO : do this another way
-		# realign static_statck
-		$static_stack.transform.origin = self.global_transform.origin + Vector3(0.0, 1.25, 0.0)
-		$static_stack.set_rotation(Vector3(0.0, 0.0, 0.0))
-		$options_ring.transform.origin = self.global_transform.origin + Vector3(0.0, 1.225, 0.0)
-		$options_ring.set_rotation(Vector3(0.0, 0.0, 0.0))
+	if self.active:
 
+		if self.visible:
+			# TODO : do this another way
+			# realign static_statck
+			$static_stack.transform.origin = self.global_transform.origin + Vector3(0.0, 1.25, 0.0)
+			$static_stack.set_rotation(Vector3(0.0, 0.0, 0.0))
+			$options_ring.transform.origin = self.global_transform.origin + Vector3(0.0, 1.225, 0.0)
+			$options_ring.set_rotation(Vector3(0.0, 0.0, 0.0))
+
+
+			if is_inventory_invoked:
+				weapons_items.update( dt, self.global_transform.basis )
 
 		if is_inventory_invoked:
-			weapons_items.update( dt, self.global_transform.basis )
-
-	if is_inventory_invoked:
-		if Input.is_action_just_pressed("inventory_select"):
-			weapons_items.select()
-		if Input.is_action_just_released("inventory_select"):
-			weapons_items.release_select()
-		if Input.is_action_just_pressed("inventory_shift_left"):
-			weapons_items.shift_left()
-		if Input.is_action_just_pressed("inventory_shift_right"):
-			weapons_items.shift_right()
+			if Input.is_action_just_pressed("inventory_select"):
+				weapons_items.select()
+			if Input.is_action_just_released("inventory_select"):
+				weapons_items.release_select()
+			if Input.is_action_just_pressed("inventory_shift_left"):
+				weapons_items.shift_left()
+			if Input.is_action_just_pressed("inventory_shift_right"):
+				weapons_items.shift_right()
 
 
 func _input(event):

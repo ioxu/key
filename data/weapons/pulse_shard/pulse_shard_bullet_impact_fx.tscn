@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://csqhw6dkdjk1m" path="res://data/textures/square_gradient_64px_01.png" id="5_2t16s"]
 [ext_resource type="AudioStream" uid="uid://cldkkktpat5yt" path="res://data/weapons/pulse_shard/Bullet Impact Dirt 2 - QuickSounds.com.mp3" id="6_atd5g"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_6ymje"]
+[sub_resource type="BoxMesh" id="BoxMesh_es2xf"]
 
 [node name="pulse_shard_bullet_impact" type="Node3D"]
 script = ExtResource("1")
@@ -44,7 +44,7 @@ modulate = Color(0.411765, 0.6, 0.968627, 1)
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Decal"]
 transform = Transform3D(3.70373, 0, 0, 0, 0.552556, 0, 0, 0, 2.47625, 0, 0, 0)
 visible = false
-mesh = SubResource("BoxMesh_6ymje")
+mesh = SubResource("BoxMesh_es2xf")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("6_atd5g")

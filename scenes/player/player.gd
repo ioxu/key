@@ -41,6 +41,7 @@ var inventory = inventory_resource.new()
 
 
 func _ready():
+	pprint("initialise begin")
 	#spawn_point = get_node(spawn_point)
 	damage_rng.randomize()
 	health = initial_health
@@ -69,6 +70,7 @@ func _ready():
 	
 	# and an equipped weapon
 	$WeaponController.slot_weapon( _ps.instantiate() )
+	pprint("initialise end.")
 
 
 func _process(_delta):
@@ -77,34 +79,38 @@ func _process(_delta):
 	waist.transform.origin = waist_initial_position + recoil_v
 	body.transform.origin = body_initial_position + recoil_v
 
-	# inspect dui
-	if Input.is_action_just_pressed("inspect_digetic_ui"):
-		dui_root.invoke_inventory_ring()
-	
-	if Input.is_action_just_released("inspect_digetic_ui"):
-		dui_root.devoke_inventory_ring()
-
-	if Input.is_action_just_pressed("inspect_weapons_ui"):
-		dui_root.invoke_weapons_ring()
-	
-	if Input.is_action_just_released("inspect_weapons_ui"):
-		dui_root.devoke_weapons_ring()
+	if self.active:
+		# inspect dui
+		if Input.is_action_just_pressed("inspect_digetic_ui"):
+			dui_root.invoke_inventory_ring()
 		
-	if Input.is_action_just_pressed("ui_options"):
-		dui_root.invoke_options_ring()
+		if Input.is_action_just_released("inspect_digetic_ui"):
+			dui_root.devoke_inventory_ring()
 
-#	if Input.is_action_just_released("ui_options"):
-#		dui_root.devoke_options_ring()
+		if Input.is_action_just_pressed("inspect_weapons_ui"):
+			dui_root.invoke_weapons_ring()
+		
+		if Input.is_action_just_released("inspect_weapons_ui"):
+			dui_root.devoke_weapons_ring()
+			
+		if Input.is_action_just_pressed("ui_options"):
+			dui_root.invoke_options_ring()
+
+#		if Input.is_action_just_released("ui_options"):
+#			dui_root.devoke_options_ring()
 
 
 func set_active(new_value) -> void:
 	active = new_value
-	$CollisionShape3D.disabled = !new_value
+	$CollisionShape3D.set_disabled( !new_value )  #disabled = !new_value
 	targetable = new_value
+	
 	$Controller.set_physics_process(new_value)
 	$Controller.set_process(new_value)
 	$Controller.set_process_input(new_value)
 	$Controller.set_process_unhandled_input(new_value)
+	
+	$WeaponController.active = new_value
 	if $WeaponController.weapon:
 		$WeaponController.weapon.activated = false
 
@@ -195,4 +201,21 @@ func set_current_weapon( weapon ) -> void:
 
 
 func pprint(thing) -> void:
-	print("[player] %s"%str(thing))
+	#print("[player] %s"%str(thing))
+	print_rich("[code][b][color=Hotpink][player][/color][/b][/code] %s" %str(thing))
+
+
+#func _on_input_event(camera, event, position, normal, shape_idx):
+#	pprint("camera %s, event %s, position %s, normal %s, shape_idx %s"%[camera, event, position, normal, shape_idx])
+#	$selection_dot.visible = true
+#	$selection_dot.transform.origin = position
+#
+#
+#func _on_mouse_entered():
+#	#pprint("_on_mouse_entered")
+#	pass
+#
+#
+#func _on_mouse_exited():
+#	#pprint("_on_mouse_exited")
+#	pass

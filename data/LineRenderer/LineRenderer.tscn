@@ -6,11 +6,11 @@
 transparency = 1
 shading_mode = 0
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_yi2td"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_s65fb"]
 
 [node name="LineRenderer" type="MeshInstance3D"]
 material_override = SubResource("StandardMaterial3D_a418p")
-mesh = SubResource("ImmediateMesh_yi2td")
+mesh = SubResource("ImmediateMesh_s65fb")
 script = ExtResource("1")
 points = [Vector3(0, 0, 0), Vector3(0, 5, 0)]
 startThickness = 1.0
