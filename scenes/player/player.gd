@@ -39,6 +39,10 @@ signal has_died(object)
 var inventory_resource = load("res://data/inventory/inventory.gd")
 var inventory = inventory_resource.new()
 
+# camera
+@onready var player_camera : Camera3D = self.find_child("Camera3D")
+var starting_camera_transform : Transform3D
+
 
 func _ready():
 	pprint("initialise begin")
@@ -71,6 +75,9 @@ func _ready():
 	# and an equipped weapon
 	$WeaponController.slot_weapon( _ps.instantiate() )
 	pprint("initialise end.")
+
+	# camera
+	starting_camera_transform = player_camera.transform
 
 
 func _process(_delta):
@@ -204,6 +211,9 @@ func pprint(thing) -> void:
 	#print("[player] %s"%str(thing))
 	print_rich("[code][b][color=Hotpink][player][/color][/b][/code] %s" %str(thing))
 
+
+func _exit_tree():
+	pprint("exiting tree ..")
 
 #func _on_input_event(camera, event, position, normal, shape_idx):
 #	pprint("camera %s, event %s, position %s, normal %s, shape_idx %s"%[camera, event, position, normal, shape_idx])

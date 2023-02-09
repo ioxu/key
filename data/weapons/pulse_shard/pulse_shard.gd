@@ -67,10 +67,10 @@ func _process(dt):
 
 
 func _on_timer_timeout():
-	pprint("_on_timer_timeout")
+#	pprint("_on_timer_timeout")
 	can_fire = true
 	if activated:
-		pprint("fire (_on_timer_timeout())")
+#		pprint("fire (_on_timer_timeout())")
 		fire()
 	else:
 		firing_timer.stop()
@@ -79,15 +79,13 @@ func _on_timer_timeout():
 func set_activated(new_value: bool) -> void:
 	activated = new_value
 	if activated and can_fire:
-		pprint("set_activated, can fire")
-		#print(" - pulse_shard activated")
-		pprint("fire")
+#		pprint("set_activated, can fire")
+#		pprint("fire")
 		fire()
 		firing_timer.start()
 		can_fire = false
 		muzzle_flash_light.visible = true
 	else:
-		#print(" - pulse_shard DEactivated")
 		can_fire = false
 		firing_time = 0.0
 
@@ -115,7 +113,7 @@ func fire():
 	if is_enemy_weapon:
 		bullet.is_enemy_bullet = true
 		# -ee
-		pprint("FIRE (e) %s"%bullet)
+		#pprint("FIRE (e) %s"%bullet)
 	get_node("/root/").add_child(bullet)
 	bullet.set_position(bullet_spawner.get_global_transform().origin)
 	var direction = bullet_spawner.get_global_transform().basis.z

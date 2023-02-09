@@ -1,8 +1,7 @@
 [gd_resource type="Environment" load_steps=3 format=3 uid="uid://bpjcaw3kf0iff"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_le8i1"]
-rayleigh_coefficient = 1.17
-rayleigh_color = Color(0.203922, 0.501961, 0.890196, 1)
+rayleigh_color = Color(0.168627, 0.4, 0.678431, 1)
 mie_color = Color(0.517647, 0.423529, 0.321569, 1)
 turbidity = 7.46
 energy_multiplier = 3.0
@@ -16,7 +15,7 @@ background_color = Color(0.160784, 0.419608, 0.568627, 1)
 background_energy_multiplier = 1.7
 sky = SubResource("Sky_pwgq1")
 ambient_light_source = 3
-ambient_light_color = Color(0.0588235, 0.482353, 0.619608, 1)
+ambient_light_color = Color(0.517647, 0.611765, 0.866667, 1)
 reflected_light_source = 2
 tonemap_mode = 3
 ssr_enabled = true

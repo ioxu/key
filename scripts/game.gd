@@ -39,6 +39,10 @@ func start() -> void:
 	#get_viewport().set_debug_draw( Viewport.DEBUG_DRAW_SSIL )
 
 
+func quit() -> void:
+	get_tree().quit()
+
+
 func _on_player_die(object):
 	prints("game.gd _on_player_die", object.get_path())
 	player.respawn()
@@ -87,11 +91,18 @@ func exit_door(door) -> void:
 
 
 func find_door(door_name) -> Node:
+	
+	print(" -> find_door")
+	
 	for c in current_level.get_node("level").get_children():
-		if c.get_class() == "door":
-			if c.door_name == door_name:
-				prints(" found door", "'"+c.door_name+"'", c.get_path())
-				return c
+		
+		#print("     get_class %s %s"%[c, c.get_class()])
+		
+		if c.has_method("get_class_name"):
+			if c.get_class_name() == "door":
+				if c.door_name == door_name:
+					prints(" found door", "'"+c.door_name+"'", c.get_path())
+					return c
 	return null
 
 

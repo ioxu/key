@@ -3,7 +3,7 @@ extends Area3D
 class_name door
 
 @export var door_name: String
-@export_file("*.tscn,*.scn") var connected_scene# : (String, FILE, "*.tscn,*.scn")
+@export_file("*.tscn *.scn") var connected_scene# : (String, FILE, "*.tscn,*.scn")
 @export var connected_door: String
 
 @onready var label = $Label3D
@@ -28,5 +28,5 @@ func _on_door_body_entered(body) -> void:
 			Game.enter_door(self.door_name, self.connected_scene, self.connected_door )
 
 
-func get_class() -> String:
+func get_class_name() -> String:
 	return "door"

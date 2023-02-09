@@ -2,7 +2,7 @@ extends Node
 # main game singleton
 
 var minimum_size : Vector2 = Vector2(1024,576)#(960, 540)
-var BORDERLESS_FULLSCREEN = true#false
+var BORDERLESS_FULLSCREEN = false#true#false
 
 var window_position := Vector2.ZERO
 var fullscreen : = false

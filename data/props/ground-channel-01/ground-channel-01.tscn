@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://tdb0k2qul66x"]
+
+[ext_resource type="PackedScene" uid="uid://d3u1vlepcpmow" path="res://data/props/ground-channel-01/ground-channel-01.gltf" id="1_bk5do"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sho0u"]
+albedo_color = Color(0.894118, 0.568627, 0.360784, 1)
+metallic = 0.81
+roughness = 0.39
+
+[node name="ground-channel-01" instance=ExtResource("1_bk5do")]
+
+[node name="ground-channel-012" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_sho0u")

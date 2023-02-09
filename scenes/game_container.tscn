@@ -1,8 +1,9 @@
-[gd_scene load_steps=36 format=3 uid="uid://dfja1ypquymuq"]
+[gd_scene load_steps=38 format=3 uid="uid://dfja1ypquymuq"]
 
-[ext_resource type="PackedScene" uid="uid://c0vn2jqnejado" path="res://data/props/bollard-02-piece-03/bollard_02_piece_03.tscn" id="1_17l12"]
+[ext_resource type="Script" path="res://scenes/game_container.gd" id="1_wiwqp"]
 [ext_resource type="Environment" uid="uid://bpjcaw3kf0iff" path="res://scenes/game_container_world_environment.tres" id="1_y11v7"]
 [ext_resource type="PackedScene" uid="uid://b330s652jv5y8" path="res://data/props/bollard-02-piece-02/bollard_02_piece_02.tscn" id="2_3tqab"]
+[ext_resource type="PackedScene" uid="uid://dgp4tdmym4d0f" path="res://data/props/ground-cylinder-01/ground-cylinder-01.tscn" id="2_qjbf7"]
 [ext_resource type="PackedScene" uid="uid://bdham7gyjv55u" path="res://data/props/bollard-02-piece-01/bollard_02_piece_01.tscn" id="3_s5cn5"]
 [ext_resource type="PackedScene" uid="uid://cf7ledivriici" path="res://data/props/bollard-02/bollard_02_01_02.tscn" id="4_qkj8k"]
 [ext_resource type="PackedScene" uid="uid://60huk5jyn8eh" path="res://scenes/player/player.tscn" id="5_3yb2w"]
@@ -12,129 +13,47 @@
 [ext_resource type="FontFile" uid="uid://dtb3xbqwk4167" path="res://data/fonts/RobotoCondensed-Regular.ttf" id="6_tp6qh"]
 [ext_resource type="Script" path="res://scenes/ViewportDisplay.gd" id="7_7rcxx"]
 [ext_resource type="Texture2D" uid="uid://i4wkypqrg2n7" path="res://thumbnail.png" id="7_byq4e"]
+[ext_resource type="PackedScene" uid="uid://tdb0k2qul66x" path="res://data/props/ground-channel-01/ground-channel-01.tscn" id="8_c7ktd"]
 [ext_resource type="Texture2D" uid="uid://q50te0v1ajna" path="res://data/icons/settings.png" id="10_ac0lg"]
+[ext_resource type="Texture2D" uid="uid://bv6r7c4twvb5c" path="res://data/textures/key-title_paint_01-02_ORM.png" id="10_na3cv"]
 [ext_resource type="Script" path="res://scenes/ui_debug_menu.gd" id="10_od7cn"]
+[ext_resource type="PackedScene" uid="uid://bg8g5pyvqq0y3" path="res://data/props/shell-barrier-01/shell-barrier-01.tscn" id="11_krqou"]
 [ext_resource type="Script" path="res://scenes/resolutions_display_panel.gd" id="11_udo4q"]
 [ext_resource type="Script" path="res://scenes/renderingServer_info_display_panel.gd" id="12_dllqf"]
 [ext_resource type="Texture2D" uid="uid://djwhb8rr17kkc" path="res://data/icons/pulse.png" id="14_1bpyw"]
+[ext_resource type="Script" path="res://scenes/ui_starting_menu.gd" id="14_5kbqd"]
 [ext_resource type="PackedScene" uid="uid://bjga1ie2v677e" path="res://data/props/bollard-01/bollard-01.tscn" id="17_37avf"]
 
-[sub_resource type="GDScript" id="GDScript_bgtdb"]
-script/source = "extends Node2D
-
-var gtime := 0.0
-
-# store
-var _initial_player_camera_transform : Transform3D
-
-@onready var player_camera : Camera3D = $SubViewportContainer/SubViewport.find_child(\"Camera3D\")
-@onready var starting_camera : Camera3D =  $SubViewportContainer/SubViewport.find_child(\"starting_Camera3D\")
-
-# starting_camera noise
-var starting_cam_p_noise := FastNoiseLite.new()
-var starting_cam_o_noise := FastNoiseLite.new()
-
-var starting_camera_transform : Transform3D
-
-func _ready():
-	# 1st time running:
-	# do start menu setup and diorama stuff
-
-	# deactivate player
-	var player = $SubViewportContainer/SubViewport.find_child(\"player\")
-	pprint(\"setting player to not active (%s)\"%player.get_path())
-	player.active = false
-
-	# stash camera transform
-	#var camera = player.find_child(\"Camera3D\")
-	pprint(\"player camera %s\"%player_camera.get_path())
-	_initial_player_camera_transform = player_camera.transform
-	
-	starting_camera_transform = starting_camera.global_transform
-	# set camera to diorama camera
-	# starting_camera noise
-	starting_cam_p_noise.frequency = 0.25
-		
-	#set
-	player_camera.set_global_transform( starting_camera.global_transform )
-
-	# menu ui
-	$ui_starting_menu.find_child(\"Button\").grab_focus()
-
-
-func _process(delta):
-	
-	gtime += delta
-	
-	# move target around with noise
-	# position
-	starting_cam_p_noise.set_seed(0)
-	starting_cam_p_noise.frequency = 0.1
-	var _x = starting_cam_p_noise.get_noise_3dv( starting_camera_transform.origin + Vector3(0, 0, gtime))
-	starting_cam_p_noise.set_seed(1)
-	starting_cam_p_noise.frequency = 0.25
-	var _y = starting_cam_p_noise.get_noise_3dv( starting_camera_transform.origin + Vector3(0, 0, gtime))
-	starting_cam_p_noise.set_seed(2)
-	starting_cam_p_noise.frequency = 0.1
-	var _z = starting_cam_p_noise.get_noise_3dv( starting_camera_transform.origin + Vector3(0, 0, gtime) ) 
-	starting_camera.transform.origin = starting_camera_transform.origin + Vector3(_x, _y, _z) * Vector3(0.2, 0.1, 0.2)
-
-	starting_cam_o_noise.set_seed(3)
-	starting_cam_o_noise.frequency = 0.1
-	_x = starting_cam_o_noise.get_noise_3dv( starting_camera_transform.origin + Vector3(0, 0, gtime))
-	starting_cam_o_noise.set_seed(4)
-	starting_cam_o_noise.frequency = 0.25
-	_y = starting_cam_o_noise.get_noise_3dv( starting_camera_transform.origin + Vector3(0, 0, gtime))
-	starting_cam_o_noise.set_seed(5)
-	starting_cam_o_noise.frequency = 0.1
-	_z = starting_cam_o_noise.get_noise_3dv( starting_camera_transform.origin + Vector3(0, 0, gtime) ) 
-	
-	starting_camera.transform = starting_camera.transform.rotated_local( Vector3.RIGHT, _x * .1 )
-	starting_camera.transform = starting_camera.transform.rotated_local( Vector3.UP, _y * .1 )
-	starting_camera.transform = starting_camera.transform.rotated_local( Vector3.FORWARD, _z * .3 )
-	
-	starting_camera.transform.basis = starting_camera.transform.interpolate_with( starting_camera_transform, 0.85 ).basis
-
-
-	player_camera.set_global_transform( starting_camera.global_transform )
-
-
-func pprint(thing) -> void:
-	print(\"[game_container] %s\"%str(thing))
-"
-
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_jxwvl"]
+auto_exposure_enabled = true
 auto_exposure_scale = 0.3
 auto_exposure_speed = 3.0
-dof_blur_far_enabled = true
 dof_blur_far_distance = 12.0
 dof_blur_near_enabled = true
 dof_blur_near_distance = 4.86
+dof_blur_near_transition = 2.5
 dof_blur_amount = 0.16
+auto_exposure_min_sensitivity = 300.0
+auto_exposure_max_sensitivity = 1000.0
 
 [sub_resource type="GDScript" id="GDScript_ydr72"]
 script/source = "extends Node3D
 
-var gtime := 0.0
+var gtime := Time.get_unix_time_from_system() # 0.0
 
 func _ready():
-	pass 
+	pprint(\"gtime %s\"%gtime)
 
 
 func _process(delta):
 	gtime += delta
-	
-	rotate_y(delta* -0.15)
+	rotate_y(delta* -0.015)#-0.15)
+
+
+func pprint(thing) -> void:
+	#print(\"[player] %s\"%str(thing))
+	print_rich(\"[code][b][color=Dodgerblue][rotating_env][/color][/b][/code] %s\" %str(thing))
 "
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_umk0r"]
-top_radius = 2.5
-bottom_radius = 2.5
-height = 0.5
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cy6ar"]
-albedo_color = Color(0.329412, 0.329412, 0.329412, 1)
-roughness = 0.38
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_kouxu"]
 size = Vector3(500, 500, 1)
@@ -215,7 +134,7 @@ corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
 [node name="game_container" type="Node2D"]
-script = SubResource("GDScript_bgtdb")
+script = ExtResource("1_wiwqp")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 editor_description = "1024x576
@@ -257,7 +176,8 @@ script = SubResource("GDScript_ydr72")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport/level_hook/Node3D/rotating_env"]
 transform = Transform3D(-0.460887, -0.494126, 0.737172, 0.197946, 0.752491, 0.628152, -0.865101, 0.435428, -0.249003, 1.93108, 4.50669, -1.09173)
-light_energy = 2.0
+light_color = Color(0.952941, 0.764706, 0.568627, 1)
+light_energy = 4.0
 light_indirect_energy = 3.0
 light_angular_distance = 5.54
 shadow_enabled = true
@@ -267,29 +187,25 @@ directional_shadow_blend_splits = true
 
 [node name="DefaultLevel" type="Node3D" parent="SubViewportContainer/SubViewport/level_hook/Node3D"]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel"]
-transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, -1.5, 0)
-layers = 2
-mesh = SubResource("CylinderMesh_umk0r")
-surface_material_override/0 = SubResource("StandardMaterial3D_cy6ar")
+[node name="ground-cylinder-01" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("2_qjbf7")]
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel/MeshInstance3D"]
-transform = Transform3D(1, 0, 0, 0, -4.37113e-08, 1, 0, -1, -4.37113e-08, 0, 0.25, 0)
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel/ground-cylinder-01"]
+transform = Transform3D(6, 0, 0, 0, -2.62268e-07, 6, 0, -6, -2.62268e-07, 0, 0, 0)
 collision_layer = 2
 collision_mask = 5
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel/MeshInstance3D/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel/ground-cylinder-01/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 7.10543e-15, 0, -7.10543e-15, 1, 0, 0, -0.5)
 shape = SubResource("BoxShape3D_kouxu")
 
 [node name="bollard-02-piece-02_01-01" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("2_3tqab")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.2051, 0, 3.79338)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.60137, 0, 4.2868)
 
 [node name="bollard-02-piece-01_01-01" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("3_s5cn5")]
-transform = Transform3D(-0.489108, 0, -0.872222, 0, 1, 0, 0.872222, 0, -0.489108, 1.57595, -1.7053e-13, -3.78864)
+transform = Transform3D(-4.37113e-08, 0, -0.999999, 0, 1, 0, 0.999999, 0, -4.37113e-08, 0, 0, -4.60824)
 
 [node name="bollard-02_01-02" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("4_qkj8k")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.20438, 0, -1.2367)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.60065, 0, -1.2367)
 
 [node name="bollard-02_01-05" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("4_qkj8k")]
 transform = Transform3D(1.30735, 0, 0, 0, 1.30735, 0, 0, 0, 1.30735, -3.73414, -3.17042, -1.64993)
@@ -301,19 +217,36 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.0659
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.94907, 0, -1.2367)
 
 [node name="bollard-02_01-03" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("4_qkj8k")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.225799, 0, -4.20842)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.364159, 0, -4.20842)
+
+[node name="bollard-01" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("17_37avf")]
+transform = Transform3D(-0.604363, 0, 0.796709, 0, 1, 0, -0.796709, 0, -0.604363, -4.17558, 0.0173725, 3.49591)
+
+[node name="bollard-02" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("17_37avf")]
+transform = Transform3D(-0.308486, 0, 0.951229, 0, 1, 0, -0.951229, 0, -0.308486, -4.97731, 0.0173725, 1.96348)
+
+[node name="bollard-03" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("17_37avf")]
+transform = Transform3D(-0.0277644, 0, 0.999614, 0, 1, 0, -0.999614, 0, -0.0277644, -5.34266, 0.0173725, 0.329566)
+
+[node name="amphitheatre-small-01_01-01" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("6_tjex5")]
+
+[node name="ground-channel-01" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("8_c7ktd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.25)
 
 [node name="Decal2" type="Decal" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel"]
 transform = Transform3D(4.53864, 0, -5.02707, 0, 6.77279, 0, 5.02707, 0, 4.53864, -0.388541, 0.942528, 3.81735)
+layers = 2
 texture_albedo = ExtResource("5_eogxw")
-modulate = Color(1, 1, 1, 0.423529)
+texture_orm = ExtResource("10_na3cv")
+albedo_mix = 0.35
 
 [node name="Decal" type="Decal" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel"]
 transform = Transform3D(-5.4895, 0, -3.96687, 0, 6.77279, 0, 3.96687, 0, -5.4895, 1.90989, 0.942528, 6.38092)
+layers = 2
 texture_albedo = ExtResource("5_eogxw")
-modulate = Color(1, 1, 1, 0.321569)
+texture_orm = ExtResource("10_na3cv")
 
-[node name="amphitheatre-small-01_01-01" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("6_tjex5")]
+[node name="shell-barrier-01" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("11_krqou")]
 
 [node name="player" parent="SubViewportContainer/SubViewport/level_hook/Node3D" instance=ExtResource("5_3yb2w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.265419, 0, 0.259204)
@@ -337,6 +270,7 @@ expand_mode = 3
 stretch_mode = 6
 
 [node name="ui_starting_menu" type="Node" parent="."]
+script = ExtResource("14_5kbqd")
 
 [node name="Control" type="Control" parent="ui_starting_menu"]
 layout_mode = 3
@@ -368,25 +302,28 @@ layout_mode = 2
 texture = ExtResource("5_eogxw")
 expand_mode = 1
 
-[node name="Button" type="Button" parent="ui_starting_menu/Control/HBoxContainer/CenterContainer/VBoxContainer"]
+[node name="new_game_button" type="Button" parent="ui_starting_menu/Control/HBoxContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
 text = "new game"
 
 [node name="Button3" type="Button" parent="ui_starting_menu/Control/HBoxContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
+disabled = true
 text = "continue"
 
 [node name="Button2" type="Button" parent="ui_starting_menu/Control/HBoxContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
+disabled = true
 text = "load game"
 
 [node name="Button4" type="Button" parent="ui_starting_menu/Control/HBoxContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
+disabled = true
 text = "settings"
 
-[node name="Button5" type="Button" parent="ui_starting_menu/Control/HBoxContainer/CenterContainer/VBoxContainer"]
+[node name="quit_button" type="Button" parent="ui_starting_menu/Control/HBoxContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
-text = "quit to desktop"
+text = "quit"
 
 [node name="Control" type="Control" parent="ui_starting_menu/Control/HBoxContainer"]
 layout_mode = 2
@@ -614,7 +551,6 @@ main_subviewport = NodePath("../SubViewportContainer/SubViewport")
 ui_debug_root = NodePath("../ui_debug")
 
 [node name="MarginContainer" type="MarginContainer" parent="ui_debug_menu"]
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -839,6 +775,55 @@ theme_override_font_sizes/font_size = 10
 button_pressed = true
 text = "on"
 
+[node name="PanelContainer2" type="PanelContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_q6520")
+
+[node name="MarginContainer" type="MarginContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/PanelContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/PanelContainer2/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/PanelContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_tp6qh")
+theme_override_font_sizes/font_size = 8
+text = "preformance"
+
+[node name="mesh_lod_threshold_parm" type="MarginContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/PanelContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = -5
+theme_override_constants/margin_bottom = -5
+
+[node name="hbox" type="HBoxContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/mesh_lod_threshold_parm"]
+layout_mode = 2
+
+[node name="mesh_lod_threshold_label" type="Label" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/mesh_lod_threshold_parm/hbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+theme_override_fonts/font = ExtResource("6_tp6qh")
+theme_override_font_sizes/font_size = 10
+text = "mesh lod"
+
+[node name="fps_overlay_checkbox" type="CheckBox" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/mesh_lod_threshold_parm/hbox"]
+visible = false
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_tp6qh")
+theme_override_font_sizes/font_size = 10
+button_pressed = true
+text = "on"
+
+[node name="HSlider" type="HSlider" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/mesh_lod_threshold_parm/hbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+ticks_on_borders = true
+
 [node name="HBoxContainer" type="HBoxContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
@@ -863,15 +848,12 @@ text = "debug"
 
 [node name="ui_menu" type="Node" parent="."]
 
-[node name="bollard-01" parent="." instance=ExtResource("17_37avf")]
-transform = Transform3D(-0.97398, 0, -0.226634, 0, 1, 0, 0.226634, 0, -0.97398, -3.75704, 0.692316, 1.96293)
-
-[node name="bollard-02-piece-03" parent="." instance=ExtResource("1_17l12")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.383871, 2.38419e-07, 2.92469)
-
+[connection signal="pressed" from="ui_starting_menu/Control/HBoxContainer/CenterContainer/VBoxContainer/new_game_button" to="ui_starting_menu" method="_on_new_game_button_pressed"]
+[connection signal="pressed" from="ui_starting_menu/Control/HBoxContainer/CenterContainer/VBoxContainer/quit_button" to="ui_starting_menu" method="_on_quit_button_pressed"]
 [connection signal="timeout" from="ui_debug/MarginContainer/HBoxContainer/VBoxContainer/renderingServer_info_display_container/renderingServer_info_display_panel/update_timer" to="ui_debug/MarginContainer/HBoxContainer/VBoxContainer/renderingServer_info_display_container/renderingServer_info_display_panel" method="_on_timer_timeout"]
 [connection signal="item_selected" from="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/graphics_settings_container/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer/debug_draw_parm/debug_draw_options" to="ui_debug_menu" method="_on_debug_draw_options_item_selected"]
 [connection signal="toggled" from="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer/fps_overlay_parm/hbox/fps_overlay_checkbox" to="ui_debug_menu" method="_on_fps_overlay_checkbox_toggled"]
 [connection signal="toggled" from="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer/resolutions_overlay_parm/hbox/resolutions_overlay_checkbox" to="ui_debug_menu" method="_on_resolutions_overlay_checkbox_toggled"]
 [connection signal="toggled" from="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer/renderingServer_info_overlay_parm/hbox/renderingServer_info_overlay_checkbox" to="ui_debug_menu" method="_on_rendering_server_info_overlay_checkbox_toggled"]
+[connection signal="toggled" from="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/mesh_lod_threshold_parm/hbox/fps_overlay_checkbox" to="ui_debug_menu" method="_on_fps_overlay_checkbox_toggled"]
 [connection signal="pressed" from="ui_debug_menu/MarginContainer/VBoxContainer/HBoxContainer/quit_button" to="ui_debug_menu" method="_on_quit_button_pressed"]

@@ -210,7 +210,7 @@ collision_mask = 31
 shape = SubResource("BoxShape3D_fn645")
 
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="ground/StaticBody3D"]
-extents = Vector3(500, 1, 500)
+size = Vector3(1000, 2, 1000)
 
 [node name="level" type="Node3D" parent="."]
 
@@ -238,7 +238,7 @@ transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_t0shr")
 
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="level/walls/block/StaticBody3D"]
-extents = Vector3(2.5, 1, 1)
+size = Vector3(5, 2, 2)
 
 [node name="block3" type="MeshInstance3D" parent="level/walls"]
 transform = Transform3D(-1.11388, 2.17308, -4.79075, 0.127916, 10.3276, 1.07181, 3.02279, 0.363728, -1.81071, -2.93092, 10.3078, 0.477769)
@@ -256,7 +256,7 @@ shape = SubResource("BoxShape3D_t0shr")
 
 [node name="GPUParticlesCollisionBox3D2" type="GPUParticlesCollisionBox3D" parent="level/walls/block3/StaticBody3D"]
 transform = Transform3D(0.538, 0, 0, 0, 0.349, 0, 0, 0, 1, 0, 0, 0)
-extents = Vector3(4.65109, 2.86561, 1)
+size = Vector3(9.30218, 5.73122, 2)
 
 [node name="block28" type="MeshInstance3D" parent="level/walls"]
 transform = Transform3D(-3.19103, 0.703202, -0.660465, 0.127916, 10.3276, 1.07181, 0.441966, 2.08808, -5.07875, 8.09155, -0.518143, -11.1553)
@@ -274,7 +274,7 @@ shape = SubResource("BoxShape3D_t0shr")
 
 [node name="GPUParticlesCollisionBox3D2" type="GPUParticlesCollisionBox3D" parent="level/walls/block28/StaticBody3D"]
 transform = Transform3D(0.538, 0, 0, 0, 0.349, 0, 0, 0, 1, 0, 0, 0)
-extents = Vector3(4.65109, 2.86561, 1)
+size = Vector3(9.30218, 5.73122, 2)
 
 [node name="block4" type="MeshInstance3D" parent="level/walls"]
 transform = Transform3D(-0.407941, -1.51193, -2.69865, 0.0468473, 10.4035, -0.485556, 1.10705, -0.997383, -0.973884, 19.5605, -0.63594, 22.1528)
@@ -291,7 +291,7 @@ transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_t0shr")
 
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="level/walls/block4/StaticBody3D"]
-extents = Vector3(2.49252, 1, 1)
+size = Vector3(4.98504, 2, 2)
 
 [node name="block5" type="MeshInstance3D" parent="level/walls"]
 transform = Transform3D(-1.83453, 0.700639, 0.822926, 0.0738726, 10.4035, -0.872197, -0.309414, -1.67027, -5.08741, 22.8375, -5.41331, 16.4593)
@@ -407,7 +407,7 @@ transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_t0shr")
 
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="level/walls/block12/StaticBody3D"]
-extents = Vector3(2.47091, 1, 1)
+size = Vector3(4.94182, 2, 2)
 
 [node name="block13" type="MeshInstance3D" parent="level/walls"]
 transform = Transform3D(-0.422243, 0.551532, 0.45548, 0.0184957, 5.12717, -0.185241, -0.196684, -0.701886, -0.995247, 21.5076, -0.276716, 31.3133)
@@ -424,7 +424,7 @@ transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_t0shr")
 
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="level/walls/block13/StaticBody3D"]
-extents = Vector3(2.49664, 1, 1)
+size = Vector3(4.99328, 2, 2)
 
 [node name="block14" type="MeshInstance3D" parent="level/walls"]
 transform = Transform3D(0.19458, 0.791759, 2.26685, 0.031234, 5.12717, -0.395286, -0.762167, 0.412249, 0.562523, 24.6111, -3.02096, 33.4599)
@@ -441,7 +441,7 @@ transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_t0shr")
 
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="level/walls/block14/StaticBody3D"]
-extents = Vector3(2.49418, 1, 1)
+size = Vector3(4.98836, 2, 2)
 
 [node name="block15" type="MeshInstance3D" parent="level/walls"]
 transform = Transform3D(-0.0381595, -0.201773, 0.537422, 0.0141787, 0.988259, 0.11302, -0.355038, 0.0611533, -0.0532487, 37.4334, 1.95626, 21.8304)
@@ -487,7 +487,7 @@ transform = Transform3D(1, 0, -1.19209e-07, -1.86265e-09, 1, -1.49012e-08, 2.980
 shape = SubResource("BoxShape3D_t0shr")
 
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="level/walls/block17/StaticBody3D"]
-extents = Vector3(2.49872, 1, 1)
+size = Vector3(4.99744, 2, 2)
 
 [node name="block18" type="MeshInstance3D" parent="level/walls"]
 transform = Transform3D(0.186553, 0.254652, 0.636678, 0.0112987, 2.49736, -0.141876, -0.214866, 0.35242, 0.545324, 28.8997, 1.21686, 19.2937)
@@ -518,7 +518,7 @@ transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_t0shr")
 
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="level/walls/block19/StaticBody3D"]
-extents = Vector3(2.50134, 1, 1)
+size = Vector3(5.00268, 2, 2)
 
 [node name="block20" type="MeshInstance3D" parent="level/walls"]
 transform = Transform3D(-0.0677345, 0.429644, 0.378964, 0.00717544, 2.49736, -0.0693709, -0.167535, -0.0667445, -0.156186, 21.731, 1.21686, 24.6376)
@@ -535,7 +535,7 @@ transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_t0shr")
 
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="level/walls/block20/StaticBody3D"]
-extents = Vector3(2.48804, 1, 1)
+size = Vector3(4.97608, 2, 2)
 
 [node name="block21" type="MeshInstance3D" parent="level/walls"]
 transform = Transform3D(0.275644, 0.145032, 0.569436, 0.0130018, 2.49736, -0.176695, -0.176746, 0.409895, 0.875065, 22.1896, -0.346261, 26.7375)
@@ -552,7 +552,7 @@ transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_t0shr")
 
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="level/walls/block21/StaticBody3D"]
-extents = Vector3(2.47718, 1, 1)
+size = Vector3(4.95436, 2, 2)
 
 [node name="block22" type="MeshInstance3D" parent="level/walls"]
 transform = Transform3D(-0.718458, -0.0240483, 0.362033, 0.0293359, 2.34761, 0.314178, -0.172202, 0.500266, -1.45695, 5.4206, 1.47388, -0.952318)
@@ -569,7 +569,7 @@ transform = Transform3D(1, 0, -1.19209e-07, -1.86265e-09, 1, -1.49012e-08, 2.980
 shape = SubResource("BoxShape3D_t0shr")
 
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="level/walls/block22/StaticBody3D"]
-extents = Vector3(2.49053, 1, 1)
+size = Vector3(4.98106, 2, 2)
 
 [node name="block27" type="MeshInstance3D" parent="level/walls"]
 transform = Transform3D(-1.34111, -0.0265581, 0.717276, -0.0473411, 2.63639, -0.30082, -0.322617, -0.276465, -2.93755, -6.3553, -0.599545, 14.6725)
@@ -586,7 +586,7 @@ transform = Transform3D(1, 0, -1.19209e-07, -1.86265e-09, 1, -1.49012e-08, 2.980
 shape = SubResource("BoxShape3D_t0shr")
 
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="level/walls/block27/StaticBody3D"]
-extents = Vector3(2.46222, 1, 1)
+size = Vector3(4.92444, 2, 2)
 
 [node name="block23" type="MeshInstance3D" parent="level/walls"]
 transform = Transform3D(-0.276714, 0.195104, 0.189908, 0.0112987, 2.49736, -0.141876, -0.0663235, -0.388564, -0.8165, -0.757208, 1.21686, 7.18929)
@@ -603,7 +603,7 @@ transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_t0shr")
 
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="level/walls/block23/StaticBody3D"]
-extents = Vector3(2.4798, 1, 1)
+size = Vector3(4.9596, 2, 2)
 
 [node name="block24" type="MeshInstance3D" parent="level/walls"]
 transform = Transform3D(0.0217039, 0.417938, 0.914924, 0.0174952, 2.49736, -0.154985, -0.440072, 0.119896, 0.0389616, 1.21878, -0.346261, 8.03512)
@@ -620,7 +620,7 @@ transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_t0shr")
 
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="level/walls/block24/StaticBody3D"]
-extents = Vector3(2.55205, 1, 1)
+size = Vector3(5.1041, 2, 2)
 
 [node name="block25" type="MeshInstance3D" parent="level/walls"]
 transform = Transform3D(-0.11736, -0.257511, -0.313465, 0.00717543, 2.49736, -0.0693708, 0.137414, -0.350338, -0.264097, 7.29215, 1.21686, 11.0823)
@@ -637,7 +637,7 @@ transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_t0shr")
 
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="level/walls/block25/StaticBody3D"]
-extents = Vector3(2.42203, 1, 1)
+size = Vector3(4.84406, 2, 2)
 
 [node name="block26" type="MeshInstance3D" parent="level/walls"]
 transform = Transform3D(-0.284016, 0.296685, 0.513463, 0.0130018, 2.49736, -0.176695, -0.162951, -0.317846, -0.909039, 8.94335, -0.346261, 9.7063)
@@ -654,7 +654,7 @@ transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_t0shr")
 
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="level/walls/block26/StaticBody3D"]
-extents = Vector3(2.49166, 1, 1)
+size = Vector3(4.98332, 2, 2)
 
 [node name="props" type="Node3D" parent="level"]
 
@@ -921,13 +921,13 @@ transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 
 
 [node name="FogVolume2" type="FogVolume" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.9136, -0.747873, 57.6533)
-extents = Vector3(10.8768, 9.22829, 11.9075)
+size = Vector3(21.7536, 18.4566, 23.815)
 shape = 0
 material = SubResource("FogMaterial_lcet3")
 
 [node name="FogVolume3" type="FogVolume" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.296, -0.747873, 72.8882)
-extents = Vector3(10.8768, 9.22829, 11.9075)
+size = Vector3(21.7536, 18.4566, 23.815)
 shape = 0
 material = SubResource("FogMaterial_lcet3")
 

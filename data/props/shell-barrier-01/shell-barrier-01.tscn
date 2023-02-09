@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://bg8g5pyvqq0y3"]
+
+[ext_resource type="PackedScene" uid="uid://bl1c8wydstmmd" path="res://data/props/shell-barrier-01/shell-barrier-01.gltf" id="1_70sp0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m0fy7"]
+cull_mode = 2
+albedo_color = Color(0.262745, 0.337255, 0.494118, 1)
+roughness = 0.12
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kqo51"]
+size = Vector3(0.462756, 1.56809, 1.87228)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kvbm8"]
+size = Vector3(0.456226, 1.59069, 4.2577)
+
+[node name="shell-barrier-01" instance=ExtResource("1_70sp0")]
+
+[node name="shell-barrier-012" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_m0fy7")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="2"]
+collision_layer = 2
+collision_mask = 29
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(0.716302, 0, -0.697791, 0, 1, 0, 0.697791, 0, 0.716302, -1.80365, 0.873099, 2.53637)
+shape = SubResource("BoxShape3D_kqo51")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.24658, 0.873, -0.14182)
+shape = SubResource("BoxShape3D_kvbm8")

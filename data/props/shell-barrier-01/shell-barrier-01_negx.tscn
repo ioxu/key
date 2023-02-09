@@ -1,0 +1,58 @@
+[gd_scene load_steps=5 format=3 uid="uid://dwa2uej7pg5cn"]
+
+[ext_resource type="PackedScene" uid="uid://bl1c8wydstmmd" path="res://data/props/shell-barrier-01/shell-barrier-01.gltf" id="1_qik2p"]
+
+[sub_resource type="GDScript" id="GDScript_bn2ma"]
+script/source = "extends Node3D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m0fy7"]
+cull_mode = 2
+albedo_color = Color(0.262745, 0.337255, 0.494118, 1)
+roughness = 0.12
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cvrye"]
+cull_mode = 2
+albedo_color = Color(0, 0.6, 0.360784, 1)
+roughness = 0.48
+
+[node name="shell-barrier-01" instance=ExtResource("1_qik2p")]
+script = SubResource("GDScript_bn2ma")
+
+[node name="shell-barrier-012" parent="." index="0"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.601, 0.0479708, -1.237)
+material_override = SubResource("StandardMaterial3D_m0fy7")
+
+[node name="rail-01" parent="." index="1"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -1.41135, 1.32966, 0.297512)
+material_override = SubResource("StandardMaterial3D_cvrye")
+
+[node name="rail-01001" parent="." index="2"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -1.41135, 1.33498, -1.8067)
+material_override = SubResource("StandardMaterial3D_cvrye")
+
+[node name="rail-01002" parent="." index="3"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -1.41135, 1.32966, 3.30881)
+material_override = SubResource("StandardMaterial3D_cvrye")
+
+[node name="rail-01003" parent="." index="4"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -1.16012, 1.48087, -1.8067)
+material_override = SubResource("StandardMaterial3D_cvrye")
+
+[node name="rail-01004" parent="." index="5"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -1.16012, 1.48087, -0.625417)
+material_override = SubResource("StandardMaterial3D_cvrye")
+
+[node name="rail-01005" parent="." index="6"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -1.16012, 1.48087, 2.33463)
+material_override = SubResource("StandardMaterial3D_cvrye")

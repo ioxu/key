@@ -79,7 +79,8 @@ func pprint(thing) -> void:
 
 
 func _on_quit_button_pressed():
-	get_tree().quit()
+	#get_tree().quit()
+	Game.quit()
 
 
 func _on_fps_overlay_checkbox_toggled(button_pressed):
