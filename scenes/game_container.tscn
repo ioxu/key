@@ -239,12 +239,14 @@ layers = 2
 texture_albedo = ExtResource("5_eogxw")
 texture_orm = ExtResource("10_na3cv")
 albedo_mix = 0.35
+cull_mask = 4
 
 [node name="Decal" type="Decal" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel"]
 transform = Transform3D(-5.4895, 0, -3.96687, 0, 6.77279, 0, 3.96687, 0, -5.4895, 1.90989, 0.942528, 6.38092)
 layers = 2
 texture_albedo = ExtResource("5_eogxw")
 texture_orm = ExtResource("10_na3cv")
+cull_mask = 4
 
 [node name="shell-barrier-01" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("11_krqou")]
 

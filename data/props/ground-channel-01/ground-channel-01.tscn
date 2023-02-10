@@ -10,4 +10,5 @@ roughness = 0.39
 [node name="ground-channel-01" instance=ExtResource("1_bk5do")]
 
 [node name="ground-channel-012" parent="." index="0"]
+layers = 4
 material_override = SubResource("StandardMaterial3D_sho0u")

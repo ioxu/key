@@ -9,4 +9,5 @@ roughness = 0.47
 [node name="ground-cylinder-01" instance=ExtResource("1_71adl")]
 
 [node name="ground-cylinder-012" parent="." index="0"]
+layers = 4
 material_override = SubResource("StandardMaterial3D_kgd0n")

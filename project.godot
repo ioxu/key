@@ -184,6 +184,10 @@ spawn_enemy={
 
 [layer_names]
 
+3d_render/layer_1="player"
+3d_render/layer_2="enemy"
+3d_render/layer_3="environment"
+3d_render/layer_4="environment_nodecal"
 3d_physics/layer_1="player"
 3d_physics/layer_2="environment"
 3d_physics/layer_3="enemies"
