@@ -65,16 +65,10 @@ func _process(_delta):
 
 func _unhandled_input(event):
 	if event.is_action_pressed("ui_cancel") and Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
-		self.get_child(0).set_visible(true)
-		self.is_active = true
-		_previous_focus_holder = get_viewport().gui_get_focus_owner()
-		pprint("previous focus holder: %s"%_previous_focus_holder)
-		self.find_child("return_button").grab_focus()
-
+		invoke_this_menu()
 	elif event.is_action_pressed("ui_cancel") and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-#		self.get_child(0).set_visible(false)
-#		self.is_active = false
 		devoke_this_menu()
+
 
 func _on_debug_draw_options_item_selected(index):
 	main_subviewport.set_debug_draw( index )
@@ -93,6 +87,15 @@ func devoke_this_menu()->void:
 	self.is_active = false
 	if _previous_focus_holder != null:
 		_previous_focus_holder.grab_focus()
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+
+func invoke_this_menu()->void:
+	self.get_child(0).set_visible(true)
+	self.is_active = true
+	_previous_focus_holder = get_viewport().gui_get_focus_owner()
+	pprint("previous focus holder: %s"%_previous_focus_holder)
+	self.find_child("return_button").grab_focus()
 
 
 func _on_quit_button_pressed():
