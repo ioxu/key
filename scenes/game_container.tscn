@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://dfja1ypquymuq"]
+[gd_scene load_steps=41 format=3 uid="uid://dfja1ypquymuq"]
 
 [ext_resource type="Script" path="res://scenes/game_container.gd" id="1_wiwqp"]
 [ext_resource type="Environment" uid="uid://bpjcaw3kf0iff" path="res://scenes/game_container_world_environment.tres" id="1_y11v7"]
@@ -23,6 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://djwhb8rr17kkc" path="res://data/icons/pulse.png" id="14_1bpyw"]
 [ext_resource type="Script" path="res://scenes/ui_starting_menu.gd" id="14_5kbqd"]
 [ext_resource type="PackedScene" uid="uid://bjga1ie2v677e" path="res://data/props/bollard-01/bollard-01.tscn" id="17_37avf"]
+[ext_resource type="Texture2D" uid="uid://b1vg0stm3h5eh" path="res://data/textures/key-title_BG_01-01.png" id="17_yafay"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_jxwvl"]
 auto_exposure_enabled = true
@@ -118,6 +119,20 @@ corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yl5wy"]
+bg_color = Color(0.14902, 0.235294, 0.403922, 0.878431)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uxsrb"]
+bg_color = Color(0.447059, 0.478431, 0.807843, 0.878431)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_56vvm"]
 bg_color = Color(0.623529, 0.164706, 0.196078, 0.878431)
@@ -294,6 +309,21 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="Control" type="Control" parent="ui_starting_menu/Control/HBoxContainer/CenterContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="ui_starting_menu/Control/HBoxContainer/CenterContainer/Control"]
+modulate = Color(0.0117647, 0.247059, 0.282353, 0.796078)
+custom_minimum_size = Vector2(300, 450)
+layout_mode = 2
+offset_left = -186.0
+offset_top = -223.0
+offset_right = 114.0
+offset_bottom = 227.0
+scale = Vector2(1.2, 1)
+texture = ExtResource("17_yafay")
+expand_mode = 1
+
 [node name="VBoxContainer" type="VBoxContainer" parent="ui_starting_menu/Control/HBoxContainer/CenterContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -306,6 +336,8 @@ expand_mode = 1
 
 [node name="new_game_button" type="Button" parent="ui_starting_menu/Control/HBoxContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../quit_button")
+focus_previous = NodePath("../quit_button")
 text = "new game"
 
 [node name="Button3" type="Button" parent="ui_starting_menu/Control/HBoxContainer/CenterContainer/VBoxContainer"]
@@ -325,11 +357,14 @@ text = "settings"
 
 [node name="quit_button" type="Button" parent="ui_starting_menu/Control/HBoxContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../new_game_button")
+focus_next = NodePath("../new_game_button")
 text = "quit"
 
 [node name="Control" type="Control" parent="ui_starting_menu/Control/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.18
 
 [node name="ui_persistent" type="Node" parent="."]
 
@@ -833,6 +868,15 @@ layout_mode = 2
 custom_minimum_size = Vector2(45, 0)
 layout_mode = 2
 
+[node name="return_button" type="Button" parent="ui_debug_menu/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(45, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_tp6qh")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_yl5wy")
+theme_override_styles/hover = SubResource("StyleBoxFlat_uxsrb")
+text = "return"
+
 [node name="quit_button" type="Button" parent="ui_debug_menu/MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(45, 0)
 layout_mode = 2
@@ -858,4 +902,5 @@ text = "debug"
 [connection signal="toggled" from="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer/resolutions_overlay_parm/hbox/resolutions_overlay_checkbox" to="ui_debug_menu" method="_on_resolutions_overlay_checkbox_toggled"]
 [connection signal="toggled" from="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer/renderingServer_info_overlay_parm/hbox/renderingServer_info_overlay_checkbox" to="ui_debug_menu" method="_on_rendering_server_info_overlay_checkbox_toggled"]
 [connection signal="toggled" from="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/mesh_lod_threshold_parm/hbox/fps_overlay_checkbox" to="ui_debug_menu" method="_on_fps_overlay_checkbox_toggled"]
+[connection signal="pressed" from="ui_debug_menu/MarginContainer/VBoxContainer/HBoxContainer/return_button" to="ui_debug_menu" method="_on_return_button_pressed"]
 [connection signal="pressed" from="ui_debug_menu/MarginContainer/VBoxContainer/HBoxContainer/quit_button" to="ui_debug_menu" method="_on_quit_button_pressed"]

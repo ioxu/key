@@ -38,6 +38,8 @@ const DEBUG_DRAW_ENUM_STRINGS = [
 	"Motion Vectors",
 ]
 
+var _previous_focus_holder : Control
+
 
 func _ready():
 	# set self INVISIBLE
@@ -65,10 +67,14 @@ func _unhandled_input(event):
 	if event.is_action_pressed("ui_cancel") and Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
 		self.get_child(0).set_visible(true)
 		self.is_active = true
-	elif event.is_action_pressed("ui_cancel") and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-		self.get_child(0).set_visible(false)
-		self.is_active = false
+		_previous_focus_holder = get_viewport().gui_get_focus_owner()
+		pprint("previous focus holder: %s"%_previous_focus_holder)
+		self.find_child("return_button").grab_focus()
 
+	elif event.is_action_pressed("ui_cancel") and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+#		self.get_child(0).set_visible(false)
+#		self.is_active = false
+		devoke_this_menu()
 
 func _on_debug_draw_options_item_selected(index):
 	main_subviewport.set_debug_draw( index )
@@ -78,8 +84,18 @@ func pprint(thing) -> void:
 	print("[ui_debug_menu] %s"%str(thing))
 
 
+func _on_return_button_pressed():
+	devoke_this_menu()
+
+
+func devoke_this_menu()->void:
+	self.get_child(0).set_visible(false)
+	self.is_active = false
+	if _previous_focus_holder != null:
+		_previous_focus_holder.grab_focus()
+
+
 func _on_quit_button_pressed():
-	#get_tree().quit()
 	Game.quit()
 
 
@@ -93,4 +109,7 @@ func _on_resolutions_overlay_checkbox_toggled(button_pressed):
 
 func _on_rendering_server_info_overlay_checkbox_toggled(button_pressed):
 	ui_debug_root.find_child("renderingServer_info_display_container").set_visible( button_pressed )
+
+
+
 
