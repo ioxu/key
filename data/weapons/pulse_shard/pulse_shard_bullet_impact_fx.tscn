@@ -14,8 +14,12 @@ script = ExtResource("1")
 
 [node name="free_timer" type="Timer" parent="."]
 wait_time = 1.5
+one_shot = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="effect_timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="effect_mesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(1.35, 0, 0, 0, 1.35, 0, 0, 0, 1, 0, 0, 0)
 material_override = ExtResource("3")
 mesh = ExtResource("2")
@@ -36,7 +40,7 @@ omni_attenuation = 1.41421
 [node name="Decal" type="Decal" parent="."]
 transform = Transform3D(1, 0, 0, 0, -1.60115e-07, 3.663, 0, -3.663, -1.60115e-07, 0, 0, 0)
 rotation_order = 0
-extents = Vector3(0.0307698, 0.483704, 0.126321)
+size = Vector3(0.0615396, 0.967408, 0.252642)
 texture_emission = ExtResource("5_2t16s")
 emission_energy = 128.0
 modulate = Color(0.411765, 0.6, 0.968627, 1)
@@ -44,6 +48,7 @@ modulate = Color(0.411765, 0.6, 0.968627, 1)
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Decal"]
 transform = Transform3D(3.70373, 0, 0, 0, 0.552556, 0, 0, 0, 2.47625, 0, 0, 0)
 visible = false
+layers = 4
 mesh = SubResource("BoxMesh_es2xf")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
@@ -54,3 +59,4 @@ max_polyphony = 10
 bus = &"impacts"
 
 [connection signal="timeout" from="free_timer" to="." method="_on_free_timer_timeout"]
+[connection signal="timeout" from="effect_timer" to="." method="_on_effect_timer_timeout"]

@@ -18,6 +18,10 @@ func _on_quit_button_pressed():
 func _on_new_game_button_pressed():
 	pprint("start new game ..")
 	$Control.set_visible(false)
+	
+#	$"../SubViewportContainer/SubViewport".set_input_as_handled()
+#	get_viewport().set_input_as_handled()
+
 	emit_signal("new_game_selected")
 
 

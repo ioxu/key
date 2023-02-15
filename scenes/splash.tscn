@@ -19,7 +19,7 @@ func _ready():
 func _process(delta):
 	gtime += delta
 	
-	self.rotation = gtime * 0.2
+	self.rotation = gtime * 0.05
 "
 
 [node name="Node2D" type="Node2D"]
@@ -58,10 +58,11 @@ script = SubResource("GDScript_qjehm")
 
 [node name="TextureRect" type="TextureRect" parent="Control/splash_image/TextureRect/Node2D"]
 modulate = Color(1, 1, 1, 0.705882)
-offset_left = -154.831
-offset_top = -344.756
-offset_right = 391.17
-offset_bottom = 167.244
+offset_left = -308.973
+offset_top = -456.234
+offset_right = 237.028
+offset_bottom = 55.7657
+scale = Vector2(3, 3)
 texture = ExtResource("4_umw2c")
 
 [node name="Label" type="Label" parent="."]

@@ -26,13 +26,13 @@
 [ext_resource type="Texture2D" uid="uid://b1vg0stm3h5eh" path="res://data/textures/key-title_BG_01-01.png" id="17_yafay"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_jxwvl"]
-auto_exposure_enabled = true
+exposure_multiplier = 0.65
 auto_exposure_scale = 0.3
 auto_exposure_speed = 3.0
 dof_blur_far_distance = 12.0
 dof_blur_near_enabled = true
-dof_blur_near_distance = 4.86
-dof_blur_near_transition = 2.5
+dof_blur_near_distance = 5.0
+dof_blur_near_transition = 6.0
 dof_blur_amount = 0.16
 auto_exposure_min_sensitivity = 300.0
 auto_exposure_max_sensitivity = 1000.0
@@ -193,8 +193,7 @@ script = SubResource("GDScript_ydr72")
 transform = Transform3D(-0.460887, -0.494126, 0.737172, 0.197946, 0.752491, 0.628152, -0.865101, 0.435428, -0.249003, 1.93108, 4.50669, -1.09173)
 light_color = Color(0.952941, 0.764706, 0.568627, 1)
 light_energy = 4.0
-light_indirect_energy = 3.0
-light_angular_distance = 5.54
+light_angular_distance = 3.0
 shadow_enabled = true
 shadow_bias = 0.497
 shadow_blur = 0.241
@@ -246,7 +245,7 @@ transform = Transform3D(-0.0277644, 0, 0.999614, 0, 1, 0, -0.999614, 0, -0.02776
 [node name="amphitheatre-small-01_01-01" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("6_tjex5")]
 
 [node name="ground-channel-01" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("8_c7ktd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.002964)
 
 [node name="Decal2" type="Decal" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel"]
 transform = Transform3D(4.53864, 0, -5.02707, 0, 6.77279, 0, 5.02707, 0, 4.53864, -0.388541, 0.942528, 3.81735)

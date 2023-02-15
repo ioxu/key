@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dqf03ab8xtwhv" path="res://data/weapons/weapon.tscn" id="1"]
 [ext_resource type="Script" path="res://data/weapons/pulse_shard/pulse_shard.gd" id="2"]
 [ext_resource type="AudioStream" uid="uid://c1a014cc2eaum" path="res://data/weapons/pulse_shard/fire_sfx_01.mp3" id="4_ra2c0"]
-[ext_resource type="Material" path="res://data/weapons/pulse_shard/pulse_shard.material" id="5"]
+[ext_resource type="Material" uid="uid://dfq4qb3i4q0pt" path="res://data/weapons/pulse_shard/pulse_shard.material" id="5"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_5ekol"]
 material = ExtResource("5")

@@ -1,16 +1,13 @@
 [gd_scene load_steps=3 format=3 uid="uid://btx3qab5u10b5"]
 
 [ext_resource type="PackedScene" uid="uid://8ojkb7yyv7ob" path="res://data/props/amphitheatre-small-01/amphitheatre-small-01_01-01.gltf" id="1_6md82"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8elyc"]
-albedo_color = Color(0.160784, 0.160784, 0.160784, 1)
-roughness = 0.52
+[ext_resource type="Material" uid="uid://pondv32frhfl" path="res://data/props/amphitheatre-small-01/amphitheatre-small-01_01-01.material" id="2_tm4fk"]
 
 [node name="amphitheatre-small-01_01-01" instance=ExtResource("1_6md82")]
 
 [node name="amphitheatre-small-01" parent="." index="0"]
 layers = 4
-surface_material_override/0 = SubResource("StandardMaterial3D_8elyc")
+surface_material_override/0 = ExtResource("2_tm4fk")
 
 [node name="StaticBody3D" parent="amphitheatre-small-01" index="0"]
 collision_layer = 2

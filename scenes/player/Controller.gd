@@ -234,14 +234,17 @@ func magnitude(vector):
 
 func _process(dt):
 	global_time += dt
-	
-	if not dui_root.is_options_invoked:
-		# jump
-		if (Input.is_action_pressed("jump")):
-			if not is_airborne:
-				var lateral_movement = Vector3(movement.x, 0.0, movement.z)
-				current_vertical_speed = Vector3(0.0, max_jump, 0.0) + lateral_movement * 25 * dt
-				is_airborne = true
+
+	if player.active == true:
+		if not dui_root.is_options_invoked:
+			# jump
+			if Input.is_action_just_pressed("jump"): #
+				pprint("JUMP")
+			#if Input.is_action_pressed("jump"):
+				if not is_airborne:
+					var lateral_movement = Vector3(movement.x, 0.0, movement.z)
+					current_vertical_speed = Vector3(0.0, max_jump, 0.0) + lateral_movement * 25 * dt
+					is_airborne = true
 
 	hip_and_toes_movement()
 

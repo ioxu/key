@@ -44,6 +44,9 @@ var inventory = inventory_resource.new()
 var starting_camera_transform : Transform3D
 
 
+var lifetime := 0.0
+
+
 func _ready():
 	pprint("initialise begin")
 	#spawn_point = get_node(spawn_point)
@@ -81,6 +84,8 @@ func _ready():
 
 
 func _process(_delta):
+	lifetime += _delta
+	#pprint("lifetime %0.1f"%lifetime)
 	# recoil checked waist
 	var recoil_v = Vector3(0.0, 0.0, recoil_time * -1.0 * recoil_magnitude).rotated(Vector3.UP, waist.get_rotation().y )
 	waist.transform.origin = waist_initial_position + recoil_v

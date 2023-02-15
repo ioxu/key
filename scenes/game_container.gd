@@ -82,12 +82,8 @@ func _process(delta):
 func new_game_start() -> void:
 	pprint("new_game_start()")
 	# TODO: CHARACTER GETS X BUTTON AND JUMPS
-	#$SubViewportContainer/SubViewport.set_input_as_handled()
-
-	# enable character
-	pprint("enable character")
-	var player = $SubViewportContainer/SubViewport.find_child("player")
-	player.active = true #false
+#	$SubViewportContainer/SubViewport.set_input_as_handled()
+#	get_viewport().set_input_as_handled()
 
 	# begin tween of camera back to starting transform
 	_do_starting_camera_match = false
@@ -95,6 +91,12 @@ func new_game_start() -> void:
 	tween.set_ease(Tween.EASE_IN_OUT)
 	tween.set_trans( Tween.TRANS_CUBIC )
 	tween.tween_property(player_camera, "transform", _initial_player_camera_transform, 4.0 )
+
+	# enable character
+	var player = $SubViewportContainer/SubViewport.find_child("player")
+	#await get_tree().create_timer(1.0).timeout
+	pprint("enable character")
+	player.active = true #false
 
 
 func pprint(thing) -> void:
