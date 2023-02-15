@@ -16,6 +16,10 @@ run/main_scene="res://scenes/splash.tscn"
 config/features=PackedStringArray("4.0")
 config/icon="res://thumbnail.png"
 
+[audio]
+
+buses/default_bus_layout="res://scenes/default_bus_layout.tres"
+
 [autoload]
 
 Window="*res://scripts/window.gd"
