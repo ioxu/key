@@ -3,8 +3,6 @@ Key, a game made with the Godot Engine v4.
 
 
 # credits
-[//]: # ([label3d, 3d text label plugin](https://github.com/SIsilicon/Godot-3D-text-plugin) by [SIsilicon](https://github.com/SIsilicon))
-
 [camera motion blur script/shader](https://github.com/Bauxitedev/godot-motion-blur) by [Bauxitedev](https://github.com/Bauxitedev)
 
 [Rainy Hearts](https://www.dafont.com/rainyhearts.font) bitmap font by Camellina
