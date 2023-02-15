@@ -12,3 +12,8 @@ Key, a game made with the Godot Engine v4.
 [Roboto Google font](https://fonts.google.com/specimen/Roboto) by [Christian Robertson](https://fonts.google.com/?query=Christian+Robertson)
 
 ["Box Divide ID" shader for the ground shader](https://www.shadertoy.com/view/WlsSRs) by [shadertoy user Shane](https://www.shadertoy.com/user/Shane)
+
+[sound 263619__zaneclampett__metal-on-concrete.mp3] by [zaneclampett](https://freesound.org/people/zaneclampett/ )
+
+Sound effects from [Quick Sounds](https://quicksounds.com)
+
