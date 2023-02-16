@@ -1,17 +1,18 @@
-[gd_resource type="ShaderMaterial" load_steps=3 format=2]
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://dwnsidnxtl7hp"]
 
-[ext_resource path="res://data/shaders/spatial_debug_boxdivide.gdshader" type="Shader" id=1]
-[ext_resource path="res://data/textures/debug/tile_colour.png" type="Texture2D" id=2]
+[ext_resource type="Shader" path="res://data/shaders/spatial_debug_boxdivide.gdshader" id="1"]
+[ext_resource type="Texture2D" uid="uid://cxxksq8tinpyy" path="res://data/textures/debug/tile_colour.png" id="2"]
 
 [resource]
-shader = ExtResource( 1 )
-shader_param/albedo = Color( 1, 1, 1, 1 )
-shader_param/specular = 0.0
-shader_param/metallic = 0.0
-shader_param/roughness = 1.0
-shader_param/point_size = null
-shader_param/uv1_scale = null
-shader_param/uv1_offset = null
-shader_param/uv2_scale = null
-shader_param/uv2_offset = null
-shader_param/iChannel0 = ExtResource( 2 )
+render_priority = 0
+shader = ExtResource("1")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/specular = 0.0
+shader_parameter/metallic = 0.0
+shader_parameter/roughness = 1.0
+shader_parameter/point_size = null
+shader_parameter/uv1_scale = null
+shader_parameter/uv1_offset = null
+shader_parameter/uv2_scale = null
+shader_parameter/uv2_offset = null
+shader_parameter/iChannel0 = ExtResource("2")

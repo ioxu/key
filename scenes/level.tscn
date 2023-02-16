@@ -1,6 +1,6 @@
 [gd_scene load_steps=19 format=3 uid="uid://bhytv45qacrsl"]
 
-[ext_resource type="Material" path="res://data/shaders/spatial_debug_boxdivide_material.tres" id="1"]
+[ext_resource type="Material" uid="uid://dwnsidnxtl7hp" path="res://data/shaders/spatial_debug_boxdivide_material.tres" id="1"]
 [ext_resource type="Script" path="res://scenes/fps_label.gd" id="2"]
 [ext_resource type="PackedScene" uid="uid://d3udjn60dln1j" path="res://data/enemies/Enemy.tscn" id="4"]
 [ext_resource type="Environment" uid="uid://bhme3lqkv1ukt" path="res://scenes/world_environment.tres" id="5"]
@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://scenes/Level.gd" id="7"]
 [ext_resource type="PackedScene" path="res://data/jumpPad/jumpPad.tscn" id="8"]
 [ext_resource type="PackedScene" uid="uid://bmdax631flx3l" path="res://data/pickups/weapon_pickup.tscn" id="9"]
-[ext_resource type="PackedScene" path="res://data/pickups/orb_pickup.tscn" id="10"]
+[ext_resource type="PackedScene" uid="uid://b5mdmavj4y104" path="res://data/pickups/orb_pickup.tscn" id="10"]
 [ext_resource type="PackedScene" uid="uid://djmmqkgcmvnw0" path="res://data/weapons/pulse_shard/pulse_shard.tscn" id="11"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_mcvnm"]
@@ -706,7 +706,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.88642, 1.00073, -26.3141)
 
 [node name="gem_pickup6" parent="level" instance=ExtResource("10")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.05964, 1.84102, 4.69603)
-orb_value = 1
 
 [node name="pulse_shard" parent="level" instance=ExtResource("11")]
 transform = Transform3D(-0.212894, 0, 0.977075, 0, 1, 0, -0.977075, 0, -0.212894, -4.82653, 1.72821, 0)

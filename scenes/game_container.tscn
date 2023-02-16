@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://dfja1ypquymuq"]
+[gd_scene load_steps=44 format=3 uid="uid://dfja1ypquymuq"]
 
 [ext_resource type="Script" path="res://scenes/game_container.gd" id="1_wiwqp"]
 [ext_resource type="Environment" uid="uid://bpjcaw3kf0iff" path="res://scenes/game_container_world_environment.tres" id="1_y11v7"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dgp4tdmym4d0f" path="res://data/props/ground-cylinder-01/ground-cylinder-01.tscn" id="2_qjbf7"]
 [ext_resource type="PackedScene" uid="uid://bdham7gyjv55u" path="res://data/props/bollard-02-piece-01/bollard_02_piece_01.tscn" id="3_s5cn5"]
 [ext_resource type="PackedScene" uid="uid://cf7ledivriici" path="res://data/props/bollard-02/bollard_02_01_02.tscn" id="4_qkj8k"]
+[ext_resource type="Material" uid="uid://dwnsidnxtl7hp" path="res://data/shaders/spatial_debug_boxdivide_material.tres" id="4_xom10"]
 [ext_resource type="PackedScene" uid="uid://60huk5jyn8eh" path="res://scenes/player/player.tscn" id="5_3yb2w"]
 [ext_resource type="Shader" path="res://data/shaders/ViewportDisplay_shaders/invert.gdshader" id="5_7wl8l"]
 [ext_resource type="Texture2D" uid="uid://2tspxfxes4sh" path="res://data/textures/key-title_paint_01-02.png" id="5_eogxw"]
@@ -56,8 +57,15 @@ func pprint(thing) -> void:
 	print_rich(\"[code][b][color=Dodgerblue][rotating_env][/color][/b][/code] %s\" %str(thing))
 "
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_kouxu"]
-size = Vector3(500, 500, 1)
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_t74f0"]
+height = 0.333452
+radius = 2.5
+
+[sub_resource type="BoxMesh" id="BoxMesh_ppw5w"]
+size = Vector3(500, 1, 500)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_emh35"]
+size = Vector3(500, 1, 500)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_x2aue"]
 shader = ExtResource("5_7wl8l")
@@ -204,13 +212,25 @@ directional_shadow_blend_splits = true
 [node name="ground-cylinder-01" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("2_qjbf7")]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel/ground-cylinder-01"]
-transform = Transform3D(6, 0, 0, 0, -2.62268e-07, 6, 0, -6, -2.62268e-07, 0, 0, 0)
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0, 0)
 collision_layer = 2
 collision_mask = 5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel/ground-cylinder-01/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 7.10543e-15, 0, -7.10543e-15, 1, 0, 0, -0.5)
-shape = SubResource("BoxShape3D_kouxu")
+transform = Transform3D(1, 0, 0, 0, 1, 7.10543e-15, 0, -7.10543e-15, 1, 0, -0.167175, 0)
+shape = SubResource("CylinderShape3D_t74f0")
+
+[node name="big_ground" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.819866, 0)
+mesh = SubResource("BoxMesh_ppw5w")
+surface_material_override/0 = ExtResource("4_xom10")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel/big_ground"]
+collision_layer = 2
+collision_mask = 29
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel/big_ground/StaticBody3D"]
+shape = SubResource("BoxShape3D_emh35")
 
 [node name="bollard-02-piece-02_01-01" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("2_3tqab")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.60137, 0, 4.2868)

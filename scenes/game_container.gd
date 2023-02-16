@@ -28,7 +28,8 @@ func _ready():
 	# stash camera transform
 	#var camera = player.find_child("Camera3D")
 	pprint("player camera %s"%player_camera.get_path())
-	_initial_player_camera_transform = Transform3D(player_camera.transform)
+	#_initial_player_camera_transform = Transform3D(player_camera.transform)
+	_initial_player_camera_transform = Transform3D(player_camera.global_transform)
 
 	starting_camera_transform = starting_camera.global_transform
 	# set camera to diorama camera
@@ -90,7 +91,9 @@ func new_game_start() -> void:
 	var tween = self.create_tween()
 	tween.set_ease(Tween.EASE_IN_OUT)
 	tween.set_trans( Tween.TRANS_CUBIC )
-	tween.tween_property(player_camera, "transform", _initial_player_camera_transform, 4.0 )
+	#tween.tween_property(player_camera, "transform", _initial_player_camera_transform, 4.0 )#.from( starting_camera.global_transform  )
+	tween.tween_property(player_camera, "global_transform", _initial_player_camera_transform, 4.0 ).from( starting_camera.global_transform  )
+
 
 	# enable character
 	var player = $SubViewportContainer/SubViewport.find_child("player")
