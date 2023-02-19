@@ -5,8 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://b330s652jv5y8" path="res://data/props/bollard-02-piece-02/bollard_02_piece_02.tscn" id="2_3tqab"]
 [ext_resource type="PackedScene" uid="uid://dgp4tdmym4d0f" path="res://data/props/ground-cylinder-01/ground-cylinder-01.tscn" id="2_qjbf7"]
 [ext_resource type="PackedScene" uid="uid://bdham7gyjv55u" path="res://data/props/bollard-02-piece-01/bollard_02_piece_01.tscn" id="3_s5cn5"]
+[ext_resource type="Material" uid="uid://dobe2qn8x7qiq" path="res://data/shaders/spatial_debug_boxdivide_material_blue.tres" id="4_13sop"]
 [ext_resource type="PackedScene" uid="uid://cf7ledivriici" path="res://data/props/bollard-02/bollard_02_01_02.tscn" id="4_qkj8k"]
-[ext_resource type="Material" uid="uid://dwnsidnxtl7hp" path="res://data/shaders/spatial_debug_boxdivide_material.tres" id="4_xom10"]
 [ext_resource type="PackedScene" uid="uid://60huk5jyn8eh" path="res://scenes/player/player.tscn" id="5_3yb2w"]
 [ext_resource type="Shader" path="res://data/shaders/ViewportDisplay_shaders/invert.gdshader" id="5_7wl8l"]
 [ext_resource type="Texture2D" uid="uid://2tspxfxes4sh" path="res://data/textures/key-title_paint_01-02.png" id="5_eogxw"]
@@ -175,13 +175,12 @@ stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
-msaa_2d = 3
-msaa_3d = 3
+msaa_2d = 1
+msaa_3d = 1
+screen_space_aa = 1
 use_taa = true
-use_debanding = true
 audio_listener_enable_3d = true
 physics_object_picking = true
-positional_shadow_atlas_size = 4096
 size = Vector2i(1024, 576)
 size_2d_override = Vector2i(1024, 576)
 render_target_update_mode = 4
@@ -223,7 +222,7 @@ shape = SubResource("CylinderShape3D_t74f0")
 [node name="big_ground" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.819866, 0)
 mesh = SubResource("BoxMesh_ppw5w")
-surface_material_override/0 = ExtResource("4_xom10")
+surface_material_override/0 = ExtResource("4_13sop")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel/big_ground"]
 collision_layer = 2

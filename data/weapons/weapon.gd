@@ -29,12 +29,15 @@ func set_activated(new_value: bool) -> void:
 
 func get_activated() -> bool:
 	return activated
-	
+
 
 func _process(_delta):
-	global_velocity =  global_transform.origin - _position
-	_position = global_transform.origin
-	#prints("global_velocity", global_velocity)
+	var _gv = global_transform.origin - _position
+	if not _gv.is_equal_approx( Vector3.ZERO ):
+		global_velocity =  _gv
+		_position = global_transform.origin
+#	pprint("global_velocity %s (%s)"%[global_velocity, self.get_parent().get_parent().get_parent()])
+
 
 func pprint(thing) -> void:
 	print("[weapon] %s"%str(thing))

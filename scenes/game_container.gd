@@ -92,8 +92,9 @@ func new_game_start() -> void:
 	tween.set_ease(Tween.EASE_IN_OUT)
 	tween.set_trans( Tween.TRANS_CUBIC )
 	#tween.tween_property(player_camera, "transform", _initial_player_camera_transform, 4.0 )#.from( starting_camera.global_transform  )
-	tween.tween_property(player_camera, "global_transform", _initial_player_camera_transform, 4.0 ).from( starting_camera.global_transform  )
-
+	#tween.tween_property(player_camera, "global_transform", _initial_player_camera_transform, 4.0 ).from( starting_camera.global_transform  )
+	#tween.tween_property(player_camera, "transform", Transform3D(), 4.0 ).from( player_camera.get_parent().global_transform * starting_camera.global_transform  )
+	tween.tween_property(player_camera, "transform", Transform3D(), 4.0 )#.from( starting_camera.global_transform.inverse() * player_camera.get_parent().global_transform  )
 
 	# enable character
 	var player = $SubViewportContainer/SubViewport.find_child("player")

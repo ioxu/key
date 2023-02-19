@@ -1,7 +1,7 @@
 [gd_scene load_steps=34 format=3 uid="uid://ci1ibe8k63mrp"]
 
 [ext_resource type="Script" path="res://scenes/Level.gd" id="1_wjlyb"]
-[ext_resource type="Material" path="res://data/shaders/spatial_debug_boxdivide_material.tres" id="2_nhyfj"]
+[ext_resource type="Material" uid="uid://dwnsidnxtl7hp" path="res://data/shaders/spatial_debug_boxdivide_material.tres" id="2_nhyfj"]
 [ext_resource type="Texture2D" uid="uid://cg4a3s5v5b0oe" path="res://data/textures/grid_map.jpg" id="4_cm41q"]
 [ext_resource type="PackedScene" uid="uid://bjga1ie2v677e" path="res://data/props/bollard-01/bollard-01.tscn" id="5_5xsdn"]
 [ext_resource type="PackedScene" uid="uid://1jmks2p8nd0b" path="res://data/doors/door.tscn" id="6_18vxf"]

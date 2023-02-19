@@ -60,6 +60,7 @@ func set_is_enemy_weapon(new_value):
 
 
 func _process(dt):
+	super(dt)
 	if activated:
 		firing_time += dt
 	if firing_timer.is_stopped():
@@ -127,7 +128,7 @@ func fire():
 		casing.transform = $shell_casing_spawner.global_transform
 		get_node("/root/").add_child(casing)
 		var impulse = casing_eject_force * (Vector3(0.0, randf_range(20.0,35.0), 0.0) + casing.transform.basis.x * -randf_range(10.0,20.0)) #25.0
-		impulse += global_velocity
+		impulse += global_velocity * 50.0
 		casing.apply_impulse(impulse, Vector3.ZERO) # Vector3.ZERO, impulse)
 		var t_impulse = ( $shell_casing_spawner.global_transform.basis.y * randf_range( 0.2, 2.0 ) ) + \
 			($shell_casing_spawner.global_transform.basis.x * randf_range(-0.5, 0.5 ) )
