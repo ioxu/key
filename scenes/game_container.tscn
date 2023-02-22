@@ -35,7 +35,7 @@ dof_blur_near_enabled = true
 dof_blur_near_distance = 5.0
 dof_blur_near_transition = 6.0
 dof_blur_amount = 0.16
-auto_exposure_min_sensitivity = 300.0
+auto_exposure_min_sensitivity = 129.13
 auto_exposure_max_sensitivity = 1000.0
 
 [sub_resource type="GDScript" id="GDScript_ydr72"]

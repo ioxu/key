@@ -17,7 +17,7 @@ class_name Weapon
 
 var global_velocity := Vector3.ZERO
 
-var _position = Vector3.ZERO
+var _position := Vector3.ZERO
 
 func _ready():
 	_position = global_transform.origin
@@ -34,7 +34,7 @@ func get_activated() -> bool:
 func _process(_delta):
 	var _gv = global_transform.origin - _position
 	if not _gv.is_equal_approx( Vector3.ZERO ):
-		global_velocity =  _gv
+		global_velocity = Vector3(_gv)
 		_position = global_transform.origin
 #	pprint("global_velocity %s (%s)"%[global_velocity, self.get_parent().get_parent().get_parent()])
 
