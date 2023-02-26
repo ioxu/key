@@ -11,13 +11,20 @@ var passthrough_door = null
 var last_door_exited = null
 
 func _ready():
-	print("game.dg autoload ready")
+	pprint("game.dg autoload ready")
 	
 	# peep gamepads
 	var gamepads = Input.get_connected_joypads()
-	print("gamepads %s (%s)"%[gamepads, gamepads.size()])
+	pprint("gamepads %s (%s)"%[gamepads, gamepads.size()])
 	for i in range(gamepads.size()):
-		print("  %s- \"%s\" %s"%[i, Input.get_joy_name(i), Input.get_joy_guid(i)])
+		pprint("  %s- \"%s\" %s"%[i, Input.get_joy_name(i), Input.get_joy_guid(i)])
+		
+		if i==0:
+			var ev = InputEventJoypadButton.new()
+			ev.button_index = JOY_BUTTON_BACK
+			InputMap.action_add_event("ui_cancel", ev)
+			#if Input.get_joy_name(i).begins_with("XInput"):
+			pprint("   - setting button %s (JOY_BUTTON_BACK) to 'ui_cancel' event"% JOY_BUTTON_BACK)
 
 
 func start() -> void:
@@ -109,3 +116,8 @@ func find_door(door_name) -> Node:
 func set_SSAO(value):
 	prints("SETTING SSAO FROM GAME AUTOLOAD", value)
 	current_level.get_node("WorldEnvironment").environment.ssao_enabled = value
+
+
+func pprint(thing) -> void:
+	#print("[player] %s"%str(thing))
+	print_rich("[code][b][color=Orange][game][/color][/b][/code] %s" %str(thing))
