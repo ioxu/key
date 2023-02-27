@@ -20,7 +20,7 @@ func is_active() -> bool:
 
 
 func _ready():
-	#gimbal_base.origin = global_transform.origin
+	gimbal_base.origin = global_transform.origin
 	#gimbal_base = global_transform
 	# Unparent
 	set_as_top_level(true)
@@ -36,7 +36,7 @@ func _input(event):
 	if event is InputEventMouseMotion:
 		view_motion += event.relative
 		print("view_motion IN FLY_CAMERA%s"%view_motion)
-		get_viewport().set_input_as_handled()
+#		get_viewport().set_input_as_handled()
 
 
 	elif event is InputEventKey:
@@ -54,20 +54,24 @@ func _input(event):
 		if event.pressed:
 			value = 1
 
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		if event.keycode == KEY_W:
 			motion.z = value * -1.0
+			get_viewport().set_input_as_handled()
 		elif event.keycode == KEY_S:
 			motion.z = value
+			get_viewport().set_input_as_handled()
 		elif event.keycode == KEY_A:
 			motion.x = value * -1.0
+			get_viewport().set_input_as_handled()
 		elif event.keycode == KEY_D:
 			motion.x = value
+			get_viewport().set_input_as_handled()
 		else:
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			#Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			pass
 
-		print("motion: %s"%motion)
-		get_viewport().set_input_as_handled()
+		#get_viewport().set_input_as_handled()
 
 
 func _process(delta):
@@ -83,5 +87,5 @@ func _process(delta):
 func update_activation():
 	set_process(active)
 	current = active
-	if active == false:
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+#	if active == false:
+#		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)

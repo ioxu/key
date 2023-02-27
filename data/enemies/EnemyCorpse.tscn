@@ -34,8 +34,8 @@ height = 1.5
 material = ExtResource("1")
 radius = 0.273
 height = 1.5
-radial_segments = 32
-rings = 4
+radial_segments = 12
+rings = 3
 
 [sub_resource type="BoxMesh" id="BoxMesh_hmlf4"]
 size = Vector3(0.228, 0.456, 0.633)
