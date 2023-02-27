@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://dfja1ypquymuq"]
+[gd_scene load_steps=46 format=3 uid="uid://dfja1ypquymuq"]
 
 [ext_resource type="Script" path="res://scenes/game_container.gd" id="1_wiwqp"]
 [ext_resource type="Environment" uid="uid://bpjcaw3kf0iff" path="res://scenes/game_container_world_environment.tres" id="1_y11v7"]
@@ -23,6 +23,7 @@
 [ext_resource type="Script" path="res://scenes/renderingServer_info_display_panel.gd" id="12_dllqf"]
 [ext_resource type="Texture2D" uid="uid://djwhb8rr17kkc" path="res://data/icons/pulse.png" id="14_1bpyw"]
 [ext_resource type="Script" path="res://scenes/ui_starting_menu.gd" id="14_5kbqd"]
+[ext_resource type="Script" path="res://scenes/fly_Camera.gd" id="15_0f3ve"]
 [ext_resource type="PackedScene" uid="uid://bjga1ie2v677e" path="res://data/props/bollard-01/bollard-01.tscn" id="17_37avf"]
 [ext_resource type="Texture2D" uid="uid://b1vg0stm3h5eh" path="res://data/textures/key-title_BG_01-01.png" id="17_yafay"]
 
@@ -293,6 +294,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.265419, 0, 0.259204)
 [node name="starting_Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/level_hook/Node3D"]
 transform = Transform3D(0.556107, -0.486435, 0.673889, -3.1665e-08, 0.810829, 0.585283, -0.831111, -0.32548, 0.450908, 3.3174, 4.73605, 4.28963)
 fov = 37.8
+
+[node name="fly_Camera" type="Camera3D" parent="SubViewportContainer/SubViewport/level_hook/Node3D"]
+transform = Transform3D(0.556107, -0.486435, 0.673889, -3.1665e-08, 0.810829, 0.585283, -0.831111, -0.32548, 0.450908, 3.3174, 4.73605, 4.28963)
+fov = 37.8
+script = ExtResource("15_0f3ve")
 
 [node name="ViewportDisplay" type="Node" parent="."]
 script = ExtResource("7_7rcxx")

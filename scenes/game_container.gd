@@ -5,8 +5,13 @@ var gtime := 0.0
 # store
 var _initial_player_camera_transform : Transform3D
 
-@onready var player_camera : Camera3D = $SubViewportContainer/SubViewport.find_child("Camera3D")
-@onready var starting_camera : Camera3D =  $SubViewportContainer/SubViewport.find_child("starting_Camera3D")
+@onready var player_camera : Camera3D = $SubViewportContainer/SubViewport.find_child( "Camera3D" )
+@onready var starting_camera : Camera3D =  $SubViewportContainer/SubViewport.find_child( "starting_Camera3D" )
+@onready var fly_camera : Camera3D = $SubViewportContainer/SubViewport.find_child( "fly_Camera" )
+
+var _previous_camera : Camera3D
+
+var fly_camera_active := false
 
 # starting_camera noise
 var starting_cam_p_noise := FastNoiseLite.new()
@@ -16,10 +21,12 @@ var starting_camera_transform : Transform3D
 var starting_camera_interlocal_node : Node3D
 
 var cam_tween_weight := 0.0
-
 var _do_starting_camera_match := true
 
 var enemy_scene = preload( "res://data/enemies/Enemy.tscn" )
+
+signal mouse_motion_relative(relative)
+
 
 func _ready():
 	# 1st time running:
@@ -49,6 +56,9 @@ func _ready():
 	# menu ui
 	$ui_starting_menu.connect("new_game_selected", self.new_game_start) 
 	$ui_starting_menu.find_child("new_game_button").grab_focus()
+
+	# fly camera
+	connect( "mouse_motion_relative", fly_camera.update_mouse_relative )
 
 
 func _process(delta):
@@ -121,7 +131,12 @@ func new_game_start() -> void:
 		pprint("pp %s"%pp)
 		e.position = pp
 		_lh.add_child(e)
-	
+
+
+func _input(event):
+	# pass mouse relative motion to the fly_camera
+	if event is InputEventMouseMotion:
+		emit_signal( "mouse_motion_relative", event.relative )
 
 
 func tween_finished() ->void:
