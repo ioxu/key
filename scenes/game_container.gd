@@ -19,6 +19,8 @@ var cam_tween_weight := 0.0
 
 var _do_starting_camera_match := true
 
+var enemy_scene = preload( "res://data/enemies/Enemy.tscn" )
+
 func _ready():
 	# 1st time running:
 	# do start menu setup and diorama stuff
@@ -108,6 +110,18 @@ func new_game_start() -> void:
 	var player = $SubViewportContainer/SubViewport.find_child("player")
 	pprint("enable character")
 	player.active = true
+
+
+	var n = 3#25
+	var _lh = self.find_child("level_hook")
+	for i in range(n):
+		var e = enemy_scene.instantiate()
+		var c = (i/float(n)) * 2.0*PI 
+		var pp = Vector3(sin(c), 5.0, cos(c)) * 18.0
+		pprint("pp %s"%pp)
+		e.position = pp
+		_lh.add_child(e)
+	
 
 
 func tween_finished() ->void:

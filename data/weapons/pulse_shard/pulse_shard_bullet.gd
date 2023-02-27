@@ -62,6 +62,6 @@ func _emit_impact_fx(collision_info : KinematicCollision3D):
 #	impact_fx.look_at(collision_info.position - self.transform.basis.z, Vector3.UP)
 	impact_fx.look_at(collision_info.get_position(0) - self.transform.basis.z, Vector3.UP)
 	if is_enemy_bullet:
-		impact_fx.get_node("MeshInstance3D").material_override.set_shader_parameter("emission", Color(0.953125, 0.349976, 0.349976))
+		impact_fx.get_node("effect_mesh").material_override.set_shader_parameter("emission", Color(0.953125, 0.349976, 0.349976))
 		impact_fx.get_node("OmniLight3D").set_color(Color(0.953125, 0.349976, 0.349976))
 	impact_fx.start()

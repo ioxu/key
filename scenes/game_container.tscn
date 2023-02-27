@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://dfja1ypquymuq"]
+[gd_scene load_steps=45 format=3 uid="uid://dfja1ypquymuq"]
 
 [ext_resource type="Script" path="res://scenes/game_container.gd" id="1_wiwqp"]
 [ext_resource type="Environment" uid="uid://bpjcaw3kf0iff" path="res://scenes/game_container_world_environment.tres" id="1_y11v7"]
@@ -127,6 +127,10 @@ corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
+
+[sub_resource type="Theme" id="Theme_qe600"]
+PopupMenu/font_sizes/font_size = 12
+PopupMenu/fonts/font = ExtResource("6_tp6qh")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yl5wy"]
 bg_color = Color(0.14902, 0.235294, 0.403922, 0.878431)
@@ -704,6 +708,7 @@ text = "debug draw"
 
 [node name="debug_draw_options" type="OptionButton" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/graphics_settings_container/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer/debug_draw_parm"]
 layout_mode = 2
+theme = SubResource("Theme_qe600")
 theme_override_constants/modulate_arrow = 20
 theme_override_fonts/font = ExtResource("6_tp6qh")
 theme_override_font_sizes/font_size = 10
@@ -781,6 +786,7 @@ text = "fps"
 
 [node name="fps_overlay_checkbox" type="CheckBox" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer/fps_overlay_parm/hbox"]
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../../../resolutions_overlay_parm/hbox/resolutions_overlay_checkbox")
 theme_override_fonts/font = ExtResource("6_tp6qh")
 theme_override_font_sizes/font_size = 10
 button_pressed = true
@@ -803,6 +809,8 @@ text = "resolutions"
 
 [node name="resolutions_overlay_checkbox" type="CheckBox" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer/resolutions_overlay_parm/hbox"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../../../fps_overlay_parm/hbox/fps_overlay_checkbox")
+focus_neighbor_bottom = NodePath("../../../renderingServer_info_overlay_parm/hbox/renderingServer_info_overlay_checkbox")
 theme_override_fonts/font = ExtResource("6_tp6qh")
 theme_override_font_sizes/font_size = 10
 button_pressed = true
@@ -825,6 +833,7 @@ text = "rendering info"
 
 [node name="renderingServer_info_overlay_checkbox" type="CheckBox" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer/renderingServer_info_overlay_parm/hbox"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../../../resolutions_overlay_parm/hbox/resolutions_overlay_checkbox")
 theme_override_fonts/font = ExtResource("6_tp6qh")
 theme_override_font_sizes/font_size = 10
 button_pressed = true
