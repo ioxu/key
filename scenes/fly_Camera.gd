@@ -2,8 +2,11 @@ extends Camera3D
 
 # https://gist.github.com/AndreaCatania/316fc412a7b478ca5226b5c17d963737
 
-const speed = 0.75
+const normal_speed = 0.15
+const fast_speed = 0.75
 const sensitivity = 0.002
+
+var speed = normal_speed
 
 var active := false
 var motion: Vector3
@@ -52,10 +55,18 @@ func _input(event):
 			return
 
 		var value: float = 0
+
 		if event.pressed:
 			value = 1
 
 		#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+		if event.keycode == KEY_SHIFT:
+			if event.pressed:
+				speed = fast_speed
+			else:
+				speed = normal_speed
+
 		if event.keycode == KEY_W:
 			motion.z = value * -1.0
 			get_viewport().set_input_as_handled()

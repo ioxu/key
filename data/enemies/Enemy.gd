@@ -465,7 +465,11 @@ func _physics_process(delta) -> void:
 	speed = speed.lerp(max_speed, delta * accelerate)
 	movement = speed
 
-	current_vertical_speed.y += gravity * delta * jump_acceleration
+	if not is_on_floor():
+		current_vertical_speed.y += gravity * delta * jump_acceleration
+	else:
+		current_vertical_speed.y = 0.0
+
 	movement += current_vertical_speed
 	set_velocity(movement)
 	set_up_direction(Vector3.UP)
