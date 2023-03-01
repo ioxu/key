@@ -29,15 +29,16 @@ func _ready():
 
 func update_mouse_relative( relative ) -> void:
 	"""for getting passed mouse relative motion, eg through a SubViewport"""
-	view_motion += relative
+	if Input.get_mouse_mode() != Input.MOUSE_MODE_VISIBLE:
+		view_motion += relative
 
 
 func _input(event):
 	if event is InputEventMouseMotion:
-		view_motion += event.relative
-		print("view_motion IN FLY_CAMERA%s"%view_motion)
+#		view_motion += event.relative
+#		print("view_motion IN FLY_CAMERA%s"%view_motion)
 #		get_viewport().set_input_as_handled()
-
+		pass
 
 	elif event is InputEventKey:
 		if Input.is_action_just_pressed("toggle_fly_camera"):
