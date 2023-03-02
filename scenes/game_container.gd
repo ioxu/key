@@ -58,7 +58,8 @@ func _ready():
 	$ui_starting_menu.find_child("new_game_button").grab_focus()
 
 	# fly camera
-	connect( "mouse_motion_relative", fly_camera.update_mouse_relative )
+	#TODO: REMOVE
+	#connect( "mouse_motion_relative", fly_camera.update_mouse_relative )
 
 
 func _process(delta):
@@ -127,7 +128,7 @@ func new_game_start() -> void:
 	for i in range(n):
 		var e = enemy_scene.instantiate()
 		var c = (i/float(n)) * 2.0*PI 
-		var pp = Vector3(sin(c), 0.05, cos(c)) * 18.0
+		var pp = Vector3(sin(c), 2.0, cos(c)) * 18.0
 		pprint("pp %s"%pp)
 		e.position = pp
 		_lh.add_child(e)

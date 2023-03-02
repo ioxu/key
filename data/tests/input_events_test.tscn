@@ -1,0 +1,74 @@
+[gd_scene load_steps=4 format=3 uid="uid://clupc1ued2knc"]
+
+[sub_resource type="GDScript" id="GDScript_tv8hd"]
+script/source = "extends SubViewportContainer
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+#func _input(event):
+#	get_child(0)._input( event )
+#	if event is InputEventMouseButton:
+#		print(\"SubViewportContainer: mouse button index %s\"%event.button_index)
+
+"
+
+[sub_resource type="GDScript" id="GDScript_rw8tl"]
+script/source = "extends SubViewport
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+
+#func _input(event):
+#	if event is InputEventMouseButton:
+#		print(\"SubViewport: mouse button index %s\"%event.button_index)
+"
+
+[sub_resource type="GDScript" id="GDScript_hmge2"]
+script/source = "extends Node3D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+
+#func _input(event):
+func _unhandled_input(event):
+	if event is InputEventMouseButton and event.is_pressed():
+		print(\"Node3D: mouse button index %s\"%event.button_index)
+"
+
+[node name="input_events_test" type="Node3D"]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+script = SubResource("GDScript_tv8hd")
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+physics_object_picking = true
+script = SubResource("GDScript_rw8tl")
+
+[node name="Node3D" type="Node3D" parent="SubViewportContainer/SubViewport"]
+script = SubResource("GDScript_hmge2")
