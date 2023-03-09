@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://dfja1ypquymuq"]
+[gd_scene load_steps=45 format=3 uid="uid://dfja1ypquymuq"]
 
 [ext_resource type="Script" path="res://scenes/game_container.gd" id="1_wiwqp"]
 [ext_resource type="Environment" uid="uid://bpjcaw3kf0iff" path="res://scenes/game_container_world_environment.tres" id="1_y11v7"]
@@ -24,7 +24,6 @@
 [ext_resource type="Texture2D" uid="uid://djwhb8rr17kkc" path="res://data/icons/pulse.png" id="14_1bpyw"]
 [ext_resource type="Script" path="res://scenes/ui_starting_menu.gd" id="14_5kbqd"]
 [ext_resource type="Script" path="res://scenes/fly_Camera.gd" id="15_0f3ve"]
-[ext_resource type="PackedScene" uid="uid://bjga1ie2v677e" path="res://data/props/bollard-01/bollard-01.tscn" id="17_37avf"]
 [ext_resource type="Texture2D" uid="uid://b1vg0stm3h5eh" path="res://data/textures/key-title_BG_01-01.png" id="17_yafay"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_jxwvl"]
@@ -32,7 +31,6 @@ exposure_multiplier = 0.65
 auto_exposure_scale = 0.3
 auto_exposure_speed = 3.0
 dof_blur_far_distance = 12.0
-dof_blur_near_enabled = true
 dof_blur_near_distance = 5.0
 dof_blur_near_transition = 6.0
 dof_blur_amount = 0.16
@@ -248,6 +246,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.60065, 0, -1.2367)
 [node name="bollard-02_01-05" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("4_qkj8k")]
 transform = Transform3D(1.30735, 0, 0, 0, 1.30735, 0, 0, 0, 1.30735, -3.73414, -3.17042, -1.64993)
 
+[node name="bollard-02_01-06" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("4_qkj8k")]
+transform = Transform3D(1.30735, 0, 0, 0, 1.30735, 0, 0, 0, 1.30735, 4.40968, -3.17042, -1.64993)
+
 [node name="bollard-02-piece-02_01-02" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("2_3tqab")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.06591, 0, 4.19708)
 
@@ -257,16 +258,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.94907, 0, -1.2367)
 [node name="bollard-02_01-03" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("4_qkj8k")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.364159, 0, -4.20842)
 
-[node name="bollard-01" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("17_37avf")]
-transform = Transform3D(-0.604363, 0, 0.796709, 0, 1, 0, -0.796709, 0, -0.604363, -4.17558, 0.0173725, 3.49591)
-
-[node name="bollard-02" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("17_37avf")]
-transform = Transform3D(-0.308486, 0, 0.951229, 0, 1, 0, -0.951229, 0, -0.308486, -4.97731, 0.0173725, 1.96348)
-
-[node name="bollard-03" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("17_37avf")]
-transform = Transform3D(-0.0277644, 0, 0.999614, 0, 1, 0, -0.999614, 0, -0.0277644, -5.34266, 0.0173725, 0.329566)
-
 [node name="amphitheatre-small-01_01-01" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("6_tjex5")]
+visible = false
 
 [node name="ground-channel-01" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("8_c7ktd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.002964)
@@ -297,7 +290,7 @@ fov = 37.8
 
 [node name="fly_Camera" type="Camera3D" parent="SubViewportContainer/SubViewport/level_hook/Node3D"]
 transform = Transform3D(0.556107, -0.486435, 0.673889, -3.1665e-08, 0.810829, 0.585283, -0.831111, -0.32548, 0.450908, 3.3174, 4.73605, 4.28963)
-fov = 37.8
+fov = 70.0
 script = ExtResource("15_0f3ve")
 
 [node name="ViewportDisplay" type="Node" parent="."]

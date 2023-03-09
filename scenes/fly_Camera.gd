@@ -109,6 +109,12 @@ func _input(event):
 		elif event.keycode == KEY_D:
 			motion.x = value
 			get_viewport().set_input_as_handled()
+		elif event.keycode == KEY_E: # raise
+			motion.y = value
+			get_viewport().set_input_as_handled()
+		elif event.keycode == KEY_Q: # lower
+			motion.y = value * -1.0
+			get_viewport().set_input_as_handled()			
 		else:
 			#Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			pass

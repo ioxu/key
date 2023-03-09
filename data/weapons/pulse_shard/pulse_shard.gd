@@ -29,7 +29,8 @@ const bullet_casing_scene = preload("res://data/weapons/pulse_shard/pulse_shard_
 
 
 func _ready():
-	pprint("ready() %s"%self.get_path())
+	#pprint("ready() %s"%self.get_path())
+	
 	#await get_tree().idle_frame
 	
 #	$bullet_spawner/pulse_shard_bullet.queue_free()

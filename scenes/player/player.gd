@@ -196,6 +196,7 @@ func pickup( pickup_object ):
 	
 	#orbs
 	if pickup_object.pickup_type == "Orb" or pickup_object.pickup_type == "Gem":
+		$pickup_sfx.play()
 		self.inventory.add_orbs( pickup_object.orb_value )
 	
 	#weapons

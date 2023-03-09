@@ -1,4 +1,4 @@
-[gd_scene load_steps=82 format=3 uid="uid://60huk5jyn8eh"]
+[gd_scene load_steps=90 format=3 uid="uid://60huk5jyn8eh"]
 
 [ext_resource type="Script" path="res://scenes/player/Controller.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://bfu2k02apbkwt" path="res://data/dui/weapon_inv_slot.tscn" id="2"]
@@ -26,6 +26,13 @@
 [ext_resource type="Script" path="res://scenes/player/selector.gd" id="25"]
 [ext_resource type="Script" path="res://scenes/player/weapon_equip_slot.gd" id="26"]
 [ext_resource type="Script" path="res://scenes/player/WeaponController.gd" id="27"]
+[ext_resource type="AudioStream" uid="uid://bsa1d6ey1j2ny" path="res://data/sfx/bubble-bursting-popping-14423_01.mp3" id="27_r1pml"]
+[ext_resource type="AudioStream" uid="uid://c0od4jd6u5d3u" path="res://data/sfx/bubble-bursting-popping-14423_02.mp3" id="28_j6nwm"]
+[ext_resource type="AudioStream" uid="uid://chh0djf3klbp2" path="res://data/sfx/bubble-bursting-popping-14423_03.mp3" id="29_jytir"]
+[ext_resource type="AudioStream" uid="uid://vuqj6p7xu24h" path="res://data/sfx/bubble-bursting-popping-14423_04.mp3" id="30_hxi4b"]
+[ext_resource type="AudioStream" uid="uid://bdy1oecj0k026" path="res://data/sfx/bubble-bursting-popping-14423_05.mp3" id="31_gmrje"]
+[ext_resource type="AudioStream" uid="uid://cgdxuneqsbim3" path="res://data/sfx/bubble-bursting-popping-14423_06.mp3" id="32_wiahd"]
+[ext_resource type="AudioStream" uid="uid://d3rw1o8151ac0" path="res://data/sfx/bubble-bursting-popping-14423_07.mp3" id="33_x6wvu"]
 
 [sub_resource type="GDScript" id="GDScript_0bb1t"]
 script/source = "extends Label3D
@@ -98,7 +105,7 @@ rings = 2
 [sub_resource type="BoxMesh" id="BoxMesh_4e2xb"]
 size = Vector3(0.064, 0.364, 0.998)
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_xlfnf"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_c8poc"]
 resource_local_to_scene = true
 material = ExtResource("6")
 height = 0.2
@@ -124,7 +131,7 @@ emission_enabled = true
 emission = Color(0.0666667, 0.733333, 0.282353, 1)
 emission_energy_multiplier = 2.0
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_s7p7o"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_575st"]
 
 [sub_resource type="Shader" id="Shader_dbc6n"]
 code = "// NOTE: Shader automatically converted from Godot Engine 3.4.stable's StandardMaterial3D.
@@ -231,7 +238,7 @@ albedo_color = Color(0.878431, 0.643137, 0, 0.105882)
 emission_enabled = true
 emission = Color(0.878431, 0.643137, 0, 1)
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_lesnc"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_q4j7w"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eg8ui"]
 transparency = 1
@@ -239,7 +246,7 @@ albedo_color = Color(0.878431, 0.643137, 0, 0.270588)
 emission_enabled = true
 emission = Color(0.878431, 0.643137, 0, 1)
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_6ls3j"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_jg8px"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_bhafh"]
 viewport_path = NodePath("MeshInstance3D/dui_root/viewports/options/options_viewport")
@@ -365,7 +372,7 @@ emission_enabled = true
 emission = Color(0.101961, 0.52549, 0.576471, 1)
 emission_energy_multiplier = 2.0
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_7po7r"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_43omb"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_28gfg"]
 transparency = 1
@@ -375,7 +382,7 @@ emission_enabled = true
 emission = Color(0, 0.419608, 0.878431, 1)
 emission_energy_multiplier = 2.0
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_2u8uv"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_ka3op"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lr0op"]
 transparency = 1
@@ -385,7 +392,7 @@ emission_enabled = true
 emission = Color(0.729412, 0.0117647, 0.203922, 1)
 emission_energy_multiplier = 3.0
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_ttb3l"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_38pog"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lq3ky"]
 albedo_color = Color(0.796078, 0.0784314, 0.231373, 1)
@@ -393,7 +400,7 @@ emission_enabled = true
 emission = Color(0.890196, 0.129412, 0.27451, 1)
 emission_energy_multiplier = 2.0
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_elvqh"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_6ovqw"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_47hil"]
 transparency = 2
@@ -414,7 +421,7 @@ size = Vector2(0.2, 1)
 transparency = 1
 shading_mode = 0
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_5cyrx"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_b8usp"]
 
 [sub_resource type="GDScript" id="GDScript_vkpuo"]
 script/source = "extends Node3D
@@ -459,6 +466,23 @@ material = SubResource("StandardMaterial3D_158j2")
 radius = 0.05
 height = 0.1
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_bjcud"]
+streams_count = 7
+stream_0/stream = ExtResource("27_r1pml")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("28_j6nwm")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("29_jytir")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("30_hxi4b")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("31_gmrje")
+stream_4/weight = 1.0
+stream_5/stream = ExtResource("32_wiahd")
+stream_5/weight = 1.0
+stream_6/stream = ExtResource("33_x6wvu")
+stream_6/weight = 1.0
+
 [node name="player" type="CharacterBody3D" groups=["Player"]]
 collision_mask = 22
 script = ExtResource("5")
@@ -501,7 +525,7 @@ transform = Transform3D(1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, -0.
 
 [node name="hurt_meter" parent="MeshInstance3D" instance=ExtResource("7")]
 transform = Transform3D(0.5, 0, 0, 0, -3.27835e-08, 0.5, 0, -0.75, -2.18557e-08, 0, -2.84217e-14, 0.858)
-mesh = SubResource("CylinderMesh_xlfnf")
+mesh = SubResource("CylinderMesh_c8poc")
 
 [node name="dui_root" type="Node3D" parent="MeshInstance3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.69631e-07, -1.04118)
@@ -558,7 +582,7 @@ mesh = SubResource("QuadMesh_g7864")
 
 [node name="LineRenderer" parent="MeshInstance3D/dui_root/static_stack/inventory_items/weapons_items/selector/selector_icon" instance=ExtResource("10")]
 material_override = SubResource("StandardMaterial3D_t5gsu")
-mesh = SubResource("ImmediateMesh_s7p7o")
+mesh = SubResource("ImmediateMesh_575st")
 points = [Vector3(0, 0, 0), Vector3(0, 0, -1.584)]
 startThickness = 0.2
 endThickness = 0.2
@@ -608,7 +632,7 @@ transform = Transform3D(0.2, 0, 0, 0, -8.74228e-09, 0.2, 0, -0.2, -8.74228e-09, 
 
 [node name="full_arc" parent="MeshInstance3D/dui_root/static_stack/magazine" instance=ExtResource("10")]
 material_override = SubResource("StandardMaterial3D_0b2xv")
-mesh = SubResource("ImmediateMesh_lesnc")
+mesh = SubResource("ImmediateMesh_q4j7w")
 startThickness = 0.075
 endThickness = 0.075
 drawCaps = false
@@ -617,7 +641,7 @@ globalCoords = false
 [node name="count" parent="MeshInstance3D/dui_root/static_stack/magazine" instance=ExtResource("10")]
 transform = Transform3D(0.999716, 0, 0, 0, 0.999716, 0, 0, 0, 0.999716, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_eg8ui")
-mesh = SubResource("ImmediateMesh_6ls3j")
+mesh = SubResource("ImmediateMesh_jg8px")
 startThickness = 0.075
 endThickness = 0.075
 globalCoords = false
@@ -712,7 +736,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_ymbpb")
 [node name="inventory_ring" parent="MeshInstance3D/dui_root" instance=ExtResource("10")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
 material_override = SubResource("StandardMaterial3D_1gh27")
-mesh = SubResource("ImmediateMesh_7po7r")
+mesh = SubResource("ImmediateMesh_43omb")
 points = [Vector3(0, 0, 0), Vector3(0, 0.01, 0)]
 startThickness = 0.02
 endThickness = 0.02
@@ -722,7 +746,7 @@ globalCoords = false
 [node name="LineRenderer" parent="MeshInstance3D/dui_root/inventory_ring" instance=ExtResource("10")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.548)
 material_override = SubResource("StandardMaterial3D_28gfg")
-mesh = SubResource("ImmediateMesh_2u8uv")
+mesh = SubResource("ImmediateMesh_ka3op")
 points = [Vector3(0, 0, 0), Vector3(0, 0, 0.5)]
 startThickness = 0.05
 endThickness = 0.05
@@ -731,7 +755,7 @@ globalCoords = false
 [node name="weapons_ring" parent="MeshInstance3D/dui_root" instance=ExtResource("10")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
 material_override = SubResource("StandardMaterial3D_lr0op")
-mesh = SubResource("ImmediateMesh_ttb3l")
+mesh = SubResource("ImmediateMesh_38pog")
 points = [Vector3(0, 0, 0), Vector3(0, 0.1, 0)]
 startThickness = 0.05
 endThickness = 0.05
@@ -741,7 +765,7 @@ globalCoords = false
 [node name="LineRenderer" parent="MeshInstance3D/dui_root/weapons_ring" instance=ExtResource("10")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.276)
 material_override = SubResource("StandardMaterial3D_lq3ky")
-mesh = SubResource("ImmediateMesh_elvqh")
+mesh = SubResource("ImmediateMesh_6ovqw")
 points = [Vector3(0, 0, 0), Vector3(0, 0, 0.222)]
 startThickness = 0.03
 endThickness = 0.0
@@ -753,7 +777,7 @@ mesh = SubResource("QuadMesh_w5vsp")
 
 [node name="options_ring" parent="MeshInstance3D/dui_root" instance=ExtResource("10")]
 material_override = SubResource("StandardMaterial3D_34h2k")
-mesh = SubResource("ImmediateMesh_5cyrx")
+mesh = SubResource("ImmediateMesh_b8usp")
 points = [Vector3(0, 0, 0), Vector3(0, 0.1, 0)]
 startThickness = 0.08
 endThickness = 0.08
@@ -1075,6 +1099,9 @@ emission_multiplier = 0.5
 top_level = true
 visible = false
 mesh = SubResource("SphereMesh_gp4dy")
+
+[node name="pickup_sfx" type="AudioStreamPlayer3D" parent="."]
+stream = SubResource("AudioStreamRandomizer_bjcud")
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

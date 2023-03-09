@@ -38,7 +38,7 @@ emission_energy_multiplier = 3.0
 [sub_resource type="BoxMesh" id="5"]
 size = Vector3(0.228, 0.456, 0.633)
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_8q1ks"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_1dyr0"]
 resource_local_to_scene = true
 material = ExtResource("5")
 bottom_radius = 0.65
@@ -81,6 +81,7 @@ radial_segments = 16
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.259, 0)
 collision_layer = 4
 collision_mask = 15
+input_ray_pickable = false
 script = ExtResource("2")
 movement_speed = 500.0
 rush_speed = 600.0
@@ -109,7 +110,8 @@ surface_material_override/0 = SubResource("StandardMaterial3D_4ackh")
 
 [node name="hurt_meter" parent="MeshInstance3D" instance=ExtResource("3")]
 transform = Transform3D(0.5, 0, 0, 0, -3.27835e-08, 0.5, 0, -0.75, -2.18557e-08, 3.63625e-21, -1.39755e-07, 0.857811)
-mesh = SubResource("CylinderMesh_8q1ks")
+visible = false
+mesh = SubResource("CylinderMesh_1dyr0")
 
 [node name="weapon_mount" type="Node3D" parent="MeshInstance3D"]
 transform = Transform3D(1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, -0.444, 0.629)
@@ -191,9 +193,6 @@ texture = ExtResource("6")
 
 [node name="statemachine" type="Node" parent="."]
 script = ExtResource("7")
-
-[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="."]
-aabb = AABB(-0.569326, -0.784382, -0.567054, 1.13865, 1.5756, 1.13411)
 
 [node name="TravelPath" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.449114, 0)

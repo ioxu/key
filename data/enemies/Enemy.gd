@@ -109,13 +109,24 @@ func _ready():
 
 	# wait a bit
 	set_physics_process(false)
-	set_physics_process_internal(false)
+#	set_physics_process_internal(false)
 	await get_tree().create_timer(0.35).timeout
 	$CollisionShape3D.disabled = false
-	set_physics_process(true)
-	set_physics_process_internal(true)
+#	set_physics_process(true)
+#	set_physics_process_internal(true)
 	$hurtbox.connect("bullet_hit",Callable(self,"bullet_hit"))
 	self.toggle_active(self.active)
+
+	await get_tree().create_timer(3.0).timeout
+	$CollisionShape3D.disabled = false
+	$hurtbox/CollisionShape3D.disabled = false
+	$vision_area/CollisionPolygon3D.disabled = true#false
+	$sensable_area.monitoring = false#true
+	$sensing_area.monitorable = false#true
+
+	set_process(true)#false)#true)
+	set_physics_process(true)#false)#true)
+
 
 
 func bullet_hit(bullet, collision_info):
@@ -226,7 +237,8 @@ func _idle(delta) -> void:
 		spd = -0.4 * Util.bias((abs(speed_noise)+1.0)/2.0, 0.2)
 	movement_speed = -1 * spd * 7.5 * delta * 100.0
 
-	flock_with_neighbours(delta)
+	#flock_with_neighbours(delta)
+
 
 func _attack_enter() -> void:
 	$alert_icon.visible = true
@@ -278,7 +290,7 @@ func _attack(delta) -> void:
 		
 		move_to_ideal_distance_to_target(delta)
 	
-	flock_with_neighbours(delta)
+	#flock_with_neighbours(delta)
 
 
 func _attack_exit() -> void:
@@ -304,7 +316,7 @@ func _search(delta):
 				target.queue_free()
 				target = null
 			fsm.set_state("idle")
-	flock_with_neighbours(delta)
+	#flock_with_neighbours(delta)
 
 
 func _search_exit() -> void:
@@ -370,7 +382,8 @@ func flock_with_neighbours(delta) -> void:
 	
 	if list.size() > 0:
 		var o = global_transform.origin
-		for i in range(list.size()):
+		#for i in range(list.size()):
+		for i in range( min(list.size(), 4) ):
 			#var to = list[i].target.global_transform.origin
 			var to = list[i].callable.get_object().global_transform.origin
 			var distance = (o-to).length()
@@ -452,8 +465,12 @@ func within_aim_tolerance( tolerance ) -> bool:
 		return false
 
 
-func _physics_process(delta) -> void:
+func _process(delta):
 	age += delta
+
+
+func _physics_process(delta) -> void:
+#	age += delta
 
 	direction.y = 0.0
 	last_direction = direction.normalized()
@@ -473,7 +490,17 @@ func _physics_process(delta) -> void:
 	movement += current_vertical_speed
 	set_velocity(movement)
 	set_up_direction(Vector3.UP)
+	###############################
+	###############################
+	###############################
+	# https://www.reddit.com/r/godot/comments/zqibu3/move_and_slide_cause_bad_performance/
+	###############################
+	###############################
+	###############################
 	move_and_slide()
+	###############################
+	###############################
+	###############################
 	if is_on_floor():
 		current_vertical_speed.y = 0.0
 		is_airborne = false

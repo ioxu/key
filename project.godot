@@ -214,11 +214,11 @@ toggle_fly_camera={
 
 [physics]
 
-common/physics_ticks_per_second=120
-common/physics_fps=120
+3d/solver/solver_iterations=4
 
 [rendering]
 
+global_illumination/sdfgi/probe_ray_count=2
 anti_aliasing/quality/msaa_3d=2
 anti_aliasing/quality/use_taa=true
 quality/directional_shadow/size=8192
