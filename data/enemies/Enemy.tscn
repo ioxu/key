@@ -1,9 +1,10 @@
-[gd_scene load_steps=26 format=3 uid="uid://d3udjn60dln1j"]
+[gd_scene load_steps=27 format=3 uid="uid://d3udjn60dln1j"]
 
 [ext_resource type="Script" path="res://data/enemies/Enemy.gd" id="2"]
 [ext_resource type="PackedScene" path="res://data/enemies/hurt_meter.tscn" id="3"]
 [ext_resource type="Script" path="res://data/enemies/hurtbox.gd" id="4"]
 [ext_resource type="Material" path="res://data/enemies/hurt_meter_shadermaterial.tres" id="5"]
+[ext_resource type="FontFile" uid="uid://dtb3xbqwk4167" path="res://data/fonts/RobotoCondensed-Regular.ttf" id="5_68caf"]
 [ext_resource type="Texture2D" uid="uid://cxy8uvbihd7vu" path="res://data/textures/debug/symbols_16px_exclamation.png" id="6"]
 [ext_resource type="Script" path="res://data/statemachine/enemy/enemyFSM.gd" id="7"]
 [ext_resource type="Script" path="res://data/enemies/vision_raycast.gd" id="8"]
@@ -38,7 +39,7 @@ emission_energy_multiplier = 3.0
 [sub_resource type="BoxMesh" id="5"]
 size = Vector3(0.228, 0.456, 0.633)
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_1dyr0"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_fp20e"]
 resource_local_to_scene = true
 material = ExtResource("5")
 bottom_radius = 0.65
@@ -83,8 +84,6 @@ collision_layer = 4
 collision_mask = 15
 input_ray_pickable = false
 script = ExtResource("2")
-movement_speed = 500.0
-rush_speed = 600.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("1")
@@ -111,7 +110,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_4ackh")
 [node name="hurt_meter" parent="MeshInstance3D" instance=ExtResource("3")]
 transform = Transform3D(0.5, 0, 0, 0, -3.27835e-08, 0.5, 0, -0.75, -2.18557e-08, 3.63625e-21, -1.39755e-07, 0.857811)
 visible = false
-mesh = SubResource("CylinderMesh_1dyr0")
+mesh = SubResource("CylinderMesh_fp20e")
 
 [node name="weapon_mount" type="Node3D" parent="MeshInstance3D"]
 transform = Transform3D(1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, -0.444, 0.629)
@@ -119,6 +118,18 @@ transform = Transform3D(1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, -0.
 [node name="pulse_shard" parent="MeshInstance3D/weapon_mount" instance=ExtResource("10")]
 colour = Color(0.988235, 0.0392157, 0.486275, 1)
 is_enemy_weapon = true
+
+[node name="Label3D" type="Label3D" parent="MeshInstance3D"]
+transform = Transform3D(-1, -4.06576e-20, 3.25841e-07, 3.25841e-07, -1.62921e-07, 1, 5.30863e-14, 1, 1.62921e-07, -3.33376e-20, -2.05093e-07, 1.25885)
+pixel_size = 0.0007
+billboard = 1
+fixed_size = true
+modulate = Color(0.694118, 0.666667, 0.666667, 1)
+outline_modulate = Color(0, 0, 0, 0.121569)
+text = "label3d"
+font = ExtResource("5_68caf")
+font_size = 24
+outline_size = 6
 
 [node name="hurtbox" type="Area3D" parent="."]
 collision_layer = 32

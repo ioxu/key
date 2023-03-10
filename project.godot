@@ -214,6 +214,7 @@ toggle_fly_camera={
 
 [physics]
 
+common/physics_ticks_per_second=120
 3d/solver/solver_iterations=4
 
 [rendering]

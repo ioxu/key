@@ -123,7 +123,7 @@ func new_game_start() -> void:
 	player.active = true
 
 
-	var n = 200
+	var n = 50#200
 	
 	var near = 17
 	var far = 50

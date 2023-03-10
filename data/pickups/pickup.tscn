@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://data/pickups/pickup.gd" id="1"]
 
-[sub_resource type="PhysicsMaterial" id="5"]
-friction = 1.5
-bounce = 0.25
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_qmpfq"]
+friction = 0.95
+bounce = 0.3
 
 [sub_resource type="SphereShape3D" id="1"]
 resource_local_to_scene = true
@@ -30,7 +30,7 @@ script = ExtResource("1")
 collision_layer = 8192
 collision_mask = 15647
 mass = 20.0
-physics_material_override = SubResource("5")
+physics_material_override = SubResource("PhysicsMaterial_qmpfq")
 gravity_scale = 3.0
 max_contacts_reported = 2
 contact_monitor = true

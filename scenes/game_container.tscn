@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://dfja1ypquymuq"]
+[gd_scene load_steps=46 format=3 uid="uid://dfja1ypquymuq"]
 
 [ext_resource type="Script" path="res://scenes/game_container.gd" id="1_wiwqp"]
 [ext_resource type="Environment" uid="uid://bpjcaw3kf0iff" path="res://scenes/game_container_world_environment.tres" id="1_y11v7"]
@@ -31,6 +31,7 @@ exposure_multiplier = 0.65
 auto_exposure_scale = 0.3
 auto_exposure_speed = 3.0
 dof_blur_far_distance = 12.0
+dof_blur_near_enabled = true
 dof_blur_near_distance = 5.0
 dof_blur_near_transition = 6.0
 dof_blur_amount = 0.16
@@ -62,6 +63,10 @@ radius = 2.5
 
 [sub_resource type="BoxMesh" id="BoxMesh_ppw5w"]
 size = Vector3(500, 1, 500)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fbvf4"]
+friction = 0.89
+bounce = 0.05
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_emh35"]
 size = Vector3(500, 1, 500)
@@ -230,6 +235,7 @@ surface_material_override/0 = ExtResource("4_13sop")
 [node name="StaticBody3D" type="StaticBody3D" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel/big_ground"]
 collision_layer = 2
 collision_mask = 29
+physics_material_override = SubResource("PhysicsMaterial_fbvf4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel/big_ground/StaticBody3D"]
 shape = SubResource("BoxShape3D_emh35")

@@ -4,10 +4,11 @@ extends CharacterBody3D
 var health : float
 @export var active: bool = true : set = toggle_active
 @export var movement_speed: float = 7.5
-@export var rush_speed: float = 200.0
+@export var rush_speed: float = 300.0
 @export var strafe_speed: float = 700.0
 @export var acceleration: float = 3.0
 @export var deaceleration: float = 5.0
+@export var show_state_label: bool = true
 
 var target : Node3D = null
 var target_last_known_position = null
@@ -28,6 +29,8 @@ var age_offset_rng = RandomNumberGenerator.new()
 var age_offset := 0.0
 var firing_noise_rng : FastNoiseLite = FastNoiseLite.new()#OpenSimplexNoise.new()
 var accelerate = acceleration
+
+@onready var label3d : Label3D = find_child("Label3D")
 
 @onready var weapon = find_child("weapon_mount").get_child(0)
 var attack_moves = ["rush", "evade", "strafe", "hold"]
@@ -127,6 +130,7 @@ func _ready():
 	set_process(true)#false)#true)
 	set_physics_process(true)#false)#true)
 
+	label3d.visible = show_state_label
 
 
 func bullet_hit(bullet, collision_info):
@@ -217,6 +221,7 @@ func _idle_enter():
 		target.queue_free()
 	target = null
 	weapon.visible = false
+	label3d.text = "idle"
 
 func _idle(delta) -> void:
 	if $vision_raycast.can_see_target:
@@ -228,16 +233,16 @@ func _idle(delta) -> void:
 	rot_y = sign(rot_y) * Util.bias(abs(rot_y), 0.25) * 0.2
 	rotate_y( rot_y )
 	direction = global_transform.basis.z 
-	var speed_noise = noise.get_noise_1d( age * 15.0 - offset )
+	var speedir_normoise = noise.get_noise_1d( age * 15.0 - offset )
 	var spd = 0.0
 	
-	if speed_noise > 0.35:
-		spd = Util.bias((speed_noise+1.0)/2.0, 0.2)
-	elif speed_noise < -0.35:
-		spd = -0.4 * Util.bias((abs(speed_noise)+1.0)/2.0, 0.2)
+	if speedir_normoise > 0.35:
+		spd = Util.bias((speedir_normoise+1.0)/2.0, 0.2)
+	elif speedir_normoise < -0.35:
+		spd = -0.4 * Util.bias((abs(speedir_normoise)+1.0)/2.0, 0.2)
 	movement_speed = -1 * spd * 7.5 * delta * 100.0
 
-	#flock_with_neighbours(delta)
+	flock_with_neighbours(delta)
 
 
 func _attack_enter() -> void:
@@ -247,6 +252,8 @@ func _attack_enter() -> void:
 	emit_communication_signal( ally_notification.ENEMY_SPOTTED)
 	repeat_attack_notification_timer.start()
 	weapon.visible = true
+	label3d.text = "attack"
+
 
 func _attack(delta) -> void:
 	# see repeat_attack_notification_timer
@@ -281,16 +288,20 @@ func _attack(delta) -> void:
 		match attack_move:
 			"rush":
 				rush_toward_target(delta)
+				label3d.text = "attack : rush"
 			"hold":
 				hold_to_target(delta)
+				label3d.text = "attack : hold_to_target"
 			"evade":
 				evade_target(delta)
+				label3d.text = "attack : evade_target"
 			"strafe":
 				strafe_target(delta)
+				label3d.text = "attack : strafe_target"
 		
 		move_to_ideal_distance_to_target(delta)
 	
-	#flock_with_neighbours(delta)
+	flock_with_neighbours(delta)
 
 
 func _attack_exit() -> void:
@@ -303,6 +314,8 @@ func _search_enter() -> void:
 	weapon.set_activated(false)
 	emit_communication_signal( ally_notification.NEW_SEARCH_POINT)
 	weapon.visible = true
+	label3d.text = "search"
+
 
 func _search(delta):
 	if $vision_raycast.can_see_target:
@@ -316,7 +329,7 @@ func _search(delta):
 				target.queue_free()
 				target = null
 			fsm.set_state("idle")
-	#flock_with_neighbours(delta)
+	flock_with_neighbours(delta)
 
 
 func _search_exit() -> void:
@@ -393,7 +406,7 @@ func flock_with_neighbours(delta) -> void:
 		var forcev_length = forcev.length()
 		if forcev_length > 0.0:
 			direction += forcev
-			#movement_speed += 10.0 * forcev_length * delta * rush_speed
+			movement_speed += 10.0 * forcev_length * delta * rush_speed
 
 
 func activate_weapon(delta) -> void:
@@ -473,13 +486,18 @@ func _physics_process(delta) -> void:
 #	age += delta
 
 	direction.y = 0.0
-	last_direction = direction.normalized()
-	var max_speed = movement_speed * direction.normalized()
+	var dir_norm : Vector3 = direction.normalized()
+	last_direction = dir_norm
+	var max_speed = movement_speed * dir_norm 
 	accelerate = deaceleration
-	if direction.dot(speed) > 0.0:
+	
+	if dir_norm.dot(speed) > 0.0:
 		accelerate = acceleration
+
 	direction = Vector3.ZERO
+
 	speed = speed.lerp(max_speed, delta * accelerate)
+
 	movement = speed
 
 	if not is_on_floor():
@@ -630,4 +648,5 @@ func _on_VisibilityNotifier_camera_exited(camera) -> void:
 
 func pprint(thing) -> void:
 	print("[enemy] %s"%str(thing))
+
 
