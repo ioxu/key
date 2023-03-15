@@ -48,3 +48,7 @@ func set_state(new_state):
 func add_state(state_name):
 	states[state_name] = states.size()
 	
+
+func pprint(thing) -> void:
+	#print("[player] %s"%str(thing))
+	print_rich("[code][b][color=Wheat][statemachine][/color][/b][/code] %s" %str(thing))

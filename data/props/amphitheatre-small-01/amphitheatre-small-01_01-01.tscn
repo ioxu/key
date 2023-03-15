@@ -4,6 +4,7 @@
 [ext_resource type="Material" uid="uid://pondv32frhfl" path="res://data/props/amphitheatre-small-01/amphitheatre-small-01_01-01.material" id="2_tm4fk"]
 
 [node name="amphitheatre-small-01_01-01" instance=ExtResource("1_6md82")]
+visible = false
 
 [node name="amphitheatre-small-01" parent="." index="0"]
 layers = 4
@@ -12,3 +13,6 @@ surface_material_override/0 = ExtResource("2_tm4fk")
 [node name="StaticBody3D" parent="amphitheatre-small-01" index="0"]
 collision_layer = 2
 collision_mask = 29
+
+[node name="CollisionShape3D" parent="amphitheatre-small-01/StaticBody3D" index="0"]
+disabled = true

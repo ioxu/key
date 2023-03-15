@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://data/pickups/pickup.gd" id="1"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_qmpfq"]
-friction = 0.95
-bounce = 0.3
+friction = 0.5
+bounce = 0.5
 
 [sub_resource type="SphereShape3D" id="1"]
 resource_local_to_scene = true

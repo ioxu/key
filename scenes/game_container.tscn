@@ -65,7 +65,7 @@ radius = 2.5
 size = Vector3(500, 1, 500)
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fbvf4"]
-friction = 0.89
+friction = 0.95
 bounce = 0.05
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_emh35"]
@@ -265,7 +265,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.94907, 0, -1.2367)
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.364159, 0, -4.20842)
 
 [node name="amphitheatre-small-01_01-01" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("6_tjex5")]
-visible = false
 
 [node name="ground-channel-01" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("8_c7ktd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.002964)

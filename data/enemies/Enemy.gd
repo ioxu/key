@@ -4,8 +4,8 @@ extends CharacterBody3D
 var health : float
 @export var active: bool = true : set = toggle_active
 @export var movement_speed: float = 7.5
-@export var rush_speed: float = 300.0
-@export var strafe_speed: float = 700.0
+@export var rush_speed: float = 5.5#300.0
+@export var strafe_speed: float = 9#700.0
 @export var acceleration: float = 3.0
 @export var deaceleration: float = 5.0
 @export var show_state_label: bool = true
@@ -18,7 +18,7 @@ var initial_movement_speed = movement_speed
 var last_direction := Vector3.ZERO
 var current_vertical_speed := Vector3.ZERO
 var movement := Vector3.ZERO
-var max_turn_rate := deg_to_rad(450.0)
+var max_turn_rate := deg_to_rad(15.0) #deg_to_rad(450.0)
 var speed := Vector3.ZERO
 var strafe_direction = 1.0 # 1.0 == right, -1.0 == left
 var is_airborne : = false
@@ -119,18 +119,17 @@ func _ready():
 #	set_physics_process_internal(true)
 	$hurtbox.connect("bullet_hit",Callable(self,"bullet_hit"))
 	self.toggle_active(self.active)
-
-	await get_tree().create_timer(3.0).timeout
-	$CollisionShape3D.disabled = false
-	$hurtbox/CollisionShape3D.disabled = false
-	$vision_area/CollisionPolygon3D.disabled = true#false
-	$sensable_area.monitoring = false#true
-	$sensing_area.monitorable = false#true
-
-	set_process(true)#false)#true)
-	set_physics_process(true)#false)#true)
-
 	label3d.visible = show_state_label
+
+
+#	await get_tree().create_timer(3.0).timeout
+#	$CollisionShape3D.disabled = false
+#	$hurtbox/CollisionShape3D.disabled = false
+#	$vision_area/CollisionPolygon3D.disabled = true#false
+#	$sensable_area.monitoring = true#false#true
+#	$sensing_area.monitorable = true#false#true
+#	set_process(true)#false)#true)
+#	set_physics_process(true)#false)#true)
 
 
 func bullet_hit(bullet, collision_info):
@@ -229,18 +228,18 @@ func _idle(delta) -> void:
 		fsm.set_state("attack")
 
 	# wander about a bit
-	var rot_y = noise.get_noise_1d( age * 25.0 + offset ) 
+	var rot_y = noise.get_noise_1d( age * delta * 4500.0 + offset ) #age * 25.0 + offset ) 
 	rot_y = sign(rot_y) * Util.bias(abs(rot_y), 0.25) * 0.2
 	rotate_y( rot_y )
 	direction = global_transform.basis.z 
-	var speedir_normoise = noise.get_noise_1d( age * 15.0 - offset )
+	var speedir_normoise = noise.get_noise_1d( age * delta * 1000.0 - offset ) #* 15.0 - offset )
 	var spd = 0.0
 	
 	if speedir_normoise > 0.35:
 		spd = Util.bias((speedir_normoise+1.0)/2.0, 0.2)
 	elif speedir_normoise < -0.35:
 		spd = -0.4 * Util.bias((abs(speedir_normoise)+1.0)/2.0, 0.2)
-	movement_speed = -1 * spd * 7.5 * delta * 100.0
+	movement_speed = -1 * spd * 7.5
 
 	flock_with_neighbours(delta)
 
@@ -278,7 +277,9 @@ func _attack(delta) -> void:
 
 		rotate_toward_target(delta)
 
-		var do_fire = firing_noise_rng.get_noise_1d(age + age_offset) > 0.0
+		#var do_fire = firing_noise_rng.get_noise_1d( (age * delta * 100.0) + age_offset) > 0.0
+		var do_fire = firing_noise_rng.get_noise_1d( (age * delta * 500.0) + age_offset) > 0.25
+
 		if do_fire:
 			activate_weapon(delta)
 		else:
@@ -372,41 +373,38 @@ func move_to_ideal_distance_to_target(delta) -> void:
 	if distance < 2.5:
 		$alert_icon.modulate = Color(0.245132, 0.485675, 0.996094) *3.0
 		direction = (target.global_transform.origin - global_transform.origin).normalized() * 2.0
-		movement_speed = -2.0 * delta * rush_speed
+		movement_speed = -2.0 * rush_speed
 	elif distance > 13.0:
 		$alert_icon.modulate = Color(0.996094, 0.245132, 0.96676) *3.0
 		direction = -1.0 *(target.global_transform.origin - global_transform.origin).normalized() * 2.0
-		movement_speed = -1.5 * delta * rush_speed
+		movement_speed = -1.5 * rush_speed
 	else:
 		$alert_icon.modulate = original_alert_icon_modulate
 
 
 func flock_with_neighbours(delta) -> void:
+	# repel
+	# and slightly attract (?)
 	var list = get_signal_connection_list("notify_allies")
-#	signal connection list
-#	pprint("flock_with_neighbours: %s"%str(list))
-#	godot3:
-#		{binds:[], flags:0, method:_on_ally_notification, signal:notify_allies, source:[CharacterBody3D:1894], target:[CharacterBody3D:1502]}
-#	godot4:
-#		{ "signal": CharacterBody3D(Enemy.gd)::[signal]notify_allies, "callable": CharacterBody3D(Enemy.gd)::_on_ally_notification, "flags": 0 }
 	
 	var forcev = Vector3.ZERO
-	var min_distance = 4.5
+	var min_distance = 12.0
 	
 	if list.size() > 0:
 		var o = global_transform.origin
-		#for i in range(list.size()):
 		for i in range( min(list.size(), 4) ):
-			#var to = list[i].target.global_transform.origin
 			var to = list[i].callable.get_object().global_transform.origin
 			var distance = (o-to).length()
-			var dpow = clamp(1-(distance/min_distance), 0.0, 1.0)
+			var dpow = clamp(1.0-(distance/min_distance), 0.0, 1.0)
 			forcev += (to - o) * pow(dpow, 2.0) * 1.0
 
 		var forcev_length = forcev.length()
 		if forcev_length > 0.0:
-			direction += forcev
-			movement_speed += 10.0 * forcev_length * delta * rush_speed
+			
+#			direction += forcev
+#			movement_speed += 0.25 * forcev_length * rush_speed
+
+			pass
 
 
 func activate_weapon(delta) -> void:
@@ -435,27 +433,27 @@ func rush_toward_target(delta) -> void:
 	if is_instance_valid(target) and target and target.is_inside_tree():
 		direction = global_transform.origin - target.global_transform.origin
 		direction = direction.normalized() 
-		movement_speed = -1.0 * delta * rush_speed
+		movement_speed = -1.0 * rush_speed
 
 
 func search_toward_target(delta) -> void:
 	if is_instance_valid(target) and target and target.is_inside_tree():
 		direction = global_transform.origin - target.global_transform.origin
 		direction = direction.normalized() 
-		movement_speed = -1.0 * delta * (rush_speed * 2.0)
+		movement_speed = -1.0 * (rush_speed * 2.0)
 
 
 func evade_target(delta) -> void:
 	if is_instance_valid(target) and target and target.is_inside_tree():	
 		direction = global_transform.origin - target.global_transform.origin
 		direction = direction.normalized() 
-		movement_speed = 1.0 * delta * rush_speed * 0.65
+		movement_speed = 1.0 * rush_speed * 0.65
 
 
 func strafe_target(delta) -> void:
 	direction = global_transform.basis.x.rotated(Vector3(0.0, 1.0, 0.0), strafe_direction * 0.3)
 	direction = direction.normalized()
-	movement_speed = strafe_direction * delta * strafe_speed
+	movement_speed = strafe_direction * strafe_speed
 
 
 func rotate_toward_target(delta) -> void:
@@ -463,9 +461,9 @@ func rotate_toward_target(delta) -> void:
 		var to = target.global_transform.origin
 		var look = Vector3(to.x, global_transform.origin.y , to.z)
 		var T=global_transform.looking_at(look, Vector3(0,1,0))
-		global_transform.basis.x = lerp(global_transform.basis.x, T.basis.x, delta * max_turn_rate ).normalized()
-		global_transform.basis.y = lerp(global_transform.basis.y, T.basis.y, delta * max_turn_rate ).normalized()
-		global_transform.basis.z = lerp(global_transform.basis.z, T.basis.z, delta * max_turn_rate ).normalized()
+		global_transform.basis.x = lerp(global_transform.basis.x, T.basis.x, max_turn_rate ).normalized()
+		global_transform.basis.y = lerp(global_transform.basis.y, T.basis.y, max_turn_rate ).normalized()
+		global_transform.basis.z = lerp(global_transform.basis.z, T.basis.z, max_turn_rate ).normalized()
 
 
 func within_aim_tolerance( tolerance ) -> bool:
@@ -483,14 +481,13 @@ func _process(delta):
 
 
 func _physics_process(delta) -> void:
-#	age += delta
 
 	direction.y = 0.0
 	var dir_norm : Vector3 = direction.normalized()
 	last_direction = dir_norm
 	var max_speed = movement_speed * dir_norm 
 	accelerate = deaceleration
-	
+
 	if dir_norm.dot(speed) > 0.0:
 		accelerate = acceleration
 
@@ -504,24 +501,19 @@ func _physics_process(delta) -> void:
 		current_vertical_speed.y += gravity * delta * jump_acceleration
 	else:
 		current_vertical_speed.y = 0.0
+		is_airborne = false
 
 	movement += current_vertical_speed
+	
 	set_velocity(movement)
 	set_up_direction(Vector3.UP)
-	###############################
-	###############################
+
 	###############################
 	# https://www.reddit.com/r/godot/comments/zqibu3/move_and_slide_cause_bad_performance/
-	###############################
-	###############################
+	# I reduved the physics ticks/second in project settings
 	###############################
 	move_and_slide()
 	###############################
-	###############################
-	###############################
-	if is_on_floor():
-		current_vertical_speed.y = 0.0
-		is_airborne = false
 
 
 func toggle_active(new_value) -> void:
@@ -646,7 +638,9 @@ func _on_VisibilityNotifier_camera_exited(camera) -> void:
 	pass
  
 
+#func pprint(thing) -> void:
+#	print("[enemy] %s"%str(thing))
+
 func pprint(thing) -> void:
-	print("[enemy] %s"%str(thing))
-
-
+	#print("[player] %s"%str(thing))
+	print_rich("[code][b][color=Sandybrown][enemy][/color][/b][/code] %s" %str(thing))

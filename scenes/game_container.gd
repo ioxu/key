@@ -123,7 +123,7 @@ func new_game_start() -> void:
 	player.active = true
 
 
-	var n = 50#200
+	var n = 15#50#200
 	
 	var near = 17
 	var far = 50
@@ -131,11 +131,8 @@ func new_game_start() -> void:
 	for i in range(n):
 		var e = enemy_scene.instantiate()
 		var c = (i/float(n)) * 2.0*PI 
-#		var pp = Vector3(sin(c), 2.0, cos(c)) * 18.0
-		#var pp = Vector3(randf_range(-sq, sq), 2.0, randf_range(-sq, sq))
 		var pp = Vector3(0.0, 2.0, randf_range(near, far))
 		pp = pp.rotated(Vector3.UP, randf()*125.3)
-		#pprint("pp %s"%pp)
 		e.position = pp
 		_lh.add_child(e)
 
