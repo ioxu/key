@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://djmmqkgcmvnw0"]
+[gd_scene load_steps=13 format=3 uid="uid://djmmqkgcmvnw0"]
 
 [ext_resource type="PackedScene" uid="uid://dqf03ab8xtwhv" path="res://data/weapons/weapon.tscn" id="1"]
 [ext_resource type="Script" path="res://data/weapons/pulse_shard/pulse_shard.gd" id="2"]
@@ -182,6 +182,15 @@ _data = {
 "muzzle_flash": SubResource("Animation_tdyfo")
 }
 
+[sub_resource type="BoxMesh" id="BoxMesh_ysduj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y14xy"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.211765)
+emission_enabled = true
+emission = Color(0.2, 0.427451, 0.745098, 1)
+emission_energy_multiplier = 10.0
+
 [node name="pulse_shard" instance=ExtResource("1")]
 script = ExtResource("2")
 colour = Color(0.14, 0.68, 0.95, 1)
@@ -237,3 +246,8 @@ stream = ExtResource("4_ra2c0")
 volume_db = 15.943
 max_polyphony = 20
 bus = &"bullets"
+
+[node name="dummy_holo_weapon_shape" type="MeshInstance3D" parent="." index="5"]
+transform = Transform3D(0.0832677, 0, 0, 0, 0.565611, 0, 0, 0, 2.53019, 0.000876784, 0.189005, -0.728931)
+mesh = SubResource("BoxMesh_ysduj")
+surface_material_override/0 = SubResource("StandardMaterial3D_y14xy")

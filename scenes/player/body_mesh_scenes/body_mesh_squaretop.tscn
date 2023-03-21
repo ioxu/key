@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://yg365mxvaluu"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_wce7r"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_y621i"]
+height = 2.576
+
+[node name="squaretop" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0, 0.0959808, 0, -1.42109e-13, 0.96159)
+mesh = SubResource("BoxMesh_wce7r")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.372122, 0, 0, 0, -1.6266e-08, -0.372122, 0, 0.372122, -1.6266e-08, 0, 1.21823e-08, 0.480968)
+mesh = SubResource("CapsuleMesh_y621i")
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="."]
+transform = Transform3D(0, -6.54318e-08, -0.748453, 3.27159e-08, -0.748453, 6.54318e-08, -0.748453, -3.27159e-08, 0, -0.0767763, -0.0755354, 0.784734)
+polygon = PackedVector2Array(-0.129453, -0.523168, 0.616962, -0.22203, 0.761479, 0.13992, 0.574489, 0.475, 0.533512, 0.975762, -0.194453, 0.965497)
+depth = 0.2

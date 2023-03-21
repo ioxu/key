@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://8s64o12iyqba"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_1qpjx"]
+radius = 0.25
+height = 1.35
+radial_segments = 12
+rings = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_4e2xb"]
+size = Vector3(0.064, 0.364, 0.998)
+
+[node name="body_mesh_capsule" type="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -5.68434e-14, 0.71376)
+mesh = SubResource("CapsuleMesh_1qpjx")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.194, -0.261)
+mesh = SubResource("BoxMesh_4e2xb")
+skeleton = NodePath("../../..")

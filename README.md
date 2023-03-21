@@ -16,3 +16,5 @@ sound 263619__zaneclampett__metal-on-concrete.mp3 by [zaneclampett](https://free
 Sound effects from [Quick Sounds](https://quicksounds.com)
 
 fly camera by [Andrea Catania](https://gist.github.com/AndreaCatania/316fc412a7b478ca5226b5c17d963737)
+
+icons by [inkubators|flaticon](https://www.flaticon.com/authors/inkubators)
