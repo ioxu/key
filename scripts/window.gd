@@ -28,14 +28,19 @@ func _ready():
 			DisplayServer.window_set_size( DisplayServer.screen_get_size() )#OS.set_window_size(OS.get_screen_size())
 			#OS.set_borderless_window(true)
 
+	# pause behaviour
+	self.set_process_mode(Node.PROCESS_MODE_ALWAYS)
+
 
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
 		#get_tree().quit()
 		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+			pprint(" -> Input.MOUSE_MODE_VISIBLE")
 		elif Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+			pprint(" -> Input.MOUSE_MODE_CAPTURED")
 
 	elif event.is_action_pressed("ui_fullscreen"):
 		_go_fullscreen()
@@ -85,4 +90,6 @@ func _go_fullscreen() -> void:
 
 
 func pprint(thing) -> void:
-	print("[window] %s"%str(thing))
+	#print("[window] %s"%str(thing))
+	#Gainsboro
+	print_rich("[code][b][color=Gainsboro][window][/color][/b][/code] %s" %str(thing))

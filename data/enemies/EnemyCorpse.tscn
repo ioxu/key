@@ -1,13 +1,17 @@
-[gd_scene load_steps=8 format=3 uid="uid://bgc8wxwu2373e"]
+[gd_scene load_steps=9 format=3 uid="uid://bgc8wxwu2373e"]
 
 [ext_resource type="Material" uid="uid://na06nqr8mxks" path="res://data/enemies/Enemy_material.tres" id="1"]
 [ext_resource type="AudioStream" uid="uid://8g7u4nbxk4jy" path="res://data/enemies/sounds/ahh_hazy_01.mp3" id="2_guca5"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_h31sm"]
+absorbent = true
 
 [sub_resource type="GDScript" id="GDScript_s67pq"]
 script/source = "extends RigidBody3D
 
 var once := true
 
+var once_hit := false
 
 func _ready():
 	$AudioStreamPlayer3D.set_volume_db( 1.25 )
@@ -24,6 +28,17 @@ func _integrate_forces(state):
 		apply_torque_impulse( global_transform.basis.x * 100.0 )
 		once = false
 
+
+func _on_body_entered(body):
+
+	if not once_hit:
+		#print(\"##############\\n####################\\n###################\\n###################\\ncollision\")
+		self.gravity_scale = 1.0
+		once_hit = true
+
+#func _on_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
+#	print(\"##############\\n####################\\n###################\\n###################\\ncollision\")
+#	self.gravity_scale = 1.0
 "
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wyue6"]
@@ -47,7 +62,12 @@ size = Vector3(0.241, 0.647, 0.467)
 collision_layer = 256
 collision_mask = 263
 mass = 20.0
+physics_material_override = SubResource("PhysicsMaterial_h31sm")
 gravity_scale = 3.0
+max_contacts_reported = 1
+contact_monitor = true
+linear_damp = 0.01
+angular_damp = 0.01
 script = SubResource("GDScript_s67pq")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -69,3 +89,6 @@ shape = SubResource("BoxShape3D_3jglq")
 stream = ExtResource("2_guca5")
 volume_db = 2.0
 pitch_scale = 1.6
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

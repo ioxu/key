@@ -26,6 +26,9 @@ func _ready():
 			#if Input.get_joy_name(i).begins_with("XInput"):
 			pprint("   - setting button %s (JOY_BUTTON_BACK) to 'ui_cancel' event"% JOY_BUTTON_BACK)
 
+	# pause behaviour
+	#self.set_process_mode(Node.PROCESS_MODE_ALWAYS)
+
 
 func start() -> void:
 	#prints("[game.gd]", "start()", level_scene.get_path() )#"res://scenes/level.tscn")

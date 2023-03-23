@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://dfja1ypquymuq"]
+[gd_scene load_steps=49 format=3 uid="uid://dfja1ypquymuq"]
 
 [ext_resource type="Script" path="res://scenes/game_container.gd" id="1_wiwqp"]
 [ext_resource type="Environment" uid="uid://bpjcaw3kf0iff" path="res://scenes/game_container_world_environment.tres" id="1_y11v7"]
@@ -25,6 +25,9 @@
 [ext_resource type="Script" path="res://scenes/ui_starting_menu.gd" id="14_5kbqd"]
 [ext_resource type="Script" path="res://scenes/fly_Camera.gd" id="15_0f3ve"]
 [ext_resource type="Texture2D" uid="uid://b1vg0stm3h5eh" path="res://data/textures/key-title_BG_01-01.png" id="17_yafay"]
+[ext_resource type="Script" path="res://scenes/timecontrol_PanelContainer.gd" id="26_bjpcb"]
+[ext_resource type="Texture2D" uid="uid://sghgmm4aa78j" path="res://data/icons/play-button_oline.png" id="26_fgyyy"]
+[ext_resource type="Texture2D" uid="uid://rjxk6fyvmc8q" path="res://data/icons/pause_button_oline.png" id="27_ds235"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_jxwvl"]
 exposure_multiplier = 0.65
@@ -294,11 +297,13 @@ transform = Transform3D(0.556107, -0.486435, 0.673889, -3.1665e-08, 0.810829, 0.
 fov = 37.8
 
 [node name="fly_Camera" type="Camera3D" parent="SubViewportContainer/SubViewport/level_hook/Node3D"]
+process_mode = 3
 transform = Transform3D(0.556107, -0.486435, 0.673889, -3.1665e-08, 0.810829, 0.585283, -0.831111, -0.32548, 0.450908, 3.3174, 4.73605, 4.28963)
 fov = 70.0
 script = ExtResource("15_0f3ve")
 
 [node name="ViewportDisplay" type="Node" parent="."]
+process_mode = 3
 script = ExtResource("7_7rcxx")
 
 [node name="TextureRect" type="TextureRect" parent="ViewportDisplay"]
@@ -313,6 +318,7 @@ expand_mode = 3
 stretch_mode = 6
 
 [node name="ui_starting_menu" type="Node" parent="."]
+process_mode = 3
 script = ExtResource("14_5kbqd")
 
 [node name="Control" type="Control" parent="ui_starting_menu"]
@@ -393,6 +399,7 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.18
 
 [node name="ui_persistent" type="Node" parent="."]
+process_mode = 3
 
 [node name="MarginContainer" type="MarginContainer" parent="ui_persistent"]
 anchors_preset = 15
@@ -442,6 +449,7 @@ texture = ExtResource("7_byq4e")
 expand_mode = 2
 
 [node name="ui_debug" type="Node" parent="."]
+process_mode = 3
 
 [node name="MarginContainer" type="MarginContainer" parent="ui_debug"]
 anchors_preset = 15
@@ -609,6 +617,7 @@ wait_time = 0.5
 autostart = true
 
 [node name="ui_debug_menu" type="Node" parent="." node_paths=PackedStringArray("main_subviewport", "ui_debug_root")]
+process_mode = 3
 script = ExtResource("10_od7cn")
 main_subviewport = NodePath("../SubViewportContainer/SubViewport")
 ui_debug_root = NodePath("../ui_debug")
@@ -936,28 +945,58 @@ theme_override_font_sizes/font_size = 15
 text = "loop
 "
 
-[node name="PanelContainer" type="PanelContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/graphics_settings_container/VBoxContainer"]
+[node name="timecontrol_PanelContainer" type="PanelContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/graphics_settings_container/VBoxContainer"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_q6520")
+script = ExtResource("26_bjpcb")
+forwardees_array = Array[NodePath]([NodePath("../../../../../../../../../../../SubViewportContainer/SubViewport/level_hook/Node3D/fly_Camera")])
 
-[node name="MarginContainer2" type="MarginContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/graphics_settings_container/VBoxContainer/PanelContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/graphics_settings_container/VBoxContainer/timecontrol_PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 2
 theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/graphics_settings_container/VBoxContainer/PanelContainer/MarginContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/graphics_settings_container/VBoxContainer/timecontrol_PanelContainer/MarginContainer2"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/graphics_settings_container/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer"]
+[node name="Label" type="Label" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/graphics_settings_container/VBoxContainer/timecontrol_PanelContainer/MarginContainer2/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("6_tp6qh")
 theme_override_font_sizes/font_size = 8
 text = "time"
 
-[node name="debug_draw_parm" type="HBoxContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/graphics_settings_container/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer"]
+[node name="time_control_buttons" type="HBoxContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/graphics_settings_container/VBoxContainer/timecontrol_PanelContainer/MarginContainer2/VBoxContainer"]
 layout_mode = 2
+
+[node name="Control2" type="Control" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/graphics_settings_container/VBoxContainer/timecontrol_PanelContainer/MarginContainer2/VBoxContainer/time_control_buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="play_timecontrol_TextureButton" type="TextureButton" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/graphics_settings_container/VBoxContainer/timecontrol_PanelContainer/MarginContainer2/VBoxContainer/time_control_buttons"]
+texture_filter = 4
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture_normal = ExtResource("26_fgyyy")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Control3" type="Control" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/graphics_settings_container/VBoxContainer/timecontrol_PanelContainer/MarginContainer2/VBoxContainer/time_control_buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="pause_timecontrol_TextureButton" type="TextureButton" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/graphics_settings_container/VBoxContainer/timecontrol_PanelContainer/MarginContainer2/VBoxContainer/time_control_buttons"]
+texture_filter = 4
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture_normal = ExtResource("27_ds235")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Control" type="Control" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/graphics_settings_container/VBoxContainer/timecontrol_PanelContainer/MarginContainer2/VBoxContainer/time_control_buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -991,6 +1030,7 @@ theme_override_font_sizes/font_size = 12
 text = "debug"
 
 [node name="ui_menu" type="Node" parent="."]
+process_mode = 3
 
 [connection signal="pressed" from="ui_starting_menu/Control/HBoxContainer/CenterContainer/VBoxContainer/new_game_button" to="ui_starting_menu" method="_on_new_game_button_pressed"]
 [connection signal="pressed" from="ui_starting_menu/Control/HBoxContainer/CenterContainer/VBoxContainer/quit_button" to="ui_starting_menu" method="_on_quit_button_pressed"]
@@ -1000,5 +1040,9 @@ text = "debug"
 [connection signal="toggled" from="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer/resolutions_overlay_parm/hbox/resolutions_overlay_checkbox" to="ui_debug_menu" method="_on_resolutions_overlay_checkbox_toggled"]
 [connection signal="toggled" from="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer/renderingServer_info_overlay_parm/hbox/renderingServer_info_overlay_checkbox" to="ui_debug_menu" method="_on_rendering_server_info_overlay_checkbox_toggled"]
 [connection signal="toggled" from="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/mesh_lod_threshold_parm/hbox/fps_overlay_checkbox" to="ui_debug_menu" method="_on_fps_overlay_checkbox_toggled"]
+[connection signal="pressed" from="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/graphics_settings_container/VBoxContainer/timecontrol_PanelContainer/MarginContainer2/VBoxContainer/time_control_buttons/play_timecontrol_TextureButton" to="ui_debug_menu" method="_on_play_timecontrol_texture_button_pressed"]
+[connection signal="pressed" from="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/graphics_settings_container/VBoxContainer/timecontrol_PanelContainer/MarginContainer2/VBoxContainer/time_control_buttons/play_timecontrol_TextureButton" to="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/graphics_settings_container/VBoxContainer/timecontrol_PanelContainer" method="_on_play_timecontrol_texture_button_pressed"]
+[connection signal="pressed" from="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/graphics_settings_container/VBoxContainer/timecontrol_PanelContainer/MarginContainer2/VBoxContainer/time_control_buttons/pause_timecontrol_TextureButton" to="ui_debug_menu" method="_on_pause_timecontrol_texture_button_pressed"]
+[connection signal="pressed" from="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/graphics_settings_container/VBoxContainer/timecontrol_PanelContainer/MarginContainer2/VBoxContainer/time_control_buttons/pause_timecontrol_TextureButton" to="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/graphics_settings_container/VBoxContainer/timecontrol_PanelContainer" method="_on_pause_timecontrol_texture_button_pressed"]
 [connection signal="pressed" from="ui_debug_menu/MarginContainer/VBoxContainer/HBoxContainer/return_button" to="ui_debug_menu" method="_on_return_button_pressed"]
 [connection signal="pressed" from="ui_debug_menu/MarginContainer/VBoxContainer/HBoxContainer/quit_button" to="ui_debug_menu" method="_on_quit_button_pressed"]

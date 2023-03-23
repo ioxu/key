@@ -335,11 +335,12 @@ func _physics_process(dt):
 	speed = speed.lerp(max_speed, dt * accelerate)
 	movement = speed
 
-	current_vertical_speed.y += gravity * dt * jump_acceleration
-#	if player.is_on_floor():
-#		current_vertical_speed.y += dt * jump_acceleration
-#	else:
-#		current_vertical_speed.y += gravity * dt * jump_acceleration
+#	current_vertical_speed.y += gravity * dt * jump_acceleration
+
+	if player.is_on_floor():
+		current_vertical_speed.y = 0.0
+	else:
+		current_vertical_speed.y += gravity * dt * jump_acceleration
 
 	#######################################
 	# IMPORTANT

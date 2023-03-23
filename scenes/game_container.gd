@@ -11,7 +11,6 @@ var _initial_player_camera_transform : Transform3D
 
 var _previous_camera : Camera3D
 
-var fly_camera_active := false
 
 # starting_camera noise
 var starting_cam_p_noise := FastNoiseLite.new()
@@ -57,11 +56,7 @@ func _ready():
 	$ui_starting_menu.connect("new_game_selected", self.new_game_start) 
 	$ui_starting_menu.find_child("new_game_button").grab_focus()
 
-	# fly camera
-	#TODO: REMOVE
-	#connect( "mouse_motion_relative", fly_camera.update_mouse_relative )
-
-
+ 
 func _process(delta):
 	gtime += delta
 

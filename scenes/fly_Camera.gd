@@ -40,7 +40,7 @@ func _unhandled_input(event):
 			return
 
 	if Input.get_mouse_mode() != Input.MOUSE_MODE_VISIBLE:
-		
+
 #		if event is InputEventMouseButton and event.is_pressed():
 #			print("fly_camera: mouse button DOWN index %s"%event.button_index)
 
@@ -114,7 +114,7 @@ func _input(event):
 			get_viewport().set_input_as_handled()
 		elif event.keycode == KEY_Q: # lower
 			motion.y = value * -1.0
-			get_viewport().set_input_as_handled()			
+			get_viewport().set_input_as_handled()
 		else:
 			#Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			pass
@@ -132,6 +132,7 @@ func _process(delta):
 	view_pan_motion = Vector2()
 	view_dolly_motion = Vector2()
 	global_transform = gimbal_base * (gimbal_yaw * gimbal_pitch)
+
 
 
 func update_activation():

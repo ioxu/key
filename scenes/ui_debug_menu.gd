@@ -64,10 +64,19 @@ func _process(_delta):
 
 
 func _unhandled_input(event):
-	if event.is_action_pressed("ui_cancel") and Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
+	if event.is_action_pressed("ui_cancel") and not self.is_active:
+		pprint("invoke_this_menu() : _unhandled_input %s"%event)
 		invoke_this_menu()
-	elif event.is_action_pressed("ui_cancel") and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+	elif event.is_action_pressed("ui_cancel") and self.is_active:
+		pprint("devoke_this_menu() : _unhandled_input %s"%event)
 		devoke_this_menu()
+		
+#	if event.is_action_pressed("ui_cancel") and Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
+#		pprint("invoke_this_menu() : _unhandled_input %s"%event)
+#		invoke_this_menu()
+#	elif event.is_action_pressed("ui_cancel") and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+#		pprint("devoke_this_menu() : _unhandled_input %s"%event)
+#		devoke_this_menu()
 
 
 func _on_debug_draw_options_item_selected(index):
@@ -75,7 +84,8 @@ func _on_debug_draw_options_item_selected(index):
 
 
 func pprint(thing) -> void:
-	print("[ui_debug_menu] %s"%str(thing))
+	#print("[ui_debug_menu] %s"%str(thing))
+	print_rich("[code][b][color=Slategray][ui_debug_menu][/color][/b][/code] %s" %str(thing))
 
 
 func _on_return_button_pressed():
@@ -113,6 +123,10 @@ func _on_resolutions_overlay_checkbox_toggled(button_pressed):
 func _on_rendering_server_info_overlay_checkbox_toggled(button_pressed):
 	ui_debug_root.find_child("renderingServer_info_display_container").set_visible( button_pressed )
 
+# time control
+func _on_play_timecontrol_texture_button_pressed():
+	pprint("play_timecontrol pressed")
 
 
-
+func _on_pause_timecontrol_texture_button_pressed():
+	pprint("pause_timecontrol pressed")

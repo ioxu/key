@@ -186,7 +186,7 @@ _data = {
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y14xy"]
 transparency = 1
-albedo_color = Color(1, 1, 1, 0.211765)
+albedo_color = Color(1, 1, 1, 0.0509804)
 emission_enabled = true
 emission = Color(0.2, 0.427451, 0.745098, 1)
 emission_energy_multiplier = 10.0
@@ -251,3 +251,28 @@ bus = &"bullets"
 transform = Transform3D(0.0832677, 0, 0, 0, 0.565611, 0, 0, 0, 2.53019, 0.000876784, 0.189005, -0.728931)
 mesh = SubResource("BoxMesh_ysduj")
 surface_material_override/0 = SubResource("StandardMaterial3D_y14xy")
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="." index="6"]
+transform = Transform3D(-4.37114e-08, -4.34857e-11, 1, -0.000994837, 0.999999, -3.46945e-18, -0.999999, -0.000994837, -4.37114e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_y14xy")
+gi_mode = 2
+polygon = PackedVector2Array(-0.538613, 0.46574, -0.554852, 0.250564, -0.445234, 0.335823, 0.210444, 0.313493, -0.471624, -0.013331, -0.552822, 0.0820772, -0.522373, -0.0985895, 0.466844, -0.108583, 0.549448, 0.46371)
+depth = 0.1
+
+[node name="CSGPolygon3D2" type="CSGPolygon3D" parent="CSGPolygon3D" index="0"]
+transform = Transform3D(1, 0, 7.10543e-15, 0, 1, 0, -7.10543e-15, -6.93889e-18, 1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_y14xy")
+polygon = PackedVector2Array(0.613272, 0.459458, 0.613478, 0.252401, 0.962504, 0.380636, 1.32183, 0.354604, 1.29533, 0.468256)
+depth = 0.1
+
+[node name="CSGPolygon3D3" type="CSGPolygon3D" parent="CSGPolygon3D" index="1"]
+transform = Transform3D(1, 0, 1.06581e-14, 0, 1, 0, -1.06581e-14, -1.04083e-17, 1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_y14xy")
+polygon = PackedVector2Array(0.579328, -0.108942, 0.591319, 0.079857, 0.696999, -0.0418357, 1.34441, 0.109026, 1.34059, -0.132544)
+depth = 0.1
+
+[node name="CSGPolygon3D4" type="CSGPolygon3D" parent="CSGPolygon3D" index="2"]
+transform = Transform3D(1, 0, 3.19744e-14, 0, 1, 0, -3.19744e-14, -3.1225e-17, 1, 0.785352, 0.246407, 3.43395e-08)
+material_override = SubResource("StandardMaterial3D_y14xy")
+polygon = PackedVector2Array(0.566834, 0.205691, 1.22115, 0.211507, 0.674727, -0.056966, 1.23256, -0.334915, 0.635829, -0.345121)
+depth = 0.1
