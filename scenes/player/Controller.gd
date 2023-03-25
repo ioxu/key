@@ -239,8 +239,7 @@ func _process(dt):
 		if not dui_root.is_options_invoked:
 			# jump
 			if Input.is_action_just_pressed("jump"): #
-				pprint("JUMP")
-			#if Input.is_action_pressed("jump"):
+				#pprint("JUMP (is_arborne %s)"%[is_airborne])
 				if not is_airborne:
 					var lateral_movement = Vector3(movement.x, 0.0, movement.z)
 					current_vertical_speed = Vector3(0.0, max_jump, 0.0) + lateral_movement * 25 * dt
@@ -337,7 +336,7 @@ func _physics_process(dt):
 
 #	current_vertical_speed.y += gravity * dt * jump_acceleration
 
-	if player.is_on_floor():
+	if player.is_on_floor() and current_vertical_speed.y < 0.0:
 		current_vertical_speed.y = 0.0
 	else:
 		current_vertical_speed.y += gravity * dt * jump_acceleration
@@ -348,7 +347,7 @@ func _physics_process(dt):
 	#######################################
 	
 	#pprint("movement: %s"%movement)
-	
+
 	player.set_velocity(movement)
 	player.set_up_direction(Vector3.UP)
 	player.move_and_slide()
