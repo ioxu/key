@@ -3,14 +3,14 @@ var mat
 var shader_time = 0.0
 const sparks_fx_scene = preload("res://data/effects/sparks.tscn")
 var sparks_fx
-@export var effect_time = 0.18
-@export var decal_time = 5.0#1.5
+@export var effect_time = 0.4#2.0#0.25#0.18
+
 var light_energy_initial = 0.0
 var scale_min = 0.75
 var scale_max = 1.75 * 2.0
 
 var decal_emission_energy_initial = 0.0
-
+@export var decal_time = 5.0#1.5
 var effect_mesh : MeshInstance3D
 
 

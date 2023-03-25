@@ -60,15 +60,16 @@ void fragment() {
 	float edge_time = map(shader_time, 0.0, 1.0, 0.15, 0.45);
 	float edge_fade = clamp(map(length(UV - vec2(0.5, 0.5)), edge_time, edge_time-0.04, 0.0, 1.0), 0.0, 1.0);
 	
-	float inner_time = map(shader_time, 0.0, 1.0, 0.0, 0.5);
+	float inner_time = map(shader_time, 0.0, 1.0, 0.0, 0.55); //map(shader_time, 0.0, 1.0, 0.0, 0.5);
 	float inner_fade = clamp(map(length(UV - vec2(0.5, 0.5)), inner_time, inner_time-0.1, 1.0, 0.0), 0.0, 1.0);
 	
-	float time = TIME + time_offset;
+	float time = shader_time + time_offset;//TIME + time_offset;
 	float conic_grad_u = ( atan( UV.x-0.5, UV.y-0.5 ) + PI ) / (PI*2.0) *1.2; 
 	float conic_grad_v = length(vec2(UV.x-0.5, UV.y-0.5)) * 0.65;
-	vec2 conic_uvs = vec2(conic_grad_u *0.5 + time *0.00, conic_grad_v* 0.5 + (time * -3.0) );
+	//vec2 conic_uvs = vec2(conic_grad_u *0.5 + time *0.00, conic_grad_v* 0.5 + (time * -3.0) );
+	vec2 conic_uvs = vec2(conic_grad_u *0.5 + time *0.00, conic_grad_v* 0.5 + (time * -0.25) );
 	float noise_tex = texture(noise_texture, conic_uvs * vec2( 2.0, 0.3 ) ).r;
-	float contrast_pivot_time = map(bias(shader_time, 0.75), 0.0, 1.0, 0.0, 0.65);
+	float contrast_pivot_time = map(bias(shader_time, 0.75), 0.0, 1.0, 0.0, 0.75);//map(bias(shader_time, 0.75), 0.0, 1.0, 0.0, 0.65);
 	//ALPHA = fcontrast(noise_tex, 100.0, contrast_pivot_time);//edge_fade * inner_fade;
 	ALPHA = albedo.a * albedo_tex.a * edge_fade * inner_fade * fcontrast(noise_tex, 100.0, contrast_pivot_time);
 	//float final_a = albedo.a * albedo_tex.a * edge_fade * inner_fade * fcontrast(noise_tex, 100.0, contrast_pivot_time);
