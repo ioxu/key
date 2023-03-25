@@ -18,27 +18,23 @@ func _ready():
 	$AudioStreamPlayer3D.pitch_scale = randf_range(1.0, 1.6)
 	$AudioStreamPlayer3D.play()
 
+	var tween = self.create_tween()
+	tween.tween_property(self, \"gravity_scale\", 1.0, 2.0).from( self.gravity_scale )
 
-func _process(delta):
-	pass
+
+#func _physics_process(delta):
+#	print( \"linear velocity %s\"%get_linear_velocity().length() )
 
 
 func _integrate_forces(state):
+
 	if once:
 		apply_torque_impulse( global_transform.basis.x * 100.0 )
 		once = false
 
 
 func _on_body_entered(body):
-
-	if not once_hit:
-		#print(\"##############\\n####################\\n###################\\n###################\\ncollision\")
-		self.gravity_scale = 1.0
-		once_hit = true
-
-#func _on_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
-#	print(\"##############\\n####################\\n###################\\n###################\\ncollision\")
-#	self.gravity_scale = 1.0
+	pass
 "
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wyue6"]
