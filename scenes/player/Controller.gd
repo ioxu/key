@@ -235,15 +235,15 @@ func magnitude(vector):
 func _process(dt):
 	global_time += dt
 
-	if player.active == true:
-		if not dui_root.is_options_invoked:
-			# jump
-			if Input.is_action_just_pressed("jump"): #
-				#pprint("JUMP (is_arborne %s)"%[is_airborne])
-				if not is_airborne:
-					var lateral_movement = Vector3(movement.x, 0.0, movement.z)
-					current_vertical_speed = Vector3(0.0, max_jump, 0.0) + lateral_movement * 25 * dt
-					is_airborne = true
+#	if player.active == true:
+#		if not dui_root.is_options_invoked:
+#			# jump
+#			if Input.is_action_just_pressed("jump"): #
+#				#pprint("JUMP (is_arborne %s)"%[is_airborne])
+#				if not is_airborne:
+#					var lateral_movement = Vector3(movement.x, 0.0, movement.z)
+#					current_vertical_speed = Vector3(0.0, max_jump, 0.0) + lateral_movement * 25 * dt
+#					is_airborne = true
 
 	hip_and_toes_movement()
 
@@ -323,6 +323,22 @@ func _physics_process(dt):
 		direction += -camera_transform.basis[0]
 	if Input.is_action_pressed("move_right"):
 		direction += camera_transform.basis[0]
+
+	var is_just_jumping := false
+	var is_on_floor_buffer := player.is_on_floor()
+	
+	if player.active == true:
+		if not dui_root.is_options_invoked:
+			# jump
+			if Input.is_action_just_pressed("jump"): #
+				pprint("JUMP (is_arborne %s, is_on_floor %s)"%[is_airborne, is_on_floor_buffer])
+				if not is_airborne and is_on_floor_buffer:
+					var lateral_movement = Vector3(movement.x, 0.0, movement.z)
+					current_vertical_speed = Vector3(0.0, max_jump, 0.0) + lateral_movement * 25 * dt
+					pprint("    ^    (%s)"%player.global_position.y)
+					is_airborne = true
+					is_just_jumping = true
+
 	direction.y = 0.0
 	last_direction = direction.normalized()
 	var max_speed = movement_speed * direction.normalized() * get_move_direction_length()
@@ -336,10 +352,14 @@ func _physics_process(dt):
 
 #	current_vertical_speed.y += gravity * dt * jump_acceleration
 
-	if player.is_on_floor() and current_vertical_speed.y < 0.0:
-		current_vertical_speed.y = 0.0
-	else:
-		current_vertical_speed.y += gravity * dt * jump_acceleration
+#	if player.is_on_floor() and current_vertical_speed.y < 0.0:
+#		current_vertical_speed.y = 0.0
+#	else:
+#		current_vertical_speed.y += gravity * dt * jump_acceleration
+	
+
+	current_vertical_speed.y += gravity * dt * jump_acceleration
+	
 
 	#######################################
 	# IMPORTANT
@@ -354,7 +374,7 @@ func _physics_process(dt):
 	
 	#player.velocity
 	
-	if player.is_on_floor():
+	if player.is_on_floor():#is_on_floor_buffer:#player.is_on_floor():
 		#current_vertical_speed.y = 0.0
 		current_vertical_speed = Vector3.ZERO
 		is_airborne = false
@@ -394,4 +414,5 @@ func _exit_tree():
 
 
 func pprint(thing) -> void:
-	print("[player][controller] %s"%str(thing))
+	#print("[player][controller] %s"%str(thing))
+	print_rich("[code][b][color=Mediumvioletred][player][controller][/color][/b][/code] %s" %str(thing))

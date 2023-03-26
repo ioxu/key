@@ -48,7 +48,8 @@ func _process(delta):
 	#pprint("BULLET IMACT SHADERTIME %s"%shader_time)
 	shader_time += delta
 	#mat = $effect_mesh.material_override
-	mat.set_shader_parameter("shader_time", clamp(Util.remap_unclamped( shader_time, 0.0, effect_time, 0.0, 1.0 ), 0.0, 1.0 ) )
+	var _current_shader_time : float = clamp(Util.remap_unclamped( shader_time, 0.0, effect_time, 0.0, 1.0 ), 0.0, 1.0 )
+	mat.set_shader_parameter("shader_time", _current_shader_time ) #clamp(Util.remap_unclamped( shader_time, 0.0, effect_time, 0.0, 1.0 ), 0.0, 1.0 ) )
 	var lenergy = clamp(Util.remap_unclamped( shader_time, 0.0, effect_time, 1.0, 0.0 ), 0.0, 1.0)
 	$OmniLight3D.light_energy =  lenergy * light_energy_initial * 3.0
 	var decal_energy = clamp(Util.remap_unclamped( shader_time, 0.0, decal_time, 1.0, 0.0 ), 0.0, 1.0)

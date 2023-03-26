@@ -27,7 +27,6 @@ ssao_detail = 1.5
 ssao_horizon = 0.04
 ssil_enabled = true
 sdfgi_enabled = true
-glow_enabled = true
 glow_levels/2 = 1.0
 glow_strength = 0.63
 glow_blend_mode = 0

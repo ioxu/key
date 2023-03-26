@@ -40,6 +40,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.00343615)
 mesh = SubResource("BoxMesh_kk236")
 
 [node name="free_timer" type="Timer" parent="."]
-wait_time = 4.0
+wait_time = 2.0
 
 [connection signal="timeout" from="free_timer" to="." method="_on_free_timer_timeout"]
