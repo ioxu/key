@@ -46,6 +46,11 @@ func gain(t, g):
 		return bias( t * 2.0 - 1.0, 1.0 - g )/2.0 + 0.5
 
 
+# circular
+#https://www.desmos.com/calculator/ykoowgddaw
+func circ(x : float) -> float:
+	return clamp( sqrt((1-pow(x-1, 2))), 0.0, 1.0)
+
 
 func log2(value):
 	return log(value) / log(2)

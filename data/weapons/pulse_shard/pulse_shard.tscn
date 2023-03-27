@@ -88,7 +88,7 @@ tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(10, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(500, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
 
@@ -224,15 +224,16 @@ cast_shadow = 0
 mesh = SubResource("BoxMesh_smkn3")
 
 [node name="muzzle_flash_light" type="OmniLight3D" parent="geometry_hook" index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.356412, 0.222734)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.356412, 0.386219)
 light_color = Color(0.611765, 0.87451, 0.976471, 1)
-light_energy = 10.0
+light_energy = 500.0
 light_indirect_energy = 0.0
 light_volumetric_fog_energy = 8.5
 light_size = 0.5
 shadow_enabled = true
 shadow_reverse_cull_face = true
 distance_fade_enabled = true
+omni_range = 10.0
 omni_attenuation = 2.2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]

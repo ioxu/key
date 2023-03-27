@@ -20,8 +20,7 @@ func _ready():
 	exclude_parent = true
 
 	sight_line = MeshInstance3D.new()#ImmediateMesh.new()
-	sight_line.set_script(sight_line_script)
-	#get_node("/root/").add_child(sight_line)
+#	sight_line.set_script(sight_line_script)
 	get_tree().get_root().add_child(sight_line)
 
 	if !running:
@@ -48,10 +47,10 @@ func _is_target_visible():
 			else:
 				$sight_indicator.transform.origin = to_local(get_collision_point())#Vector3(0.0, 0.0, -1.0)
 				can_see_target = false
-			if !is_hidden_at_start:
-				sight_line.visible = true
-			sight_line.from = from
-			sight_line.to = get_collision_point()
+#			if !is_hidden_at_start:
+#				sight_line.visible = true
+#			sight_line.from = from
+#			sight_line.to = get_collision_point()
 
 
 func start():
@@ -67,7 +66,7 @@ func stop():
 	enabled = false
 	$sight_indicator.transform.origin = Vector3.ZERO
 	can_see_target = false
-	sight_line.visible = false
+#	sight_line.visible = false
 
 
 func _on_routine_check_timeout():

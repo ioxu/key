@@ -3,7 +3,7 @@ var mat
 var shader_time = 0.0
 const sparks_fx_scene = preload("res://data/effects/sparks.tscn")
 var sparks_fx
-@export var effect_time = 0.4#2.0#0.25#0.18
+@export var effect_time = 0.8#2.0#0.25#0.18
 
 var light_energy_initial = 0.0
 var scale_min = 0.75
@@ -49,6 +49,7 @@ func _process(delta):
 	shader_time += delta
 	#mat = $effect_mesh.material_override
 	var _current_shader_time : float = clamp(Util.remap_unclamped( shader_time, 0.0, effect_time, 0.0, 1.0 ), 0.0, 1.0 )
+	_current_shader_time = lerp(Util.circ(_current_shader_time), _current_shader_time, 0.2)
 	mat.set_shader_parameter("shader_time", _current_shader_time ) #clamp(Util.remap_unclamped( shader_time, 0.0, effect_time, 0.0, 1.0 ), 0.0, 1.0 ) )
 	var lenergy = clamp(Util.remap_unclamped( shader_time, 0.0, effect_time, 1.0, 0.0 ), 0.0, 1.0)
 	$OmniLight3D.light_energy =  lenergy * light_energy_initial * 3.0

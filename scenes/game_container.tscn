@@ -210,7 +210,7 @@ script = SubResource("GDScript_ydr72")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport/level_hook/Node3D/rotating_env"]
 transform = Transform3D(-0.460887, -0.494126, 0.737172, 0.197946, 0.752491, 0.628152, -0.865101, 0.435428, -0.249003, 1.93108, 4.50669, -1.09173)
 light_color = Color(0.952941, 0.764706, 0.568627, 1)
-light_energy = 4.0
+light_energy = 5.0
 light_angular_distance = 3.0
 shadow_enabled = true
 shadow_bias = 0.497

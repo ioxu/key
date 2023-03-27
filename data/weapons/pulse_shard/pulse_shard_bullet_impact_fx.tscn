@@ -28,13 +28,12 @@ mesh = ExtResource("2")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.234682)
-visible = false
 light_color = Color(0.490196, 0.792157, 0.976471, 1)
-light_energy = 2.2
+light_energy = 0.25
 light_indirect_energy = 2.0
 light_specular = 1.0
 shadow_enabled = true
-omni_range = 8.5
+omni_range = 4.5
 omni_attenuation = 1.41421
 
 [node name="Decal" type="Decal" parent="."]
