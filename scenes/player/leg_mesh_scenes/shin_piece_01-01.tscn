@@ -1,19 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://d2vptqwta358l"]
+[gd_scene load_steps=6 format=3 uid="uid://b71lkii1kqjsj"]
+
+[ext_resource type="Material" uid="uid://cv0h7q41i3ipi" path="res://scenes/player/outer_colour.material" id="1_xjqba"]
+[ext_resource type="Material" uid="uid://dxa6bqkp44exq" path="res://scenes/player/inner_colour.material" id="2_d2bus"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_td7sc"]
 size = Vector3(2, 2, 2)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yt84y"]
-albedo_color = Color(0.619608, 0.619608, 0.619608, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_em7su"]
-albedo_color = Color(0.517647, 0.0901961, 0.129412, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p3gbm"]
-albedo_color = Color(0.619608, 0.619608, 0.619608, 1)
-
 [sub_resource type="CylinderMesh" id="CylinderMesh_q4fr6"]
-material = SubResource("StandardMaterial3D_yt84y")
+material = ExtResource("1_xjqba")
 top_radius = 0.02
 bottom_radius = 0.02
 height = 0.2
@@ -31,25 +25,25 @@ radial_segments = 8
 transform = Transform3D(0.449516, 0, 7.30923e-10, -8.79053e-09, 0.0158287, 0, -4.39526e-09, 0, 0.103597, 0.317908, 0.154867, -3.04272e-08)
 mesh = SubResource("BoxMesh_td7sc")
 skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("StandardMaterial3D_yt84y")
+surface_material_override/0 = ExtResource("1_xjqba")
 
 [node name="MeshInstance4" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.11548, 0, 1.01113e-09, -2.25827e-09, 0.0160129, 0, -1.12914e-09, 0, 0.143311, 0.653768, 0.154867, -3.04272e-08)
 mesh = SubResource("BoxMesh_td7sc")
 skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("StandardMaterial3D_yt84y")
+surface_material_override/0 = ExtResource("1_xjqba")
 
 [node name="MeshInstance5" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.275719, 0, 1.05321e-09, -5.39184e-09, 0.0162662, 0, -2.69592e-09, 0, 0.149275, 0.0744446, 0.154867, -2.47627e-08)
 mesh = SubResource("BoxMesh_td7sc")
 skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("StandardMaterial3D_yt84y")
+surface_material_override/0 = ExtResource("1_xjqba")
 
 [node name="MeshInstance3" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.452615, 0, 5.82436e-10, -8.85113e-09, 0.103793, 0, -4.42556e-09, 0, 0.0825509, 0.31839, 0.035796, -3.04272e-08)
 mesh = SubResource("BoxMesh_td7sc")
 skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("StandardMaterial3D_em7su")
+surface_material_override/0 = ExtResource("2_d2bus")
 
 [node name="Node3D" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.137642, 0, 0)
@@ -58,19 +52,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.137642, 0, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.677905, 0.171944, 0.133146)
 polygon = PackedVector2Array(-0.00145924, 0.00284262, 0.12107, 0.0814477, 0.142741, 0.0496982, 0.0882845, -0.0156197)
 depth = 0.05
-material = SubResource("StandardMaterial3D_p3gbm")
+material = ExtResource("1_xjqba")
 
 [node name="CSGPolygon3D4" type="CSGPolygon3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.112195, 0.191723, 0.142861)
 polygon = PackedVector2Array(0.00409999, 0.0563171, 0.355824, 0.0497982, 0.406559, 0.0122714, 0.408687, -0.0180192, -0.0209696, -0.0202694, -0.0654464, 0.0288123, -0.0539591, 0.0707978)
 depth = 0.05
-material = SubResource("StandardMaterial3D_p3gbm")
+material = ExtResource("1_xjqba")
 
 [node name="CSGPolygon3D5" type="CSGPolygon3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.112195, 0.191723, -0.0830221)
+material_override = ExtResource("1_xjqba")
 polygon = PackedVector2Array(0.00409999, 0.0563171, 0.355824, 0.0497982, 0.406559, 0.0122714, 0.408687, -0.0180192, -0.0209696, -0.0202694, -0.0654464, 0.0288123, -0.0539591, 0.0707978)
 depth = 0.05
-material = SubResource("StandardMaterial3D_p3gbm")
+material = ExtResource("1_xjqba")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -5.73548e-08, 1, 0, -1.31212, -4.37114e-08, 0.807, 0.235362, 0)
@@ -79,11 +74,12 @@ skeleton = NodePath("../CSGPolygon3D3")
 
 [node name="CSGPolygon3D3" type="CSGPolygon3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.677905, 0.171944, -0.0787763)
+material_override = ExtResource("1_xjqba")
 polygon = PackedVector2Array(-0.00145924, 0.00284262, 0.12107, 0.0814477, 0.142741, 0.0496982, 0.0882845, -0.0156197)
 depth = 0.05
-material = SubResource("StandardMaterial3D_p3gbm")
+material = ExtResource("1_xjqba")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.700984, -0.713177, 0, 0.713177, 0.700984, 0, 0, 0, 1, 0.624398, 0.15815, -1.19209e-07)
-material_override = SubResource("StandardMaterial3D_yt84y")
+material_override = ExtResource("1_xjqba")
 mesh = SubResource("CylinderMesh_oc744")

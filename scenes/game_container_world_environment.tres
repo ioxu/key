@@ -39,4 +39,4 @@ volumetric_fog_anisotropy = 0.0
 volumetric_fog_temporal_reprojection_enabled = false
 volumetric_fog_temporal_reprojection_amount = 0.688
 adjustment_enabled = true
-adjustment_contrast = 1.38
+adjustment_contrast = 1.1

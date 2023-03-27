@@ -53,6 +53,8 @@ func _ready():
 		await get_tree().create_timer(0.025).timeout
 		set_activated( true )
 
+	pprint("created self: %s"%self)
+
 
 func set_is_enemy_weapon(new_value):
 	is_enemy_weapon = new_value

@@ -87,4 +87,3 @@ volume_db = 2.0
 pitch_scale = 1.6
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

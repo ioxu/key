@@ -188,10 +188,10 @@ func set_weapon_from_equipped_slot() -> void:
 	
 	# store which weapon came from which equip slot
 	weapon_equips_from_equip_slots[weapon] = get_equipped_slot()
-#	print("\nhsistory of weapons from equip_slots")
-#	for key in weapon_equips_from_equip_slots.keys():
-#		prints("  ", key, ":", weapon_equips_from_equip_slots[key])
-#	print("")
+	print("\nhistory of weapons from equip_slots")
+	for key in weapon_equips_from_equip_slots.keys():
+		prints("  ", key, ":", weapon_equips_from_equip_slots[key])
+	print("")
 
 	# return currently mounted weapon to equip slot
 	if weapon_mount.get_child_count() > 0:

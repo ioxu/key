@@ -1,9 +1,10 @@
-[gd_scene load_steps=98 format=3 uid="uid://60huk5jyn8eh"]
+[gd_scene load_steps=91 format=3 uid="uid://y2bqybv85gcb"]
 
 [ext_resource type="Script" path="res://scenes/player/Controller.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://bfu2k02apbkwt" path="res://data/dui/weapon_inv_slot.tscn" id="2"]
-[ext_resource type="PackedScene" uid="uid://yg365mxvaluu" path="res://scenes/player/body_mesh_scenes/body_mesh_squaretop.tscn" id="2_wgwi6"]
+[ext_resource type="PackedScene" uid="uid://bkqajubt82sua" path="res://scenes/player/body_mesh_scenes/body_mesh_squaretop.tscn" id="2_wgwi6"]
 [ext_resource type="Script" path="res://scenes/player/motion_blur.gd" id="3"]
+[ext_resource type="PackedScene" uid="uid://djmmqkgcmvnw0" path="res://data/weapons/pulse_shard/pulse_shard.tscn" id="3_6eihm"]
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="5"]
 [ext_resource type="Material" path="res://data/enemies/hurt_meter_shadermaterial.tres" id="6"]
 [ext_resource type="PackedScene" path="res://data/enemies/hurt_meter.tscn" id="7"]
@@ -17,17 +18,18 @@
 [ext_resource type="Script" path="res://data/dui/dui_root.gd" id="14"]
 [ext_resource type="Script" path="res://scenes/player/radar_dots.gd" id="15"]
 [ext_resource type="Script" path="res://scenes/player/dui_weapons_items.gd" id="16"]
+[ext_resource type="ArrayMesh" uid="uid://2i3kffye3q70" path="res://data/objects/screen-90.obj" id="16_5o1li"]
 [ext_resource type="Script" path="res://data/procmesh/arcplane.gd" id="18"]
 [ext_resource type="PackedScene" path="res://scenes/player/inventory_front_2d.tscn" id="19"]
 [ext_resource type="PackedScene" uid="uid://dsiungjs1hs3w" path="res://scenes/player/radar_dot.tscn" id="20"]
 [ext_resource type="Texture2D" uid="uid://cgq0u6ykuf56a" path="res://data/textures/square_01.png" id="21"]
-[ext_resource type="ArrayMesh" uid="uid://2i3kffye3q70" path="res://data/objects/screen-90.obj" id="22"]
 [ext_resource type="PackedScene" uid="uid://dbsoduj283ats" path="res://scenes/player/options_menu_2d.tscn" id="23"]
 [ext_resource type="PackedScene" path="res://scenes/player/options_menu_bg_2d.tscn" id="24"]
 [ext_resource type="Script" path="res://scenes/player/selector.gd" id="25"]
+[ext_resource type="Material" uid="uid://dxa6bqkp44exq" path="res://scenes/player/inner_colour.material" id="25_5n0r4"]
 [ext_resource type="Script" path="res://scenes/player/weapon_equip_slot.gd" id="26"]
 [ext_resource type="Script" path="res://scenes/player/WeaponController.gd" id="27"]
-[ext_resource type="PackedScene" uid="uid://d2vptqwta358l" path="res://scenes/player/leg_mesh_scenes/shin_piece_01-01.tscn" id="27_e85ym"]
+[ext_resource type="PackedScene" uid="uid://b71lkii1kqjsj" path="res://scenes/player/leg_mesh_scenes/shin_piece_01-01.tscn" id="27_e85ym"]
 [ext_resource type="AudioStream" uid="uid://bsa1d6ey1j2ny" path="res://data/sfx/bubble-bursting-popping-14423_01.mp3" id="27_r1pml"]
 [ext_resource type="AudioStream" uid="uid://c0od4jd6u5d3u" path="res://data/sfx/bubble-bursting-popping-14423_02.mp3" id="28_j6nwm"]
 [ext_resource type="AudioStream" uid="uid://chh0djf3klbp2" path="res://data/sfx/bubble-bursting-popping-14423_03.mp3" id="29_jytir"]
@@ -99,7 +101,7 @@ custom_solver_bias = 0.1
 radius = 0.400569
 height = 2.21818
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_340t0"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_hdhgp"]
 resource_local_to_scene = true
 material = ExtResource("6")
 height = 0.2
@@ -125,7 +127,7 @@ emission_enabled = true
 emission = Color(0.0666667, 0.733333, 0.282353, 1)
 emission_energy_multiplier = 2.0
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_8gfhe"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_tcx3q"]
 
 [sub_resource type="Shader" id="Shader_dbc6n"]
 code = "// NOTE: Shader automatically converted from Godot Engine 3.4.stable's StandardMaterial3D.
@@ -232,7 +234,7 @@ albedo_color = Color(0.878431, 0.643137, 0, 0.105882)
 emission_enabled = true
 emission = Color(0.878431, 0.643137, 0, 1)
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_2wixu"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_4b1ww"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eg8ui"]
 transparency = 1
@@ -240,7 +242,7 @@ albedo_color = Color(0.878431, 0.643137, 0, 0.270588)
 emission_enabled = true
 emission = Color(0.878431, 0.643137, 0, 1)
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_ecqnu"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_12ras"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_bhafh"]
 viewport_path = NodePath("MeshInstance3D/dui_root/viewports/options/options_viewport")
@@ -366,7 +368,7 @@ emission_enabled = true
 emission = Color(0.101961, 0.52549, 0.576471, 1)
 emission_energy_multiplier = 2.0
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_7blyk"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_hq4ry"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_28gfg"]
 transparency = 1
@@ -376,7 +378,7 @@ emission_enabled = true
 emission = Color(0, 0.419608, 0.878431, 1)
 emission_energy_multiplier = 2.0
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_vai2n"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_clhoc"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lr0op"]
 transparency = 1
@@ -386,7 +388,7 @@ emission_enabled = true
 emission = Color(0.729412, 0.0117647, 0.203922, 1)
 emission_energy_multiplier = 3.0
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_h1q52"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_vbjvk"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lq3ky"]
 albedo_color = Color(0.796078, 0.0784314, 0.231373, 1)
@@ -394,7 +396,7 @@ emission_enabled = true
 emission = Color(0.890196, 0.129412, 0.27451, 1)
 emission_energy_multiplier = 2.0
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_b8ysb"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_45a7q"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_47hil"]
 transparency = 2
@@ -415,7 +417,7 @@ size = Vector2(0.2, 1)
 transparency = 1
 shading_mode = 0
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_cfbff"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_84xm6"]
 
 [sub_resource type="GDScript" id="GDScript_vkpuo"]
 script/source = "extends Node3D
@@ -441,38 +443,11 @@ func pprint(thing) -> void:
 [sub_resource type="QuadMesh" id="QuadMesh_0mp1w"]
 size = Vector2(2, 2)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_trjv8"]
-albedo_color = Color(0.517647, 0.0901961, 0.129412, 1)
-
 [sub_resource type="CylinderMesh" id="CylinderMesh_nf0qm"]
 material = ExtResource("11")
 top_radius = 0.2
 bottom_radius = 0.2
 height = 0.077
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2yh52"]
-albedo_color = Color(0.517647, 0.0901961, 0.129412, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ux0md"]
-albedo_color = Color(0.517647, 0.0901961, 0.129412, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qcq28"]
-albedo_color = Color(0.517647, 0.0901961, 0.129412, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lqdqx"]
-albedo_color = Color(0.517647, 0.0901961, 0.129412, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v56y7"]
-albedo_color = Color(0.517647, 0.0901961, 0.129412, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ufxte"]
-albedo_color = Color(0.517647, 0.0901961, 0.129412, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8ahih"]
-albedo_color = Color(0.517647, 0.0901961, 0.129412, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o7b3b"]
-albedo_color = Color(0.517647, 0.0901961, 0.129412, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_158j2"]
 emission_enabled = true
@@ -534,13 +509,17 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.5
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.84217e-14, -0.71376)
 
 [node name="squaretop" parent="MeshInstance3D/body_mesh_root" instance=ExtResource("2_wgwi6")]
+transform = Transform3D(0.879065, 0, 0, 0, 1.00178, -3.55271e-15, 0, 3.55271e-15, 1.00178, 0, 0, 0)
 
 [node name="weapon_mount" type="Node3D" parent="MeshInstance3D"]
-transform = Transform3D(1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, -0.811294, 0.197232)
+transform = Transform3D(1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, -0.811294, -0.102247)
+
+[node name="pulse_shard" parent="MeshInstance3D/weapon_mount" instance=ExtResource("3_6eihm")]
+visible = false
 
 [node name="hurt_meter" parent="MeshInstance3D" instance=ExtResource("7")]
 transform = Transform3D(0.5, 0, 0, 0, -3.27835e-08, 0.5, 0, -0.75, -2.18557e-08, 0, -2.84217e-14, 0.858)
-mesh = SubResource("CylinderMesh_340t0")
+mesh = SubResource("CylinderMesh_hdhgp")
 
 [node name="dui_root" type="Node3D" parent="MeshInstance3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.69631e-07, -1.04118)
@@ -597,7 +576,7 @@ mesh = SubResource("QuadMesh_g7864")
 
 [node name="LineRenderer" parent="MeshInstance3D/dui_root/static_stack/inventory_items/weapons_items/selector/selector_icon" instance=ExtResource("10")]
 material_override = SubResource("StandardMaterial3D_t5gsu")
-mesh = SubResource("ImmediateMesh_8gfhe")
+mesh = SubResource("ImmediateMesh_tcx3q")
 points = [Vector3(0, 0, 0), Vector3(0, 0, -1.584)]
 startThickness = 0.2
 endThickness = 0.2
@@ -627,7 +606,7 @@ arc_offset = 0.048
 [node name="screen" type="MeshInstance3D" parent="MeshInstance3D/dui_root/static_stack/inventory_items"]
 transform = Transform3D(1.13301, 1.63701e-07, -0.0951222, -1.71421e-07, 1.082, 1.43701e-08, -0.0951222, -2.04414e-11, -1.13301, 3.71472e-07, 2.45529, -4.63132e-11)
 material_override = SubResource("StandardMaterial3D_gh5na")
-mesh = ExtResource("22")
+mesh = ExtResource("16_5o1li")
 skeleton = NodePath("../../options")
 
 [node name="radar_dots" type="Node3D" parent="MeshInstance3D/dui_root/static_stack"]
@@ -647,7 +626,7 @@ transform = Transform3D(0.2, 0, 0, 0, -8.74228e-09, 0.2, 0, -0.2, -8.74228e-09, 
 
 [node name="full_arc" parent="MeshInstance3D/dui_root/static_stack/magazine" instance=ExtResource("10")]
 material_override = SubResource("StandardMaterial3D_0b2xv")
-mesh = SubResource("ImmediateMesh_2wixu")
+mesh = SubResource("ImmediateMesh_4b1ww")
 startThickness = 0.075
 endThickness = 0.075
 drawCaps = false
@@ -656,7 +635,7 @@ globalCoords = false
 [node name="count" parent="MeshInstance3D/dui_root/static_stack/magazine" instance=ExtResource("10")]
 transform = Transform3D(0.999716, 0, 0, 0, 0.999716, 0, 0, 0, 0.999716, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_eg8ui")
-mesh = SubResource("ImmediateMesh_ecqnu")
+mesh = SubResource("ImmediateMesh_12ras")
 startThickness = 0.075
 endThickness = 0.075
 globalCoords = false
@@ -667,7 +646,7 @@ globalCoords = false
 transform = Transform3D(-1.31568, -2.16204e-07, 1.31568, -2.80951e-07, 2.02495, 0, 1.31568, 2.16204e-07, 1.31568, 0, 0, 0)
 visible = false
 material_override = SubResource("StandardMaterial3D_6g7hh")
-mesh = ExtResource("22")
+mesh = ExtResource("16_5o1li")
 
 [node name="equip_slots" type="Node3D" parent="MeshInstance3D/dui_root/static_stack"]
 transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 0, 0, 0)
@@ -751,7 +730,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_ymbpb")
 [node name="inventory_ring" parent="MeshInstance3D/dui_root" instance=ExtResource("10")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
 material_override = SubResource("StandardMaterial3D_1gh27")
-mesh = SubResource("ImmediateMesh_7blyk")
+mesh = SubResource("ImmediateMesh_hq4ry")
 points = [Vector3(0, 0, 0), Vector3(0, 0.01, 0)]
 startThickness = 0.02
 endThickness = 0.02
@@ -761,7 +740,7 @@ globalCoords = false
 [node name="LineRenderer" parent="MeshInstance3D/dui_root/inventory_ring" instance=ExtResource("10")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.548)
 material_override = SubResource("StandardMaterial3D_28gfg")
-mesh = SubResource("ImmediateMesh_vai2n")
+mesh = SubResource("ImmediateMesh_clhoc")
 points = [Vector3(0, 0, 0), Vector3(0, 0, 0.5)]
 startThickness = 0.05
 endThickness = 0.05
@@ -770,7 +749,7 @@ globalCoords = false
 [node name="weapons_ring" parent="MeshInstance3D/dui_root" instance=ExtResource("10")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
 material_override = SubResource("StandardMaterial3D_lr0op")
-mesh = SubResource("ImmediateMesh_h1q52")
+mesh = SubResource("ImmediateMesh_vbjvk")
 points = [Vector3(0, 0, 0), Vector3(0, 0.1, 0)]
 startThickness = 0.05
 endThickness = 0.05
@@ -780,7 +759,7 @@ globalCoords = false
 [node name="LineRenderer" parent="MeshInstance3D/dui_root/weapons_ring" instance=ExtResource("10")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.276)
 material_override = SubResource("StandardMaterial3D_lq3ky")
-mesh = SubResource("ImmediateMesh_b8ysb")
+mesh = SubResource("ImmediateMesh_45a7q")
 points = [Vector3(0, 0, 0), Vector3(0, 0, 0.222)]
 startThickness = 0.03
 endThickness = 0.0
@@ -792,7 +771,7 @@ mesh = SubResource("QuadMesh_w5vsp")
 
 [node name="options_ring" parent="MeshInstance3D/dui_root" instance=ExtResource("10")]
 material_override = SubResource("StandardMaterial3D_34h2k")
-mesh = SubResource("ImmediateMesh_cfbff")
+mesh = SubResource("ImmediateMesh_84xm6")
 points = [Vector3(0, 0, 0), Vector3(0, 0.1, 0)]
 startThickness = 0.08
 endThickness = 0.08
@@ -873,7 +852,7 @@ transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -0.110306, -0.05, -0.110302)
 
 [node name="waist_geo" type="MeshInstance3D" parent="waist"]
-material_override = SubResource("StandardMaterial3D_trjv8")
+material_override = ExtResource("25_5n0r4")
 mesh = SubResource("CylinderMesh_nf0qm")
 
 [node name="leg_1" type="Node3D" parent="."]
@@ -896,7 +875,7 @@ visible = false
 
 [node name="polygon" type="CSGPolygon3D" parent="leg_1/hip_joint"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.075)
-material_override = SubResource("StandardMaterial3D_2yh52")
+material_override = ExtResource("25_5n0r4")
 polygon = PackedVector2Array(0, 0.08, 0, -0.08, 0.292, 0)
 depth = 0.15
 
@@ -905,7 +884,7 @@ transform = Transform3D(-0.494853, -0.868977, 0, 0.868977, -0.494853, 0, 0, 0, 1
 
 [node name="polygon" type="CSGPolygon3D" parent="leg_1/hip_joint/thigh_joint"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.075)
-material_override = SubResource("StandardMaterial3D_ux0md")
+material_override = ExtResource("25_5n0r4")
 polygon = PackedVector2Array(0, 0.08, 0, -0.08, 0.456, 0)
 depth = 0.15
 
@@ -943,7 +922,7 @@ visible = false
 
 [node name="polygon" type="CSGPolygon3D" parent="leg_2/hip_joint"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.075)
-material_override = SubResource("StandardMaterial3D_qcq28")
+material_override = ExtResource("25_5n0r4")
 polygon = PackedVector2Array(0, 0.08, 0, -0.08, 0.292, 0)
 depth = 0.15
 
@@ -952,7 +931,7 @@ transform = Transform3D(-0.494938, -0.868928, 0, 0.868928, -0.494938, 0, 0, 0, 1
 
 [node name="polygon" type="CSGPolygon3D" parent="leg_2/hip_joint/thigh_joint"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.075)
-material_override = SubResource("StandardMaterial3D_lqdqx")
+material_override = ExtResource("25_5n0r4")
 polygon = PackedVector2Array(0, 0.08, 0, -0.08, 0.456, 0)
 depth = 0.15
 
@@ -991,7 +970,7 @@ visible = false
 
 [node name="polygon" type="CSGPolygon3D" parent="leg_3/hip_joint"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.075)
-material_override = SubResource("StandardMaterial3D_v56y7")
+material_override = ExtResource("25_5n0r4")
 polygon = PackedVector2Array(0, 0.08, 0, -0.08, 0.292, 0)
 depth = 0.15
 
@@ -1000,7 +979,7 @@ transform = Transform3D(-0.494936, -0.86893, 0, 0.86893, -0.494936, 0, 0, 0, 1, 
 
 [node name="polygon" type="CSGPolygon3D" parent="leg_3/hip_joint/thigh_joint"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.075)
-material_override = SubResource("StandardMaterial3D_ufxte")
+material_override = ExtResource("25_5n0r4")
 polygon = PackedVector2Array(0, 0.08, 0, -0.08, 0.456, 0)
 depth = 0.15
 
@@ -1038,7 +1017,7 @@ visible = false
 
 [node name="polygon" type="CSGPolygon3D" parent="leg_4/hip_joint"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.075)
-material_override = SubResource("StandardMaterial3D_8ahih")
+material_override = ExtResource("25_5n0r4")
 polygon = PackedVector2Array(0, 0.08, 0, -0.08, 0.292, 0)
 depth = 0.15
 
@@ -1047,7 +1026,7 @@ transform = Transform3D(-0.494929, -0.868934, 0, 0.868934, -0.494929, 0, 0, 0, 1
 
 [node name="polygon" type="CSGPolygon3D" parent="leg_4/hip_joint/thigh_joint"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.075)
-material_override = SubResource("StandardMaterial3D_o7b3b")
+material_override = ExtResource("25_5n0r4")
 polygon = PackedVector2Array(0, 0.08, 0, -0.08, 0.456, 0)
 depth = 0.15
 

@@ -55,16 +55,17 @@ func _ready():
 	$icons/death_icon.visible = false
 	targetable = visible
 
+	# connect to inventory
+	inventory.connect("inventory_changed",Callable(dui_root,"_on_inventory_changed"))
+
 	# connect to weapon
 	# TODO: replace with player function for switching weapon
 	if $MeshInstance3D/weapon_mount.get_child_count() > 0:
-		current_weapon = $MeshInstance3D/weapon_mount.get_child(0)
+		$MeshInstance3D/weapon_mount.get_child(0).queue_free()
+		#current_weapon = $MeshInstance3D/weapon_mount.get_child(0)
 	
 	if current_weapon:
 		current_weapon.connect("fire",Callable(self,"_on_weapon_fire"))
-
-	# connect to inventory
-	inventory.connect("inventory_changed",Callable(dui_root,"_on_inventory_changed"))
 
 	# deck the character with starting weapons in the inventory
 	await get_tree().create_timer(1.0).timeout

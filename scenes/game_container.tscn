@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bdham7gyjv55u" path="res://data/props/bollard-02-piece-01/bollard_02_piece_01.tscn" id="3_s5cn5"]
 [ext_resource type="Material" uid="uid://dobe2qn8x7qiq" path="res://data/shaders/spatial_debug_boxdivide_material_blue.tres" id="4_13sop"]
 [ext_resource type="PackedScene" uid="uid://cf7ledivriici" path="res://data/props/bollard-02/bollard_02_01_02.tscn" id="4_qkj8k"]
-[ext_resource type="PackedScene" uid="uid://60huk5jyn8eh" path="res://scenes/player/player.tscn" id="5_3yb2w"]
+[ext_resource type="PackedScene" uid="uid://y2bqybv85gcb" path="res://scenes/player/player.tscn" id="5_3yb2w"]
 [ext_resource type="Shader" path="res://data/shaders/ViewportDisplay_shaders/invert.gdshader" id="5_7wl8l"]
 [ext_resource type="Texture2D" uid="uid://2tspxfxes4sh" path="res://data/textures/key-title_paint_01-02.png" id="5_eogxw"]
 [ext_resource type="PackedScene" uid="uid://btx3qab5u10b5" path="res://data/props/amphitheatre-small-01/amphitheatre-small-01_01-01.tscn" id="6_tjex5"]

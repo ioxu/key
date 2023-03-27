@@ -110,36 +110,36 @@ tracks/0/keys = {
 }
 tracks/1/type = "bezier"
 tracks/1/imported = false
-tracks/1/enabled = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("geometry_hook/muzzle_flash:mesh:material:albedo_color:r")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "handle_modes": PackedInt32Array(0),
 "points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0.01)
+"times": PackedFloat32Array(0)
 }
 tracks/2/type = "bezier"
 tracks/2/imported = false
-tracks/2/enabled = false
+tracks/2/enabled = true
 tracks/2/path = NodePath("geometry_hook/muzzle_flash:mesh:material:albedo_color:g")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "handle_modes": PackedInt32Array(0),
 "points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0.01)
+"times": PackedFloat32Array(0)
 }
 tracks/3/type = "bezier"
 tracks/3/imported = false
-tracks/3/enabled = false
+tracks/3/enabled = true
 tracks/3/path = NodePath("geometry_hook/muzzle_flash:mesh:material:albedo_color:b")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "handle_modes": PackedInt32Array(0),
 "points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0.01)
+"times": PackedFloat32Array(0)
 }
 tracks/4/type = "bezier"
 tracks/4/imported = false
@@ -150,7 +150,7 @@ tracks/4/loop_wrap = true
 tracks/4/keys = {
 "handle_modes": PackedInt32Array(0, 0),
 "points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.8, 0, 0.25, 0),
-"times": PackedFloat32Array(0.01, 0.71)
+"times": PackedFloat32Array(0, 0.71)
 }
 tracks/5/type = "bezier"
 tracks/5/imported = false
@@ -170,10 +170,10 @@ tracks/6/path = NodePath("geometry_hook/muzzle_flash:position")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0.01, 1),
-"transitions": PackedFloat32Array(0.392292, 0.203063),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 0.203063),
 "update": 0,
-"values": [Vector3(0, -0.445, 0), Vector3(0, -0.445, 0.181)]
+"values": [Vector3(0, 0.160664, 0.579), Vector3(0, 0.16748, 0.693542)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lg17u"]
@@ -209,22 +209,23 @@ transform = Transform3D(0.955386, 0.294901, -0.0164577, -0.294941, 0.955515, -1.
 gizmo_extents = 1.0
 
 [node name="bullet_spawner" type="Node3D" parent="." index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.444842, 0.0947556)
+transform = Transform3D(1, -2.93885e-08, 0, 2.12176e-10, 1, -3.17693e-10, 0, 3.39462e-12, 1, 4.10169e-08, 0.18764, -2.02775)
 
 [node name="geometry_hook" type="Node3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.54765)
 
 [node name="geometry" type="MeshInstance3D" parent="geometry_hook" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.444842, 0.046)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.116496, 0.622627)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_5ekol")
 
 [node name="muzzle_flash" type="MeshInstance3D" parent="geometry_hook" index="1"]
-transform = Transform3D(4, 0, 0, 0, 1, 0, 0, 0, 6.5, 0, -0.445, 0)
+transform = Transform3D(3, 0, 0, 0, 1, 0, 0, 0, 3, 0, -0.445, 0)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_smkn3")
 
 [node name="muzzle_flash_light" type="OmniLight3D" parent="geometry_hook" index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.356412, 0.386219)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.204926, 0.962846)
 light_color = Color(0.611765, 0.87451, 0.976471, 1)
 light_energy = 500.0
 light_indirect_energy = 0.0
