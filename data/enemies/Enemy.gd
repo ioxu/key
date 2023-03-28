@@ -410,7 +410,7 @@ func flock_with_neighbours(delta) -> void:
 func activate_weapon(delta) -> void:
 	if within_aim_tolerance(weapon.aim_tolerance):
 		if weapon.activated != true:
-			pprint("activate_weapon")
+			#pprint("activate_weapon")
 			weapon.activated = true
 	else:
 		#pprint("de-activate_weapon (out of aim_tolerance)")
@@ -420,7 +420,7 @@ func activate_weapon(delta) -> void:
 
 func deactivate_wepon() -> void:
 	if weapon.activated == true:
-		pprint("deactivate_weapon")
+		#pprint("deactivate_weapon")
 		weapon.activated = false
 
 

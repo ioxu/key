@@ -350,32 +350,17 @@ func _physics_process(dt):
 	speed = speed.lerp(max_speed, dt * accelerate)
 	movement = speed
 
-#	current_vertical_speed.y += gravity * dt * jump_acceleration
+	# gravity
+	if not player.is_on_floor():
+		current_vertical_speed.y += gravity * dt * jump_acceleration
 
-#	if player.is_on_floor() and current_vertical_speed.y < 0.0:
-#		current_vertical_speed.y = 0.0
-#	else:
-#		current_vertical_speed.y += gravity * dt * jump_acceleration
-	
-
-	current_vertical_speed.y += gravity * dt * jump_acceleration
-	
-
-	#######################################
-	# IMPORTANT
+	# do movement
 	movement += current_vertical_speed
-	#######################################
-	
-	#pprint("movement: %s"%movement)
-
 	player.set_velocity(movement)
 	player.set_up_direction(Vector3.UP)
 	player.move_and_slide()
-	
-	#player.velocity
-	
-	if player.is_on_floor():#is_on_floor_buffer:#player.is_on_floor():
-		#current_vertical_speed.y = 0.0
+
+	if player.is_on_floor():
 		current_vertical_speed = Vector3.ZERO
 		is_airborne = false
 

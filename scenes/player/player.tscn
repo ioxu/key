@@ -1,10 +1,9 @@
-[gd_scene load_steps=91 format=3 uid="uid://y2bqybv85gcb"]
+[gd_scene load_steps=90 format=3 uid="uid://y2bqybv85gcb"]
 
 [ext_resource type="Script" path="res://scenes/player/Controller.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://bfu2k02apbkwt" path="res://data/dui/weapon_inv_slot.tscn" id="2"]
 [ext_resource type="PackedScene" uid="uid://bkqajubt82sua" path="res://scenes/player/body_mesh_scenes/body_mesh_squaretop.tscn" id="2_wgwi6"]
 [ext_resource type="Script" path="res://scenes/player/motion_blur.gd" id="3"]
-[ext_resource type="PackedScene" uid="uid://djmmqkgcmvnw0" path="res://data/weapons/pulse_shard/pulse_shard.tscn" id="3_6eihm"]
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="5"]
 [ext_resource type="Material" path="res://data/enemies/hurt_meter_shadermaterial.tres" id="6"]
 [ext_resource type="PackedScene" path="res://data/enemies/hurt_meter.tscn" id="7"]
@@ -101,7 +100,7 @@ custom_solver_bias = 0.1
 radius = 0.400569
 height = 2.21818
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_hdhgp"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_vh076"]
 resource_local_to_scene = true
 material = ExtResource("6")
 height = 0.2
@@ -127,7 +126,7 @@ emission_enabled = true
 emission = Color(0.0666667, 0.733333, 0.282353, 1)
 emission_energy_multiplier = 2.0
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_tcx3q"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_20wq6"]
 
 [sub_resource type="Shader" id="Shader_dbc6n"]
 code = "// NOTE: Shader automatically converted from Godot Engine 3.4.stable's StandardMaterial3D.
@@ -234,7 +233,7 @@ albedo_color = Color(0.878431, 0.643137, 0, 0.105882)
 emission_enabled = true
 emission = Color(0.878431, 0.643137, 0, 1)
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_4b1ww"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_uhepw"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eg8ui"]
 transparency = 1
@@ -242,7 +241,7 @@ albedo_color = Color(0.878431, 0.643137, 0, 0.270588)
 emission_enabled = true
 emission = Color(0.878431, 0.643137, 0, 1)
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_12ras"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_vjqbs"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_bhafh"]
 viewport_path = NodePath("MeshInstance3D/dui_root/viewports/options/options_viewport")
@@ -368,7 +367,7 @@ emission_enabled = true
 emission = Color(0.101961, 0.52549, 0.576471, 1)
 emission_energy_multiplier = 2.0
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_hq4ry"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_jm1qa"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_28gfg"]
 transparency = 1
@@ -378,7 +377,7 @@ emission_enabled = true
 emission = Color(0, 0.419608, 0.878431, 1)
 emission_energy_multiplier = 2.0
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_clhoc"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_y72n8"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lr0op"]
 transparency = 1
@@ -388,7 +387,7 @@ emission_enabled = true
 emission = Color(0.729412, 0.0117647, 0.203922, 1)
 emission_energy_multiplier = 3.0
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_vbjvk"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_otte2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lq3ky"]
 albedo_color = Color(0.796078, 0.0784314, 0.231373, 1)
@@ -396,7 +395,7 @@ emission_enabled = true
 emission = Color(0.890196, 0.129412, 0.27451, 1)
 emission_energy_multiplier = 2.0
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_45a7q"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_htn6o"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_47hil"]
 transparency = 2
@@ -417,7 +416,7 @@ size = Vector2(0.2, 1)
 transparency = 1
 shading_mode = 0
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_84xm6"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_wkrfu"]
 
 [sub_resource type="GDScript" id="GDScript_vkpuo"]
 script/source = "extends Node3D
@@ -514,12 +513,9 @@ transform = Transform3D(0.879065, 0, 0, 0, 1.00178, -3.55271e-15, 0, 3.55271e-15
 [node name="weapon_mount" type="Node3D" parent="MeshInstance3D"]
 transform = Transform3D(1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, -0.811294, -0.102247)
 
-[node name="pulse_shard" parent="MeshInstance3D/weapon_mount" instance=ExtResource("3_6eihm")]
-visible = false
-
 [node name="hurt_meter" parent="MeshInstance3D" instance=ExtResource("7")]
 transform = Transform3D(0.5, 0, 0, 0, -3.27835e-08, 0.5, 0, -0.75, -2.18557e-08, 0, -2.84217e-14, 0.858)
-mesh = SubResource("CylinderMesh_hdhgp")
+mesh = SubResource("CylinderMesh_vh076")
 
 [node name="dui_root" type="Node3D" parent="MeshInstance3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.69631e-07, -1.04118)
@@ -576,7 +572,7 @@ mesh = SubResource("QuadMesh_g7864")
 
 [node name="LineRenderer" parent="MeshInstance3D/dui_root/static_stack/inventory_items/weapons_items/selector/selector_icon" instance=ExtResource("10")]
 material_override = SubResource("StandardMaterial3D_t5gsu")
-mesh = SubResource("ImmediateMesh_tcx3q")
+mesh = SubResource("ImmediateMesh_20wq6")
 points = [Vector3(0, 0, 0), Vector3(0, 0, -1.584)]
 startThickness = 0.2
 endThickness = 0.2
@@ -626,7 +622,7 @@ transform = Transform3D(0.2, 0, 0, 0, -8.74228e-09, 0.2, 0, -0.2, -8.74228e-09, 
 
 [node name="full_arc" parent="MeshInstance3D/dui_root/static_stack/magazine" instance=ExtResource("10")]
 material_override = SubResource("StandardMaterial3D_0b2xv")
-mesh = SubResource("ImmediateMesh_4b1ww")
+mesh = SubResource("ImmediateMesh_uhepw")
 startThickness = 0.075
 endThickness = 0.075
 drawCaps = false
@@ -635,7 +631,7 @@ globalCoords = false
 [node name="count" parent="MeshInstance3D/dui_root/static_stack/magazine" instance=ExtResource("10")]
 transform = Transform3D(0.999716, 0, 0, 0, 0.999716, 0, 0, 0, 0.999716, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_eg8ui")
-mesh = SubResource("ImmediateMesh_12ras")
+mesh = SubResource("ImmediateMesh_vjqbs")
 startThickness = 0.075
 endThickness = 0.075
 globalCoords = false
@@ -730,7 +726,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_ymbpb")
 [node name="inventory_ring" parent="MeshInstance3D/dui_root" instance=ExtResource("10")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
 material_override = SubResource("StandardMaterial3D_1gh27")
-mesh = SubResource("ImmediateMesh_hq4ry")
+mesh = SubResource("ImmediateMesh_jm1qa")
 points = [Vector3(0, 0, 0), Vector3(0, 0.01, 0)]
 startThickness = 0.02
 endThickness = 0.02
@@ -740,7 +736,7 @@ globalCoords = false
 [node name="LineRenderer" parent="MeshInstance3D/dui_root/inventory_ring" instance=ExtResource("10")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.548)
 material_override = SubResource("StandardMaterial3D_28gfg")
-mesh = SubResource("ImmediateMesh_clhoc")
+mesh = SubResource("ImmediateMesh_y72n8")
 points = [Vector3(0, 0, 0), Vector3(0, 0, 0.5)]
 startThickness = 0.05
 endThickness = 0.05
@@ -749,7 +745,7 @@ globalCoords = false
 [node name="weapons_ring" parent="MeshInstance3D/dui_root" instance=ExtResource("10")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
 material_override = SubResource("StandardMaterial3D_lr0op")
-mesh = SubResource("ImmediateMesh_vbjvk")
+mesh = SubResource("ImmediateMesh_otte2")
 points = [Vector3(0, 0, 0), Vector3(0, 0.1, 0)]
 startThickness = 0.05
 endThickness = 0.05
@@ -759,7 +755,7 @@ globalCoords = false
 [node name="LineRenderer" parent="MeshInstance3D/dui_root/weapons_ring" instance=ExtResource("10")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.276)
 material_override = SubResource("StandardMaterial3D_lq3ky")
-mesh = SubResource("ImmediateMesh_45a7q")
+mesh = SubResource("ImmediateMesh_htn6o")
 points = [Vector3(0, 0, 0), Vector3(0, 0, 0.222)]
 startThickness = 0.03
 endThickness = 0.0
@@ -771,7 +767,7 @@ mesh = SubResource("QuadMesh_w5vsp")
 
 [node name="options_ring" parent="MeshInstance3D/dui_root" instance=ExtResource("10")]
 material_override = SubResource("StandardMaterial3D_34h2k")
-mesh = SubResource("ImmediateMesh_84xm6")
+mesh = SubResource("ImmediateMesh_wkrfu")
 points = [Vector3(0, 0, 0), Vector3(0, 0.1, 0)]
 startThickness = 0.08
 endThickness = 0.08

@@ -193,7 +193,7 @@ func add_additional_force(force:Vector3) -> void:
 
 
 func pickup( pickup_object ):
-	prints(self.get_name(), "picked up", pickup_object.get_name(), "(%s)"%pickup_object.pickup_type)
+	#prints(self.get_name(), "picked up", pickup_object.get_name(), "(%s)"%pickup_object.pickup_type)
 	
 	#orbs
 	if pickup_object.pickup_type == "Orb" or pickup_object.pickup_type == "Gem":
