@@ -123,10 +123,3 @@ func _on_resolutions_overlay_checkbox_toggled(button_pressed):
 func _on_rendering_server_info_overlay_checkbox_toggled(button_pressed):
 	ui_debug_root.find_child("renderingServer_info_display_container").set_visible( button_pressed )
 
-# time control
-func _on_play_timecontrol_texture_button_pressed():
-	pprint("play_timecontrol pressed")
-
-
-func _on_pause_timecontrol_texture_button_pressed():
-	pprint("pause_timecontrol pressed")
