@@ -1,4 +1,4 @@
-[gd_scene load_steps=90 format=3 uid="uid://y2bqybv85gcb"]
+[gd_scene load_steps=94 format=3 uid="uid://y2bqybv85gcb"]
 
 [ext_resource type="Script" path="res://scenes/player/Controller.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://bfu2k02apbkwt" path="res://data/dui/weapon_inv_slot.tscn" id="2"]
@@ -8,7 +8,6 @@
 [ext_resource type="Material" path="res://data/enemies/hurt_meter_shadermaterial.tres" id="6"]
 [ext_resource type="PackedScene" path="res://data/enemies/hurt_meter.tscn" id="7"]
 [ext_resource type="Texture2D" uid="uid://yjksrl75m0tr" path="res://data/textures/debug/symbols_16px_xbones.png" id="8"]
-[ext_resource type="Script" path="res://data/scripts/travel_path_line.gd" id="9"]
 [ext_resource type="PackedScene" uid="uid://crn3rb5x7ocj5" path="res://data/LineRenderer/LineRenderer.tscn" id="10"]
 [ext_resource type="Material" path="res://scenes/player/player_material.tres" id="11"]
 [ext_resource type="Texture2D" uid="uid://c7u3e0083xdqm" path="res://data/textures/cross_pips_diag.png" id="11_7o67c"]
@@ -31,9 +30,12 @@
 [ext_resource type="PackedScene" uid="uid://b71lkii1kqjsj" path="res://scenes/player/leg_mesh_scenes/shin_piece_01-01.tscn" id="27_e85ym"]
 [ext_resource type="AudioStream" uid="uid://bsa1d6ey1j2ny" path="res://data/sfx/bubble-bursting-popping-14423_01.mp3" id="27_r1pml"]
 [ext_resource type="AudioStream" uid="uid://c0od4jd6u5d3u" path="res://data/sfx/bubble-bursting-popping-14423_02.mp3" id="28_j6nwm"]
+[ext_resource type="Material" uid="uid://buuh2gqfxfxcs" path="res://scenes/player/hilite_colour.material" id="29_041dc"]
 [ext_resource type="AudioStream" uid="uid://chh0djf3klbp2" path="res://data/sfx/bubble-bursting-popping-14423_03.mp3" id="29_jytir"]
 [ext_resource type="AudioStream" uid="uid://vuqj6p7xu24h" path="res://data/sfx/bubble-bursting-popping-14423_04.mp3" id="30_hxi4b"]
+[ext_resource type="Material" uid="uid://wo6cnl4jesj2" path="res://scenes/player/foot_trail_material.tres" id="31_ggu4k"]
 [ext_resource type="AudioStream" uid="uid://bdy1oecj0k026" path="res://data/sfx/bubble-bursting-popping-14423_05.mp3" id="31_gmrje"]
+[ext_resource type="Script" path="res://data/scripts/trail_mesh.gd" id="31_vf27f"]
 [ext_resource type="AudioStream" uid="uid://cgdxuneqsbim3" path="res://data/sfx/bubble-bursting-popping-14423_06.mp3" id="32_wiahd"]
 [ext_resource type="AudioStream" uid="uid://d3rw1o8151ac0" path="res://data/sfx/bubble-bursting-popping-14423_07.mp3" id="33_x6wvu"]
 
@@ -100,7 +102,7 @@ custom_solver_bias = 0.1
 radius = 0.400569
 height = 2.21818
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_wfmd8"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_wqcdg"]
 resource_local_to_scene = true
 material = ExtResource("6")
 height = 0.2
@@ -126,7 +128,7 @@ emission_enabled = true
 emission = Color(0.0666667, 0.733333, 0.282353, 1)
 emission_energy_multiplier = 2.0
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_mkwpm"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_3aucn"]
 
 [sub_resource type="Shader" id="Shader_dbc6n"]
 code = "// NOTE: Shader automatically converted from Godot Engine 3.4.stable's StandardMaterial3D.
@@ -233,7 +235,7 @@ albedo_color = Color(0.878431, 0.643137, 0, 0.105882)
 emission_enabled = true
 emission = Color(0.878431, 0.643137, 0, 1)
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_uu82n"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_44m4o"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eg8ui"]
 transparency = 1
@@ -241,7 +243,7 @@ albedo_color = Color(0.878431, 0.643137, 0, 0.270588)
 emission_enabled = true
 emission = Color(0.878431, 0.643137, 0, 1)
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_dtxkw"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_sjanm"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_bhafh"]
 viewport_path = NodePath("MeshInstance3D/dui_root/viewports/options/options_viewport")
@@ -367,7 +369,7 @@ emission_enabled = true
 emission = Color(0.101961, 0.52549, 0.576471, 1)
 emission_energy_multiplier = 2.0
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_5ovxl"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_4qrrc"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_28gfg"]
 transparency = 1
@@ -377,7 +379,7 @@ emission_enabled = true
 emission = Color(0, 0.419608, 0.878431, 1)
 emission_energy_multiplier = 2.0
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_asmh1"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_fxlil"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lr0op"]
 transparency = 1
@@ -387,7 +389,7 @@ emission_enabled = true
 emission = Color(0.729412, 0.0117647, 0.203922, 1)
 emission_energy_multiplier = 3.0
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_qqmwu"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_8sbpw"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lq3ky"]
 albedo_color = Color(0.796078, 0.0784314, 0.231373, 1)
@@ -395,7 +397,7 @@ emission_enabled = true
 emission = Color(0.890196, 0.129412, 0.27451, 1)
 emission_energy_multiplier = 2.0
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_um4h6"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_6bwvf"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_47hil"]
 transparency = 2
@@ -416,7 +418,7 @@ size = Vector2(0.2, 1)
 transparency = 1
 shading_mode = 0
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_k51rk"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_ybhfo"]
 
 [sub_resource type="GDScript" id="GDScript_vkpuo"]
 script/source = "extends Node3D
@@ -447,6 +449,13 @@ material = ExtResource("11")
 top_radius = 0.2
 bottom_radius = 0.2
 height = 0.077
+
+[sub_resource type="BoxMesh" id="BoxMesh_45xp3"]
+
+[sub_resource type="Curve" id="Curve_p8t6a"]
+bake_resolution = 20
+_data = [Vector2(0.0122985, 0.981519), 0.0, -0.130749, 0, 0, Vector2(0.385998, 0.786448), -0.856749, -0.856749, 0, 0, Vector2(1, 0), -0.652677, 0.0, 0, 0]
+point_count = 3
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_158j2"]
 emission_enabled = true
@@ -515,7 +524,7 @@ transform = Transform3D(1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, -0.
 
 [node name="hurt_meter" parent="MeshInstance3D" instance=ExtResource("7")]
 transform = Transform3D(0.5, 0, 0, 0, -3.27835e-08, 0.5, 0, -0.75, -2.18557e-08, 0, -2.84217e-14, 0.858)
-mesh = SubResource("CylinderMesh_wfmd8")
+mesh = SubResource("CylinderMesh_wqcdg")
 
 [node name="dui_root" type="Node3D" parent="MeshInstance3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.69631e-07, -1.04118)
@@ -572,7 +581,7 @@ mesh = SubResource("QuadMesh_g7864")
 
 [node name="LineRenderer" parent="MeshInstance3D/dui_root/static_stack/inventory_items/weapons_items/selector/selector_icon" instance=ExtResource("10")]
 material_override = SubResource("StandardMaterial3D_t5gsu")
-mesh = SubResource("ImmediateMesh_mkwpm")
+mesh = SubResource("ImmediateMesh_3aucn")
 points = [Vector3(0, 0, 0), Vector3(0, 0, -1.584)]
 startThickness = 0.2
 endThickness = 0.2
@@ -622,7 +631,7 @@ transform = Transform3D(0.2, 0, 0, 0, -8.74228e-09, 0.2, 0, -0.2, -8.74228e-09, 
 
 [node name="full_arc" parent="MeshInstance3D/dui_root/static_stack/magazine" instance=ExtResource("10")]
 material_override = SubResource("StandardMaterial3D_0b2xv")
-mesh = SubResource("ImmediateMesh_uu82n")
+mesh = SubResource("ImmediateMesh_44m4o")
 startThickness = 0.075
 endThickness = 0.075
 drawCaps = false
@@ -631,7 +640,7 @@ globalCoords = false
 [node name="count" parent="MeshInstance3D/dui_root/static_stack/magazine" instance=ExtResource("10")]
 transform = Transform3D(0.999716, 0, 0, 0, 0.999716, 0, 0, 0, 0.999716, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_eg8ui")
-mesh = SubResource("ImmediateMesh_dtxkw")
+mesh = SubResource("ImmediateMesh_sjanm")
 startThickness = 0.075
 endThickness = 0.075
 globalCoords = false
@@ -726,7 +735,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_ymbpb")
 [node name="inventory_ring" parent="MeshInstance3D/dui_root" instance=ExtResource("10")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
 material_override = SubResource("StandardMaterial3D_1gh27")
-mesh = SubResource("ImmediateMesh_5ovxl")
+mesh = SubResource("ImmediateMesh_4qrrc")
 points = [Vector3(0, 0, 0), Vector3(0, 0.01, 0)]
 startThickness = 0.02
 endThickness = 0.02
@@ -736,7 +745,7 @@ globalCoords = false
 [node name="LineRenderer" parent="MeshInstance3D/dui_root/inventory_ring" instance=ExtResource("10")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.548)
 material_override = SubResource("StandardMaterial3D_28gfg")
-mesh = SubResource("ImmediateMesh_asmh1")
+mesh = SubResource("ImmediateMesh_fxlil")
 points = [Vector3(0, 0, 0), Vector3(0, 0, 0.5)]
 startThickness = 0.05
 endThickness = 0.05
@@ -745,7 +754,7 @@ globalCoords = false
 [node name="weapons_ring" parent="MeshInstance3D/dui_root" instance=ExtResource("10")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
 material_override = SubResource("StandardMaterial3D_lr0op")
-mesh = SubResource("ImmediateMesh_qqmwu")
+mesh = SubResource("ImmediateMesh_8sbpw")
 points = [Vector3(0, 0, 0), Vector3(0, 0.1, 0)]
 startThickness = 0.05
 endThickness = 0.05
@@ -755,7 +764,7 @@ globalCoords = false
 [node name="LineRenderer" parent="MeshInstance3D/dui_root/weapons_ring" instance=ExtResource("10")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.276)
 material_override = SubResource("StandardMaterial3D_lq3ky")
-mesh = SubResource("ImmediateMesh_um4h6")
+mesh = SubResource("ImmediateMesh_6bwvf")
 points = [Vector3(0, 0, 0), Vector3(0, 0, 0.222)]
 startThickness = 0.03
 endThickness = 0.0
@@ -767,7 +776,7 @@ mesh = SubResource("QuadMesh_w5vsp")
 
 [node name="options_ring" parent="MeshInstance3D/dui_root" instance=ExtResource("10")]
 material_override = SubResource("StandardMaterial3D_34h2k")
-mesh = SubResource("ImmediateMesh_k51rk")
+mesh = SubResource("ImmediateMesh_ybhfo")
 points = [Vector3(0, 0, 0), Vector3(0, 0.1, 0)]
 startThickness = 0.08
 endThickness = 0.08
@@ -852,7 +861,7 @@ material_override = ExtResource("25_5n0r4")
 mesh = SubResource("CylinderMesh_nf0qm")
 
 [node name="leg_1" type="Node3D" parent="."]
-transform = Transform3D(0.706988, 0, 0.707003, 0, 0.99999, 0, -0.707004, 0, 0.706987, 0.110324, 0.746836, -0.110315)
+transform = Transform3D(0.706991, 0, 0.707, 0, 0.99999, 0, -0.707001, 0, 0.70699, 0.110324, 0.746836, -0.110315)
 script = ExtResource("12")
 hip_node_path = NodePath("../waist/hip_1_position")
 toe_node_path = NodePath("../toe_1_position")
@@ -863,7 +872,7 @@ bone_depth = 0.15
 a_m = 1.5
 
 [node name="hip_joint" type="Node3D" parent="leg_1"]
-transform = Transform3D(0.657677, 0.7533, 0, -0.7533, 0.657677, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(0.692762, 0.721166, 0, -0.721166, 0.692762, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Marker3D" type="Marker3D" parent="leg_1/hip_joint"]
 transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0)
@@ -876,7 +885,7 @@ polygon = PackedVector2Array(0, 0.08, 0, -0.08, 0.292, 0)
 depth = 0.15
 
 [node name="thigh_joint" type="Node3D" parent="leg_1/hip_joint"]
-transform = Transform3D(-0.494853, -0.868977, 0, 0.868977, -0.494853, 0, 0, 0, 1, 0.292, 0, 0)
+transform = Transform3D(-0.0604431, -0.998172, 0, 0.998172, -0.0604431, 0, 0, 0, 1, 0.292, 0, 0)
 
 [node name="polygon" type="CSGPolygon3D" parent="leg_1/hip_joint/thigh_joint"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.075)
@@ -885,7 +894,7 @@ polygon = PackedVector2Array(0, 0.08, 0, -0.08, 0.456, 0)
 depth = 0.15
 
 [node name="shin_joint" type="Node3D" parent="leg_1/hip_joint/thigh_joint"]
-transform = Transform3D(-0.852382, 0.52292, 0, -0.52292, -0.852382, 0, 0, 0, 1, 0.456, 0, 0)
+transform = Transform3D(-0.343532, 0.939141, 0, -0.939141, -0.343532, 0, 0, 0, 1, 0.456, 0, 0)
 
 [node name="polygon" type="CSGPolygon3D" parent="leg_1/hip_joint/thigh_joint/shin_joint"]
 transform = Transform3D(1, 1.49012e-08, 0, -1.49012e-08, 1, 1.49012e-08, 0, 1.49012e-08, 1, 0, 1.19209e-07, 0.075)
@@ -898,7 +907,7 @@ depth = 0.15
 [node name="shin_piece" parent="leg_1/hip_joint/thigh_joint/shin_joint" instance=ExtResource("27_e85ym")]
 
 [node name="leg_2" type="Node3D" parent="."]
-transform = Transform3D(0.706997, 0, -0.70699, 0, 1, 0, 0.70699, 0, 0.706997, 0.110311, 0.746748, 0.110315)
+transform = Transform3D(0.706996, 0, -0.706991, 0, 1, 0, 0.706991, 0, 0.706996, 0.110311, 0.746748, 0.110315)
 script = ExtResource("12")
 hip_node_path = NodePath("../waist/hip_2_position")
 toe_node_path = NodePath("../toe_2_position")
@@ -910,7 +919,7 @@ a_off = 0.56
 a_m = -1.5
 
 [node name="hip_joint" type="Node3D" parent="leg_2"]
-transform = Transform3D(0.657797, 0.753195, 0, -0.753195, 0.657797, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(0.692818, 0.721112, 0, -0.721112, 0.692818, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Marker3D" type="Marker3D" parent="leg_2/hip_joint"]
 transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0)
@@ -923,7 +932,7 @@ polygon = PackedVector2Array(0, 0.08, 0, -0.08, 0.292, 0)
 depth = 0.15
 
 [node name="thigh_joint" type="Node3D" parent="leg_2/hip_joint"]
-transform = Transform3D(-0.494938, -0.868928, 0, 0.868928, -0.494938, 0, 0, 0, 1, 0.292, 0, 0)
+transform = Transform3D(-0.060523, -0.998167, 0, 0.998167, -0.060523, 0, 0, 0, 1, 0.292, 0, 0)
 
 [node name="polygon" type="CSGPolygon3D" parent="leg_2/hip_joint/thigh_joint"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.075)
@@ -932,7 +941,7 @@ polygon = PackedVector2Array(0, 0.08, 0, -0.08, 0.456, 0)
 depth = 0.15
 
 [node name="shin_joint" type="Node3D" parent="leg_2/hip_joint/thigh_joint"]
-transform = Transform3D(-0.85247, 0.522776, 0, -0.522776, -0.85247, 0, 0, 0, 1, 0.456, 0, 0)
+transform = Transform3D(-0.343631, 0.939105, 0, -0.939105, -0.343631, 0, 0, 0, 1, 0.456, 0, 0)
 
 [node name="polygon" type="CSGPolygon3D" parent="leg_2/hip_joint/thigh_joint/shin_joint"]
 transform = Transform3D(1.00246, 2.98023e-08, 2.23517e-08, -9.68575e-08, 1.00246, -1.19209e-07, -2.23517e-08, -1.19209e-07, 1.00246, -0.00226301, -0.00178814, 0.075)
@@ -945,8 +954,16 @@ depth = 0.15
 [node name="shin_piece" parent="leg_2/hip_joint/thigh_joint/shin_joint" instance=ExtResource("27_e85ym")]
 transform = Transform3D(1, 2.98023e-08, 2.23517e-08, -7.45058e-08, 1, -2.98023e-08, -1.49012e-08, -2.98023e-08, 1, 0, 0, 0)
 
+[node name="MeshInstance3D2" parent="leg_2/hip_joint/thigh_joint/shin_joint/shin_piece" index="10"]
+material_override = ExtResource("29_041dc")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="leg_2/hip_joint/thigh_joint/shin_joint/shin_piece"]
+transform = Transform3D(0.622233, -4.65661e-10, 4.09782e-08, -2.5332e-07, 0.0588304, -2.98023e-08, -1.49012e-08, 0, 0.173634, 0.395116, 0.191404, -2.23517e-07)
+material_override = ExtResource("29_041dc")
+mesh = SubResource("BoxMesh_45xp3")
+
 [node name="leg_3" type="Node3D" parent="."]
-transform = Transform3D(-0.707003, 0, -0.706986, 0, 1, 0, 0.706986, 0, -0.707003, -0.110306, 0.746748, 0.110315)
+transform = Transform3D(-0.706999, 0, -0.70699, 0, 1, 0, 0.70699, 0, -0.706999, -0.110306, 0.746748, 0.110315)
 script = ExtResource("12")
 hip_node_path = NodePath("../waist/hip_3_position")
 toe_node_path = NodePath("../toe_3_position")
@@ -958,7 +975,7 @@ a_off = 0.23
 a_m = 1.5
 
 [node name="hip_joint" type="Node3D" parent="leg_3"]
-transform = Transform3D(0.657797, 0.753195, 0, -0.753195, 0.657797, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(0.692819, 0.721112, 0, -0.721112, 0.692819, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Marker3D" type="Marker3D" parent="leg_3/hip_joint"]
 transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0)
@@ -971,7 +988,7 @@ polygon = PackedVector2Array(0, 0.08, 0, -0.08, 0.292, 0)
 depth = 0.15
 
 [node name="thigh_joint" type="Node3D" parent="leg_3/hip_joint"]
-transform = Transform3D(-0.494936, -0.86893, 0, 0.86893, -0.494936, 0, 0, 0, 1, 0.292, 0, 0)
+transform = Transform3D(-0.0605183, -0.998167, 0, 0.998167, -0.0605183, 0, 0, 0, 1, 0.292, 0, 0)
 
 [node name="polygon" type="CSGPolygon3D" parent="leg_3/hip_joint/thigh_joint"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.075)
@@ -980,7 +997,7 @@ polygon = PackedVector2Array(0, 0.08, 0, -0.08, 0.456, 0)
 depth = 0.15
 
 [node name="shin_joint" type="Node3D" parent="leg_3/hip_joint/thigh_joint"]
-transform = Transform3D(-0.852467, 0.52278, 0, -0.52278, -0.852467, 0, 0, 0, 1, 0.456, 0, 0)
+transform = Transform3D(-0.343625, 0.939107, 0, -0.939107, -0.343625, 0, 0, 0, 1, 0.456, 0, 0)
 
 [node name="polygon" type="CSGPolygon3D" parent="leg_3/hip_joint/thigh_joint/shin_joint"]
 transform = Transform3D(1, 1.49012e-08, 0, -1.49012e-08, 1, 1.49012e-08, 0, 1.49012e-08, 1, 0, 1.19209e-07, 0.075)
@@ -992,8 +1009,16 @@ depth = 0.15
 
 [node name="shin_piece" parent="leg_3/hip_joint/thigh_joint/shin_joint" instance=ExtResource("27_e85ym")]
 
+[node name="MeshInstance3D2" parent="leg_3/hip_joint/thigh_joint/shin_joint/shin_piece" index="10"]
+material_override = ExtResource("29_041dc")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="leg_3/hip_joint/thigh_joint/shin_joint/shin_piece"]
+transform = Transform3D(0.627709, -1.86265e-09, 3.72529e-08, -2.38419e-07, 0.0593482, -1.49012e-08, 0, 1.86265e-09, 0.175162, 0.395116, 0.191404, -2.68221e-07)
+material_override = ExtResource("29_041dc")
+mesh = SubResource("BoxMesh_45xp3")
+
 [node name="leg_4" type="Node3D" parent="."]
-transform = Transform3D(-0.706974, 0, 0.706981, 0, 1, 0, -0.706981, 0, -0.706974, -0.110306, 0.746748, -0.110302)
+transform = Transform3D(-0.706975, 0, 0.70698, 0, 1, 0, -0.70698, 0, -0.706975, -0.110306, 0.746748, -0.110302)
 script = ExtResource("12")
 hip_node_path = NodePath("../waist/hip_4_position")
 toe_node_path = NodePath("../toe_4_position")
@@ -1005,7 +1030,7 @@ a_off = -0.65
 a_m = -1.5
 
 [node name="hip_joint" type="Node3D" parent="leg_4"]
-transform = Transform3D(0.657797, 0.753195, 0, -0.753195, 0.657797, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(0.69282, 0.72111, 0, -0.72111, 0.69282, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Marker3D" type="Marker3D" parent="leg_4/hip_joint"]
 transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0)
@@ -1018,7 +1043,7 @@ polygon = PackedVector2Array(0, 0.08, 0, -0.08, 0.292, 0)
 depth = 0.15
 
 [node name="thigh_joint" type="Node3D" parent="leg_4/hip_joint"]
-transform = Transform3D(-0.494929, -0.868934, 0, 0.868934, -0.494929, 0, 0, 0, 1, 0.292, 0, 0)
+transform = Transform3D(-0.0605059, -0.998168, 0, 0.998168, -0.0605059, 0, 0, 0, 1, 0.292, 0, 0)
 
 [node name="polygon" type="CSGPolygon3D" parent="leg_4/hip_joint/thigh_joint"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.075)
@@ -1027,7 +1052,7 @@ polygon = PackedVector2Array(0, 0.08, 0, -0.08, 0.456, 0)
 depth = 0.15
 
 [node name="shin_joint" type="Node3D" parent="leg_4/hip_joint/thigh_joint"]
-transform = Transform3D(-0.85246, 0.522792, 0, -0.522792, -0.85246, 0, 0, 0, 1, 0.456, 0, 0)
+transform = Transform3D(-0.34361, 0.939113, 0, -0.939113, -0.34361, 0, 0, 0, 1, 0.456, 0, 0)
 
 [node name="polygon" type="CSGPolygon3D" parent="leg_4/hip_joint/thigh_joint/shin_joint"]
 transform = Transform3D(1, 1.49012e-08, 0, -1.49012e-08, 1, 1.49012e-08, 0, 1.49012e-08, 1, 0, 1.19209e-07, 0.075)
@@ -1040,44 +1065,48 @@ depth = 0.15
 [node name="shin_piece" parent="leg_4/hip_joint/thigh_joint/shin_joint" instance=ExtResource("27_e85ym")]
 
 [node name="toe_1_position" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.999997, 0, 0, 0, 1, 0.5, 0, -0.5)
+transform = Transform3D(-0.707107, 0, 0.707107, 0, 0.999997, 0, -0.707107, 0, -0.707107, 0.788956, 0, -0.788956)
 
-[node name="TravelPath" type="Node3D" parent="toe_1_position"]
-script = ExtResource("9")
-distance_threshold = 0.2
-max_points = 1000
-trail_colour = Color(0.133333, 0.94902, 0.968627, 0.521569)
-emission_multiplier = 0.65
+[node name="TrailRenderer" type="Node3D" parent="toe_1_position"]
+script = ExtResource("31_vf27f")
+width = 1.5
+width_curve = SubResource("Curve_p8t6a")
+rotation_constrain = NodePath("../../leg_1/hip_joint/thigh_joint/shin_joint/shin_piece")
+max_points = 60
+material = ExtResource("31_ggu4k")
 
 [node name="toe_2_position" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0.5)
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0.788956, 0, 0.788956)
 
-[node name="TravelPath" type="Node3D" parent="toe_2_position"]
-script = ExtResource("9")
-distance_threshold = 0.2
-max_points = 1000
-trail_colour = Color(0.133333, 0.94902, 0.968627, 0.521569)
-emission_multiplier = 0.5
+[node name="TrailRenderer" type="Node3D" parent="toe_2_position"]
+script = ExtResource("31_vf27f")
+width = 1.5
+width_curve = SubResource("Curve_p8t6a")
+rotation_constrain = NodePath("../../leg_2/hip_joint/thigh_joint/shin_joint/shin_piece")
+max_points = 60
+material = ExtResource("31_ggu4k")
 
 [node name="toe_3_position" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0.5)
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -0.788956, 0, 0.788956)
 
-[node name="TravelPath" type="Node3D" parent="toe_3_position"]
-script = ExtResource("9")
-distance_threshold = 0.2
-max_points = 1000
-trail_colour = Color(0.133333, 0.94902, 0.968627, 0.521569)
-emission_multiplier = 0.5
+[node name="TrailRenderer" type="Node3D" parent="toe_3_position"]
+script = ExtResource("31_vf27f")
+width = 1.5
+width_curve = SubResource("Curve_p8t6a")
+rotation_constrain = NodePath("../../leg_3/hip_joint/thigh_joint/shin_joint/shin_piece")
+max_points = 60
+material = ExtResource("31_ggu4k")
 
 [node name="toe_4_position" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -0.5)
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, -0.788956, 0, -0.788956)
 
-[node name="TravelPath" type="Node3D" parent="toe_4_position"]
-script = ExtResource("9")
-distance_threshold = 0.2
-max_points = 1000
-trail_colour = Color(0.133333, 0.94902, 0.968627, 0.521569)
-emission_multiplier = 0.5
+[node name="TrailRenderer" type="Node3D" parent="toe_4_position"]
+script = ExtResource("31_vf27f")
+width = 1.5
+width_curve = SubResource("Curve_p8t6a")
+rotation_constrain = NodePath("../../leg_4/hip_joint/thigh_joint/shin_joint/shin_piece")
+max_points = 60
+material = ExtResource("31_ggu4k")
 
 [node name="selection_dot" type="MeshInstance3D" parent="."]
 top_level = true
@@ -1095,3 +1124,6 @@ stream = SubResource("AudioStreamRandomizer_bjcud")
 [connection signal="area_exited" from="MeshInstance3D/dui_root/static_stack/radar_dots/Area3D" to="MeshInstance3D/dui_root/static_stack/radar_dots" method="_on_Area_area_exited"]
 [connection signal="body_entered" from="MeshInstance3D/dui_root/static_stack/radar_dots/Area3D" to="MeshInstance3D/dui_root/static_stack/radar_dots" method="_on_Area_body_entered"]
 [connection signal="body_exited" from="MeshInstance3D/dui_root/static_stack/radar_dots/Area3D" to="MeshInstance3D/dui_root/static_stack/radar_dots" method="_on_Area_body_exited"]
+
+[editable path="leg_2/hip_joint/thigh_joint/shin_joint/shin_piece"]
+[editable path="leg_3/hip_joint/thigh_joint/shin_joint/shin_piece"]

@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://bkqajubt82sua"]
+[gd_scene load_steps=11 format=3 uid="uid://bkqajubt82sua"]
 
 [ext_resource type="Material" uid="uid://cv0h7q41i3ipi" path="res://scenes/player/outer_colour.material" id="1_kxgeh"]
 [ext_resource type="Material" uid="uid://dxa6bqkp44exq" path="res://scenes/player/inner_colour.material" id="2_dmaqa"]
 [ext_resource type="Material" uid="uid://ctwj51j4w3ixf" path="res://scenes/player/red_glow.material" id="3_b3h6y"]
+[ext_resource type="Material" uid="uid://buuh2gqfxfxcs" path="res://scenes/player/hilite_colour.material" id="4_vgi51"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_wce7r"]
 
@@ -71,3 +72,8 @@ mesh = SubResource("QuadMesh_354ky")
 transform = Transform3D(0.046711, -0.0131807, -0.385813, -0.0461409, 0.0133406, -0.385799, 0.0664589, 0.0185262, 0.00331962, -0.625565, -0.0941015, 0.598615)
 material_override = ExtResource("3_b3h6y")
 mesh = SubResource("QuadMesh_354ky")
+
+[node name="MeshInstance3D12" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.565685, -0.565685, 0, 0.565685, 0.565685, 0, 0, 0, 0.214, 0, -0.20812, 0.677147)
+material_override = ExtResource("4_vgi51")
+mesh = SubResource("BoxMesh_odnhd")
