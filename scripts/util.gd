@@ -22,6 +22,10 @@ func is_f6(node:Node):
 # maths 
 # ------------------------------------------------------------------------------
 
+# compare equality between two floats, within e
+func near( f1 : float, f2 : float, e : float=0.01 ) -> bool:
+	return abs(f1 - f2) < e
+
 
 func remap_unclamped( f, start1, stop1, start2, stop2):
 	return start2 + (stop2 - start2) * ((f - start1) / (stop1 - start1))

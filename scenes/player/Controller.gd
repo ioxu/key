@@ -245,15 +245,16 @@ func _process(dt):
 #					current_vertical_speed = Vector3(0.0, max_jump, 0.0) + lateral_movement * 25 * dt
 #					is_airborne = true
 
-	hip_and_toes_movement()
+	hip_and_toes_movement(dt)
 
 
-func hip_and_toes_movement() -> void:
+func hip_and_toes_movement(delta) -> void:
 	# do springs and delay checked hip and toes motion
 
 	# IK hips and toes
 	var wo = waist_rotation_spring.calculate( waist.get_rotation().y,
-						lerp_angle(waist.get_rotation().y, meshinstance.get_rotation().y, 1.0)
+						lerp_angle(waist.get_rotation().y, meshinstance.get_rotation().y, 1.0),
+						delta
 						)
 
 	var curr_ry = wo
@@ -270,7 +271,7 @@ func hip_and_toes_movement() -> void:
 	var movement_v = movement * + 0.06 
 	var movement_v_norm = movement_v.normalized()
 
-	toes_waist_ry = toes_waist_ry_spring.calculate( toes_waist_ry, lerp_angle(toes_waist_ry, curr_ry, 1.0) )
+	toes_waist_ry = toes_waist_ry_spring.calculate( toes_waist_ry, lerp_angle(toes_waist_ry, curr_ry, 1.0), delta )
 
 	var t1p = toe_1_initial_position.rotated( Vector3.UP, toes_waist_ry )
 	var d1 = t1p.normalized().dot( movement_v_norm )
@@ -290,10 +291,10 @@ func hip_and_toes_movement() -> void:
 
 	var movement_v_y = movement_v.y * 0.35 # pure y component of movement_v, scaled and added anyway ..
 	
-	toe_1_node.transform.origin = Vector3(t1p.x, toes_ypos_spring.calculate( toe_1_node.transform.origin.y, t1p.y - movement_v_y ), t1p.z)
-	toe_2_node.transform.origin = Vector3(t2p.x, toes_ypos_spring.calculate( toe_2_node.transform.origin.y, t2p.y - movement_v_y ), t2p.z)
-	toe_3_node.transform.origin = Vector3(t3p.x, toes_ypos_spring.calculate( toe_3_node.transform.origin.y, t3p.y - movement_v_y ), t3p.z)
-	toe_4_node.transform.origin = Vector3(t4p.x, toes_ypos_spring.calculate( toe_4_node.transform.origin.y, t4p.y - movement_v_y ), t4p.z)
+	toe_1_node.transform.origin = Vector3(t1p.x, toes_ypos_spring.calculate( toe_1_node.transform.origin.y, t1p.y - movement_v_y, delta ), t1p.z)
+	toe_2_node.transform.origin = Vector3(t2p.x, toes_ypos_spring.calculate( toe_2_node.transform.origin.y, t2p.y - movement_v_y, delta ), t2p.z)
+	toe_3_node.transform.origin = Vector3(t3p.x, toes_ypos_spring.calculate( toe_3_node.transform.origin.y, t3p.y - movement_v_y, delta ), t3p.z)
+	toe_4_node.transform.origin = Vector3(t4p.x, toes_ypos_spring.calculate( toe_4_node.transform.origin.y, t4p.y - movement_v_y, delta ), t4p.z)
 
 	# bend knees checked waist rotation
 	var _dry = waist_ry_dt * waist_rotation_knee_roll
@@ -380,14 +381,9 @@ func _physics_process(dt):
 		co = camera_lookahead_direction_actual * camera_lookahead_factor_actual * CAMERA_LOOKAHEAD_DISTANCE
 	elif camera_interpolation_mode == CAMERA_LOOKAHEAD_INTERP_MODE.harmonic:
 		var target = camera_lookahead_direction * camera_lookahead_factor * camera_lookahead_external_factor * CAMERA_LOOKAHEAD_DISTANCE
-		#co = camera_lookahead_harmonic_motion.calculate_v3( camera_root.transform.origin, c_la_hv, target, camera_lookahead_harmonic_parms )
-		co = camera_lookahead_spring.calculate_v3( camera_root.transform.origin, target )
-		#c_la_hv = co[1]
-		#co = co[0]
+		co = camera_lookahead_spring.calculate_v3( camera_root.transform.origin, target, dt )
 
 	camera_root.transform.origin = co
-
-
 	additional_force = Vector3.ZERO
 
 

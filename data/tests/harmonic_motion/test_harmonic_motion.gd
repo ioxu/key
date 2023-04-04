@@ -13,7 +13,7 @@ func _ready():
 
 
 func _process(delta):
-	$Sprite2D.position = harmonic_motion.calculate_v2( $Sprite2D.position, $target_sprite.position )
+	$Sprite2D.position = harmonic_motion.calculate_v2( $Sprite2D.position, $target_sprite.position, delta )
 
 
 func set_damping_ratio(new_value):
