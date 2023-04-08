@@ -22,8 +22,8 @@ func _ready():
 		forwardees_nodes.append( get_node( n ) )
 		
 
-func _process(delta):
-	pass
+#func _process(delta):
+#	pass
 
 
 func _unhandled_input(event):
