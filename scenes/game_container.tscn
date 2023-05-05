@@ -31,11 +31,10 @@
 [ext_resource type="Texture2D" uid="uid://b4pq5etrsrhl5" path="res://data/icons/slowmo.png" id="28_kubyk"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_jxwvl"]
-exposure_multiplier = 0.65
+exposure_multiplier = 0.7
 auto_exposure_scale = 0.3
 auto_exposure_speed = 3.0
 dof_blur_far_distance = 12.0
-dof_blur_near_enabled = true
 dof_blur_near_distance = 5.0
 dof_blur_near_transition = 6.0
 dof_blur_amount = 0.16
@@ -243,6 +242,9 @@ physics_material_override = SubResource("PhysicsMaterial_fbvf4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel/big_ground/StaticBody3D"]
 shape = SubResource("BoxShape3D_emh35")
+
+[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel/big_ground"]
+size = Vector3(500, 1, 500)
 
 [node name="bollard-02-piece-02_01-01" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("2_3tqab")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.60137, 0, 4.2868)

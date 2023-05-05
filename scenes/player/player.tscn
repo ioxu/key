@@ -33,6 +33,7 @@
 [ext_resource type="Material" uid="uid://buuh2gqfxfxcs" path="res://scenes/player/hilite_colour.material" id="29_041dc"]
 [ext_resource type="AudioStream" uid="uid://chh0djf3klbp2" path="res://data/sfx/bubble-bursting-popping-14423_03.mp3" id="29_jytir"]
 [ext_resource type="AudioStream" uid="uid://vuqj6p7xu24h" path="res://data/sfx/bubble-bursting-popping-14423_04.mp3" id="30_hxi4b"]
+[ext_resource type="Curve" uid="uid://dolia2mpu1lln" path="res://scenes/player/foot_trail_width_curve.tres" id="31_axc7a"]
 [ext_resource type="Material" uid="uid://wo6cnl4jesj2" path="res://scenes/player/foot_trail_material.tres" id="31_ggu4k"]
 [ext_resource type="AudioStream" uid="uid://bdy1oecj0k026" path="res://data/sfx/bubble-bursting-popping-14423_05.mp3" id="31_gmrje"]
 [ext_resource type="Script" path="res://data/scripts/trail_mesh.gd" id="31_vf27f"]
@@ -102,7 +103,7 @@ custom_solver_bias = 0.1
 radius = 0.400569
 height = 2.21818
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_hs0kb"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_qbyj6"]
 resource_local_to_scene = true
 material = ExtResource("6")
 height = 0.2
@@ -128,7 +129,7 @@ emission_enabled = true
 emission = Color(0.0666667, 0.733333, 0.282353, 1)
 emission_energy_multiplier = 2.0
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_hpll5"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_ultas"]
 
 [sub_resource type="Shader" id="Shader_dbc6n"]
 code = "// NOTE: Shader automatically converted from Godot Engine 3.4.stable's StandardMaterial3D.
@@ -235,7 +236,7 @@ albedo_color = Color(0.878431, 0.643137, 0, 0.105882)
 emission_enabled = true
 emission = Color(0.878431, 0.643137, 0, 1)
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_cw7ow"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_klna4"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eg8ui"]
 transparency = 1
@@ -243,7 +244,7 @@ albedo_color = Color(0.878431, 0.643137, 0, 0.270588)
 emission_enabled = true
 emission = Color(0.878431, 0.643137, 0, 1)
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_n6sn1"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_yailt"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_bhafh"]
 viewport_path = NodePath("MeshInstance3D/dui_root/viewports/options/options_viewport")
@@ -369,7 +370,7 @@ emission_enabled = true
 emission = Color(0.101961, 0.52549, 0.576471, 1)
 emission_energy_multiplier = 2.0
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_4rrhx"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_hug0c"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_28gfg"]
 transparency = 1
@@ -379,7 +380,7 @@ emission_enabled = true
 emission = Color(0, 0.419608, 0.878431, 1)
 emission_energy_multiplier = 2.0
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_64g4y"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_26yay"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lr0op"]
 transparency = 1
@@ -389,7 +390,7 @@ emission_enabled = true
 emission = Color(0.729412, 0.0117647, 0.203922, 1)
 emission_energy_multiplier = 3.0
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_fmnlv"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_2sal5"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lq3ky"]
 albedo_color = Color(0.796078, 0.0784314, 0.231373, 1)
@@ -397,7 +398,7 @@ emission_enabled = true
 emission = Color(0.890196, 0.129412, 0.27451, 1)
 emission_energy_multiplier = 2.0
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_ej2u7"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_owuqd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_47hil"]
 transparency = 2
@@ -418,7 +419,7 @@ size = Vector2(0.2, 1)
 transparency = 1
 shading_mode = 0
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_k3tj2"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_1cjd5"]
 
 [sub_resource type="GDScript" id="GDScript_vkpuo"]
 script/source = "extends Node3D
@@ -451,11 +452,6 @@ bottom_radius = 0.2
 height = 0.077
 
 [sub_resource type="BoxMesh" id="BoxMesh_45xp3"]
-
-[sub_resource type="Curve" id="Curve_p8t6a"]
-bake_resolution = 20
-_data = [Vector2(0.0122985, 0.981519), 0.0, -0.130749, 0, 0, Vector2(0.385998, 0.786448), -0.856749, -0.856749, 0, 0, Vector2(1, 0), -0.652677, 0.0, 0, 0]
-point_count = 3
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_158j2"]
 emission_enabled = true
@@ -524,7 +520,7 @@ transform = Transform3D(1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, -0.
 
 [node name="hurt_meter" parent="MeshInstance3D" instance=ExtResource("7")]
 transform = Transform3D(0.5, 0, 0, 0, -3.27835e-08, 0.5, 0, -0.75, -2.18557e-08, 0, -2.84217e-14, 0.858)
-mesh = SubResource("CylinderMesh_hs0kb")
+mesh = SubResource("CylinderMesh_qbyj6")
 
 [node name="dui_root" type="Node3D" parent="MeshInstance3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.69631e-07, -1.04118)
@@ -581,7 +577,7 @@ mesh = SubResource("QuadMesh_g7864")
 
 [node name="LineRenderer" parent="MeshInstance3D/dui_root/static_stack/inventory_items/weapons_items/selector/selector_icon" instance=ExtResource("10")]
 material_override = SubResource("StandardMaterial3D_t5gsu")
-mesh = SubResource("ImmediateMesh_hpll5")
+mesh = SubResource("ImmediateMesh_ultas")
 points = [Vector3(0, 0, 0), Vector3(0, 0, -1.584)]
 startThickness = 0.2
 endThickness = 0.2
@@ -631,7 +627,7 @@ transform = Transform3D(0.2, 0, 0, 0, -8.74228e-09, 0.2, 0, -0.2, -8.74228e-09, 
 
 [node name="full_arc" parent="MeshInstance3D/dui_root/static_stack/magazine" instance=ExtResource("10")]
 material_override = SubResource("StandardMaterial3D_0b2xv")
-mesh = SubResource("ImmediateMesh_cw7ow")
+mesh = SubResource("ImmediateMesh_klna4")
 startThickness = 0.075
 endThickness = 0.075
 drawCaps = false
@@ -640,7 +636,7 @@ globalCoords = false
 [node name="count" parent="MeshInstance3D/dui_root/static_stack/magazine" instance=ExtResource("10")]
 transform = Transform3D(0.999716, 0, 0, 0, 0.999716, 0, 0, 0, 0.999716, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_eg8ui")
-mesh = SubResource("ImmediateMesh_n6sn1")
+mesh = SubResource("ImmediateMesh_yailt")
 startThickness = 0.075
 endThickness = 0.075
 globalCoords = false
@@ -735,7 +731,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_ymbpb")
 [node name="inventory_ring" parent="MeshInstance3D/dui_root" instance=ExtResource("10")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
 material_override = SubResource("StandardMaterial3D_1gh27")
-mesh = SubResource("ImmediateMesh_4rrhx")
+mesh = SubResource("ImmediateMesh_hug0c")
 points = [Vector3(0, 0, 0), Vector3(0, 0.01, 0)]
 startThickness = 0.02
 endThickness = 0.02
@@ -745,7 +741,7 @@ globalCoords = false
 [node name="LineRenderer" parent="MeshInstance3D/dui_root/inventory_ring" instance=ExtResource("10")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.548)
 material_override = SubResource("StandardMaterial3D_28gfg")
-mesh = SubResource("ImmediateMesh_64g4y")
+mesh = SubResource("ImmediateMesh_26yay")
 points = [Vector3(0, 0, 0), Vector3(0, 0, 0.5)]
 startThickness = 0.05
 endThickness = 0.05
@@ -754,7 +750,7 @@ globalCoords = false
 [node name="weapons_ring" parent="MeshInstance3D/dui_root" instance=ExtResource("10")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
 material_override = SubResource("StandardMaterial3D_lr0op")
-mesh = SubResource("ImmediateMesh_fmnlv")
+mesh = SubResource("ImmediateMesh_2sal5")
 points = [Vector3(0, 0, 0), Vector3(0, 0.1, 0)]
 startThickness = 0.05
 endThickness = 0.05
@@ -764,7 +760,7 @@ globalCoords = false
 [node name="LineRenderer" parent="MeshInstance3D/dui_root/weapons_ring" instance=ExtResource("10")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.276)
 material_override = SubResource("StandardMaterial3D_lq3ky")
-mesh = SubResource("ImmediateMesh_ej2u7")
+mesh = SubResource("ImmediateMesh_owuqd")
 points = [Vector3(0, 0, 0), Vector3(0, 0, 0.222)]
 startThickness = 0.03
 endThickness = 0.0
@@ -776,7 +772,7 @@ mesh = SubResource("QuadMesh_w5vsp")
 
 [node name="options_ring" parent="MeshInstance3D/dui_root" instance=ExtResource("10")]
 material_override = SubResource("StandardMaterial3D_34h2k")
-mesh = SubResource("ImmediateMesh_k3tj2")
+mesh = SubResource("ImmediateMesh_1cjd5")
 points = [Vector3(0, 0, 0), Vector3(0, 0.1, 0)]
 startThickness = 0.08
 endThickness = 0.08
@@ -1070,10 +1066,12 @@ transform = Transform3D(-0.707107, 0, 0.707107, 0, 0.999997, 0, -0.707107, 0, -0
 [node name="TrailRenderer" type="Node3D" parent="toe_1_position"]
 script = ExtResource("31_vf27f")
 width = 1.5
-width_curve = SubResource("Curve_p8t6a")
+width_curve = ExtResource("31_axc7a")
 rotation_constrain = NodePath("../../leg_1/hip_joint/thigh_joint/shin_joint/shin_piece")
+distance_step = 0.5
 max_points = 60
 material = ExtResource("31_ggu4k")
+draw_debug = false
 
 [node name="toe_2_position" type="Marker3D" parent="."]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0.788956, 0, 0.788956)
@@ -1081,10 +1079,12 @@ transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 
 [node name="TrailRenderer" type="Node3D" parent="toe_2_position"]
 script = ExtResource("31_vf27f")
 width = 1.5
-width_curve = SubResource("Curve_p8t6a")
+width_curve = ExtResource("31_axc7a")
 rotation_constrain = NodePath("../../leg_2/hip_joint/thigh_joint/shin_joint/shin_piece")
+distance_step = 0.5
 max_points = 60
 material = ExtResource("31_ggu4k")
+draw_debug = false
 
 [node name="toe_3_position" type="Marker3D" parent="."]
 transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -0.788956, 0, 0.788956)
@@ -1092,10 +1092,12 @@ transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 
 [node name="TrailRenderer" type="Node3D" parent="toe_3_position"]
 script = ExtResource("31_vf27f")
 width = 1.5
-width_curve = SubResource("Curve_p8t6a")
+width_curve = ExtResource("31_axc7a")
 rotation_constrain = NodePath("../../leg_3/hip_joint/thigh_joint/shin_joint/shin_piece")
+distance_step = 0.5
 max_points = 60
 material = ExtResource("31_ggu4k")
+draw_debug = false
 
 [node name="toe_4_position" type="Marker3D" parent="."]
 transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, -0.788956, 0, -0.788956)
@@ -1103,10 +1105,12 @@ transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107
 [node name="TrailRenderer" type="Node3D" parent="toe_4_position"]
 script = ExtResource("31_vf27f")
 width = 1.5
-width_curve = SubResource("Curve_p8t6a")
+width_curve = ExtResource("31_axc7a")
 rotation_constrain = NodePath("../../leg_4/hip_joint/thigh_joint/shin_joint/shin_piece")
+distance_step = 0.5
 max_points = 60
 material = ExtResource("31_ggu4k")
+draw_debug = false
 
 [node name="selection_dot" type="MeshInstance3D" parent="."]
 top_level = true

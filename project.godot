@@ -219,6 +219,7 @@ debug_pause={
 
 [physics]
 
+common/physics_ticks_per_second=120
 3d/physics_engine="GodotPhysics3D"
 
 [rendering]
