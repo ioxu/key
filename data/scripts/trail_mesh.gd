@@ -121,7 +121,7 @@ func _ready() -> void:
 
 
 func _on_main_timer_timeout() -> void:
-	print("   .. TrailRenderer: main_timer %s (%0.2f)"%[ main_timer_count ,life_time] )
+	#print("   .. TrailRenderer: main_timer %s (%0.2f)"%[ main_timer_count ,life_time] )
 	add_point()
 
 func _physics_process(delta):

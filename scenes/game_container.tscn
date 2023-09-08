@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://dfja1ypquymuq"]
+[gd_scene load_steps=51 format=3 uid="uid://dfja1ypquymuq"]
 
 [ext_resource type="Script" path="res://scenes/game_container.gd" id="1_wiwqp"]
 [ext_resource type="Environment" uid="uid://bpjcaw3kf0iff" path="res://scenes/game_container_world_environment.tres" id="1_y11v7"]
@@ -138,6 +138,13 @@ corner_radius_bottom_left = 2
 [sub_resource type="Theme" id="Theme_qe600"]
 PopupMenu/font_sizes/font_size = 12
 PopupMenu/fonts/font = ExtResource("6_tp6qh")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r0g5p"]
+bg_color = Color(0.835294, 0.835294, 0.835294, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yl5wy"]
 bg_color = Color(0.14902, 0.235294, 0.403922, 0.878431)
@@ -981,6 +988,7 @@ size_flags_horizontal = 3
 texture_filter = 4
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
+tooltip_text = "play in relatime"
 texture_normal = ExtResource("26_fgyyy")
 ignore_texture_size = true
 stretch_mode = 0
@@ -993,6 +1001,7 @@ size_flags_horizontal = 3
 texture_filter = 4
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
+tooltip_text = "play in slowmotion"
 texture_normal = ExtResource("28_kubyk")
 ignore_texture_size = true
 stretch_mode = 0
@@ -1005,6 +1014,7 @@ size_flags_horizontal = 3
 texture_filter = 4
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
+tooltip_text = "pause playback"
 texture_normal = ExtResource("27_ds235")
 ignore_texture_size = true
 stretch_mode = 0
@@ -1012,6 +1022,28 @@ stretch_mode = 0
 [node name="Control" type="Control" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/graphics_settings_container/VBoxContainer/timecontrol_PanelContainer/MarginContainer2/VBoxContainer/time_control_buttons"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="PanelContainer3" type="PanelContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_r0g5p")
+
+[node name="MarginContainer2" type="MarginContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer3"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="hotkeys_hints_label" type="Label" parent="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer3/MarginContainer2"]
+self_modulate = Color(0.380392, 0.380392, 0.380392, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_tp6qh")
+theme_override_font_sizes/font_size = 10
+text = "Ctrl-F : fly-cam mode
+Escape : show debug overlay"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ui_debug_menu/MarginContainer/VBoxContainer"]
 layout_mode = 2
