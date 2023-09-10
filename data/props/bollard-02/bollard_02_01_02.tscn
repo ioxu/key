@@ -1,6 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://cf7ledivriici"]
+[gd_scene load_steps=14 format=3 uid="uid://cf7ledivriici"]
 
 [ext_resource type="PackedScene" uid="uid://cx508bm78kkk6" path="res://data/props/bollard-02/bollard-02_01-02.glb" id="1_417ky"]
+[ext_resource type="Material" uid="uid://bautitq2orwet" path="res://data/materials/flat_orange.material" id="2_137jt"]
 [ext_resource type="Texture2D" uid="uid://cfhoatlr2l6b7" path="res://data/props/bollard-02/bollard-02_01-02_yellow_BaseColor.png" id="2_cwjgt"]
 [ext_resource type="Texture2D" uid="uid://dkoo8i23bdojt" path="res://data/props/bollard-02/bollard-02_01-02_yellow_Metallic.png" id="3_ieo8x"]
 [ext_resource type="Texture2D" uid="uid://cn5853h63u4eg" path="res://data/props/bollard-02/bollard-02_01-02_yellow_Normal.png" id="4_8qni8"]
@@ -39,6 +40,8 @@ radius = 0.553709
 [node name="bollard-02_01-02" instance=ExtResource("1_417ky")]
 
 [node name="bollar-02" parent="." index="0"]
+layers = 4
+material_override = ExtResource("2_137jt")
 surface_material_override/0 = SubResource("StandardMaterial3D_3if7c")
 surface_material_override/1 = SubResource("StandardMaterial3D_1d3p4")
 

@@ -1,13 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://dgp4tdmym4d0f"]
 
 [ext_resource type="PackedScene" uid="uid://ka2dye8ywnfr" path="res://data/props/ground-cylinder-01/ground-cylinder-01.gltf" id="1_71adl"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kgd0n"]
-albedo_color = Color(0.466667, 0.466667, 0.466667, 1)
-roughness = 0.47
+[ext_resource type="Material" uid="uid://bautitq2orwet" path="res://data/materials/flat_orange.material" id="2_wd7ya"]
 
 [node name="ground-cylinder-01" instance=ExtResource("1_71adl")]
 
 [node name="ground-cylinder-012" parent="." index="0"]
 layers = 4
-material_override = SubResource("StandardMaterial3D_kgd0n")
+material_override = ExtResource("2_wd7ya")

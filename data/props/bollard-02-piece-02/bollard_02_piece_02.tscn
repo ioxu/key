@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://b330s652jv5y8"]
+[gd_scene load_steps=9 format=3 uid="uid://b330s652jv5y8"]
 
 [ext_resource type="PackedScene" uid="uid://ds67p2su5q2yy" path="res://data/props/bollard-02-piece-02/bollard-02-piece-02_01-01.gltf" id="1_4p2p6"]
 [ext_resource type="Texture2D" uid="uid://dj4qc5vmgih24" path="res://data/props/bollard-02-piece-02/textures/bollard-02-piece-02_01-01_bollard-02-piece-02_BaseColor.png" id="2_5mpsb"]
 [ext_resource type="Texture2D" uid="uid://d0l7823g17kng" path="res://data/props/bollard-02-piece-02/textures/bollard-02-piece-02_01-01_bollard-02-piece-02_Metallic.png" id="3_lcwrd"]
 [ext_resource type="Texture2D" uid="uid://c124jfknjb36f" path="res://data/props/bollard-02-piece-02/textures/bollard-02-piece-02_01-01_bollard-02-piece-02_Normal.png" id="4_lxdo4"]
 [ext_resource type="Texture2D" uid="uid://cinl3k5n2slox" path="res://data/props/bollard-02-piece-02/textures/bollard-02-piece-02_01-01_bollard-02-piece-02_Roughness.png" id="5_61lun"]
+[ext_resource type="Material" uid="uid://bautitq2orwet" path="res://data/materials/flat_orange.material" id="6_71n57"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ki2dr"]
 albedo_texture = ExtResource("2_5mpsb")
@@ -21,7 +22,9 @@ radius = 0.53904
 [node name="bollard-02-piece-02_01-01" instance=ExtResource("1_4p2p6")]
 
 [node name="bollard-02-piece-02001" parent="." index="0"]
+layers = 4
 material_override = SubResource("StandardMaterial3D_ki2dr")
+material_overlay = ExtResource("6_71n57")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="bollard-02-piece-02001" index="0"]
 collision_layer = 2

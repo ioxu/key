@@ -21,7 +21,6 @@ tonemap_mode = 3
 ssr_enabled = true
 ssao_enabled = true
 ssao_radius = 3.0
-ssao_intensity = 5.0
 ssao_power = 2.61165
 ssao_detail = 1.5
 ssao_horizon = 0.04

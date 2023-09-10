@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://dfja1ypquymuq"]
+[gd_scene load_steps=55 format=3 uid="uid://dfja1ypquymuq"]
 
 [ext_resource type="Script" path="res://scenes/game_container.gd" id="1_wiwqp"]
 [ext_resource type="Environment" uid="uid://bpjcaw3kf0iff" path="res://scenes/game_container_world_environment.tres" id="1_y11v7"]
@@ -15,9 +15,12 @@
 [ext_resource type="Script" path="res://scenes/ViewportDisplay.gd" id="7_7rcxx"]
 [ext_resource type="Texture2D" uid="uid://i4wkypqrg2n7" path="res://thumbnail.png" id="7_byq4e"]
 [ext_resource type="PackedScene" uid="uid://tdb0k2qul66x" path="res://data/props/ground-channel-01/ground-channel-01.tscn" id="8_c7ktd"]
+[ext_resource type="Texture2D" uid="uid://bfq83nyvc2kax" path="res://data/textures/circle_01.png" id="10_7bjbj"]
 [ext_resource type="Texture2D" uid="uid://q50te0v1ajna" path="res://data/icons/settings.png" id="10_ac0lg"]
 [ext_resource type="Texture2D" uid="uid://bv6r7c4twvb5c" path="res://data/textures/key-title_paint_01-02_ORM.png" id="10_na3cv"]
 [ext_resource type="Script" path="res://scenes/ui_debug_menu.gd" id="10_od7cn"]
+[ext_resource type="Texture2D" uid="uid://dfpxnqeel06ik" path="res://data/textures/grad-y-transp.png" id="11_2qgas"]
+[ext_resource type="Texture2D" uid="uid://c7u3e0083xdqm" path="res://data/textures/cross_pips_diag.png" id="11_a5cw2"]
 [ext_resource type="PackedScene" uid="uid://bg8g5pyvqq0y3" path="res://data/props/shell-barrier-01/shell-barrier-01.tscn" id="11_krqou"]
 [ext_resource type="Script" path="res://scenes/resolutions_display_panel.gd" id="11_udo4q"]
 [ext_resource type="Script" path="res://scenes/renderingServer_info_display_panel.gd" id="12_dllqf"]
@@ -29,6 +32,7 @@
 [ext_resource type="Texture2D" uid="uid://sghgmm4aa78j" path="res://data/icons/play-button_oline.png" id="26_fgyyy"]
 [ext_resource type="Texture2D" uid="uid://rjxk6fyvmc8q" path="res://data/icons/pause_button_oline.png" id="27_ds235"]
 [ext_resource type="Texture2D" uid="uid://b4pq5etrsrhl5" path="res://data/icons/slowmo.png" id="28_kubyk"]
+[ext_resource type="PackedScene" uid="uid://b5k2xp5wccy5q" path="res://data/props/bollard-retracted-01/bollard_retracted_01.tscn" id="30_vfdb0"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_jxwvl"]
 exposure_multiplier = 0.7
@@ -282,8 +286,68 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.3641
 [node name="ground-channel-01" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("8_c7ktd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.002964)
 
+[node name="Decal3" type="Decal" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel"]
+transform = Transform3D(0.901751, 0, -0.998794, 0, 1.34564, 0, 0.998794, 0, 0.901751, 0.176192, -0.0775251, 0.19178)
+layers = 2
+texture_albedo = ExtResource("10_7bjbj")
+albedo_mix = 0.55
+cull_mask = 4
+
+[node name="Decal_grad" type="Decal" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel"]
+transform = Transform3D(8.17561e-07, -5.92785, 5.14219e-15, 2.72521e-07, 1.13263e-14, -1.34564, 6.23454, 7.77344e-07, 5.88197e-08, 0.887532, 1.76281, 0.184295)
+layers = 2
+sorting_offset = -10.0
+size = Vector3(2, 2, 1.98116)
+texture_albedo = ExtResource("11_2qgas")
+modulate = Color(0.352941, 0, 0.152941, 1)
+cull_mask = 4
+
+[node name="Decal4" type="Decal" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel"]
+transform = Transform3D(1.40858, 0, -1.56017, 0, 2.10196, 0, 1.56017, 0, 1.40858, 0.176192, -0.0775251, 0.19178)
+layers = 2
+texture_albedo = ExtResource("10_7bjbj")
+albedo_mix = 0.55
+cull_mask = 4
+
+[node name="Decal5" type="Decal" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel"]
+transform = Transform3D(-0.11057, 0, -2.16546, 0, 2.16828, 0, 2.16546, 0, -0.11057, 0.176192, -0.0775251, 0.19178)
+layers = 2
+texture_albedo = ExtResource("11_a5cw2")
+albedo_mix = 0.55
+cull_mask = 4
+
+[node name="Decal6" type="Decal" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel"]
+transform = Transform3D(3.84156e-08, 0.292949, 1.11947e-15, -1.28052e-08, 5.59733e-16, 0.292949, 0.292949, -3.84156e-08, 1.28052e-08, -2.12306, 2.28424, 2.0625)
+layers = 2
+texture_albedo = ExtResource("11_a5cw2")
+albedo_mix = 0.55
+cull_mask = 4
+
+[node name="Decal7" type="Decal" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel"]
+transform = Transform3D(3.84156e-08, 0.292949, 1.11947e-15, -1.28052e-08, 5.59733e-16, 0.292949, 0.292949, -3.84156e-08, 1.28052e-08, -2.12306, 2.28424, 4.24961)
+layers = 2
+texture_albedo = ExtResource("11_a5cw2")
+albedo_mix = 0.55
+cull_mask = 4
+
+[node name="Decal8" type="Decal" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel"]
+transform = Transform3D(7.21921e-09, 0.0550521, 2.10374e-16, -2.4064e-09, 1.05187e-16, 0.0550521, 0.0550521, -7.21921e-09, 2.4064e-09, -2.12306, 0.980816, 1.73249)
+layers = 2
+texture_albedo = ExtResource("28_kubyk")
+albedo_mix = 0.55
+cull_mask = 4
+
+[node name="Decal10" type="Decal" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel"]
+transform = Transform3D(3.30702e-07, 1.03881, 9.48636e-15, -1.10234e-07, 1.98484e-15, 2.48245, 2.52186, -1.36223e-07, 1.08511e-07, -0.279021, 2.98813, -0.583381)
+layers = 2
+size = Vector3(2, 16.4488, 2)
+texture_albedo = ExtResource("27_ds235")
+albedo_mix = 0.55
+cull_mask = 4
+
 [node name="Decal2" type="Decal" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel"]
 transform = Transform3D(4.53864, 0, -5.02707, 0, 6.77279, 0, 5.02707, 0, 4.53864, -0.388541, 0.942528, 3.81735)
+visible = false
 layers = 2
 texture_albedo = ExtResource("5_eogxw")
 texture_orm = ExtResource("10_na3cv")
@@ -292,12 +356,14 @@ cull_mask = 4
 
 [node name="Decal" type="Decal" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel"]
 transform = Transform3D(-5.4895, 0, -3.96687, 0, 6.77279, 0, 3.96687, 0, -5.4895, 1.90989, 0.942528, 6.38092)
+visible = false
 layers = 2
 texture_albedo = ExtResource("5_eogxw")
 texture_orm = ExtResource("10_na3cv")
 cull_mask = 4
 
 [node name="shell-barrier-01" parent="SubViewportContainer/SubViewport/level_hook/Node3D/DefaultLevel" instance=ExtResource("11_krqou")]
+visible = false
 
 [node name="player" parent="SubViewportContainer/SubViewport/level_hook/Node3D" instance=ExtResource("5_3yb2w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.265419, 0, 0.259204)
@@ -1078,6 +1144,15 @@ text = "debug"
 
 [node name="ui_menu" type="Node" parent="."]
 process_mode = 3
+
+[node name="bollard_retracted_01" parent="." instance=ExtResource("30_vfdb0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.156963, 0.564548)
+
+[node name="bollard_retracted_02" parent="." instance=ExtResource("30_vfdb0")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.156963, 4.13155)
+
+[node name="bollard_retracted_03" parent="." instance=ExtResource("30_vfdb0")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.156963, 2.56983)
 
 [connection signal="pressed" from="ui_starting_menu/Control/HBoxContainer/CenterContainer/VBoxContainer/new_game_button" to="ui_starting_menu" method="_on_new_game_button_pressed"]
 [connection signal="pressed" from="ui_starting_menu/Control/HBoxContainer/CenterContainer/VBoxContainer/quit_button" to="ui_starting_menu" method="_on_quit_button_pressed"]

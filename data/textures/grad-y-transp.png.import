@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b4pq5etrsrhl5"
-path.s3tc="res://.godot/imported/slowmo.png-8268c65c2797d8e9a8af644376b6908f.s3tc.ctex"
+uid="uid://dfpxnqeel06ik"
+path.s3tc="res://.godot/imported/grad-y-transp.png-11969670275188b79cc4c35e72eccb11.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://data/icons/slowmo.png"
-dest_files=["res://.godot/imported/slowmo.png-8268c65c2797d8e9a8af644376b6908f.s3tc.ctex"]
+source_file="res://data/textures/grad-y-transp.png"
+dest_files=["res://.godot/imported/grad-y-transp.png-11969670275188b79cc4c35e72eccb11.s3tc.ctex"]
 
 [params]
 

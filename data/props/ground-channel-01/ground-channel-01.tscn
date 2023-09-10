@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://tdb0k2qul66x"]
+[gd_scene load_steps=8 format=3 uid="uid://tdb0k2qul66x"]
 
 [ext_resource type="PackedScene" uid="uid://d3u1vlepcpmow" path="res://data/props/ground-channel-01/ground-channel-01.gltf" id="1_bk5do"]
 [ext_resource type="Texture2D" uid="uid://c8ebiixsbqrow" path="res://data/props/ground-channel-01/ground-channel-01_DefaultMaterial_BaseColor.png" id="2_n0dng"]
 [ext_resource type="Texture2D" uid="uid://dpn4tla4vssx2" path="res://data/props/ground-channel-01/ground-channel-01_DefaultMaterial_Metallic.png" id="3_0saxi"]
 [ext_resource type="Texture2D" uid="uid://bw7p5gjuxfjyk" path="res://data/props/ground-channel-01/ground-channel-01_DefaultMaterial_Normal.png" id="4_ill1n"]
 [ext_resource type="Texture2D" uid="uid://daq8eaoki41ey" path="res://data/props/ground-channel-01/ground-channel-01_DefaultMaterial_Roughness.png" id="5_0w6u0"]
+[ext_resource type="Material" uid="uid://bautitq2orwet" path="res://data/materials/flat_orange.material" id="6_h0vvw"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sho0u"]
 albedo_texture = ExtResource("2_n0dng")
@@ -17,6 +18,7 @@ normal_texture = ExtResource("4_ill1n")
 [node name="ground-channel-01" instance=ExtResource("1_bk5do")]
 
 [node name="ground-channel-012" parent="." index="0"]
-layers = 8
+layers = 4
 material_override = SubResource("StandardMaterial3D_sho0u")
+material_overlay = ExtResource("6_h0vvw")
 lod_bias = 2.0

@@ -1,0 +1,15 @@
+[gd_resource type="StandardMaterial3D" load_steps=5 format=3 uid="uid://bwrgw5jmjxcov"]
+
+[ext_resource type="Texture2D" uid="uid://bsxutq2otnyh7" path="res://data/props/shell-barrier-01/shell-barrier-01_DefaultMaterial_BaseColor.png" id="1_5af4v"]
+[ext_resource type="Texture2D" uid="uid://d35d4oc1ig58d" path="res://data/props/shell-barrier-01/shell-barrier-01_DefaultMaterial_Metallic.png" id="2_xbrsn"]
+[ext_resource type="Texture2D" uid="uid://bk7ecmijs8qfb" path="res://data/props/shell-barrier-01/shell-barrier-01_DefaultMaterial_Normal.png" id="3_v0f3b"]
+[ext_resource type="Texture2D" uid="uid://cop2kor24v6i3" path="res://data/props/shell-barrier-01/shell-barrier-01_DefaultMaterial_Roughness.png" id="4_bma35"]
+
+[resource]
+cull_mode = 2
+albedo_texture = ExtResource("1_5af4v")
+metallic = 1.0
+metallic_texture = ExtResource("2_xbrsn")
+roughness_texture = ExtResource("4_bma35")
+normal_enabled = true
+normal_texture = ExtResource("3_v0f3b")

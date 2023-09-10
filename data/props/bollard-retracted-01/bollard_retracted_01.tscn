@@ -1,0 +1,39 @@
+[gd_scene load_steps=10 format=3 uid="uid://b5k2xp5wccy5q"]
+
+[ext_resource type="PackedScene" uid="uid://blv5sxplcscfy" path="res://data/props/bollard-retracted-01/bollard_retracted_01.gltf" id="1_dcih8"]
+[ext_resource type="Material" uid="uid://bautitq2orwet" path="res://data/materials/flat_orange.material" id="2_7j8xl"]
+[ext_resource type="Texture2D" uid="uid://bihtvfqrobac8" path="res://data/props/bollard-01/bollard-01_01-01_Material.001_BaseColor.png" id="2_foc6g"]
+[ext_resource type="Texture2D" uid="uid://cqjjyosg0alig" path="res://data/props/bollard-01/bollard-01_01-01_Material.001_Metallic.png" id="3_48gjd"]
+[ext_resource type="Texture2D" uid="uid://c2vqh3y2n4cy5" path="res://data/props/bollard-01/bollard-01_01-01_Material.001_Normal.png" id="4_ryaw8"]
+[ext_resource type="Texture2D" uid="uid://bkj3s3x5kge24" path="res://data/props/bollard-01/bollard-01_01-01_Material.001_Roughness.png" id="5_uaay4"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_na7tm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cmnp2"]
+albedo_texture = ExtResource("2_foc6g")
+metallic = 1.0
+metallic_texture = ExtResource("3_48gjd")
+roughness_texture = ExtResource("5_uaay4")
+normal_enabled = true
+normal_texture = ExtResource("4_ryaw8")
+heightmap_scale = 1.332
+heightmap_deep_parallax = true
+heightmap_min_layers = 8
+heightmap_max_layers = 32
+heightmap_texture = SubResource("CompressedTexture2D_na7tm")
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_2cmya"]
+height = 2.81186
+radius = 0.771944
+
+[node name="bollard_retracted_01" instance=ExtResource("1_dcih8")]
+
+[node name="bollard-01-retracted" parent="." index="0"]
+material_override = ExtResource("2_7j8xl")
+surface_material_override/0 = SubResource("StandardMaterial3D_cmnp2")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.32394, 0)
+shape = SubResource("CylinderShape3D_2cmya")
