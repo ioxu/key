@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://dfja1ypquymuq"]
+[gd_scene load_steps=56 format=3 uid="uid://dfja1ypquymuq"]
 
 [ext_resource type="Script" path="res://scenes/game_container.gd" id="1_wiwqp"]
 [ext_resource type="Environment" uid="uid://bpjcaw3kf0iff" path="res://scenes/game_container_world_environment.tres" id="1_y11v7"]
@@ -81,6 +81,9 @@ size = Vector3(500, 1, 500)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_x2aue"]
 shader = ExtResource("5_7wl8l")
 shader_parameter/do_invert = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qll4n"]
+bg_color = Color(0.878431, 0.878431, 0.878431, 0.6)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cjn2m"]
 bg_color = Color(0, 0, 0, 0.247059)
@@ -417,10 +420,15 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Control" type="Control" parent="ui_starting_menu/Control/HBoxContainer/CenterContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="ui_starting_menu/Control/HBoxContainer/CenterContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qll4n")
+
+[node name="Control" type="Control" parent="ui_starting_menu/Control/HBoxContainer/CenterContainer/PanelContainer"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="ui_starting_menu/Control/HBoxContainer/CenterContainer/Control"]
+[node name="TextureRect" type="TextureRect" parent="ui_starting_menu/Control/HBoxContainer/CenterContainer/PanelContainer/Control"]
+visible = false
 modulate = Color(0.0117647, 0.247059, 0.282353, 0.796078)
 custom_minimum_size = Vector2(300, 450)
 layout_mode = 2
@@ -432,38 +440,51 @@ scale = Vector2(1.2, 1)
 texture = ExtResource("17_yafay")
 expand_mode = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ui_starting_menu/Control/HBoxContainer/CenterContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ui_starting_menu/Control/HBoxContainer/CenterContainer/PanelContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TextureRect" type="TextureRect" parent="ui_starting_menu/Control/HBoxContainer/CenterContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="ui_starting_menu/Control/HBoxContainer/CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_right = 40
+
+[node name="Label" type="Label" parent="ui_starting_menu/Control/HBoxContainer/CenterContainer/PanelContainer/VBoxContainer/MarginContainer"]
+self_modulate = Color(0.458824, 0.458824, 0.458824, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "KEY"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="ui_starting_menu/Control/HBoxContainer/CenterContainer/PanelContainer/VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(200, 150)
 layout_mode = 2
 texture = ExtResource("5_eogxw")
 expand_mode = 1
 
-[node name="new_game_button" type="Button" parent="ui_starting_menu/Control/HBoxContainer/CenterContainer/VBoxContainer"]
+[node name="new_game_button" type="Button" parent="ui_starting_menu/Control/HBoxContainer/CenterContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 focus_neighbor_top = NodePath("../quit_button")
 focus_previous = NodePath("../quit_button")
 text = "new game"
 
-[node name="Button3" type="Button" parent="ui_starting_menu/Control/HBoxContainer/CenterContainer/VBoxContainer"]
+[node name="Button3" type="Button" parent="ui_starting_menu/Control/HBoxContainer/CenterContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 disabled = true
 text = "continue"
 
-[node name="Button2" type="Button" parent="ui_starting_menu/Control/HBoxContainer/CenterContainer/VBoxContainer"]
+[node name="Button2" type="Button" parent="ui_starting_menu/Control/HBoxContainer/CenterContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 disabled = true
 text = "load game"
 
-[node name="Button4" type="Button" parent="ui_starting_menu/Control/HBoxContainer/CenterContainer/VBoxContainer"]
+[node name="Button4" type="Button" parent="ui_starting_menu/Control/HBoxContainer/CenterContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 disabled = true
 text = "settings"
 
-[node name="quit_button" type="Button" parent="ui_starting_menu/Control/HBoxContainer/CenterContainer/VBoxContainer"]
+[node name="quit_button" type="Button" parent="ui_starting_menu/Control/HBoxContainer/CenterContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../new_game_button")
 focus_next = NodePath("../new_game_button")
@@ -699,6 +720,7 @@ main_subviewport = NodePath("../SubViewportContainer/SubViewport")
 ui_debug_root = NodePath("../ui_debug")
 
 [node name="MarginContainer" type="MarginContainer" parent="ui_debug_menu"]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1154,8 +1176,8 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.
 [node name="bollard_retracted_03" parent="." instance=ExtResource("30_vfdb0")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.156963, 2.56983)
 
-[connection signal="pressed" from="ui_starting_menu/Control/HBoxContainer/CenterContainer/VBoxContainer/new_game_button" to="ui_starting_menu" method="_on_new_game_button_pressed"]
-[connection signal="pressed" from="ui_starting_menu/Control/HBoxContainer/CenterContainer/VBoxContainer/quit_button" to="ui_starting_menu" method="_on_quit_button_pressed"]
+[connection signal="pressed" from="ui_starting_menu/Control/HBoxContainer/CenterContainer/PanelContainer/VBoxContainer/new_game_button" to="ui_starting_menu" method="_on_new_game_button_pressed"]
+[connection signal="pressed" from="ui_starting_menu/Control/HBoxContainer/CenterContainer/PanelContainer/VBoxContainer/quit_button" to="ui_starting_menu" method="_on_quit_button_pressed"]
 [connection signal="timeout" from="ui_debug/MarginContainer/HBoxContainer/VBoxContainer/renderingServer_info_display_container/renderingServer_info_display_panel/update_timer" to="ui_debug/MarginContainer/HBoxContainer/VBoxContainer/renderingServer_info_display_container/renderingServer_info_display_panel" method="_on_timer_timeout"]
 [connection signal="item_selected" from="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/graphics_settings_container/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer/debug_draw_parm/debug_draw_options" to="ui_debug_menu" method="_on_debug_draw_options_item_selected"]
 [connection signal="toggled" from="ui_debug_menu/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/debug_settings_container/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer/fps_overlay_parm/hbox/fps_overlay_checkbox" to="ui_debug_menu" method="_on_fps_overlay_checkbox_toggled"]
