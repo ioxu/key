@@ -28,7 +28,7 @@ func _reinit(delta : float) -> void:
 	# re-call initialise if delta has changed
 	if not Util.near( delta, _last_delta, 0.018 ):
 		# TODO: adjust near threshold/remove debug warning:
-		push_warning("harmonic motion._reinit %0.3f %0.3f (difference %0.3f)"%[delta, _last_delta, abs(_last_delta - delta)])
+		# push_warning("harmonic motion._reinit %0.3f %0.3f (difference %0.3f)"%[delta, _last_delta, abs(_last_delta - delta)])
 		_last_delta = delta
 		initialise( _damped_spring_motion_params.dampingRatio, _damped_spring_motion_params.angularFrequency )
 

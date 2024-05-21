@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://c0vn2jqnejado"]
+[gd_scene load_steps=9 format=3 uid="uid://c0vn2jqnejado"]
 
 [ext_resource type="PackedScene" uid="uid://b62cj8pkgalop" path="res://data/props/bollard-02-piece-03/bollard-02-piece-03.gltf" id="1_dta27"]
 [ext_resource type="Texture2D" uid="uid://hghkjugh1bd2" path="res://data/props/bollard-02-piece-03/textures/bollard-02-piece-03_DefaultMaterial_BaseColor.png" id="2_sx6lo"]
+[ext_resource type="Material" uid="uid://bautitq2orwet" path="res://data/materials/flat_orange.material" id="2_uoe00"]
 [ext_resource type="Texture2D" uid="uid://ujphsugl67iv" path="res://data/props/bollard-02-piece-03/textures/bollard-02-piece-03_DefaultMaterial_Metallic.png" id="3_ueavr"]
 [ext_resource type="Texture2D" uid="uid://c6v1pwmix2fjp" path="res://data/props/bollard-02-piece-03/textures/bollard-02-piece-03_DefaultMaterial_Normal.png" id="4_4qi7i"]
 [ext_resource type="Texture2D" uid="uid://c1v7n02nbr7r1" path="res://data/props/bollard-02-piece-03/textures/bollard-02-piece-03_DefaultMaterial_Roughness.png" id="5_ehft8"]
@@ -21,6 +22,7 @@ height = 2.44474
 [node name="bollard-02-piece-03" instance=ExtResource("1_dta27")]
 
 [node name="bollard-02-piece-032" parent="." index="0"]
+material_override = ExtResource("2_uoe00")
 surface_material_override/0 = SubResource("StandardMaterial3D_tabro")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]

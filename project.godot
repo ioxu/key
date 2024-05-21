@@ -13,7 +13,7 @@ config_version=5
 config/name="Key"
 config/description="A twin stick shooter"
 run/main_scene="res://scenes/splash.tscn"
-config/features=PackedStringArray("4.0")
+config/features=PackedStringArray("4.2")
 config/icon="res://thumbnail.png"
 
 [audio]

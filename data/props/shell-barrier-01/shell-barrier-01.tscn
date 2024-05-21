@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://bg8g5pyvqq0y3"]
+[gd_scene load_steps=4 format=3 uid="uid://bg8g5pyvqq0y3"]
 
 [ext_resource type="PackedScene" uid="uid://bl1c8wydstmmd" path="res://data/props/shell-barrier-01/shell-barrier-01.gltf" id="1_70sp0"]
-[ext_resource type="Material" uid="uid://bautitq2orwet" path="res://data/materials/flat_orange.material" id="6_epuy7"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_kqo51"]
 size = Vector3(0.462756, 1.56809, 1.87228)
@@ -10,10 +9,6 @@ size = Vector3(0.462756, 1.56809, 1.87228)
 size = Vector3(0.456226, 1.59069, 4.2577)
 
 [node name="shell-barrier-01" instance=ExtResource("1_70sp0")]
-
-[node name="shell-barrier-012" parent="." index="0"]
-layers = 8
-surface_material_override/0 = ExtResource("6_epuy7")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
 collision_layer = 2

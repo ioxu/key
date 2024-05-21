@@ -1,6 +1,6 @@
 extends Area3D
 
-class_name door
+class_name Door
 
 @export var door_name: String
 @export_file("*.tscn *.scn") var connected_scene# : (String, FILE, "*.tscn,*.scn")

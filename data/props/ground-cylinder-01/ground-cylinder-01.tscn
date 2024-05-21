@@ -5,6 +5,5 @@
 
 [node name="ground-cylinder-01" instance=ExtResource("1_71adl")]
 
-[node name="ground-cylinder-012" parent="." index="0"]
-layers = 4
+[node name="ground-cylinder-01" parent="." index="0"]
 material_override = ExtResource("2_wd7ya")

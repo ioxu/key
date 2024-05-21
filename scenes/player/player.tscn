@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bkqajubt82sua" path="res://scenes/player/body_mesh_scenes/body_mesh_squaretop.tscn" id="2_wgwi6"]
 [ext_resource type="Script" path="res://scenes/player/motion_blur.gd" id="3"]
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="5"]
-[ext_resource type="Material" path="res://data/enemies/hurt_meter_shadermaterial.tres" id="6"]
+[ext_resource type="Material" uid="uid://ciwalx7i6ci8w" path="res://data/enemies/hurt_meter_shadermaterial.tres" id="6"]
 [ext_resource type="PackedScene" path="res://data/enemies/hurt_meter.tscn" id="7"]
 [ext_resource type="Texture2D" uid="uid://yjksrl75m0tr" path="res://data/textures/debug/symbols_16px_xbones.png" id="8"]
 [ext_resource type="PackedScene" uid="uid://crn3rb5x7ocj5" path="res://data/LineRenderer/LineRenderer.tscn" id="10"]
@@ -103,7 +103,7 @@ custom_solver_bias = 0.1
 radius = 0.400569
 height = 2.21818
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_y1ok3"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_iv0fl"]
 resource_local_to_scene = true
 material = ExtResource("6")
 height = 0.2
@@ -129,7 +129,7 @@ emission_enabled = true
 emission = Color(0.0666667, 0.733333, 0.282353, 1)
 emission_energy_multiplier = 2.0
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_ob57k"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_dioxf"]
 
 [sub_resource type="Shader" id="Shader_dbc6n"]
 code = "// NOTE: Shader automatically converted from Godot Engine 3.4.stable's StandardMaterial3D.
@@ -202,12 +202,13 @@ shader_parameter/uv2_offset = null
 _surfaces = [{
 "aabb": AABB(0.691568, -0.104448, -2.20502, 1.63072, 0.208905, 4.42813),
 "attribute_data": PackedByteArray(0, 0, 0, 0, 0, 0, 128, 63, 137, 136, 136, 61, 0, 0, 128, 63, 137, 136, 8, 62, 0, 0, 128, 63, 205, 204, 76, 62, 0, 0, 128, 63, 137, 136, 136, 62, 0, 0, 128, 63, 171, 170, 170, 62, 0, 0, 128, 63, 205, 204, 204, 62, 0, 0, 128, 63, 239, 238, 238, 62, 0, 0, 128, 63, 137, 136, 8, 63, 0, 0, 128, 63, 154, 153, 25, 63, 0, 0, 128, 63, 171, 170, 42, 63, 0, 0, 128, 63, 188, 187, 59, 63, 0, 0, 128, 63, 205, 204, 76, 63, 0, 0, 128, 63, 222, 221, 93, 63, 0, 0, 128, 63, 239, 238, 110, 63, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 0, 0, 137, 136, 136, 61, 0, 0, 0, 0, 137, 136, 8, 62, 0, 0, 0, 0, 205, 204, 76, 62, 0, 0, 0, 0, 137, 136, 136, 62, 0, 0, 0, 0, 171, 170, 170, 62, 0, 0, 0, 0, 205, 204, 204, 62, 0, 0, 0, 0, 239, 238, 238, 62, 0, 0, 0, 0, 137, 136, 8, 63, 0, 0, 0, 0, 154, 153, 25, 63, 0, 0, 0, 0, 171, 170, 42, 63, 0, 0, 0, 0, 188, 187, 59, 63, 0, 0, 0, 0, 205, 204, 76, 63, 0, 0, 0, 0, 222, 221, 93, 63, 0, 0, 0, 0, 239, 238, 110, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0),
-"format": 4115,
+"format": 34359742487,
 "index_count": 90,
 "index_data": PackedByteArray(0, 0, 1, 0, 16, 0, 1, 0, 17, 0, 16, 0, 1, 0, 2, 0, 17, 0, 2, 0, 18, 0, 17, 0, 2, 0, 3, 0, 18, 0, 3, 0, 19, 0, 18, 0, 3, 0, 4, 0, 19, 0, 4, 0, 20, 0, 19, 0, 4, 0, 5, 0, 20, 0, 5, 0, 21, 0, 20, 0, 5, 0, 6, 0, 21, 0, 6, 0, 22, 0, 21, 0, 6, 0, 7, 0, 22, 0, 7, 0, 23, 0, 22, 0, 7, 0, 8, 0, 23, 0, 8, 0, 24, 0, 23, 0, 8, 0, 9, 0, 24, 0, 9, 0, 25, 0, 24, 0, 9, 0, 10, 0, 25, 0, 10, 0, 26, 0, 25, 0, 10, 0, 11, 0, 26, 0, 11, 0, 27, 0, 26, 0, 11, 0, 12, 0, 27, 0, 12, 0, 28, 0, 27, 0, 12, 0, 13, 0, 28, 0, 13, 0, 29, 0, 28, 0, 13, 0, 14, 0, 29, 0, 14, 0, 30, 0, 29, 0, 14, 0, 15, 0, 30, 0, 15, 0, 31, 0, 30, 0),
 "primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 32,
-"vertex_data": PackedByteArray(156, 10, 49, 63, 179, 232, 213, 61, 80, 71, 14, 64, 81, 157, 109, 132, 127, 188, 134, 63, 179, 232, 213, 61, 165, 231, 4, 64, 169, 169, 33, 132, 160, 45, 177, 63, 179, 232, 213, 61, 22, 158, 239, 63, 183, 180, 249, 131, 98, 168, 214, 63, 179, 232, 213, 61, 209, 182, 206, 63, 50, 191, 239, 131, 9, 32, 246, 63, 179, 232, 213, 61, 104, 5, 168, 63, 176, 201, 0, 132, 124, 89, 7, 64, 179, 232, 213, 61, 141, 62, 121, 63, 199, 212, 47, 132, 125, 216, 15, 64, 179, 232, 213, 61, 52, 119, 27, 63, 54, 225, 132, 132, 29, 80, 20, 64, 179, 232, 213, 61, 165, 84, 101, 62, 27, 240, 13, 133, 85, 160, 20, 64, 179, 232, 213, 61, 212, 159, 41, 190, 214, 250, 85, 141, 230, 198, 16, 64, 179, 232, 213, 61, 6, 245, 12, 191, 105, 251, 189, 156, 104, 223, 8, 64, 179, 232, 213, 61, 108, 143, 107, 191, 197, 251, 117, 169, 18, 69, 250, 63, 179, 232, 213, 61, 108, 200, 161, 191, 249, 251, 178, 180, 226, 200, 219, 63, 179, 232, 213, 61, 38, 65, 201, 191, 14, 252, 60, 191, 214, 36, 183, 63, 179, 232, 213, 61, 223, 22, 235, 191, 7, 252, 174, 201, 164, 95, 141, 63, 179, 232, 213, 61, 128, 43, 3, 192, 228, 251, 156, 212, 149, 73, 63, 63, 179, 232, 213, 61, 18, 31, 13, 192, 159, 251, 180, 224, 156, 10, 49, 63, 179, 232, 213, 189, 80, 71, 14, 64, 81, 157, 145, 123, 127, 188, 134, 63, 179, 232, 213, 189, 165, 231, 4, 64, 169, 169, 221, 123, 160, 45, 177, 63, 179, 232, 213, 189, 22, 158, 239, 63, 183, 180, 5, 124, 98, 168, 214, 63, 179, 232, 213, 189, 209, 182, 206, 63, 50, 191, 15, 124, 9, 32, 246, 63, 179, 232, 213, 189, 104, 5, 168, 63, 176, 201, 254, 123, 124, 89, 7, 64, 179, 232, 213, 189, 141, 62, 121, 63, 199, 212, 207, 123, 125, 216, 15, 64, 179, 232, 213, 189, 52, 119, 27, 63, 54, 225, 122, 123, 29, 80, 20, 64, 179, 232, 213, 189, 165, 84, 101, 62, 27, 240, 241, 122, 85, 160, 20, 64, 179, 232, 213, 189, 212, 159, 41, 190, 214, 250, 169, 114, 230, 198, 16, 64, 179, 232, 213, 189, 6, 245, 12, 191, 105, 251, 65, 99, 104, 223, 8, 64, 179, 232, 213, 189, 108, 143, 107, 191, 197, 251, 137, 86, 18, 69, 250, 63, 179, 232, 213, 189, 108, 200, 161, 191, 249, 251, 76, 75, 226, 200, 219, 63, 179, 232, 213, 189, 38, 65, 201, 191, 14, 252, 194, 64, 214, 36, 183, 63, 179, 232, 213, 189, 223, 22, 235, 191, 7, 252, 80, 54, 164, 95, 141, 63, 179, 232, 213, 189, 128, 43, 3, 192, 228, 251, 98, 43, 149, 73, 63, 63, 179, 232, 213, 189, 18, 31, 13, 192, 159, 251, 74, 31)
+"vertex_data": PackedByteArray(156, 10, 49, 63, 179, 232, 213, 61, 80, 71, 14, 64, 127, 188, 134, 63, 179, 232, 213, 61, 165, 231, 4, 64, 160, 45, 177, 63, 179, 232, 213, 61, 22, 158, 239, 63, 98, 168, 214, 63, 179, 232, 213, 61, 209, 182, 206, 63, 9, 32, 246, 63, 179, 232, 213, 61, 104, 5, 168, 63, 124, 89, 7, 64, 179, 232, 213, 61, 141, 62, 121, 63, 125, 216, 15, 64, 179, 232, 213, 61, 52, 119, 27, 63, 29, 80, 20, 64, 179, 232, 213, 61, 165, 84, 101, 62, 85, 160, 20, 64, 179, 232, 213, 61, 212, 159, 41, 190, 230, 198, 16, 64, 179, 232, 213, 61, 6, 245, 12, 191, 104, 223, 8, 64, 179, 232, 213, 61, 108, 143, 107, 191, 18, 69, 250, 63, 179, 232, 213, 61, 108, 200, 161, 191, 226, 200, 219, 63, 179, 232, 213, 61, 38, 65, 201, 191, 214, 36, 183, 63, 179, 232, 213, 61, 223, 22, 235, 191, 164, 95, 141, 63, 179, 232, 213, 61, 128, 43, 3, 192, 149, 73, 63, 63, 179, 232, 213, 61, 18, 31, 13, 192, 156, 10, 49, 63, 179, 232, 213, 189, 80, 71, 14, 64, 127, 188, 134, 63, 179, 232, 213, 189, 165, 231, 4, 64, 160, 45, 177, 63, 179, 232, 213, 189, 22, 158, 239, 63, 98, 168, 214, 63, 179, 232, 213, 189, 209, 182, 206, 63, 9, 32, 246, 63, 179, 232, 213, 189, 104, 5, 168, 63, 124, 89, 7, 64, 179, 232, 213, 189, 141, 62, 121, 63, 125, 216, 15, 64, 179, 232, 213, 189, 52, 119, 27, 63, 29, 80, 20, 64, 179, 232, 213, 189, 165, 84, 101, 62, 85, 160, 20, 64, 179, 232, 213, 189, 212, 159, 41, 190, 230, 198, 16, 64, 179, 232, 213, 189, 6, 245, 12, 191, 104, 223, 8, 64, 179, 232, 213, 189, 108, 143, 107, 191, 18, 69, 250, 63, 179, 232, 213, 189, 108, 200, 161, 191, 226, 200, 219, 63, 179, 232, 213, 189, 38, 65, 201, 191, 214, 36, 183, 63, 179, 232, 213, 189, 223, 22, 235, 191, 164, 95, 141, 63, 179, 232, 213, 189, 128, 43, 3, 192, 149, 73, 63, 63, 179, 232, 213, 189, 18, 31, 13, 192, 81, 157, 109, 132, 50, 100, 70, 148, 169, 169, 33, 132, 152, 91, 45, 157, 183, 180, 249, 131, 190, 86, 93, 165, 50, 191, 239, 131, 52, 85, 218, 172, 176, 201, 0, 132, 225, 86, 166, 179, 199, 212, 47, 132, 13, 92, 175, 185, 54, 225, 132, 132, 106, 101, 179, 190, 27, 240, 13, 133, 232, 116, 1, 194, 214, 250, 85, 141, 4, 136, 78, 194, 105, 251, 189, 156, 215, 152, 82, 191, 197, 251, 117, 169, 125, 163, 88, 186, 249, 251, 178, 180, 189, 169, 45, 180, 14, 252, 60, 191, 81, 172, 26, 173, 7, 252, 174, 201, 133, 171, 48, 165, 228, 251, 156, 212, 67, 167, 101, 156, 159, 251, 180, 224, 10, 159, 161, 146, 81, 157, 145, 123, 228, 98, 221, 144, 169, 169, 221, 123, 142, 90, 79, 154, 183, 180, 5, 124, 55, 86, 179, 162, 50, 191, 15, 124, 69, 85, 33, 170, 176, 201, 254, 123, 137, 87, 164, 176, 199, 212, 207, 123, 46, 93, 42, 182, 54, 225, 122, 123, 185, 102, 116, 186, 27, 240, 241, 122, 0, 117, 247, 188, 214, 250, 169, 114, 230, 135, 36, 189, 105, 251, 65, 99, 189, 150, 7, 187, 197, 251, 137, 86, 138, 160, 25, 183, 249, 251, 76, 75, 82, 166, 246, 177, 14, 252, 194, 64, 182, 168, 236, 171, 7, 252, 80, 54, 249, 167, 22, 165, 228, 251, 98, 43, 7, 164, 123, 157, 159, 251, 74, 31, 112, 156, 18, 149)
 }]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_6j45e"]
@@ -236,7 +237,7 @@ albedo_color = Color(0.878431, 0.643137, 0, 0.105882)
 emission_enabled = true
 emission = Color(0.878431, 0.643137, 0, 1)
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_v2xgy"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_5apsm"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eg8ui"]
 transparency = 1
@@ -244,7 +245,7 @@ albedo_color = Color(0.878431, 0.643137, 0, 0.270588)
 emission_enabled = true
 emission = Color(0.878431, 0.643137, 0, 1)
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_3b65j"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_g84kb"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_bhafh"]
 viewport_path = NodePath("MeshInstance3D/dui_root/viewports/options/options_viewport")
@@ -286,12 +287,13 @@ lightmap_size_hint = Vector2i(78, 46)
 _surfaces = [{
 "aabb": AABB(-0.637714, -0.466891, 3.34301, 1.27543, 0.933791, 0.0602818),
 "attribute_data": PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 62, 0, 0, 0, 0, 0, 0, 0, 63, 0, 0, 0, 0, 0, 0, 64, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 62, 0, 0, 128, 63, 0, 0, 0, 63, 0, 0, 128, 63, 0, 0, 64, 63, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 63),
-"format": 4115,
+"format": 34359742487,
 "index_count": 24,
 "index_data": PackedByteArray(0, 0, 1, 0, 5, 0, 1, 0, 6, 0, 5, 0, 1, 0, 2, 0, 6, 0, 2, 0, 7, 0, 6, 0, 2, 0, 3, 0, 7, 0, 3, 0, 8, 0, 7, 0, 3, 0, 4, 0, 8, 0, 4, 0, 9, 0, 8, 0),
 "primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 10,
-"vertex_data": PackedByteArray(55, 65, 35, 191, 77, 12, 239, 62, 237, 243, 85, 64, 165, 109, 111, 141, 133, 251, 163, 190, 77, 12, 239, 62, 30, 216, 88, 64, 46, 118, 79, 142, 0, 0, 0, 0, 77, 12, 239, 62, 149, 207, 89, 64, 255, 127, 112, 143, 133, 251, 163, 62, 77, 12, 239, 62, 30, 216, 88, 64, 208, 137, 79, 142, 55, 65, 35, 63, 77, 12, 239, 62, 237, 243, 85, 64, 89, 146, 111, 141, 55, 65, 35, 191, 77, 12, 239, 190, 237, 243, 85, 64, 165, 109, 143, 114, 133, 251, 163, 190, 77, 12, 239, 190, 30, 216, 88, 64, 46, 118, 175, 113, 0, 0, 0, 0, 77, 12, 239, 190, 149, 207, 89, 64, 255, 127, 142, 112, 133, 251, 163, 62, 77, 12, 239, 190, 30, 216, 88, 64, 208, 137, 175, 113, 55, 65, 35, 63, 77, 12, 239, 190, 237, 243, 85, 64, 89, 146, 143, 114)
+"vertex_data": PackedByteArray(55, 65, 35, 191, 77, 12, 239, 62, 237, 243, 85, 64, 133, 251, 163, 190, 77, 12, 239, 62, 30, 216, 88, 64, 0, 0, 0, 0, 77, 12, 239, 62, 149, 207, 89, 64, 133, 251, 163, 62, 77, 12, 239, 62, 30, 216, 88, 64, 55, 65, 35, 63, 77, 12, 239, 62, 237, 243, 85, 64, 55, 65, 35, 191, 77, 12, 239, 190, 237, 243, 85, 64, 133, 251, 163, 190, 77, 12, 239, 190, 30, 216, 88, 64, 0, 0, 0, 0, 77, 12, 239, 190, 149, 207, 89, 64, 133, 251, 163, 62, 77, 12, 239, 190, 30, 216, 88, 64, 55, 65, 35, 63, 77, 12, 239, 190, 237, 243, 85, 64, 165, 109, 111, 141, 243, 143, 44, 144, 46, 118, 79, 142, 211, 135, 131, 139, 255, 127, 112, 143, 234, 125, 162, 136, 208, 137, 79, 142, 89, 116, 90, 141, 89, 146, 111, 141, 52, 108, 46, 146, 165, 109, 143, 114, 40, 156, 199, 136, 46, 118, 175, 113, 245, 149, 14, 132, 255, 127, 142, 112, 185, 110, 10, 129, 208, 137, 175, 113, 73, 103, 200, 133, 89, 146, 143, 114, 13, 98, 10, 138)
 }]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_bs4we"]
@@ -318,12 +320,13 @@ emission_energy_multiplier = 1.5
 _surfaces = [{
 "aabb": AABB(-0.637714, -0.466891, 3.34301, 1.27543, 0.933791, 0.0602818),
 "attribute_data": PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 62, 0, 0, 0, 0, 0, 0, 0, 63, 0, 0, 0, 0, 0, 0, 64, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 62, 0, 0, 128, 63, 0, 0, 0, 63, 0, 0, 128, 63, 0, 0, 64, 63, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 63),
-"format": 4115,
+"format": 34359742487,
 "index_count": 24,
 "index_data": PackedByteArray(0, 0, 1, 0, 5, 0, 1, 0, 6, 0, 5, 0, 1, 0, 2, 0, 6, 0, 2, 0, 7, 0, 6, 0, 2, 0, 3, 0, 7, 0, 3, 0, 8, 0, 7, 0, 3, 0, 4, 0, 8, 0, 4, 0, 9, 0, 8, 0),
 "primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 10,
-"vertex_data": PackedByteArray(55, 65, 35, 191, 77, 12, 239, 62, 237, 243, 85, 64, 165, 109, 111, 141, 133, 251, 163, 190, 77, 12, 239, 62, 30, 216, 88, 64, 46, 118, 79, 142, 0, 0, 0, 0, 77, 12, 239, 62, 149, 207, 89, 64, 255, 127, 112, 143, 133, 251, 163, 62, 77, 12, 239, 62, 30, 216, 88, 64, 208, 137, 79, 142, 55, 65, 35, 63, 77, 12, 239, 62, 237, 243, 85, 64, 89, 146, 111, 141, 55, 65, 35, 191, 77, 12, 239, 190, 237, 243, 85, 64, 165, 109, 143, 114, 133, 251, 163, 190, 77, 12, 239, 190, 30, 216, 88, 64, 46, 118, 175, 113, 0, 0, 0, 0, 77, 12, 239, 190, 149, 207, 89, 64, 255, 127, 142, 112, 133, 251, 163, 62, 77, 12, 239, 190, 30, 216, 88, 64, 208, 137, 175, 113, 55, 65, 35, 63, 77, 12, 239, 190, 237, 243, 85, 64, 89, 146, 143, 114)
+"vertex_data": PackedByteArray(55, 65, 35, 191, 77, 12, 239, 62, 237, 243, 85, 64, 133, 251, 163, 190, 77, 12, 239, 62, 30, 216, 88, 64, 0, 0, 0, 0, 77, 12, 239, 62, 149, 207, 89, 64, 133, 251, 163, 62, 77, 12, 239, 62, 30, 216, 88, 64, 55, 65, 35, 63, 77, 12, 239, 62, 237, 243, 85, 64, 55, 65, 35, 191, 77, 12, 239, 190, 237, 243, 85, 64, 133, 251, 163, 190, 77, 12, 239, 190, 30, 216, 88, 64, 0, 0, 0, 0, 77, 12, 239, 190, 149, 207, 89, 64, 133, 251, 163, 62, 77, 12, 239, 190, 30, 216, 88, 64, 55, 65, 35, 63, 77, 12, 239, 190, 237, 243, 85, 64, 165, 109, 111, 141, 243, 143, 44, 144, 46, 118, 79, 142, 211, 135, 131, 139, 255, 127, 112, 143, 234, 125, 162, 136, 208, 137, 79, 142, 89, 116, 90, 141, 89, 146, 111, 141, 52, 108, 46, 146, 165, 109, 143, 114, 40, 156, 199, 136, 46, 118, 175, 113, 245, 149, 14, 132, 255, 127, 142, 112, 185, 110, 10, 129, 208, 137, 175, 113, 73, 103, 200, 133, 89, 146, 143, 114, 13, 98, 10, 138)
 }]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xeu38"]
@@ -347,12 +350,13 @@ emission_energy_multiplier = 1.5
 _surfaces = [{
 "aabb": AABB(-0.637714, -0.466891, 3.34301, 1.27543, 0.933791, 0.0602818),
 "attribute_data": PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 62, 0, 0, 0, 0, 0, 0, 0, 63, 0, 0, 0, 0, 0, 0, 64, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 62, 0, 0, 128, 63, 0, 0, 0, 63, 0, 0, 128, 63, 0, 0, 64, 63, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 63),
-"format": 4115,
+"format": 34359742487,
 "index_count": 24,
 "index_data": PackedByteArray(0, 0, 1, 0, 5, 0, 1, 0, 6, 0, 5, 0, 1, 0, 2, 0, 6, 0, 2, 0, 7, 0, 6, 0, 2, 0, 3, 0, 7, 0, 3, 0, 8, 0, 7, 0, 3, 0, 4, 0, 8, 0, 4, 0, 9, 0, 8, 0),
 "primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 10,
-"vertex_data": PackedByteArray(55, 65, 35, 191, 77, 12, 239, 62, 237, 243, 85, 64, 165, 109, 111, 141, 133, 251, 163, 190, 77, 12, 239, 62, 30, 216, 88, 64, 46, 118, 79, 142, 0, 0, 0, 0, 77, 12, 239, 62, 149, 207, 89, 64, 255, 127, 112, 143, 133, 251, 163, 62, 77, 12, 239, 62, 30, 216, 88, 64, 208, 137, 79, 142, 55, 65, 35, 63, 77, 12, 239, 62, 237, 243, 85, 64, 89, 146, 111, 141, 55, 65, 35, 191, 77, 12, 239, 190, 237, 243, 85, 64, 165, 109, 143, 114, 133, 251, 163, 190, 77, 12, 239, 190, 30, 216, 88, 64, 46, 118, 175, 113, 0, 0, 0, 0, 77, 12, 239, 190, 149, 207, 89, 64, 255, 127, 142, 112, 133, 251, 163, 62, 77, 12, 239, 190, 30, 216, 88, 64, 208, 137, 175, 113, 55, 65, 35, 63, 77, 12, 239, 190, 237, 243, 85, 64, 89, 146, 143, 114)
+"vertex_data": PackedByteArray(55, 65, 35, 191, 77, 12, 239, 62, 237, 243, 85, 64, 133, 251, 163, 190, 77, 12, 239, 62, 30, 216, 88, 64, 0, 0, 0, 0, 77, 12, 239, 62, 149, 207, 89, 64, 133, 251, 163, 62, 77, 12, 239, 62, 30, 216, 88, 64, 55, 65, 35, 63, 77, 12, 239, 62, 237, 243, 85, 64, 55, 65, 35, 191, 77, 12, 239, 190, 237, 243, 85, 64, 133, 251, 163, 190, 77, 12, 239, 190, 30, 216, 88, 64, 0, 0, 0, 0, 77, 12, 239, 190, 149, 207, 89, 64, 133, 251, 163, 62, 77, 12, 239, 190, 30, 216, 88, 64, 55, 65, 35, 63, 77, 12, 239, 190, 237, 243, 85, 64, 165, 109, 111, 141, 243, 143, 44, 144, 46, 118, 79, 142, 211, 135, 131, 139, 255, 127, 112, 143, 234, 125, 162, 136, 208, 137, 79, 142, 89, 116, 90, 141, 89, 146, 111, 141, 52, 108, 46, 146, 165, 109, 143, 114, 40, 156, 199, 136, 46, 118, 175, 113, 245, 149, 14, 132, 255, 127, 142, 112, 185, 110, 10, 129, 208, 137, 175, 113, 73, 103, 200, 133, 89, 146, 143, 114, 13, 98, 10, 138)
 }]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ymbpb"]
@@ -370,7 +374,7 @@ emission_enabled = true
 emission = Color(0.101961, 0.52549, 0.576471, 1)
 emission_energy_multiplier = 2.0
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_o7ckh"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_23jq0"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_28gfg"]
 transparency = 1
@@ -380,7 +384,7 @@ emission_enabled = true
 emission = Color(0, 0.419608, 0.878431, 1)
 emission_energy_multiplier = 2.0
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_fvqoh"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_g8kgc"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lr0op"]
 transparency = 1
@@ -390,7 +394,7 @@ emission_enabled = true
 emission = Color(0.729412, 0.0117647, 0.203922, 1)
 emission_energy_multiplier = 3.0
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_r0xwp"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_pn8ew"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lq3ky"]
 albedo_color = Color(0.796078, 0.0784314, 0.231373, 1)
@@ -398,7 +402,7 @@ emission_enabled = true
 emission = Color(0.890196, 0.129412, 0.27451, 1)
 emission_energy_multiplier = 2.0
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_j7fc5"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_0b42h"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_47hil"]
 transparency = 2
@@ -419,7 +423,7 @@ size = Vector2(0.2, 1)
 transparency = 1
 shading_mode = 0
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_jgied"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_5k42o"]
 
 [sub_resource type="GDScript" id="GDScript_vkpuo"]
 script/source = "extends Node3D
@@ -520,7 +524,7 @@ transform = Transform3D(1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, -0.
 
 [node name="hurt_meter" parent="MeshInstance3D" instance=ExtResource("7")]
 transform = Transform3D(0.5, 0, 0, 0, -3.27835e-08, 0.5, 0, -0.75, -2.18557e-08, 0, -2.84217e-14, 0.858)
-mesh = SubResource("CylinderMesh_y1ok3")
+mesh = SubResource("CylinderMesh_iv0fl")
 
 [node name="dui_root" type="Node3D" parent="MeshInstance3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.69631e-07, -1.04118)
@@ -577,7 +581,7 @@ mesh = SubResource("QuadMesh_g7864")
 
 [node name="LineRenderer" parent="MeshInstance3D/dui_root/static_stack/inventory_items/weapons_items/selector/selector_icon" instance=ExtResource("10")]
 material_override = SubResource("StandardMaterial3D_t5gsu")
-mesh = SubResource("ImmediateMesh_ob57k")
+mesh = SubResource("ImmediateMesh_dioxf")
 points = [Vector3(0, 0, 0), Vector3(0, 0, -1.584)]
 startThickness = 0.2
 endThickness = 0.2
@@ -627,7 +631,7 @@ transform = Transform3D(0.2, 0, 0, 0, -8.74228e-09, 0.2, 0, -0.2, -8.74228e-09, 
 
 [node name="full_arc" parent="MeshInstance3D/dui_root/static_stack/magazine" instance=ExtResource("10")]
 material_override = SubResource("StandardMaterial3D_0b2xv")
-mesh = SubResource("ImmediateMesh_v2xgy")
+mesh = SubResource("ImmediateMesh_5apsm")
 startThickness = 0.075
 endThickness = 0.075
 drawCaps = false
@@ -636,7 +640,7 @@ globalCoords = false
 [node name="count" parent="MeshInstance3D/dui_root/static_stack/magazine" instance=ExtResource("10")]
 transform = Transform3D(0.999716, 0, 0, 0, 0.999716, 0, 0, 0, 0.999716, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_eg8ui")
-mesh = SubResource("ImmediateMesh_3b65j")
+mesh = SubResource("ImmediateMesh_g84kb")
 startThickness = 0.075
 endThickness = 0.075
 globalCoords = false
@@ -731,7 +735,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_ymbpb")
 [node name="inventory_ring" parent="MeshInstance3D/dui_root" instance=ExtResource("10")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
 material_override = SubResource("StandardMaterial3D_1gh27")
-mesh = SubResource("ImmediateMesh_o7ckh")
+mesh = SubResource("ImmediateMesh_23jq0")
 points = [Vector3(0, 0, 0), Vector3(0, 0.01, 0)]
 startThickness = 0.02
 endThickness = 0.02
@@ -741,7 +745,7 @@ globalCoords = false
 [node name="LineRenderer" parent="MeshInstance3D/dui_root/inventory_ring" instance=ExtResource("10")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.548)
 material_override = SubResource("StandardMaterial3D_28gfg")
-mesh = SubResource("ImmediateMesh_fvqoh")
+mesh = SubResource("ImmediateMesh_g8kgc")
 points = [Vector3(0, 0, 0), Vector3(0, 0, 0.5)]
 startThickness = 0.05
 endThickness = 0.05
@@ -750,7 +754,7 @@ globalCoords = false
 [node name="weapons_ring" parent="MeshInstance3D/dui_root" instance=ExtResource("10")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
 material_override = SubResource("StandardMaterial3D_lr0op")
-mesh = SubResource("ImmediateMesh_r0xwp")
+mesh = SubResource("ImmediateMesh_pn8ew")
 points = [Vector3(0, 0, 0), Vector3(0, 0.1, 0)]
 startThickness = 0.05
 endThickness = 0.05
@@ -760,7 +764,7 @@ globalCoords = false
 [node name="LineRenderer" parent="MeshInstance3D/dui_root/weapons_ring" instance=ExtResource("10")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.276)
 material_override = SubResource("StandardMaterial3D_lq3ky")
-mesh = SubResource("ImmediateMesh_j7fc5")
+mesh = SubResource("ImmediateMesh_0b42h")
 points = [Vector3(0, 0, 0), Vector3(0, 0, 0.222)]
 startThickness = 0.03
 endThickness = 0.0
@@ -772,7 +776,7 @@ mesh = SubResource("QuadMesh_w5vsp")
 
 [node name="options_ring" parent="MeshInstance3D/dui_root" instance=ExtResource("10")]
 material_override = SubResource("StandardMaterial3D_34h2k")
-mesh = SubResource("ImmediateMesh_jgied")
+mesh = SubResource("ImmediateMesh_5k42o")
 points = [Vector3(0, 0, 0), Vector3(0, 0.1, 0)]
 startThickness = 0.08
 endThickness = 0.08

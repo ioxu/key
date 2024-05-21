@@ -28,4 +28,6 @@ func _on_new_container_button_button_up():
 	var to_scene = "res://scenes/game_container.tscn"
 	var err = get_tree().change_scene_to_file(to_scene)
 	print("[splash] %s change_scene_to_file error: %s"%[to_scene, err])
-	get_viewport().set_input_as_handled()
+	var vp = get_viewport()
+	if vp: 
+		vp.set_input_as_handled()

@@ -587,12 +587,11 @@ func clear_poi_target() -> void:
 				target = null
 
 
-func set_new_poi_target(position: Vector3) -> void:
+func set_new_poi_target(new_position: Vector3) -> void:
 		clear_poi_target()
 		var poi = point_of_interest_scene.instantiate()
 		get_node("/root/").call_deferred("add_child", poi)
-		#poi.transform.origin = position * Vector3(1.0, 0.0, 1.0)
-		poi.transform.origin = position
+		poi.transform.origin = new_position
 		self.target = poi
 
 
